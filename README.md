@@ -15,9 +15,10 @@ Examples of such operations are
 * pieces of metadata for a detailed presentation 
 
 
-We refer to the store as being the "Snippet Server", the data inside
-it as "data" and the results returned from the operations as
-"Snippets".
+We refer to the store as being the _Snippet Server_, the data inside
+it as _data_ and the results returned from the operations as
+_Snippets_. The word snippet comes from the fact that it is usually
+just a part of a document returned.
 
 Currently 
 
