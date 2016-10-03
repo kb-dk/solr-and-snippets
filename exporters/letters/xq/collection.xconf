@@ -1,0 +1,13 @@
+<collection xmlns="http://exist-db.org/collection-config/1.0"
+	    xmlns:t="http://www.tei-c.org/ns/1.0">
+  <index>
+    <lucene>
+      <analyzer class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+      <text qname="t:TEI" />
+      <text qname="@xml:id" />
+    </lucene>
+    <create qname="t:div"   type="xs:string" />
+    <create qname="t:text"  type="xs:string" />
+    <create qname="@xml:id" type="xs:string" />
+  </index>
+</collection>
