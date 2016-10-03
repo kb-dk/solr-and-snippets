@@ -1,4 +1,4 @@
-== Solrs and Snippets 
+# Solrs and Snippets 
 
 All the software are variations upon a single theme. The theme can be
 described as follows:
