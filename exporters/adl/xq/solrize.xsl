@@ -10,6 +10,8 @@
               encoding="UTF-8"
               method="xml"/>
 
+  <xsl:param name="relations"  select="document('creator-relations.xml')"/>
+
   <xsl:param name="app" select="'ADL'"/>
   <xsl:param name="category" select="'work'"/>
   <xsl:param name="doc" select="'a_very_unique_id'"/>
@@ -276,15 +278,19 @@
 	    <xsl:value-of select="."/>
 	  </xsl:for-each>
 	</xsl:element>
-
-
-
       </xsl:for-each>
     </xsl:for-each>
 
+
+
+    <xsl:variable name="auid">
+      <xsl:value-of select="$relations//t:row[t:cell/t:ref = $url]/t:cell[@role='author']"/>
+    </xsl:variable>
+
+
     <xsl:element name="field">
       <xsl:attribute name="name">author_id_ssi</xsl:attribute>
-      <xsl:value-of select="$author_id"/>
+      <xsl:value-of select="substring-before($auid,'.xml')"/>
     </xsl:element>
 
     <xsl:element name="field">
@@ -311,6 +317,10 @@
 
     <field name="application_ssim">
       <xsl:value-of select="$app"/>
+    </field>
+
+    <field name="subcollection_ssi">
+      <xsl:value-of select="$c"/>
     </field>
 
   </xsl:template>
