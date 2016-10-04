@@ -37,18 +37,15 @@ declare function local:get-section-navigation(
    for $div in $doc//node()[@decls and (not($frag) or @xml:id=$frag)]
      let $page := if($frag) then 1
 	else count($div/preceding::t:pb)
-
-     let $bib_id := $div/@decls
+     let $bib_id := substring-after($div/@decls/string(),'#')
      return 
 	for $bibl in //t:bibl[@xml:id=$bib_id]
-	let $tit := ("fra ",$bibl/t:respStmt[contains(t:resp,"sender")]/t:name//text(),
-			   " til ",$bibl/t:respStmt[contains(t:resp,"recipient")]/t:name//text(),
-			   " ",for $d in $bibl/t:date[string()] return concat("(",$d,")"))
-               return 
-	         <item type="object">
-	            <pair type="string"  name="title">{$tit}</pair>
-	            <pair type="integer"  name="page">{$page}</pair>
-	         </item> 
+	let $tit := $bibl/t:title/text()
+        return 
+	<item type="object">
+	   <pair type="string"  name="title">{$tit}</pair>
+           <pair type="integer" name="page">{$page}</pair>
+	</item> 
 };
 
 declare function local:get-section-pages(
