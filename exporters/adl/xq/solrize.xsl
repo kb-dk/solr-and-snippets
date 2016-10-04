@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:t="http://www.tei-c.org/ns/1.0"
-               exclude-result-prefixes="t"
+	       xmlns:exsl="http://exslt.org/common"
+	       extension-element-prefixes="exsl"
+               exclude-result-prefixes="t exsl"
                version="1.0">
 
   <!-- not a poisonous adder -->
@@ -9,8 +11,6 @@
   <xsl:output indent="yes"
               encoding="UTF-8"
               method="xml"/>
-
-  <xsl:param name="relations"  select="document('creator-relations.xml')"/>
 
   <xsl:param name="app" select="'ADL'"/>
   <xsl:param name="category" select="'work'"/>
@@ -29,9 +29,21 @@
   <xsl:param name="published_place" select="''"/>
   <xsl:param name="published_date" select="''"/>
   <xsl:param name="c" select="'unknown_collection'"/>
-  <xsl:param name="coll" select="'unknown_collection'"/>
-  <xsl:param name="uri_base" select="concat($c,'/')"/>
-  <xsl:param name="url" select="concat($uri_base,$doc)"/>
+  <xsl:param name="url" select="concat($c,'/',$doc)"/>
+
+  <!--
+  <xsl:param name="relations"  select="exsl:node-set(document('creator-relations.xml'))//t:row[t:cell/t:ref = $url]"/>
+  -->
+
+  <xsl:param name="auid" select="''"/>
+  
+  <!-- this works with xsltproc, but only erratically with xalan :^( -->
+  <!--
+  <xsl:param name="auid">
+	<xsl:value-of select="$relations//t:cell[@role='author']"/>
+  </xsl:param>
+  -->
+
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
 
 
@@ -281,17 +293,12 @@
       </xsl:for-each>
     </xsl:for-each>
 
-
-
-    <xsl:variable name="auid">
-      <xsl:value-of select="$relations//t:row[t:cell/t:ref = $url]/t:cell[@role='author']"/>
-    </xsl:variable>
-
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">author_id_ssi</xsl:attribute>
-      <xsl:value-of select="substring-before($auid,'.xml')"/>
-    </xsl:element>
+    <xsl:if test="$auid">
+      <xsl:element name="field">
+	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
+	<xsl:value-of select="substring-before($auid,'.xml')"/>
+      </xsl:element>
+    </xsl:if>
 
     <xsl:element name="field">
       <xsl:attribute name="name">copyright_ssi</xsl:attribute>

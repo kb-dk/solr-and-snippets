@@ -18,8 +18,8 @@ declare variable  $c        := request:get-parameter("c","texts");
 declare variable  $o        := request:get-parameter("op","render");
 declare variable  $coll     := concat("/db/adl/",$c);
 declare variable  $op       := doc(concat("/db/adl/", $o,".xsl"));
+declare variable  $au_url   := concat($c,'/',$document);
 
-(: declare option exist:serialize "method=xml media-type=text/html";  :)
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/xml";
 
 let $list := 
@@ -32,13 +32,16 @@ let $list :=
     where util:document-name($doc)=$document
     return $doc
 
+let $author_id := doc('/db/adl/creator-relations.xml')//t:row[t:cell/t:ref = $au_url]/t:cell[@role='author']
+
 let $params := 
 <parameters>
-   <param name="hostname" value="{request:get-header('HOST')}"/>
-   <param name="doc"      value="{$document}"/>
-   <param name="id"       value="{$frag}"/>
-   <param name="c"        value="{$c}"/>
-   <param name="coll"     value="{$coll}"/>
+   <param name="hostname"  value="{request:get-header('HOST')}"/>
+   <param name="doc"       value="{$document}"/>
+   <param name="id"        value="{$frag}"/>
+   <param name="c"         value="{$c}"/>
+   <param name="coll"      value="{$coll}"/>
+   <param name="auid"      value="{$author_id}"/>
 </parameters>
 
 for $doc in $list
