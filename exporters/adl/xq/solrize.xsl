@@ -345,6 +345,21 @@
       <xsl:value-of select="$c"/>
     </field>
 
+    <field name="has_facs_ssi">
+      <xsl:choose>
+	<xsl:when test="preceding::t:pb/@facs|descendant::t:pb/@facs">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+    <field name="has_text_ssi">
+      <xsl:choose>
+	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+
   </xsl:template>
 
   <xsl:template match="*">
