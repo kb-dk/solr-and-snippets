@@ -25,8 +25,7 @@ declare variable  $status   := request:get-parameter("status","");
 (: The posted content should actually live in a param with the same name :)
 declare variable  $content  := util:base64-decode(request:get-data());
 
-declare variable  $coll     := concat($c,'/');
-declare variable  $file     := substring-after(concat($coll,$document),"/db");
+declare variable  $coll     := concat('/db/adl/',$c,'/');
 
 declare option    exist:serialize "method=text media-type=application/json";
 
