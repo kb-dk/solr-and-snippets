@@ -118,7 +118,12 @@
       </xsl:element>
 
       <xsl:element name="field">
-        <xsl:attribute name="name">speaker_name</xsl:attribute>
+        <xsl:attribute name="name">speaker_tesim</xsl:attribute>
+        <xsl:value-of select="t:speaker"/>
+      </xsl:element>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">speaker_ssim</xsl:attribute>
         <xsl:value-of select="t:speaker"/>
       </xsl:element>
 
@@ -287,7 +292,7 @@
 	</xsl:element>
 
 	<xsl:element name="field">
-	  <xsl:attribute name="name">published_place_tesim</xsl:attribute>
+	  <xsl:attribute name="name">place_published_tesim</xsl:attribute>
 	  <xsl:for-each select="t:pubPlace">
 	    <xsl:value-of select="."/><xsl:text>
 </xsl:text>
@@ -295,7 +300,7 @@
 	</xsl:element>
 
 	<xsl:element name="field">
-	  <xsl:attribute name="name">published_date_ssi</xsl:attribute>
+	  <xsl:attribute name="name">date_published_ssi</xsl:attribute>
 	  <xsl:for-each select="t:date">
 	    <xsl:value-of select="."/>
 	  </xsl:for-each>
