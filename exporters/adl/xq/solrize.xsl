@@ -264,7 +264,17 @@
 	  </xsl:element>
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">author_name_tesim</xsl:attribute>
-	    <xsl:value-of select="."/>
+	    <xsl:choose>
+	      <xsl:when test="t:name/t:forename">
+		<xsl:value-of select="t:name/t:forename"/>
+		<xsl:if test="t:name/t:surname">
+		  <xsl:text> </xsl:text><xsl:value-of select="t:name/t:surname" />
+		</xsl:if>
+	      </xsl:when>
+	      <xsl:otherwise>
+		<xsl:value-of select="."/>
+	      </xsl:otherwise>
+	    </xsl:choose>
 	  </xsl:element>
 	</xsl:for-each>
 
