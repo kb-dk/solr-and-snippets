@@ -21,10 +21,8 @@
   <xsl:param name="copyright" select="''"/>
   <xsl:param name="editor" select="''"/>
   <xsl:param name="editor_id" select="''"/>
-  <xsl:param name="volume_title">
-    <xsl:value-of 
-	select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
-  </xsl:param>
+  <xsl:param name="volume_title"><xsl:value-of 
+	select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/></xsl:param>
   <xsl:param name="publisher" select="''"/>
   <xsl:param name="published_place" select="''"/>
   <xsl:param name="published_date" select="''"/>
@@ -48,10 +46,7 @@
 
 
   <xsl:template match="/">
-    <xsl:element name="add">
-      <xsl:call-template name="generate_volume_doc" />
-      <xsl:apply-templates/>
-    </xsl:element>
+    <xsl:element name="add"><xsl:call-template name="generate_volume_doc" /><xsl:apply-templates/></xsl:element>
   </xsl:template>
 
   <xsl:template match="t:text[@decls]|t:div[@decls]">
@@ -73,15 +68,9 @@
 
     <doc>
 
-      <xsl:element name="field">
-	<xsl:attribute name="name">type_ssi</xsl:attribute>
-	<xsl:text>trunk</xsl:text>
-      </xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
 
-      <xsl:element name="field">
-        <xsl:attribute name="name">cat_ssi</xsl:attribute>
-        <xsl:value-of select="$category"/>
-      </xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
       <xsl:element name="field">
         <xsl:attribute name="name">work_title_tesim</xsl:attribute>
@@ -195,15 +184,10 @@
 
   <xsl:template name="generate_volume_doc">
     <doc>
-	<xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
-      <xsl:element name="field">
-        <xsl:attribute name="name">cat_ssi</xsl:attribute>volume
-      </xsl:element>
-      <xsl:element name="field">
-        <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-        <xsl:value-of select="$volume_title"/>
-      </xsl:element>
-    	<xsl:call-template name="add_globals" />
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute>volume</xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$volume_title"/></xsl:element>
+      <xsl:call-template name="add_globals" />
     </doc>
   </xsl:template>
 
