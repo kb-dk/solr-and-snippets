@@ -44,9 +44,58 @@
 
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
 
-
   <xsl:template match="/">
-    <xsl:element name="add"><xsl:call-template name="generate_volume_doc" /><xsl:apply-templates/></xsl:element>
+    <xsl:element name="add">
+      <xsl:choose>
+	<xsl:when test="$c = 'authors'">
+	  <xsl:call-template name="generate_volume_doc" >
+	    <xsl:with-param name="cat" select="'author'"/>
+	    <xsl:with-param name="type" select="'work'"/>
+	  </xsl:call-template>
+	  <xsl:apply-templates/>
+	</xsl:when>
+	<xsl:when test="$c = 'period'">
+	  <xsl:call-template name="generate_volume_doc" >
+	    <xsl:with-param name="cat" select="'period'"/>
+	    <xsl:with-param name="type" select="'work'"/>
+	  </xsl:call-template>
+	  <xsl:apply-templates/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:call-template name="generate_volume_doc" />
+	  <xsl:apply-templates/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="t:text[not(@decls)]|t:div[not(@decls)]">
+    
+    <xsl:variable name="worktitle">
+      <xsl:choose>
+	<xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+	  <xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
+	</xsl:when>
+	<xsl:otherwise>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="category">
+	<xsl:choose>
+	  <xsl:when test="$c = 'texts'"><xsl:value-of select="$category"/></xsl:when>
+	  <xsl:when test="$c = 'authors'">author</xsl:when>
+	  <xsl:when test="$c = 'periods'">period</xsl:when>
+	</xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
+
+    <!-- xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates -->
+
   </xsl:template>
 
   <xsl:template match="t:text[@decls]|t:div[@decls]">
@@ -66,16 +115,33 @@
       </xsl:choose>
     </xsl:variable>
 
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="category"  select="$category"/>
+    </xsl:call-template>
+
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates>
+
+  </xsl:template>
+
+
+  <xsl:template name="trunk_doc">
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:param name="category"  select="''"/>
     <doc>
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
 
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
-      <xsl:element name="field">
-        <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-        <xsl:value-of select="$worktitle"/>
-      </xsl:element>
+      <xsl:if test="$worktitle">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:element>
+      </xsl:if>
 
       <xsl:call-template name="add_globals"/>
 
@@ -85,12 +151,10 @@
 			     select="./text()|descendant::node()/text()"/>
       </xsl:element>
     </doc>
-
-    <xsl:apply-templates>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:apply-templates>
-
   </xsl:template>
+
+
+
 
   <xsl:template match="t:sp">
     <xsl:param name="worktitle" select="''"/>
@@ -183,10 +247,15 @@
 
 
   <xsl:template name="generate_volume_doc">
+    <xsl:param name="type" select="'trunk'"/>
+    <xsl:param name="cat" select="'volume'"/>
     <doc>
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
-      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute>volume</xsl:element>
-      <xsl:element name="field"><xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$volume_title"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
+      <xsl:if test="$volume_title">
+      <xsl:element name="field">
+      <xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$volume_title"/></xsl:element>
+      </xsl:if>
       <xsl:call-template name="add_globals" />
     </doc>
   </xsl:template>
@@ -231,10 +300,12 @@
 
     <xsl:call-template name="page_info"/>
 
-    <xsl:element name="field">
-      <xsl:attribute name="name">volume_title_tesim</xsl:attribute>
-      <xsl:value-of select="$volume_title"/>
-    </xsl:element>
+    <xsl:if test="$volume_title">
+      <xsl:element name="field">
+	<xsl:attribute name="name">volume_title_tesim</xsl:attribute>
+	<xsl:value-of select="$volume_title"/>
+      </xsl:element>
+    </xsl:if>
 
     <xsl:if test="t:head|../t:head">
       <xsl:element name="field">
@@ -243,54 +314,70 @@
       </xsl:element>
     </xsl:if>
 
+    <xsl:choose>
+      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc">
+	  <xsl:for-each select="t:bibl">
+	    <xsl:for-each select="t:author">
+	      <xsl:element name="field">
+		<xsl:attribute name="name">author_name_ssim</xsl:attribute>
+		<xsl:value-of select="."/>
+	      </xsl:element>
+	      <xsl:element name="field">
+		<xsl:attribute name="name">author_name_tesim</xsl:attribute>
+		<xsl:choose>
+		  <xsl:when test="t:name/t:forename">
+		    <xsl:value-of select="t:name/t:forename"/>
+		    <xsl:if test="t:name/t:surname">
+		      <xsl:text> </xsl:text><xsl:value-of select="t:name/t:surname" />
+		    </xsl:if>
+		  </xsl:when>
+		  <xsl:otherwise>
+		    <xsl:value-of select="."/>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:element>
+	    </xsl:for-each>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">publisher_tesim</xsl:attribute>
+	      <xsl:for-each select="t:publisher">
+		<xsl:value-of select="."/><xsl:text>
+</xsl:text>
+	      </xsl:for-each>
+	    </xsl:element>
 
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc">
-      <xsl:for-each select="t:bibl">
-	<xsl:for-each select="t:author">
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">author_name_ssim</xsl:attribute>
-	    <xsl:value-of select="."/>
-	  </xsl:element>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">place_published_tesim</xsl:attribute>
+	      <xsl:for-each select="t:pubPlace">
+		<xsl:value-of select="."/><xsl:text>
+	      </xsl:text>
+	      </xsl:for-each>
+	    </xsl:element>
+
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">date_published_ssi</xsl:attribute>
+	      <xsl:for-each select="t:date">
+		<xsl:value-of select="."/>
+	      </xsl:for-each>
+	    </xsl:element>
+	  </xsl:for-each>
+	</xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
+	  <xsl:if test="t:title">
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	      <xsl:value-of select="t:title"/>
+	    </xsl:element>
+	  </xsl:if>
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">author_name_tesim</xsl:attribute>
-	    <xsl:choose>
-	      <xsl:when test="t:name/t:forename">
-		<xsl:value-of select="t:name/t:forename"/>
-		<xsl:if test="t:name/t:surname">
-		  <xsl:text> </xsl:text><xsl:value-of select="t:name/t:surname" />
-		</xsl:if>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:value-of select="."/>
-	      </xsl:otherwise>
-	    </xsl:choose>
+	    <xsl:value-of select="t:author"/>
 	  </xsl:element>
 	</xsl:for-each>
-
-	<xsl:element name="field">
-	  <xsl:attribute name="name">publisher_tesim</xsl:attribute>
-	  <xsl:for-each select="t:publisher">
-	    <xsl:value-of select="."/><xsl:text>
-</xsl:text>
-	  </xsl:for-each>
-	</xsl:element>
-
-	<xsl:element name="field">
-	  <xsl:attribute name="name">place_published_tesim</xsl:attribute>
-	  <xsl:for-each select="t:pubPlace">
-	    <xsl:value-of select="."/><xsl:text>
-</xsl:text>
-	  </xsl:for-each>
-	</xsl:element>
-
-	<xsl:element name="field">
-	  <xsl:attribute name="name">date_published_ssi</xsl:attribute>
-	  <xsl:for-each select="t:date">
-	    <xsl:value-of select="."/>
-	  </xsl:for-each>
-	</xsl:element>
-      </xsl:for-each>
-    </xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
 
     <xsl:if test="$auid">
       <xsl:element name="field">

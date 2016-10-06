@@ -229,6 +229,15 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="t:anchor">
+    <xsl:element name="a">
+      <xsl:attribute name="name"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:text> 
+      </xsl:text>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template match="t:ref">
     <xsl:element name="a">
       <xsl:call-template name="add_id"/>
