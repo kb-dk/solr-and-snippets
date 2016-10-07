@@ -31,10 +31,22 @@ indexing is is currently SOLR and the snippet crud eXist
 
 ## The Snippet Server and its arguments
 
-All the Snippet Server scripts support these arguments
+The scripts and transforms are in the directory exports. For ADL the following are
+available
+
+* open-seadragon-config.xq (web service providing JSON for OSD)
+* present.xq (general purpose presentation script)
+
+For letters we have in addition
+
+* save.xq (updates the TEI header in the letter project. Data recieved in JSON). Returns a SOLR document in XML
+* volume.xq (renders a table of content for a volume
+
+Most the Snippet Server scripts support these arguments
 
 * doc -- the name of the document to be rendered or transformed
 * id  -- the id of a part inside the doc which is to be treated
-* c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved
-* op  -- is the operation to be performed upon the document doc. The default op is render, which implies that doc is transformed into HTML
+* c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved. Default is 'text' for ADL
+* op  -- is the operation to be performed upon the document doc. The default op is 'render', which implies that doc is transformed into HTML. Another possiblity is 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR
+
 
