@@ -24,7 +24,7 @@ Currently
 
 * the data is often in XML format
 * the snippet server functionalities are written in XSLT or Xquery or both
-* the snippets in JSON, HTML or XML
+* the snippets are returned in JSON, HTML or XML
 
 The Snippet Server has to support CRUD basic functionalities. The
 indexing is is currently SOLR and the snippet crud eXist
