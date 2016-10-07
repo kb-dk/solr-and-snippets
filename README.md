@@ -47,6 +47,9 @@ Most the Snippet Server scripts support these arguments
 * doc -- the name of the document to be rendered or transformed
 * id  -- the id of a part inside the doc which is to be treated
 * c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved. Default is 'text' for ADL
-* op  -- is the operation to be performed upon the document doc. The default op is 'render', which implies that doc is transformed into HTML. Another possiblity is 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR
+* op  -- is the operation to be performed upon the document doc. Possible op are
+  * 'render' which implies that doc is transformed into HTML. 
+  * 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR
+  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation.
 
 
