@@ -22,6 +22,9 @@ declare variable  $au_url   := concat($c,'/',$document);
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/xml";
 
+(: I cannot extract a fragment from the database both here and in the transform
+ used for rendering. I leave the code below, though, as an aid for memory :)
+
 let $list := 
  (: if($frag and not($o = "facsimile")) then
     for $doc in collection($coll)//node()[ft:query(@xml:id,$frag)]
