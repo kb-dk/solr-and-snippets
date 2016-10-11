@@ -23,11 +23,11 @@ declare variable  $au_url   := concat($c,'/',$document);
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/xml";
 
 let $list := 
-  if($frag and not($o = "facsimile")) then
+ (: if($frag and not($o = "facsimile")) then
     for $doc in collection($coll)//node()[ft:query(@xml:id,$frag)]
     where util:document-name($doc)=$document
     return $doc
-  else
+  else :)
     for $doc in collection($coll)
     where util:document-name($doc)=$document
     return $doc
