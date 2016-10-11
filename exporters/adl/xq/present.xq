@@ -36,6 +36,7 @@ let $list :=
     return $doc
 
 let $author_id := doc('/db/adl/creator-relations.xml')//t:row[t:cell/t:ref = $au_url]/t:cell[@role='author']
+let $period_id := substring-before(substring-after(doc('/db/adl/author-and-period.xml')//t:row[contains(t:cell,$author_id)]/t:cell[@role='period']/string(),'.xml'),'/');
 
 let $params := 
 <parameters>
@@ -45,6 +46,7 @@ let $params :=
    <param name="c"         value="{$c}"/>
    <param name="coll"      value="{$coll}"/>
    <param name="auid"      value="{$author_id}"/>
+   <param name="perioid"   value="{$period_id}"/>
 </parameters>
 
 for $doc in $list
