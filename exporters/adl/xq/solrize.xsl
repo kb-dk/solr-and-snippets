@@ -81,6 +81,7 @@
       </xsl:choose>
     </xsl:variable>
 
+    <!--
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
@@ -91,10 +92,10 @@
 	</xsl:choose>
       </xsl:with-param>
     </xsl:call-template>
-
-    <!-- xsl:apply-templates>
+    -->
+    <xsl:apply-templates>
       <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:apply-templates -->
+    </xsl:apply-templates>
 
   </xsl:template>
 
@@ -137,6 +138,11 @@
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
       <xsl:if test="$worktitle">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:element>
+
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	  <xsl:value-of select="$worktitle"/>
@@ -256,6 +262,24 @@
       <xsl:element name="field">
       <xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$volume_title"/></xsl:element>
       </xsl:if>
+
+      <xsl:if test="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]">
+	<xsl:variable name="idno">
+	  <xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]"/>
+	</xsl:variable>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">local_number_ssi</xsl:attribute>
+	  <xsl:choose>
+	    <xsl:when test="contains($idno,':')">
+	      <xsl:value-of select="substring-before($idno,':')"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="$idno"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:element>
+      </xsl:if>
+
       <xsl:call-template name="add_globals" />
     </doc>
   </xsl:template>
@@ -318,6 +342,19 @@
       <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc">
 	  <xsl:for-each select="t:bibl">
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">author_name_ssi</xsl:attribute>
+	      <xsl:for-each select="t:author">
+		<xsl:choose>
+		  <xsl:when test="not(position() = last())">
+		    <xsl:value-of select="concat(.,'; ')"/>
+		  </xsl:when>
+		  <xsl:otherwise>
+		    <xsl:value-of select="."/>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:for-each>
+	    </xsl:element>
 	    <xsl:for-each select="t:author">
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_ssim</xsl:attribute>
@@ -365,16 +402,46 @@
       </xsl:when>
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	    <xsl:for-each select="t:title">
+	      <xsl:choose>
+		<xsl:when test="not(position() = last())">
+		  <xsl:value-of select="concat(.,'; ')"/>
+		</xsl:when>
+		<xsl:otherwise>
+		  <xsl:value-of select="concat(.,'; ')"/>
+		</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:for-each>
+	  </xsl:element>
+
+
 	  <xsl:if test="t:title">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	      <xsl:value-of select="t:title"/>
 	    </xsl:element>
 	  </xsl:if>
+
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">author_name_tesim</xsl:attribute>
 	    <xsl:value-of select="t:author"/>
 	  </xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">author_name_ssi</xsl:attribute>
+	    <xsl:choose>
+	      <xsl:when test="not(position() = last())">
+		<xsl:value-of select="concat(.,'; ')"/>
+	      </xsl:when>
+	      <xsl:otherwise>
+		<xsl:value-of select="."/>
+	      </xsl:otherwise>
+	    </xsl:choose>
+	  </xsl:element>
+
 	</xsl:for-each>
       </xsl:otherwise>
     </xsl:choose>
