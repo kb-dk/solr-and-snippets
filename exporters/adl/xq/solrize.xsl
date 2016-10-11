@@ -268,7 +268,7 @@
 	  <xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]"/>
 	</xsl:variable>
 	<xsl:element name="field">
-	  <xsl:attribute name="name">local_number_ssi</xsl:attribute>
+	  <xsl:attribute name="name">sys_number_ssi</xsl:attribute>
 	  <xsl:choose>
 	    <xsl:when test="contains($idno,':')">
 	      <xsl:value-of select="substring-before($idno,':')"/>
