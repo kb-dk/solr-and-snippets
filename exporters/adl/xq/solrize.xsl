@@ -34,6 +34,7 @@
   -->
 
   <xsl:param name="auid" select="''"/>
+  <xsl:param name="perioid" select="''"/>
   
   <!-- this works with xsltproc, but only erratically with xalan :^( -->
   <!--
@@ -54,7 +55,7 @@
 	  </xsl:call-template>
 	  <xsl:apply-templates/>
 	</xsl:when>
-	<xsl:when test="$c = 'period'">
+	<xsl:when test="$c = 'periods'">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'period'"/>
 	    <xsl:with-param name="type" select="'work'"/>
@@ -94,6 +95,13 @@
     </xsl:call-template>
     -->
     <xsl:apply-templates>
+      <xsl:with-param name="category">
+	<xsl:choose>
+	  <xsl:when test="$c = 'texts'"><xsl:value-of select="$category"/></xsl:when>
+	  <xsl:when test="$c = 'authors'">author</xsl:when>
+	  <xsl:when test="$c = 'periods'">period</xsl:when>
+	</xsl:choose>
+      </xsl:with-param>
       <xsl:with-param name="worktitle" select="$worktitle"/>
     </xsl:apply-templates>
 
@@ -434,10 +442,10 @@
 	    <xsl:attribute name="name">author_name_ssi</xsl:attribute>
 	    <xsl:choose>
 	      <xsl:when test="not(position() = last())">
-		<xsl:value-of select="concat(.,'; ')"/>
+		<xsl:value-of select="concat(t:author,'; ')"/>
 	      </xsl:when>
 	      <xsl:otherwise>
-		<xsl:value-of select="."/>
+		<xsl:value-of select="t:author"/>
 	      </xsl:otherwise>
 	    </xsl:choose>
 	  </xsl:element>
@@ -450,6 +458,13 @@
       <xsl:element name="field">
 	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
 	<xsl:value-of select="substring-before($auid,'.xml')"/>
+      </xsl:element>
+    </xsl:if>
+
+    <xsl:if test="$perioid">
+      <xsl:element name="field">
+	<xsl:attribute name="name">perioid_ssi</xsl:attribute>
+	<xsl:value-of select="$perioid"/>
       </xsl:element>
     </xsl:if>
 
