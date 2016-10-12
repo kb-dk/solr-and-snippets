@@ -31,17 +31,17 @@
     <dynamicField name="*_tsiv" type="text" stored="true" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
     <dynamicField name="*_tsimv" type="text" stored="true" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
     
-    <!-- English text (_te...) -->
-    <dynamicField name="*_tei" type="text_en" stored="false" indexed="true" multiValued="false"/>
-    <dynamicField name="*_teim" type="text_en" stored="false" indexed="true" multiValued="true"/>
-    <dynamicField name="*_tes" type="text_en" stored="true" indexed="false" multiValued="false"/>
-    <dynamicField name="*_tesm" type="text_en" stored="true" indexed="false" multiValued="true"/>
-    <dynamicField name="*_tesi" type="text_en" stored="true" indexed="true" multiValued="false"/>
-    <dynamicField name="*_tesim" type="text_en" stored="true" indexed="true" multiValued="true"/>
-    <dynamicField name="*_teiv" type="text_en" stored="false" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
-    <dynamicField name="*_teimv" type="text_en" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
-    <dynamicField name="*_tesiv" type="text_en" stored="true" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
-    <dynamicField name="*_tesimv" type="text_en" stored="true" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+    <!-- Danish text (_te...) -->
+    <dynamicField name="*_tei" type="text_da" stored="false" indexed="true" multiValued="false"/>
+    <dynamicField name="*_teim" type="text_da" stored="false" indexed="true" multiValued="true"/>
+    <dynamicField name="*_tes" type="text_da" stored="true" indexed="false" multiValued="false"/>
+    <dynamicField name="*_tesm" type="text_da" stored="true" indexed="false" multiValued="true"/>
+    <dynamicField name="*_tesi" type="text_da" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_tesim" type="text_da" stored="true" indexed="true" multiValued="true"/>
+    <dynamicField name="*_teiv" type="text_da" stored="false" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
+    <dynamicField name="*_teimv" type="text_da" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
+    <dynamicField name="*_tesiv" type="text_da" stored="true" indexed="true" multiValued="false" termVectors="true" termPositions="true" termOffsets="true"/>
+    <dynamicField name="*_tesimv" type="text_da" stored="true" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
     
     <!-- string (_s...) -->
     <dynamicField name="*_si" type="string" stored="false" indexed="true" multiValued="false"/>
@@ -156,6 +156,14 @@
     <copyField source="published_date_ssi" dest="published_date_itsi"/>
  
   </fields>
+
+  <fieldType name="sort_field" class="solr.TextField"  positionIncrementGap="100">
+      <analyzer>
+        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-AA.txt"/>
+        <tokenizer class="solr.KeywordTokenizerFactory" />
+        <filter class="solr.LowerCaseFilterFactory" />
+      </analyzer>
+   </fieldType>
 
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
