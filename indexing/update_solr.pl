@@ -23,12 +23,12 @@ my $solr_host_port = 'disdev-01.kb.dk:8081';
 # http://localhost:8983/solr/#/collection1/documents
 
 # my $collection = "solr/cop-editions";
-my $collection = "solr/blacklight-core";
+my $collection = "solr/adl";
 
 my $solr_xml="http://$solr_host_port/$collection/update?commit=true";
 my $solr_del='<delete><query>*:*</query></delete>';
 
-if(0) {
+if(1) {
 # Create a delete request
     my $del_req = HTTP::Request->new(POST => $solr_xml);
     $del_req->content_type('text/xml; charset=utf-8');
@@ -61,9 +61,7 @@ if(0) {
 
 	}
 
-} else {
-    die "Cannot open pipe from find\n";
-}
+
 
 sub url() {
     my $coll = shift;
