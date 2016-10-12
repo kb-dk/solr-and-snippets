@@ -28,33 +28,29 @@ my $collection = "solr/blacklight-core";
 my $solr_xml="http://$solr_host_port/$collection/update?commit=true";
 my $solr_del='<delete><query>*:*</query></delete>';
 
-# my $target   = 'example-solr-data/';
-# my $target   = 'dev-example/';
-#my $target   = '/home/slu/projects/adl';
-my $target   = '/home/slu/projects/adl/authors';
-
-if (open(FIND,"find $target -name '*.xml' -print|")) {
-
+if(0) {
 # Create a delete request
-#	my $del_req = HTTP::Request->new(POST => $solr_xml);
-#	$del_req->content_type('text/xml; charset=utf-8');
-#	$del_req->content($solr_del);
+    my $del_req = HTTP::Request->new(POST => $solr_xml);
+    $del_req->content_type('text/xml; charset=utf-8');
+    $del_req->content($solr_del);
 
 # Pass request to the user agent and get a response back
-#	my $del_res = $ua->request($del_req);
+    my $del_res = $ua->request($del_req);
 
 # Check the outcome of the delete response
-#	if ($del_res->is_success) {
-#	    print STDERR $del_res->content;
-#	} else {
-#	    print STDERR "Failed deleting index " , $del_res->status_line, "\n";
-#	}
+    if ($del_res->is_success) {
+	print STDERR $del_res->content;
+    } else {
+	print STDERR "Failed deleting index " , $del_res->status_line, "\n";
+    }
+
+}
 
 # We cannot take for granted that there exists an index to begin with. So we
 # do try to update even if we failed to delete.
 
 	my $count = 0;
-	while(my $file=<FIND>) {
+	while(my $file=<>) {
 	    chomp $file;
 	    $count++;
 
