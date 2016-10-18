@@ -278,7 +278,7 @@
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
-      <xsl:if test="$volume_title">
+      <xsl:if test="string-length($volume_title)">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	  <xsl:value-of select="normalize-space($volume_title)"/>
@@ -440,6 +440,7 @@
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
 
+	  <xsl:if test="string-length(t:title)">
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
 	    <xsl:call-template name="str_massage">
@@ -457,6 +458,7 @@
 	      </xsl:with-param>
 	    </xsl:call-template>
 	  </xsl:element>
+	  </xsl:if>
 
 	  <xsl:if test="t:title">
 	    <xsl:element name="field">
