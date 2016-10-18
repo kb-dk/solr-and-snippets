@@ -21,8 +21,18 @@
   <xsl:param name="copyright" select="''"/>
   <xsl:param name="editor" select="''"/>
   <xsl:param name="editor_id" select="''"/>
-  <xsl:param name="volume_title"><xsl:value-of 
-	select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/></xsl:param>
+  <xsl:param name="volume_title">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
+      <xsl:choose>
+	<xsl:when test="not(position() = last())">
+	  <xsl:value-of select="."/><xsl:text> </xsl:text>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="."/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:param>
   <xsl:param name="publisher" select="''"/>
   <xsl:param name="published_place" select="''"/>
   <xsl:param name="published_date" select="''"/>
@@ -148,7 +158,9 @@
       <xsl:if test="$worktitle">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	  <xsl:value-of select="$worktitle"/>
+	  <xsl:call-template name="str_massage">
+	    <xsl:with-param name="str" select="$worktitle"/>
+	  </xsl:call-template>
 	</xsl:element>
 
 	<xsl:element name="field">
@@ -267,8 +279,16 @@
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
       <xsl:if test="$volume_title">
-      <xsl:element name="field">
-      <xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$volume_title"/></xsl:element>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	  <xsl:value-of select="normalize-space($volume_title)"/>
+	</xsl:element>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	  <xsl:call-template name="str_massage">
+	    <xsl:with-param name="str" select="$volume_title"/>
+	  </xsl:call-template>
+	</xsl:element>
       </xsl:if>
 
       <xsl:if test="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]">
@@ -335,15 +355,23 @@
     <xsl:if test="$volume_title">
       <xsl:element name="field">
 	<xsl:attribute name="name">volume_title_tesim</xsl:attribute>
-	<xsl:value-of select="$volume_title"/>
+	<xsl:value-of select="normalize-space($volume_title)"/>
+      </xsl:element>
+    </xsl:if>
+
+    <xsl:if test="$volume_title">
+      <xsl:element name="field">
+	<xsl:attribute name="name">volume_title_ssi</xsl:attribute>
+	<xsl:call-template name="str_massage">
+	  <xsl:with-param name="str" select="$volume_title"/>
+	</xsl:call-template>
       </xsl:element>
     </xsl:if>
 
     <xsl:if test="t:head|../t:head">
       <xsl:element name="field">
-        <xsl:attribute name="name">head_tesim</xsl:attribute>
-        <xsl:value-of select="t:head|../t:head[1]"/>
-      </xsl:element>
+      <xsl:attribute name="name">head_tesim</xsl:attribute>
+      <xsl:value-of select="normalize-space(t:head|../t:head[1])"/></xsl:element>
     </xsl:if>
 
     <xsl:choose>
@@ -352,21 +380,24 @@
 	  <xsl:for-each select="t:bibl">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">author_name_ssi</xsl:attribute>
-	      <xsl:for-each select="t:author">
-		<xsl:choose>
-		  <xsl:when test="not(position() = last())">
-		    <xsl:value-of select="concat(.,'; ')"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-		    <xsl:value-of select="."/>
-		  </xsl:otherwise>
-		</xsl:choose>
-	      </xsl:for-each>
+	      <xsl:variable name="a">
+		<xsl:for-each select="t:author">
+		  <xsl:choose>
+		    <xsl:when test="not(position() = last())">
+		      <xsl:value-of select="concat(.,'; ')"/>
+		    </xsl:when>
+		    <xsl:otherwise>
+		      <xsl:value-of select="."/>
+		    </xsl:otherwise>
+		  </xsl:choose>
+		</xsl:for-each>
+	      </xsl:variable>
+	      <xsl:value-of select="normalize-space($a)"/>
 	    </xsl:element>
 	    <xsl:for-each select="t:author">
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_ssim</xsl:attribute>
-		<xsl:value-of select="."/>
+		<xsl:call-template name="author_ssim"/>
 	      </xsl:element>
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_tesim</xsl:attribute>
@@ -386,16 +417,14 @@
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">publisher_tesim</xsl:attribute>
 	      <xsl:for-each select="t:publisher">
-		<xsl:value-of select="."/><xsl:text>
-</xsl:text>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">place_published_tesim</xsl:attribute>
 	      <xsl:for-each select="t:pubPlace">
-		<xsl:value-of select="."/><xsl:text>
-	      </xsl:text>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 
@@ -413,18 +442,21 @@
 
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	    <xsl:for-each select="t:title">
-	      <xsl:choose>
-		<xsl:when test="not(position() = last())">
-		  <xsl:value-of select="concat(.,'; ')"/>
-		</xsl:when>
-		<xsl:otherwise>
-		  <xsl:value-of select="concat(.,'; ')"/>
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:for-each>
+	    <xsl:call-template name="str_massage">
+	      <xsl:with-param name="str">
+		<xsl:for-each select="t:title">
+		  <xsl:choose>
+		    <xsl:when test="position() &lt; last()">
+		      <xsl:value-of select="concat(.,' ')"/>
+		    </xsl:when>
+		    <xsl:otherwise>
+		      <xsl:value-of select="."/>
+		    </xsl:otherwise>
+		  </xsl:choose>
+		</xsl:for-each>
+	      </xsl:with-param>
+	    </xsl:call-template>
 	  </xsl:element>
-
 
 	  <xsl:if test="t:title">
 	    <xsl:element name="field">
@@ -536,6 +568,25 @@
       </xsl:element>
     </xsl:if>
   </xsl:template>
+
+
+  <xsl:template name="str_massage">
+    <xsl:param name="str" select="''"/>
+    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
+    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
+    <!-- believe that the strings below has to have the same lenght -->
+     <xsl:variable name="meta"><xsl:text>!&apos;&quot;#%;,:.()-_'</xsl:text></xsl:variable>
+    <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
+    <xsl:variable name="str1" select="translate($str,$uppercase,$lowercase)"/>
+    <xsl:variable name="str2" select="translate($str1,$meta,$space)"/>
+    <xsl:variable name="str3" select="normalize-space($str2)"/>
+    <xsl:value-of select="$str3"/>
+  </xsl:template>
+
+  <xsl:template name="author_ssim">
+    <xsl:value-of select="normalize-space(.)"/>
+  </xsl:template>
+
 
   <xsl:template mode="backtrack" match="*[@decls]">
     <xsl:element name="field">

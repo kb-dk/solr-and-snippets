@@ -28,7 +28,7 @@ my $collection = "solr/adl";
 my $solr_xml="http://$solr_host_port/$collection/update?commit=true";
 my $solr_del='<delete><query>*:*</query></delete>';
 
-if(1) {
+if(0) {
 # Create a delete request
     my $del_req = HTTP::Request->new(POST => $solr_xml);
     $del_req->content_type('text/xml; charset=utf-8');
