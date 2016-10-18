@@ -22,8 +22,6 @@ my $result = GetOptions (
     "directory=s"  => \$source,
     "suffix=s"     => \$suffix);
 
-$work_dir    = $source;
-
 if( !(-d $source && -f $sheet) ) {
     print STDERR "Usage $0 --sheet <xsl file> --directory <dir name> --suffix <file suffix>\n";
     exit(1);
