@@ -239,15 +239,41 @@
   </xsl:template>
 
   <xsl:template match="t:ref">
-    <xsl:element name="a">
-      <xsl:call-template name="add_id"/>
-      <xsl:if test="@target">
-	<xsl:attribute name="href">
-	  <xsl:apply-templates select="@target"/>
-	</xsl:attribute>
-      </xsl:if>
-      <xsl:apply-templates/>
-    </xsl:element>
+    <xsl:choose>
+      <xsl:when test="contains(@target,'AdlPageRef.xsql')">
+	<xsl:apply-templates/>
+      </xsl:when>
+      <xsl:when test="contains(@target,'../texts/')">
+	<xsl:element name="a">
+	  <xsl:call-template name="add_id"/>
+	  <xsl:variable name="frag">
+	    <xsl:value-of select="substring-after(@target,'xml#')"/>
+	  </xsl:variable>
+	  <xsl:variable name="file_id">
+	    <xsl:value-of select="substring-before(substring-after(@target,'texts/'),'.xml')"/>
+	  </xsl:variable>
+	  <!-- xsl:attribute name="href">
+	    <xsl:value-of select="concat('./',$file_id,'#',$frag)"/>
+	  </xsl:attribute -->
+	  <xsl:comment>
+	    This is were there should have been a link to
+	    <xsl:value-of select="concat('./',$file_id,'#',$frag)"/>
+	  </xsl:comment>
+	  <xsl:apply-templates/>
+	</xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:element name="a">
+	  <xsl:call-template name="add_id"/>
+	  <xsl:if test="@target">
+	    <xsl:attribute name="href">
+	      <xsl:apply-templates select="@target"/>
+	    </xsl:attribute>
+	  </xsl:if>
+	  <xsl:apply-templates/>
+	</xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="t:table">
