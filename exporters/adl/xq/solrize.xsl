@@ -21,11 +21,19 @@
   <xsl:param name="copyright" select="''"/>
   <xsl:param name="editor" select="''"/>
   <xsl:param name="editor_id" select="''"/>
+
   <xsl:param name="volume_title">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+      <xsl:value-of select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+    </xsl:for-each>
+  </xsl:param>
+
+  <xsl:param name="volume_sort_title">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
       <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
     </xsl:for-each>
   </xsl:param>
+
   <xsl:param name="publisher" select="''"/>
   <xsl:param name="published_place" select="''"/>
   <xsl:param name="published_date" select="''"/>
@@ -273,9 +281,9 @@
 	  <xsl:value-of select="normalize-space($volume_title)"/>
 	</xsl:element>
 	<xsl:element name="field">
-	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	  <xsl:call-template name="str_massage">
-	    <xsl:with-param name="str" select="$volume_title"/>
+	    <xsl:with-param name="str" select="$volume_sort_title"/>
 	  </xsl:call-template>
 	</xsl:element>
       </xsl:if>
@@ -443,10 +451,12 @@
 	  </xsl:if>
 
 	  <xsl:if test="t:title">
+	    <!--
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	      <xsl:value-of select="t:title"/>
 	    </xsl:element>
+	    -->
 	  </xsl:if>
 
 	  <xsl:element name="field">
