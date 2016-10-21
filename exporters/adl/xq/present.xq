@@ -1,5 +1,6 @@
 xquery version "3.0" encoding "UTF-8";
 
+declare namespace local="http://kb.dk/this/app";
 declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace response="http://exist-db.org/xquery/response";
@@ -10,8 +11,6 @@ declare namespace app="http://kb.dk/this/app";
 declare namespace t="http://www.tei-c.org/ns/1.0";
 declare namespace ft="http://exist-db.org/xquery/lucene";
 
-
-
 declare variable  $document := request:get-parameter("doc","");
 declare variable  $frag     := request:get-parameter("id","");
 declare variable  $c        := request:get-parameter("c","texts");
@@ -19,8 +18,19 @@ declare variable  $o        := request:get-parameter("op","render");
 declare variable  $coll     := concat("/db/adl/",$c);
 declare variable  $op       := doc(concat("/db/adl/", $o,".xsl"));
 declare variable  $au_url   := concat($c,'/',$document);
+declare variable  $q        := request:get-parameter('q','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/xml";
+
+declare function local:label-hits( $doc  as node() ) as node()* {
+	let $p := 
+	<parameters>
+	<param name="q"  value="{request:get-parameter('q','')}"/>
+	</parameters>
+
+	return transform:transform($doc,doc("/db/adl/label-hits.xsl"),$p) 
+};
+
 
 (: I cannot extract a fragment from the database both here and in the transform
  used for rendering. I leave the code below, though, as an aid for memory :)
@@ -64,4 +74,6 @@ let $params :=
 </parameters>
 
 for $doc in $list
-return  transform:transform($doc,$op,$params) 
+let $hdoc := transform:transform($doc,$op,$params)
+return if(request:get-parameter('q','')) then local:label-hits($hdoc) 
+else $doc

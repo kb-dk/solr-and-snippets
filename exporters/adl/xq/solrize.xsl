@@ -161,6 +161,13 @@
 	</xsl:element>
 
 	<xsl:element name="field">
+	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	  <xsl:call-template name="str_massage">
+	    <xsl:with-param name="str" select="$worktitle"/>
+	  </xsl:call-template>
+	</xsl:element>
+
+	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	  <xsl:value-of select="$worktitle"/>
 	</xsl:element>
