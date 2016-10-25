@@ -20,7 +20,7 @@ declare variable  $op       := doc(concat("/db/adl/", $o,".xsl"));
 declare variable  $au_url   := concat($c,'/',$document);
 declare variable  $q        := request:get-parameter('q','');
 
-declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/xml";
+declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
 declare function local:label-hits( $doc  as node() ) as node()* {
 	let $p := 
@@ -76,4 +76,4 @@ let $params :=
 for $doc in $list
 let $hdoc := transform:transform($doc,$op,$params)
 return if(request:get-parameter('q','')) then local:label-hits($hdoc) 
-else $doc
+else $hdoc
