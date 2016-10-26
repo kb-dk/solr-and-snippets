@@ -26,12 +26,12 @@ declare function lbl:filter($input as item()*, $q as xs:string ) as item()* {
         }
         case text()
         return 
-	if(matches(normalize-space($node/string()),$q,"i") ) then
-	let $text := normalize-space($node/string())
+	if(matches(replace(normalize-space($node/string()),"[\n\r]+"," ","mi"),$q,"mi") ) then
+	let $text := replace(normalize-space($node/string()),"[\n\r]+"," ","mi")
 	return
 	(replace($text,concat($q,".*$"),"","im"),
 		<span class="hit">{replace($text,concat("(^.*)(",$q,")(.*$)"),"$2","im")}</span>,
-		lbl:filter(replace($text,concat("^.*",$q),"","im"),$q))
+		lbl:filter(replace($text,concat("^.*?",$q),"","im"),$q))
 	else 
 	$node
         (: otherwise pass it through.  Used for, comments, and PIs :)
