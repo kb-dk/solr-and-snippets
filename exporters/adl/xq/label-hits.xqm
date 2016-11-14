@@ -10,7 +10,7 @@ declare function lbl:label-hits( $doc  as node()* ) as node()* {
 
 (: copy the input to the output without modification :)
 
-declare function lbl:filter($input as item()*, $q as xs:string ) as item()* {
+declare function lbl:filter($input as item()*, $query as xs:string ) as item()* {
 	for $node in $input
 	return 
 	typeswitch($node)
@@ -25,13 +25,13 @@ declare function lbl:filter($input as item()*, $q as xs:string ) as item()* {
                 return lbl:filter($child/node(),$q)
         }
         case text()
-        return 
+        return
 	if(matches(replace(normalize-space($node/string()),"[\n\r]+"," ","mi"),$q,"mi") ) then
 	let $text := replace(normalize-space($node/string()),"[\n\r]+"," ","mi")
 	return
 	(replace($text,concat($q,".*$"),"","im"),
-		<span class="hit">{replace($text,concat("(^.*)(",$q,")(.*$)"),"$2","im")}</span>,
-		lbl:filter(replace($text,concat("^.*?",$q),"","im"),$q))
+		<span style="background-color: rgb(255,255,0);" class="hit">{replace($text,concat("(^.*)(",$q,")(.*$)"),"$2","im")}</span>,
+		lbl:filter(text{replace($text,concat("^.*?(",$q,")"),"","im")},$q))
 	else 
 	$node
         (: otherwise pass it through.  Used for, comments, and PIs :)
