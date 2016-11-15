@@ -64,7 +64,7 @@ Some more examples
 
 ## Minor utilities
 
-* xslt tranform all files with `--suffix xml` in the `--directory ./periods/` with a style `--sheet` preprocess.xsl 
+* xslt transform all files with `--suffix xml` in the `--directory ./periods/` with a style `--sheet` preprocess.xsl 
 ```
 indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./periods/ --suffix xml
 ```
