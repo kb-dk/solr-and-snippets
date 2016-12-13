@@ -1,4 +1,5 @@
-<missing><pb n="1" facs="lars1001" xml:id="idm140596064256528" rend="missing"/>
+<text xmlns="http://www.tei-c.org/ns/1.0">
+<pb n="1" facs="lars1001" xml:id="idm140596064256528" rend="missing"/>
 <pb n="2" facs="lars1002" xml:id="idm140596064254768" rend="missing"/>
 <pb n="3" facs="lars1003" xml:id="idm140596064254064" rend="missing"/>
 <pb n="4" facs="lars1004" xml:id="idm140596064247344" rend="missing"/>
@@ -223,7 +224,8 @@
 <pb n="223" facs="lars1223" xml:id="idm140596062340160" rend="missing"/>
 <pb n="224" facs="lars1224" xml:id="idm140596062327488" rend="missing"/>
 <pb n="225" facs="lars1225" xml:id="idm140596062318496" rend="missing"/>
-<pb n="226" facs="lars1226" xml:id="idm140596062308752" re<missing><pb n="1" facs="lars1001" xml:id="idm140596064256528" rend="missing"/>
+<pb n="226" facs="lars1226" xml:id="idm140596062308752" rend="missing"/>
+<pb n="1" facs="lars1001" xml:id="idm140596064256528" rend="missing"/>
 <pb n="2" facs="lars1002" xml:id="idm140596064254768" rend="missing"/>
 <pb n="3" facs="lars1003" xml:id="idm140596064254064" rend="missing"/>
 <pb n="4" facs="lars1004" xml:id="idm140596064247344" rend="missing"/>
@@ -14929,4 +14931,4 @@
 <pb n="4" facs="side4" xml:id="idm139827488742496" rend="missing"/>
 <pb n="1" facs="side1" xml:id="idm140120597761344" rend="missing"/>
 <pb n="2" facs="side2" xml:id="idm140120597757504" rend="missing"/>
-</missing>
+</text>

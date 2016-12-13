@@ -67,11 +67,18 @@ return
 	<p  id="{$id}">
 	{
 	   for $bibl in //t:bibl[@xml:id=$bib_id]
+	   let $recipient := if($bibl/t:respStmt[contains(t:resp,"recipient")]/t:name/text()) then 
+		$bibl/t:respStmt[contains(t:resp,"recipient")]/t:name 
+		else
+		"ukendt"
+	   let $sender := if($bibl/t:respStmt[contains(t:resp,"sender")]/t:name/text()) then
+		$bibl/t:respStmt[contains(t:resp,"sender")]/t:name
+		else
+		"ukendt"
 	   let $anchor := ("BREV TIL: ",
-			<strong>&#160;{string-join($bibl/t:respStmt[contains(t:resp,"recipient")]/t:name,"; ")}</strong>,
+			<strong>&#160;{string-join($recipient,"; ")}</strong>,
 			" FRA: ",
-			<strong>&#160;{string-join($bibl/t:respStmt[contains(t:resp,"sender")]/t:name,"; ")}</strong>,
-
+			<strong>&#160;{string-join($sender,"; ")}</strong>,
 			" ",
 			for $d in $bibl/t:date[string()] return concat("(",$d,")"))
             return (<span class="glyphicon glyphicon-envelope">{" "}</span>,<a href="{$uri}">{$anchor}</a>)

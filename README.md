@@ -52,6 +52,7 @@ Most the Snippet Server scripts support these arguments
   * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://bifrost-test-01.kb.dk:8080/exist/rest/db/adl/present.xq?doc=aakjaer01val.xml&op=facsimile
   * 'toc' returns a HTML table of contents http://bifrost-test-01.kb.dk:8080/exist/rest/db/adl/present.xq?doc=aakjaer01val.xml&op=toc* 
 * id  -- the id of a part inside the doc which is to be treated. 
+* q -- assuming that 'q' is the query, the present.xq is labelling the hits in the text
 
 Some more examples
 
@@ -64,7 +65,7 @@ Some more examples
 
 ## Minor utilities
 
-* xslt tranform all files with `--suffix xml` in the `--directory ./periods/` with a style `--sheet` preprocess.xsl 
+* xslt transform all files with `--suffix xml` in the `--directory ./periods/` with a style `--sheet` preprocess.xsl 
 ```
 indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./periods/ --suffix xml
 ```

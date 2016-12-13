@@ -23,15 +23,25 @@
   <xsl:param name="editor_id" select="''"/>
 
   <xsl:param name="volume_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-      <xsl:value-of select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
-    </xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
+	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
+      </xsl:when>
+      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
+      </xsl:when>
+    </xsl:choose>
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-      <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
-    </xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
+	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
+      </xsl:when>
+      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
+      </xsl:when>
+    </xsl:choose>
   </xsl:param>
 
   <xsl:param name="publisher" select="''"/>
@@ -84,9 +94,21 @@
   <xsl:template match="t:text[not(@decls)]|t:div[not(@decls)]">
     
     <xsl:variable name="worktitle">
-	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-	  <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
-	</xsl:for-each>
+      <xsl:choose>
+	<xsl:when 
+	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
+	  <xsl:value-of
+	    select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
+	</xsl:when>
+	<xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+	  <xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
+	</xsl:when>
+	<xsl:when test="t:head">
+	  <xsl:value-of select="t:head"/>
+	</xsl:when>
+	<xsl:otherwise>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
 
     <!--
