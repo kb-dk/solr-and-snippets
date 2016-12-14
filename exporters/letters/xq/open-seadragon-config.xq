@@ -22,6 +22,7 @@ declare variable  $c        := request:get-parameter("c","texts");
 declare variable  $o        := request:get-parameter("op","solrize");
 declare variable  $op       := doc(concat("/db/letter_books/", $o,".xsl"));
 declare variable  $status   := request:get-parameter("status","");
+declare variable  $toc      := request:get-parameter("toc","no");
 
 (: The posted content should actually live in a param with the same name :)
 declare variable  $content  := util:base64-decode(request:get-data());
@@ -108,7 +109,10 @@ return
         <pair type="boolean" name="sequenceMode">true</pair>
 	<pair name="indexPage" type="array">
 	{
+	if($toc='yes') then
 	local:get-section-navigation($frag,$doc)
+	else
+	""
 	} 
 	</pair>
 	<pair name="tileSources" type="array">

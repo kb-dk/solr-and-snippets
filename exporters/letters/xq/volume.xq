@@ -66,7 +66,7 @@ return
 	return 
 	<p  id="{$id}">
 	{
-	   for $bibl in //t:bibl[@xml:id=$bib_id]
+	   for $bibl in //t:bibl[@xml:id=$bib_id][1]
 	   let $recipient := if($bibl/t:respStmt[contains(t:resp,"recipient")]/t:name/text()) then 
 		$bibl/t:respStmt[contains(t:resp,"recipient")]/t:name 
 		else
