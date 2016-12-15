@@ -1,6 +1,8 @@
 xquery version "3.0" encoding "UTF-8";
 
 import module namespace json="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace lbl="http://kb.dk/this/lbl" at "./label-hits.xqm";
+
 declare namespace xdb        = "http://exist-db.org/xquery/xmldb";
 declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
@@ -86,11 +88,15 @@ let $params :=
 </parameters>
 
 for $doc in $list[1]
-  let $res := transform:transform($doc,$op,$params)
+  let $rdoc := transform:transform($doc,$op,$params)
   return  
     if($o='json') then
-      json:serialize-json($res)
+      json:serialize-json($rdoc)
     else
-      $res
+      let $res := if(request:get-parameter('q','')) then lbl:label-hits($rdoc) 
+      else $rdoc
+      return $res
+
+
 
 
