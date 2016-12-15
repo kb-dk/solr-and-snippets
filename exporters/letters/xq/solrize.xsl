@@ -549,7 +549,7 @@
 
     <xsl:variable name="value">
       <xsl:for-each select="t:respStmt[t:resp=$field and t:name/node()]">
-	<xsl:for-each select="t:name"><xsl:value-of select="t:surname"/><xsl:value-of select="t:forename"/></xsl:for-each>
+	<xsl:for-each select="t:name"><xsl:value-of select="t:surname"/><xsl:text> </xsl:text><xsl:value-of select="t:forename"/></xsl:for-each>
       </xsl:for-each>
     </xsl:variable>
 
