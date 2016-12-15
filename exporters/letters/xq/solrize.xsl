@@ -548,7 +548,7 @@
     <xsl:param name="field" select="''"/>
 
     <xsl:variable name="value">
-      <xsl:for-each select="t:respStmt[t:resp=$field and t:name/node()]">
+      <xsl:for-each select="t:respStmt[t:resp=$field and t:name//text()]">
 	<xsl:for-each select="t:name"><xsl:value-of select="t:surname"/><xsl:text> </xsl:text><xsl:value-of select="t:forename"/></xsl:for-each>
       </xsl:for-each>
     </xsl:variable>
@@ -580,7 +580,7 @@
 	</xsl:call-template>
 
 
-	<xsl:for-each select="t:respStmt[t:resp/node() and t:name/node()]">
+	<xsl:for-each select="t:respStmt[t:resp/node() and t:name//text()]">
 	  <xsl:variable name="field">
 	    <xsl:value-of select="t:resp"/>
 	  </xsl:variable>
