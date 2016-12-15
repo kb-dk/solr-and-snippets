@@ -69,7 +69,7 @@
 	<xsl:when test="t:head">
 	  <!-- xsl:value-of select="t:head"/ -->
 	  <xsl:apply-templates mode="gettext" 
-			       select="t:head/text()|descendant::node()/text()"/>
+			       select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	</xsl:otherwise>
@@ -548,7 +548,7 @@
     <xsl:param name="field" select="''"/>
 
     <xsl:variable name="value">
-      <xsl:for-each select="t:respStmt[t:resp=$field and t:name//text()]">
+      <xsl:for-each select="t:respStmt[t:resp=$field and t:name/node()]">
 	<xsl:for-each select="t:name"><xsl:value-of select="t:surname"/><xsl:text> </xsl:text><xsl:value-of select="t:forename"/></xsl:for-each>
       </xsl:for-each>
     </xsl:variable>
@@ -585,11 +585,11 @@
 	    <xsl:value-of select="t:resp"/>
 	  </xsl:variable>
 	  <xsl:for-each select="t:name">
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">
-	      <xsl:value-of select="concat($field,'_ssim')"/>
-	    </xsl:attribute>
-	    <xsl:value-of select="t:surname"/><xsl:text>, </xsl:text><xsl:value-of select="t:forename"/>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">
+		<xsl:value-of select="concat($field,'_ssim')"/>
+	      </xsl:attribute>
+	      <xsl:value-of select="t:surname"/><xsl:text>, </xsl:text><xsl:value-of select="t:forename"/>
 	    </xsl:element>
 
 	    <xsl:element name="field">

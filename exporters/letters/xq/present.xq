@@ -30,8 +30,6 @@ declare variable  $vol      := substring-before($file,".xml");
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
-
-
 let $list := 
     for $doc in collection("/db/letter_books")
     where util:document-name($doc)=$document
