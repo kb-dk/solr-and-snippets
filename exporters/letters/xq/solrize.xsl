@@ -69,7 +69,7 @@
 	<xsl:when test="t:head">
 	  <!-- xsl:value-of select="t:head"/ -->
 	  <xsl:apply-templates mode="gettext" 
-			       select="t:head/text()|descendant::node()/text()"/>
+			       select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	</xsl:otherwise>
@@ -547,20 +547,14 @@
   <xsl:template name="extract_agent_sort_keys">
     <xsl:param name="field" select="''"/>
 
-    <xsl:variable name="value">
-      <xsl:for-each select="t:respStmt[t:resp=$field and t:name/node()]">
-	<xsl:for-each select="t:name"><xsl:value-of select="t:surname"/><xsl:value-of select="t:forename"/></xsl:for-each>
+      <xsl:for-each select="t:respStmt[t:resp=$field and  t:name//text()]">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">
+	    <xsl:value-of select="concat('sortby_',$field,'_ssi')"/>
+	  </xsl:attribute>
+	  <xsl:for-each select="t:name"><xsl:value-of select="t:surname"/><xsl:text> </xsl:text><xsl:value-of select="t:forename"/></xsl:for-each>
+	</xsl:element>
       </xsl:for-each>
-    </xsl:variable>
-
-    <xsl:if test="$value">
-      <xsl:element name="field">
-	<xsl:attribute name="name">
-	  <xsl:value-of select="concat('sortby_',$field,'_ssi')"/>
-	</xsl:attribute>
-	<xsl:value-of select="$value"/>
-      </xsl:element>
-    </xsl:if>
 
   </xsl:template>
 
@@ -580,16 +574,16 @@
 	</xsl:call-template>
 
 
-	<xsl:for-each select="t:respStmt[t:resp/node() and t:name/node()]">
+	<xsl:for-each select="t:respStmt[t:resp/node() and t:name//text()]">
 	  <xsl:variable name="field">
 	    <xsl:value-of select="t:resp"/>
 	  </xsl:variable>
 	  <xsl:for-each select="t:name">
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">
-	      <xsl:value-of select="concat($field,'_ssim')"/>
-	    </xsl:attribute>
-	    <xsl:value-of select="t:surname"/><xsl:text>, </xsl:text><xsl:value-of select="t:forename"/>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">
+		<xsl:value-of select="concat($field,'_ssim')"/>
+	      </xsl:attribute>
+	      <xsl:value-of select="t:surname"/><xsl:text>, </xsl:text><xsl:value-of select="t:forename"/>
 	    </xsl:element>
 
 	    <xsl:element name="field">
