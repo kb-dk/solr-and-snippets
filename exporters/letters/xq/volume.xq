@@ -24,6 +24,8 @@ declare variable  $coll     := concat($c,'/');
 declare variable  $op       := doc(concat("/db/letter_books/", $o,".xsl"));
 declare variable  $file     := concat("/",$coll,substring-before($document,"_"),"/",$document);
 
+declare variable $volume_base_uri := "./";
+
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
 (: 
@@ -54,7 +56,7 @@ return
         for $div in $doc//t:div[not(@decls) and following::t:div[@decls]]
 	let $id := $div/@xml:id/string()
 	let $anchor := "Tekst før brevene" (: substring(string-join($div//text()," "),1,100) :)
-	let $uri := concat("/catalog/",encode-for-uri(substring-before($file,".xml")),"-",$id)
+	let $uri := concat($volume_base_uri,encode-for-uri(substring-before($file,".xml")),"-",$id)
 	return <h4><a href="{$uri}">{$anchor}</a></h4>
     }
 
@@ -62,7 +64,7 @@ return
         for $div in $doc//node()[@decls]
 	let $id := $div/@xml:id/string()
 	let $bib_id := $div/@decls
-	let $uri := concat("/catalog/",encode-for-uri(substring-before($file,".xml")),"-",$id)
+	let $uri := concat($volume_base_uri,encode-for-uri(substring-before($file,".xml")),"-",$id)
 	return 
 	<p  id="{$id}">
 	{
@@ -91,7 +93,7 @@ return
 	let $id := $div/@xml:id/string()
 	let $anchor := "Tekst efter brevene" (:substring(string-join($div//text()," "),1,100) :)
 	(: let $uri := concat("http://localhost:3000/catalog/",encode-for-uri(substring-before($file,".xml")),"-",$id) :)
-	let $uri := concat("/catalog/",encode-for-uri(substring-before($file,".xml")),"-",$id)
+	let $uri := concat($volume_base_uri,encode-for-uri(substring-before($file,".xml")),"-",$id)
 	return <h4><a href="{$uri}">{$anchor}</a></h4>
     }
   </body>
