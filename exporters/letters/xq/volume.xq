@@ -68,7 +68,7 @@ return
 	return 
 	<p  id="{$id}">
 	{
-	   for $bibl in //t:bibl[@xml:id=$bib_id][1]
+	   for $bibl in $doc//t:bibl[@xml:id=$bib_id][1]
 	   let $recipient := if($bibl/t:respStmt[contains(t:resp,"recipient")]/t:name/text()) then 
 		for $name in $bibl/t:respStmt[contains(t:resp,"recipient")]/t:name 
 		return (if($name/t:surname/text()) then concat($name/t:surname,", ") else "",$name/t:forename,"; ")
