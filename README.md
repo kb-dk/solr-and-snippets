@@ -42,7 +42,7 @@ For letters we have in addition
 * save.xq (updates the TEI header in the letter project. Data recieved in JSON). Returns a SOLR document in XML
 * volume.xq (renders a table of content for a volume
 
-Most the Snippet Server scripts support these arguments
+Most Snippet Server scripts support the following arguments
 
 * doc -- the name of the document to be rendered or transformed
 * c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved. Default is 'texts' for ADL, other are 'periods' and 'authors'
