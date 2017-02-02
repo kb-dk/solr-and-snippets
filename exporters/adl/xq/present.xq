@@ -22,6 +22,7 @@ declare variable  $coll     := concat("/db/adl/",$c);
 declare variable  $op       := doc(concat("/db/adl/", $o,".xsl"));
 declare variable  $au_url   := concat($c,'/',$document);
 declare variable  $q        := request:get-parameter('q','');
+declare variable  $targetOp := request:get-parameter('targetOp','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
@@ -64,6 +65,7 @@ let $params :=
    <param name="coll"      value="{$coll}"/>
    <param name="auid"      value="{$author_id}"/>
    <param name="perioid"   value="{$period_id}"/>
+   <param name="targetOp"  value="{$targetOp}"/>
 </parameters>
 
 for $doc in $list

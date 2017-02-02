@@ -15,6 +15,7 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
+  <xsl:param name="targetOp" select="''"/>
   <xsl:param name="hostname" select="''"/>
 
   <xsl:output encoding="UTF-8"
@@ -86,7 +87,14 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
   <xsl:template name="add_anchor">
     <xsl:element name="a">
       <xsl:attribute name="href">
-	<xsl:value-of select="concat('#',@xml:id)"/>
+	<xsl:choose>
+	  <xsl:when test="$targetOp">
+	    <xsl:value-of select="concat('?doc=',$doc,'&amp;op=',$targetOp,'&amp;id=',@xml:id)"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:value-of select="concat('#',@xml:id)"/>
+	  </xsl:otherwise>
+	</xsl:choose>
       </xsl:attribute>
       <xsl:choose>
 	<xsl:when test="t:head">
