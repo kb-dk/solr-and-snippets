@@ -72,6 +72,22 @@
       <str name="echoParams">all</str>
     </lst>
   </requestHandler>
+
+  <filterCache class="solr.LRUCache"
+             size="512"
+             initialSize="512"
+             autowarmCount="128"/>
+
+  <queryResultCache class="solr.LRUCache"
+                  size="512"
+                  initialSize="512"
+                  autowarmCount="128"
+                  maxRamMB="1000"/>
+
+  <documentCache class="solr.LRUCache"
+               size="512"
+               initialSize="512"
+               autowarmCount="0"/>
   
   <!-- config for the admin interface --> 
   <admin>
