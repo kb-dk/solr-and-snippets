@@ -31,12 +31,7 @@
        <int name="qs">1</int>
        <int name="ps">2</int>
        <float name="tie">0.01</float>
-        <str name="qf">
-          id^1000
-          full_title_tesim^100
-          spotlight_upload_description_tesim^50
-          all_text_timv
-        </str>
+       <str name="qf">*</str>
         <str name="pf">
           full_title_tesim^100
           all_text_timv^10
