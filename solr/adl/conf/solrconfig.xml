@@ -11,9 +11,9 @@
   <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
 
   <!-- solr lib dirs -->
-  <lib dir="/usr/local/solr/contrib/analysis-extras/lib" regex=".*\.jar" />
-  <lib dir="/usr/local/solr/contrib/analysis-extras/lucene-libs" regex=".*\.jar" />
-  
+  <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lib" />
+  <lib dir="${solr.install.dir:../../../..}/contrib/analysis-extras/lucene-libs" />
+ 
   <dataDir>${solr.data.dir:}</dataDir>
 
   <updateHandler class="solr.DirectUpdateHandler2">
