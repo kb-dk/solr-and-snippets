@@ -14,7 +14,7 @@ my $result = GetOptions (
 
 # start from an existing repository
 
-open(FILES,"$file_list<") if($file_list)
+open(FILES,">$file_list") if($file_list);
 
 
 if($gitdir) {
@@ -25,10 +25,12 @@ if($gitdir) {
 	       sub {
 		   my ($file, $a, $b, $c) = split;
 		   chomp $file;
-		   if($file_list) {
-		       print FILES "$file\n" if(-f "$gitdir/$file" );
-		   } else {
-		       print "$file\n" if(-f "$gitdir/$file" );
+		   if(-f "$gitdir/$file" ) {
+		       if($file_list) {
+			   print FILES "$file\n"; 
+		       } else {
+			   print "$file\n";
+		       }
 		   }
 	       }
 	)
