@@ -71,44 +71,6 @@
           text_tesim
         </str>
 
-       <!--str name="author_qf">
-       </str>
-       <str name="author_pf">
-       </str-->
-       <str name="title_qf">
-	 title_tesim
-       </str>
-       <str name="title_pf">
-	 title_tesim
-       </str>
-       <!--str name="subject_qf">
-       </str>
-       <str name="subject_pf">
-       </str-->
-       <str name="sender_qf">
-        sender_tesim
-       </str>
-       <str name="sender_pf">
-        sender_tesim
-       </str>
-       <str name="recipient_qf">
-        recipient_tesim
-       </str>
-       <str name="recipient_pf">
-        recipient_tesim
-       </str>
-       <str name="sender_location_qf">
-        sender_location_tesim
-       </str>
-       <str name="sender_location_pf">
-        sender_location_tesim
-       </str>
-       <str name="recipient_location_qf">
-        recipient_location_tesim
-       </str>
-       <str name="recipient_location_pf">
-        recipient_location_tesim
-       </str>
        <str name="fl">
          *, 
          score
