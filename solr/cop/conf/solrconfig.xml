@@ -89,7 +89,14 @@
                size="512"
                initialSize="512"
                autowarmCount="0"/>
-  </query>	
+  </query>
+
+  <indexConfig>
+	<mergePolicyFactory class="org.apache.solr.index.TieredMergePolicyFactory">
+  		<int name="maxMergeAtOnce">4</int>
+  		<int name="segmentsPerTier">4</int>
+	</mergePolicyFactory>
+  </indexConfig>
   
   <!-- config for the admin interface --> 
   <admin>
