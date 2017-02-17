@@ -2,42 +2,60 @@
 
 use strict;
 
+use URI::Template;
 use LWP::UserAgent;
+use Getopt::Long;
+
 my $ua = LWP::UserAgent->new;
+
+my $file_list         = "";
+my $delete_all        = "";
+my %param;
+
+my $solrizer_template = "http://localhost:8080/exist/rest/db/{service}/present.xq{?op,file,c}";
+my $solr_template     = "http://localhost:8983/solr/{collection}/update{?softCommit}";
+
+my $result = GetOptions (
+    "exist-host-port=s"  =>  \$exist_host_port,
+    "solr-host-port=s"   =>  \$solr_host_port,
+    "file-list=s"        =>  \$file_list,
+    "delete-all=s"       =>  \$delete_all,
+    "exist-collection=s" =>  \$exist_collection,
+    "param=s"            =>  \%param);
+
 
 $ua->agent("adl_solr_client/0.1 ");
 
-#
-# You have to edit the $solr_host_port variable
-#
-
-# my $solr_host_port = 'localhost:8983';
-
-my $solr_host_port = 'disdev-01.kb.dk:8081';
-
+my $list;
+if($file_list) {
+    open($list,"<$file_list");
+} else {
+    $list = *STDIN;
+}
 
 #
-# Stuff below should not be regarded as configuration. Editing it is more development.
+# Stuff below are neither parameters nor configuration. Editing it is more development.
 #
 ################################################################################################
-# http://localhost:8983/solr/#/collection1/documents
 
-# my $collection = "solr/cop-editions";
-my $collection = "solr/adl";
+my $solr_xml="$solr_collection/update?$solr_commit";
 
-my $solr_xml="http://$solr_host_port/$collection/update?commit=true";
-my $solr_del='<delete><query>*:*</query></delete>';
+if($delete_all && &promptUser("Really delete index (y/n)","n")) {
 
-if(0) {
+    my $solr_del='<delete><query>*:*</query></delete>';
+    
 # Create a delete request
+
     my $del_req = HTTP::Request->new(POST => $solr_xml);
     $del_req->content_type('text/xml; charset=utf-8');
     $del_req->content($solr_del);
 
 # Pass request to the user agent and get a response back
+
     my $del_res = $ua->request($del_req);
 
 # Check the outcome of the delete response
+
     if ($del_res->is_success) {
 	print STDERR $del_res->content;
     } else {
@@ -46,20 +64,15 @@ if(0) {
 
 }
 
-# We cannot take for granted that there exists an index to begin with. So we
-# do try to update even if we failed to delete.
+my $count = 0;
+while(my $file=<$list>) {
+    chomp $file;
+    $count++;
 
-	my $count = 0;
-	while(my $file=<>) {
-	    chomp $file;
-	    $count++;
+    my $content = &get_it($file);
+    &send_it($file,$content);
 
-#	    last if $count > 5;
-
-	    my $content = &get_it($file);
-	    &send_it($file,$content);
-
-	}
+}
 
 
 
@@ -118,4 +131,26 @@ sub send_it() {
 	print STDERR "$content\n";
     }
 
+}
+
+sub promptUser {
+   my $promptString = shift;
+   my $defaultValue = shift;
+
+   if ($defaultValue) {
+      print $promptString, "[", $defaultValue, "]: ";
+   } else {
+      print $promptString, ": ";
+   }
+
+   $| = 1;               # force a flush after print
+   $_ = <STDIN>;         # get the input from STDIN
+
+   chomp;
+
+   if ("$defaultValue") {
+      return $_ ? $_ : $defaultValue;    # return $_ if it has a value
+   } else {
+      return $_;
+   }
 }
