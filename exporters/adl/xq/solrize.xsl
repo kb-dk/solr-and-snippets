@@ -555,7 +555,7 @@
 
     <field name="has_facs_ssi">
       <xsl:choose>
-	<xsl:when test="preceding::t:pb/@facs|descendant::t:pb/@facs">yes</xsl:when>
+	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
 	<xsl:otherwise>no</xsl:otherwise>
       </xsl:choose>
     </field>
