@@ -73,21 +73,30 @@
     </lst>
   </requestHandler>
 
-  <filterCache class="solr.LRUCache"
+  <query>
+  	<filterCache class="solr.LRUCache"
              size="512"
              initialSize="512"
              autowarmCount="128"/>
 
-  <queryResultCache class="solr.LRUCache"
+  	<queryResultCache class="solr.LRUCache"
                   size="512"
                   initialSize="512"
                   autowarmCount="128"
                   maxRamMB="1000"/>
 
-  <documentCache class="solr.LRUCache"
+  	<documentCache class="solr.LRUCache"
                size="512"
                initialSize="512"
                autowarmCount="0"/>
+  </query>
+
+  <indexConfig>
+	<mergePolicyFactory class="org.apache.solr.index.TieredMergePolicyFactory">
+  		<int name="maxMergeAtOnce">4</int>
+  		<int name="segmentsPerTier">4</int>
+	</mergePolicyFactory>
+  </indexConfig>
   
   <!-- config for the admin interface --> 
   <admin>
