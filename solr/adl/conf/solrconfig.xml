@@ -23,13 +23,11 @@
     </updateLog>
 
     <autoCommit> 
-      <maxTime>${solr.autoCommit.maxTime:15000}</maxTime> 
+      <maxTime>600000</maxTime> 
+      <maxDocs>1000000</maxDocs>
       <openSearcher>false</openSearcher> 
     </autoCommit>
 
-    <autoSoftCommit> 
-      <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime> 
-    </autoSoftCommit>
 
   </updateHandler>
 
@@ -129,7 +127,6 @@
   </requestDispatcher>
   
   <requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />
-  <requestHandler name="/update" class="solr.UpdateRequestHandler"  />
   
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
     <lst name="invariants">
