@@ -63,9 +63,89 @@ Some more examples
   * or as SOLR doc http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=solrize&id=idm140583366681648
 * A TOC for a small work http://labs.kb.dk/storage/adl/present.xq?doc=aakjaer01val.xml&op=toc&id=workid59384
 
+
+## Ingest and Indexing utilities
+
+These utilities require the presence a local file system with stuff to be loaded. The resources in the file system are assumed to be maintained using git.
+
+### Retrieving data from origin
+
+```
+indexing/git_retriever.pl --gitdir=<git project> --file_list=files_to_be_indexed.text
+
+where
+
+--gitdir is a local directory connected to your origin (usually at github)
+--file_list is text file where the names of the updated files are written, one per line
+
+if a file list isn't given, then the file names are written to standard output
+
+```
+
+### Storing to exist
+
+
+```
+./indexing/exist_loader.pl <options>
+where options are
+   --load <directory> 
+        from where to read files for loading
+   --get <directory>
+        where to write retrieved files
+   --delete <directory with a backup>
+        the files in that are found in the directory will be deleted from the
+        database if there exist files with the same name
+
+    --suffix <suffix> 
+        file suffix to look for in directory. for example xml
+
+    --target <target name>
+        Basically database name. Default is 
+
+    --context <context>
+        Root for the rest services. Default is /exist/rest/db/
+
+    --user <user name>
+    --password <password of user>
+    --host-port <host and port for server>
+        Default is localhost:8080
+
+For example
+
+exist_loader.pl --file-list files_to_be_indexed.text \
+		--user admin \
+		--password secret \
+		--host-port localhost:8080  \
+		--context /exist/rest/db/adl/
+
+will load the xml-files named in files_to_be_indexed.text into a database with base URI
+
+http://localhost:8080/exist/rest/db/adl/
+
+ 
+```
+
+### Running solrizr and loading solr docs into cloud
+
+
+```
+indexing/solr_updater.pl \
+    --file-list=files_to_be_indexed.text \
+    --param exist_host=localhost \
+    --param exist_port=8080 \
+    --param service=adl \
+    --param op=solrize \
+    --param solr_host=localhost \
+    --param solr_port=8983 \
+    --param collection=adl
+
+```
+
+
 ## Minor utilities
 
 * xslt transform all files with `--suffix xml` in the `--directory ./periods/` with a style `--sheet` preprocess.xsl 
 ```
 indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./periods/ --suffix xml
 ```
+

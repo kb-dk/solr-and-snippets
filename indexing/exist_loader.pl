@@ -44,17 +44,13 @@ if($load) {
     $source = $delete;
 } elsif($get) {
     $source = $get;
+} elsif($file_list) {
 } else {
     &usage();
 }
 
 my %suffixes = ('xml' => 'text/xml',
 		'xq'  => 'application/xquery');
-
-if(!$source) {
-    &usage();
-    exit();
-}
 
 my $file_name = "";
 
@@ -134,6 +130,8 @@ $0 <options>
 where options are
    --load <directory> 
         from where to read files for loading
+   --file-list <file name>
+        the name of a file containing a list names of xml files to be stored.
    --get <directory>
         where to write retrieved files
    --delete <directory with a backup>
@@ -141,7 +139,7 @@ where options are
         database if there exist files with the same name
 
     --suffix <suffix> 
-        file suffix to look for in directory. for example xml
+        file suffix to look for in the load directory. for example xml
 
     --target <target name>
         Basically database name. Default is $target
