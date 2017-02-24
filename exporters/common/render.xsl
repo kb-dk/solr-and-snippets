@@ -140,20 +140,23 @@
   <!-- xsl:template match="t:p/t:note" -->
 
   <xsl:template match="t:note">
+    <xsl:variable name="idstring">
+      <xsl:value-of select="translate(@xml:id,'-','_')"/>
+    </xsl:variable>
     <xsl:variable name="note">
-      <xsl:value-of select="concat('note',@xml:id)"/>
+      <xsl:value-of select="concat('note',$idstring)"/>
     </xsl:variable>
     <xsl:element name="sup">
       <script>
-	var <xsl:value-of select="concat('disp',@xml:id)"/>="none";
+	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
 	function <xsl:value-of select="$note"/>() {
-	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
-	if(<xsl:value-of select="concat('disp',@xml:id)"/>=="none") {
+	var ele = document.getElementById("<xsl:value-of select="$idstring"/>");
+	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
 	ele.style.display="inline";
-	<xsl:value-of select="concat('disp',@xml:id)"/>="inline";
+	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
 	} else {
 	ele.style.display="none";
-	<xsl:value-of select="concat('disp',@xml:id)"/>="none";
+	<xsl:value-of select="concat('disp',$idstring)"/>="none";
 	}
 	}
       </script>
@@ -168,7 +171,7 @@
     </xsl:element>
     <span style="background-color:yellow;display:none;">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:value-of select="."/>
     </span>
   </xsl:template>
 
@@ -457,7 +460,7 @@
   <xsl:template name="add_id_empty_elem">
     <xsl:if test="@xml:id">
       <xsl:attribute name="id">
-	<xsl:value-of select="@xml:id"/>
+	<xsl:value-of select="translate(@xml:id,'-','_')"/>
       </xsl:attribute>
     </xsl:if>
   </xsl:template>

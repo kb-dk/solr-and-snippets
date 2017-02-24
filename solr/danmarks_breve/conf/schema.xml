@@ -227,6 +227,14 @@
     </fieldType>
 
     
+    <fieldType name="name" class="solr.TextField" omitNorms="false">
+      <analyzer>
+        <tokenizer class="solr.ICUTokenizerFactory"/>
+        <filter class="solr.ICUFoldingFilterFactory"/>  <!-- NFKC, case folding, diacritics removed -->
+        <filter class="solr.TrimFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
         <tokenizer class="solr.ICUTokenizerFactory"/>

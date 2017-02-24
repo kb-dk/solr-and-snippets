@@ -439,6 +439,20 @@
 		  </xsl:otherwise>
 		</xsl:choose>
 	      </xsl:element>
+	      <xsl:element name="field">
+		<xsl:attribute name="name">author_nasim</xsl:attribute>
+		<xsl:choose>
+		  <xsl:when test="t:name/t:forename">
+		    <xsl:value-of select="t:name/t:forename"/>
+		    <xsl:if test="t:name/t:surname">
+		      <xsl:text> </xsl:text><xsl:value-of select="t:name/t:surname" />
+		    </xsl:if>
+		  </xsl:when>
+		  <xsl:otherwise>
+		    <xsl:value-of select="."/>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:element>
 	    </xsl:for-each>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">publisher_tesim</xsl:attribute>
@@ -446,6 +460,13 @@
 		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">publisher_nasim</xsl:attribute>
+	      <xsl:for-each select="t:publisher">
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+	      </xsl:for-each>
+	    </xsl:element>
+
 
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">place_published_tesim</xsl:attribute>
@@ -453,6 +474,13 @@
 		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">place_published_nasim</xsl:attribute>
+	      <xsl:for-each select="t:pubPlace">
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+	      </xsl:for-each>
+	    </xsl:element>
+
 
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">date_published_ssi</xsl:attribute>
@@ -490,6 +518,11 @@
 
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">author_name_tesim</xsl:attribute>
+	    <xsl:value-of select="t:author"/>
+	  </xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">author_nasim</xsl:attribute>
 	    <xsl:value-of select="t:author"/>
 	  </xsl:element>
 
