@@ -82,6 +82,18 @@ if a file list isn't given, then the file names are written to standard output
 
 ```
 
+The git retriever is written in perl, and requires some modules that
+may or may not be on your machine, like Git::Repository. Any of those
+can be installed using the cpan command, e.g.,
+
+```
+sudo cpan -e install Git::Repository
+
+```
+
+The program complains about an uninitialised variable on line 203 in Command.pm. Doesn't seem do any harm.
+
+
 ### Storing to exist
 
 
@@ -121,12 +133,10 @@ exist_loader.pl --file-list files_to_be_indexed.text \
 will load the xml-files named in files_to_be_indexed.text into a database with base URI
 
 http://localhost:8080/exist/rest/db/adl/
-
  
 ```
 
 ### Running solrizr and loading solr docs into cloud
-
 
 ```
 indexing/solr_updater.pl \
@@ -141,6 +151,12 @@ indexing/solr_updater.pl \
 
 ```
 
+This software is dependent on the module URI::Template
+
+```
+sudo cpan -e install URI::Template
+
+```
 
 ## Minor utilities
 
