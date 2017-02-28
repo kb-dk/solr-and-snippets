@@ -17,18 +17,9 @@
   <dataDir>${solr.data.dir:}</dataDir>
 
   <updateHandler class="solr.DirectUpdateHandler2">
-
     <updateLog>
       <str name="dir">${solr.ulog.dir:}</str>
     </updateLog>
-
-    <autoCommit> 
-      <maxTime>600000</maxTime> 
-      <maxDocs>1000000</maxDocs>
-      <openSearcher>false</openSearcher> 
-    </autoCommit>
-
-
   </updateHandler>
 
   <requestHandler name="search" class="solr.SearchHandler" default="true">
@@ -112,12 +103,12 @@
 
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">textSpell</str>
-    <!--lst name="spellchecker">
+    <lst name="spellchecker">
       <str name="name">default</str>
       <str name="field">spell</str>
       <str name="spellcheckIndexDir">./spell</str>
       <str name="buildOnOptimize">true</str>
-    </lst-->
+    </lst>
   </searchComponent>
  
   <requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> 
