@@ -1,7 +1,11 @@
+#!/bin/sh
 
+#
+# Mind you. Make sure that the '\' are followed by a newline directly, not whitespace
+#
 
-indexing/solr_updater.pl \
-    --file-list=files_to_be_indexed.text \
+./indexing/solr_updater.pl \
+    --file-list=last_files.text \
     --param exist_host=localhost \
     --param exist_port=8080 \
     --param service=adl \

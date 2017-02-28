@@ -55,7 +55,7 @@ if($delete_all && &promptUser("Really delete index (y/n)","n")) {
 # Check the outcome of the delete response
 
     if ($del_res->is_success) {
-	print STDERR $del_res->content;
+	print $del_res->content;
     } else {
 	print STDERR "Failed deleting index " , $del_res->status_line, "\n";
     }
@@ -85,7 +85,7 @@ sub get_it() {
     $param{'doc'}=$f;
     $param{'c'}=$c;
     my $exist_uri = $solrizer_template->process(%param);
-    print STDERR "$exist_uri\n";
+    print "$exist_uri\n";
     my $get_req = HTTP::Request->new(GET => $exist_uri);
     my $response = $ua->request($get_req);
     print $response->status_line . "\n";
@@ -101,7 +101,7 @@ sub send_it() {
     print "$file\n";
 
 # Create an update request
-    print STDERR $solr_uri . "\n";
+    print $solr_uri . "\n";
     my $req = HTTP::Request->new(POST => $solr_uri);
     $req->content_type('text/xml; charset=utf-8');
     $req->content($content);
