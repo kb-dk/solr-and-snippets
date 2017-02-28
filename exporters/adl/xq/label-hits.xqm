@@ -28,6 +28,7 @@ declare function lbl:filter($input as item()*, $query as xs:string ) as item()* 
 	for $node in $input
 	return 
 	typeswitch($node)
+        case element(script) return $node
         case element()
         return
         element {name($node)} {
@@ -40,8 +41,8 @@ declare function lbl:filter($input as item()*, $query as xs:string ) as item()* 
         }
         case text()
         return
-	if(matches(replace(normalize-space($node/string()),"[\n\r]+"," ","mi"),$query,"mi") ) then
-	let $text := replace(normalize-space($node/string()),"[\n\r]+"," ","mi")
+	if(matches(replace(normalize-space($node/string()),"[\s\n\r]+"," ","mi"),$query,"mi") ) then
+	let $text := replace(normalize-space($node/string()),"[\s\n\r]+"," ","mi")
 	return
 	(replace($text,concat($query,".*$"),"","im"),
 		<span style="background-color: rgb(255,255,0);" class="hit">{replace($text,concat("(^.*)(",$query,")(.*$)"),"$2","im")}</span>,
