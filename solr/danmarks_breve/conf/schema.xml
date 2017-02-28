@@ -19,9 +19,10 @@
     <field name="lng" type="tdouble" stored="true" indexed="true" multiValued="false"/>
     <!-- NOTE:  not all possible Solr field types are represented in the dynamic fields -->
 
-    <!-- name fields without stemming -->
-    <dynamicField name="*_nasi"  type="name" stored="true" indexed="true" multiValued="false"/>
-    <dynamicField name="*_nasim" type="name" stored="true" indexed="true" multiValued="true"/>
+
+    <!-- name fields -->
+    <dynamicField name="*_nasi" type="text" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_nasim" type="text" stored="true" indexed="true" multiValued="true"/>
 
     <!-- text (_t...) -->
     <dynamicField name="*_ti" type="text" stored="false" indexed="true" multiValued="false"/>
@@ -216,6 +217,15 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
       geo="true" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />
+
+    <fieldType name="name" class="solr.TextField" omitNorms="false">
+      <analyzer>
+        <tokenizer class="solr.ICUTokenizerFactory"/>
+        <filter class="solr.ICUFoldingFilterFactory"/> 
+        <filter class="solr.TrimFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
     
     <fieldType name="name" class="solr.TextField" omitNorms="false">
       <analyzer>
