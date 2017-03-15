@@ -14,6 +14,10 @@
     <field name="dcterms_spatial" type="location" stored="true" indexed="true" multiValued="false" />
     <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
 
+    <!-- name fields without stemming -->
+    <dynamicField name="*_nasi" type="name" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_nasim" type="name" stored="true" indexed="true" multiValued="true"/>
+
     <!-- dynamicField name="*_bbox"   type="location_rpt" stored="true" indexed="true"  multiValued="true" / -->
     <dynamicField name="*_ng"   type="text_en_ng" stored="false" indexed="true" multiValued="true"/>
 
@@ -143,7 +147,15 @@
         <filter class="solr.TrimFilterFactory"/>
       </analyzer>
     </fieldType>
-    
+
+    <fieldType name="name" class="solr.TextField" omitNorms="false">
+      <analyzer>
+        <tokenizer class="solr.ICUTokenizerFactory"/>
+        <filter class="solr.ICUFoldingFilterFactory"/>  <!-- NFKC, case folding, diacritics removed -->
+        <filter class="solr.TrimFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
     <!-- the one used in ADL -->
     <fieldType name="text_da" class="solr.TextField" omitNorms="false">
       <analyzer>
