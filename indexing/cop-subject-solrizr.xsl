@@ -5,6 +5,8 @@
 	       xmlns:e="http://exslt.org/common"
 	       version="1.0">
 
+  <xsl:param name="base" select="'http://localhost:8080/cop/solrizr'"/>
+  <xsl:param name="solr_baseurl" select="'http://spotlight-test-01.kb.dk:8983/solr/cop-editions'"/>
   <xsl:param name="uri" select="''"/>
   <xsl:output method="text"/>
   <xsl:param name="hits">
@@ -16,7 +18,7 @@
 
   <xsl:param name="doc">
     <xsl:choose>
-      <xsl:when test="$hits &lt; $perPage">
+      <xsl:when test="$hits &gt; $perPage">
 	<xsl:copy-of select="document(concat($uri,'?format=rss&amp;itemsPerPage=',$hits))"/> 
       </xsl:when>
       <xsl:otherwise>
@@ -36,7 +38,7 @@
 </xsl:template>
 
 <xsl:template match="m:mods">
-<xsl:value-of select="m:recordInfo/m:recordIdentifier"/><xsl:text>
+GET "<xsl:value-of select="$base"/><xsl:value-of select="m:recordInfo/m:recordIdentifier"/>?solr_baseurl=<xsl:value-of select="$solr_baseurl"/>&amp;spotlight_exhibition=dvi<xsl:text>"
 </xsl:text></xsl:template>
 
 </xsl:transform>
