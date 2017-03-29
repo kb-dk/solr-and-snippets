@@ -5,9 +5,11 @@
 	       xmlns:e="http://exslt.org/common"
 	       version="1.0">
 
-  <xsl:param name="base" select="'http://localhost:8080/cop/solrizr'"/>
-  <xsl:param name="solr_baseurl" select="'http://spotlight-test-01.kb.dk:8983/solr/cop-editions'"/>
+  <xsl:param name="base" select="''"/>
+  <xsl:param name="solr_baseurl" select="''"/>
   <xsl:param name="uri" select="''"/>
+  <xsl:param name="spotlight_exhibition" select="''"/>
+
   <xsl:output method="text"/>
   <xsl:param name="hits">
     <xsl:value-of select="/rss/channel/o:totalResults"/>
@@ -38,7 +40,7 @@
 </xsl:template>
 
 <xsl:template match="m:mods">
-GET "<xsl:value-of select="$base"/><xsl:value-of select="m:recordInfo/m:recordIdentifier"/>?solr_baseurl=<xsl:value-of select="$solr_baseurl"/>&amp;spotlight_exhibition=dvi<xsl:text>"
+GET "<xsl:value-of select="$base"/><xsl:value-of select="m:recordInfo/m:recordIdentifier"/>?solr_baseurl=<xsl:value-of select="$solr_baseurl"/>&amp;spotlight_exhibition=<xsl:value-of select="$spotlight_exhibition"/><xsl:text>"
 </xsl:text></xsl:template>
 
 </xsl:transform>

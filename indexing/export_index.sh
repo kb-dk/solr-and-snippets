@@ -1,4 +1,13 @@
-xsltproc  --stringparam uri http://www.kb.dk/cop/syndication/pamphlets/dasmaa/2012/jul/smaatryk/subject6588/da/ indexing/cop-subject-solrizr.xsl http://www.kb.dk/cop/syndication/pamphlets/dasmaa/2012/jul/smaatryk/subject6588/da/ 
-xsltproc  --stringparam uri http://www.kb.dk/cop/syndication/images/billed/2010/okt/billeder/subject5259/da/ indexing/cop-subject-solrizr.xsl http://www.kb.dk/cop/syndication/images/billed/2010/okt/billeder/subject5259/da/ 
-xsltproc  --stringparam uri http://www.kb.dk/cop/syndication/maps/kortsa/2012/jul/kortatlas/subject306/da/ indexing/cop-subject-solrizr.xsl http://www.kb.dk/cop/syndication/maps/kortsa/2012/jul/kortatlas/subject306/da/
+#!/bin/sh -u
+
+base="http://localhost/cop/syndication"
+spotlight_exhibition="dddddvi"
+syndication="http://www.kb.dk/cop/syndication"
+solrizr="indexing/cop-subject-solrizr.xsl"
+solr_baseurl="http://spotlight-test-01.kb.dk:8983/solr/cop-editions"
+
+while read subject ; do
+    uri=$syndication$subject
+    echo "xsltproc --stringparam base $base --stringparam solr_baseurl $solr_baseurl --stringparam spotlight_exhibition $spotlight_exhibition  --stringparam uri $uri $solrizr $uri"
+done
 
