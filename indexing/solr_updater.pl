@@ -13,14 +13,16 @@ my $delete_all        = "";
 my %param;
 
 my $solrizer_template = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
-my $solr_template     = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?softCommit}");
+my $solr_template     = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update");
+my $solr_commit_template     = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit}");
+
 
 my $result = GetOptions (
     "file-list=s"        =>  \$file_list,
     "delete-all=s"       =>  \$delete_all,
     "param=s"            =>  \%param);
 
-$param{'softCommit'}='true';
+$param{'commit'}='true';
 
 $ua->agent("adl_solr_client/0.1 ");
 
@@ -37,6 +39,7 @@ if($file_list) {
 ################################################################################################
 
 my $solr_uri =  $solr_template->process(%param);
+my $solr_commit_uri = $solr_commit_template->process(%param);
 
 if($delete_all && &promptUser("Really delete index (y/n)","n")) {
 
@@ -67,11 +70,15 @@ while(my $file=<$list>) {
     chomp $file;
     $count++;
 
+    print localtime() . "\n";
     my $content = &get_it($file);
     &send_it($file,$content);
-
+#    if ($count % 5 == 0) {
+#	&commit_it();
+#        sleep(60) # give solr some rest
+#    }
 }
-
+&commit_it();
 
 
 sub get_it() {
@@ -110,14 +117,24 @@ sub send_it() {
     my $res = $ua->request($req);
 
 # Check the outcome of the response
-    if ($res->is_success) {
-	print "Index successfully updated " , $res->content , "\n";
-    } else {
+    while (!$res->is_success) {
 	print "Failed updating " , $res->status_line, "\n";
 	print STDERR "Failed updating $file\n" , $res->status_line, "\n";
-	print STDERR "$content\n";
+        print "wait ... then try again\n";
+	sleep(300);
+#	print STDERR "$content\n";
     }
 
+    print "Index successfully updated " , $res->content , "\n";
+
+}
+
+sub commit_it() {
+    print "Committing $solr_commit_uri\n";
+    my $commit_req = HTTP::Request->new(GET => $solr_commit_uri); 
+    my $response = $ua->request($commit_req);
+    print $response->status_line . "\n";
+    print $response->content() . "\n";
 }
 
 sub promptUser {
