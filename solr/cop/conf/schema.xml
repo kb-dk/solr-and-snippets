@@ -14,8 +14,17 @@
     <field name="dcterms_spatial" type="location" stored="true" indexed="true" multiValued="false" />
     <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
 
+    <!-- name fields without stemming -->
+    <dynamicField name="*_nasi" type="name" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_nasim" type="name" stored="true" indexed="true" multiValued="true"/>
+
     <!-- dynamicField name="*_bbox"   type="location_rpt" stored="true" indexed="true"  multiValued="true" / -->
     <dynamicField name="*_ng"   type="text_en_ng" stored="false" indexed="true" multiValued="true"/>
+
+    <!-- these fields can be used if you want to match the first part of at text/string e.g. filenames in luftfoto -->
+    <dynamicField name="*_fngsm" type="frontNGram" stored="true" indexed="false" multiValued="true"/>
+    <dynamicField name="*_fngsi" type="frontNGram" stored="true" indexed="true" multiValued="false"/>
+    <dynamicField name="*_fngsim" type="frontNGram" stored="true" indexed="true" multiValued="true"/>
 
     <!-- these are general text fields with content in unspecified language -->
 
@@ -120,6 +129,16 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
       geo="true" distErrPct="0.025" maxDistErr="0.000009" distanceUnits="degrees" />
+
+    <fieldType name="frontNGram" class="solr.TextField">
+	   <analyzer type="index">
+      		<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      	   	<filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="15"/>
+   	   </analyzer>
+   	   <analyzer type="query">
+      		<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+   	   </analyzer>
+    </fieldType>
     
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
@@ -128,7 +147,15 @@
         <filter class="solr.TrimFilterFactory"/>
       </analyzer>
     </fieldType>
-    
+
+    <fieldType name="name" class="solr.TextField" omitNorms="false">
+      <analyzer>
+        <tokenizer class="solr.ICUTokenizerFactory"/>
+        <filter class="solr.ICUFoldingFilterFactory"/>  <!-- NFKC, case folding, diacritics removed -->
+        <filter class="solr.TrimFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
     <!-- the one used in ADL -->
     <fieldType name="text_da" class="solr.TextField" omitNorms="false">
       <analyzer>

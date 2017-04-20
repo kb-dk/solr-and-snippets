@@ -34,14 +34,10 @@
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:choose>
-      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
-	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
-      </xsl:when>
-      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
-      </xsl:when>
-    </xsl:choose>
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|
+			  /t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+      <xsl:call-template name="volume_sort_title"/>
+    </xsl:for-each>
   </xsl:param>
 
   <xsl:param name="publisher" select="''"/>
@@ -185,7 +181,7 @@
 	<xsl:element name="field">
 	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	  <xsl:call-template name="str_massage">
-	    <xsl:with-param name="str" select="$worktitle"/>
+	    <xsl:with-param name="str" select="$volume_sort_title"/>
 	  </xsl:call-template>
 	</xsl:element>
 
@@ -315,6 +311,14 @@
 	    <xsl:with-param name="str" select="$volume_sort_title"/>
 	  </xsl:call-template>
 	</xsl:element>
+
+	<xsl:if test="$c = 'authors'">
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
+	    <xsl:value-of select="$volume_sort_title"/>
+	  </xsl:element>
+	</xsl:if>
+
       </xsl:if>
 
       <xsl:if test="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]">
@@ -600,13 +604,12 @@
       </xsl:choose>
     </field>
 
-
   </xsl:template>
 
-  <xsl:template mode="ssi" match="t:name">
+  <xsl:template name="volume_sort_title">
     <xsl:choose>
-      <xsl:when test="@key">
-	<xsl:value-of select="@key"/>
+      <xsl:when test="$c = 'authors' and t:name/@key">
+	<xsl:value-of select="t:name/@key"/>
       </xsl:when>
       <xsl:otherwise>
 	<xsl:value-of select="."/>

@@ -14,6 +14,11 @@
     <updateLog>
       <str name="dir">${solr.core0.data.dir:}</str>
     </updateLog>
+    <autoCommit>
+      <maxTime>600000</maxTime>
+      <maxDocs>10000</maxDocs>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
   </updateHandler>
 
   <!-- solr lib dirs -->
@@ -45,6 +50,17 @@
        <str name="facet.mincount">1</str>
        <str name="facet.limit">10</str>
      </lst>
+  </requestHandler>
+
+  <!-- for requests to get a single document; use id=666 instead of q=id:666 
+       used by blacklight -->
+  <requestHandler name="document" class="solr.SearchHandler" >
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+      <str name="fl">*</str>
+      <str name="rows">1</str>
+      <str name="q">{!raw f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
+    </lst>
   </requestHandler>
 
   <requestHandler name="/get" class="solr.RealTimeGetHandler">
