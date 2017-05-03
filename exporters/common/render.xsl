@@ -365,7 +365,7 @@
 	<xsl:apply-templates select="t:speaker"/>
       </dt>
       <dd class="thespoken">
-	<xsl:apply-templates select="t:stage|t:p|t:lg|t:pb"/>
+	<xsl:apply-templates select="t:stage|t:p|t:lg|t:pb|t:l"/>
       </dd>
     </dl>
   </xsl:template>
