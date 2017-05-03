@@ -158,7 +158,7 @@
     <field name="all_text_timv" type="text" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
     <copyField source="*_tesim" dest="suggest" maxChars="300" />
     <copyField source="published_date_ssi" dest="published_date_itsi"/>
- 
+    <copyField source="text_tesim" dest="text_tsim"/>
   </fields>
 
   <fieldType name="sort_field" class="solr.TextField"  positionIncrementGap="100">
