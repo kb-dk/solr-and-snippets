@@ -381,10 +381,11 @@
 
   <xsl:template match="t:sp/t:stage|t:p/t:stage|t:lg/t:stage|t:l/t:stage">
     <em class="stage"><xsl:text>
-      (</xsl:text><xsl:element name="span">
+      </xsl:text><xsl:element name="span">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
-    </xsl:element><xsl:text>) </xsl:text></em>
+    </xsl:element></em><xsl:text>
+    </xsl:text>
   </xsl:template>
 
 
