@@ -1,10 +1,10 @@
 #!/bin/sh -u
 
-base="http://cop-be-stage-01.kb.dk/cop/solrizr"
+base="http://cop.kb.dk/cop/solrizr"
 spotlight_exhibition="dvi"
 syndication="http://www.kb.dk/cop/syndication"
 solrizr="indexing/cop-subject-solrizr.xsl"
-solr_baseurl="http://index-stage.kb.dk/solr/exhibitions"
+solr_baseurl="http://index.kb.dk/solr/exhibitions"
 
 while read subject ; do
     uri=$syndication$subject

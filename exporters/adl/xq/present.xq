@@ -30,14 +30,9 @@ declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
  used for rendering. I leave the code below, though, as an aid for memory :)
 
 let $list := 
- (: if($frag and not($o = "facsimile")) then
-    for $doc in collection($coll)//node()[ft:query(@xml:id,$frag)]
-    where util:document-name($doc)=$document
-    return $doc
-  else :)
-    for $doc in collection($coll)
-    where util:document-name($doc)=$document
-    return $doc
+for $doc in collection($coll)
+where util:document-name($doc)=$document
+return $doc
 
 let $author_id := doc('/db/adl/creator-relations.xml')//t:row[t:cell/t:ref = $au_url]/t:cell[@role='author']
 
