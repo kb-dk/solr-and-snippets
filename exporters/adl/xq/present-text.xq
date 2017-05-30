@@ -18,5 +18,6 @@ return
 if($frag) then
 $doc//node()[@xml:id = $frag]//text()
 else 
-$doc//t:body//text()
+for $body in $doc//t:body
+return $body//text()
 
