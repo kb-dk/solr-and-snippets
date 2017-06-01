@@ -22,6 +22,10 @@ my $result = GetOptions (
     "delete-all=s"       =>  \$delete_all,
     "param=s"            =>  \%param);
 
+if($param{'user'} && $param{'passwd'}) {
+    $ua->credentials($param{'solr_host'}.':'.$param{'solr_port'}, "solr admins", $param{'user'}, $param{'passwd'} );
+}
+
 $param{'commit'}='true';
 
 $ua->agent("adl_solr_client/0.1 ");
@@ -90,6 +94,9 @@ sub get_it() {
     my $f = '';
 
     ($c,$f) = split(/\//,$file);
+
+    print "$c $f \n";
+
     $param{'doc'}=$f;
     $param{'c'}=$c;
     my $exist_uri = $solrizer_template->process(%param);
