@@ -68,6 +68,7 @@ if($delete_all && &promptUser("Really delete index (y/n)","n")) {
 my $count = 0;
 while(my $file=<$list>) {
     chomp $file;
+    next if ($file =~ m/^#/);
     $count++;
 
     print localtime() . "\n";
