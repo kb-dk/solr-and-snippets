@@ -140,7 +140,11 @@ sub send_it() {
 sub commit_it() {
     print "Committing $solr_commit_uri\n";
     my $commit_req = HTTP::Request->new(GET => $solr_commit_uri); 
+    if($param{'user'} && $param{'passwd'}) {
+	$ua->credentials($param{'solr_host'}.':'.$param{'solr_port'}, "solr admins", $param{'user'}, $param{'passwd'} );
+    }
     my $response = $ua->request($commit_req);
+
     print $response->status_line . "\n";
     print $response->content() . "\n";
 }
