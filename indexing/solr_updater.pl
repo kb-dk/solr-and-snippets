@@ -8,22 +8,28 @@ use Getopt::Long;
 
 my $ua = LWP::UserAgent->new;
 
-my $file_list         = "";
-my $delete_all        = "";
+my $file_list    = "";
+my $delete_all   = "";
+my $delete_query = "";
 my %param;
 
-my $solrizer_template = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
-my $solr_template     = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update");
-my $solr_commit_template     = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit}");
+my $solrizer_template    = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
+my $solr_template        = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update");
+my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit}");
 
 
 my $result = GetOptions (
-    "file-list=s"        =>  \$file_list,
-    "delete-all=s"       =>  \$delete_all,
-    "param=s"            =>  \%param);
+    "file-list=s"    =>  \$file_list,
+    "delete-all=s"   =>  \$delete_all,
+    "delete-query=s" =>  \$delete_query,
+    "param=s"        =>  \%param);
 
 if($param{'user'} && $param{'passwd'}) {
     $ua->credentials($param{'solr_host'}.':'.$param{'solr_port'}, "solr admins", $param{'user'}, $param{'passwd'} );
+}
+
+if($delete_all) {
+    $delete_query = '*:*';
 }
 
 $param{'commit'}='true';
@@ -31,9 +37,9 @@ $param{'commit'}='true';
 $ua->agent("adl_solr_client/0.1 ");
 
 my $list;
-if($file_list) {
+if(-f $file_list) {
     open($list,"<$file_list");
-} else {
+} elsif($file_list eq "-") {
     $list = *STDIN;
 }
 
@@ -45,9 +51,9 @@ if($file_list) {
 my $solr_uri =  $solr_template->process(%param);
 my $solr_commit_uri = $solr_commit_template->process(%param);
 
-if($delete_all && &promptUser("Really delete index (y/n)","n")) {
+if($delete_query && &promptUser("Really delete for query $delete_query (y/n)","n")) {
 
-    my $solr_del='<delete><query>*:*</query></delete>';
+    my $solr_del='<delete><query>' .  $delete_query  . '</query></delete>';
     
 # Create a delete request
 
@@ -70,21 +76,22 @@ if($delete_all && &promptUser("Really delete index (y/n)","n")) {
 }
 
 my $count = 0;
-while(my $file=<$list>) {
-    chomp $file;
-    next if ($file =~ m/^#/);
-    $count++;
+if($list) {
+    while(my $file=<$list>) {
+	chomp $file;
+	next if ($file =~ m/^#/);
+	$count++;
 
-    print localtime() . "\n";
-    my $content = &get_it($file);
-    &send_it($file,$content);
+	print localtime() . "\n";
+	my $content = &get_it($file);
+	&send_it($file,$content);
 #    if ($count % 5 == 0) {
 #	&commit_it();
 #        sleep(60) # give solr some rest
 #    }
+    }
+    &commit_it();
 }
-&commit_it();
-
 
 sub get_it() {
     my $file = shift;
