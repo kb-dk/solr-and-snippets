@@ -69,6 +69,7 @@ if($delete_query && &promptUser("Really delete for query $delete_query (y/n)","n
 
     if ($del_res->is_success) {
 	print $del_res->content;
+	&commit_it();
     } else {
 	print STDERR "Failed deleting index " , $del_res->status_line, "\n";
     }
