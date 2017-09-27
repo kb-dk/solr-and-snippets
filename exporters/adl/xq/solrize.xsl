@@ -89,27 +89,18 @@
 
   <xsl:template match="t:text[not(@decls)]|t:div[not(@decls)]">
     
-    <xsl:variable name="worktitle">
-      <xsl:choose>
-	<xsl:when test="t:head">
-	  <xsl:value-of select="t:head"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="$volume_title"/>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">
-	<xsl:choose>
-	  <xsl:when test="$c = 'texts'">editorial</xsl:when>
-	  <xsl:when test="$c = 'authors'">author</xsl:when>
-	  <xsl:when test="$c = 'periods'">period</xsl:when>
-	</xsl:choose>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:if test="t:head">
+      <xsl:call-template name="trunk_doc">
+	<xsl:with-param name="worktitle" select="t:head"/>
+	<xsl:with-param name="category">
+	  <xsl:choose>
+	    <xsl:when test="$c = 'texts'">editorial</xsl:when>
+	    <xsl:when test="$c = 'authors'">author</xsl:when>
+	    <xsl:when test="$c = 'periods'">period</xsl:when>
+	  </xsl:choose>
+	</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
 
     <xsl:apply-templates>
       <xsl:with-param name="category">
@@ -119,7 +110,7 @@
 	  <xsl:when test="$c = 'periods'">period</xsl:when>
 	</xsl:choose>
       </xsl:with-param>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="worktitle" select="t:head"/>
     </xsl:apply-templates>
 
   </xsl:template>
@@ -159,7 +150,6 @@
     <doc>
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
-
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
       <xsl:if test="$worktitle">
