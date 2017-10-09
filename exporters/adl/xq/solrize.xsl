@@ -89,36 +89,19 @@
 
   <xsl:template match="t:text[not(@decls)]|t:div[not(@decls)]">
     
-    <xsl:variable name="worktitle">
-      <xsl:choose>
-	<xsl:when 
-	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
-	  <xsl:value-of
-	    select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
-	</xsl:when>
-	<xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-	  <xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
-	</xsl:when>
-	<xsl:when test="t:head">
-	  <xsl:value-of select="t:head"/>
-	</xsl:when>
-	<xsl:otherwise>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+    <xsl:if test="t:head">
+      <xsl:call-template name="trunk_doc">
+	<xsl:with-param name="worktitle" select="t:head"/>
+	<xsl:with-param name="category">
+	  <xsl:choose>
+	    <xsl:when test="$c = 'texts'">editorial</xsl:when>
+	    <xsl:when test="$c = 'authors'">author</xsl:when>
+	    <xsl:when test="$c = 'periods'">period</xsl:when>
+	  </xsl:choose>
+	</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
 
-    <!--
-    <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">
-	<xsl:choose>
-	  <xsl:when test="$c = 'texts'"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="$c = 'authors'">author</xsl:when>
-	  <xsl:when test="$c = 'periods'">period</xsl:when>
-	</xsl:choose>
-      </xsl:with-param>
-    </xsl:call-template>
-    -->
     <xsl:apply-templates>
       <xsl:with-param name="category">
 	<xsl:choose>
@@ -127,7 +110,7 @@
 	  <xsl:when test="$c = 'periods'">period</xsl:when>
 	</xsl:choose>
       </xsl:with-param>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="worktitle" select="t:head"/>
     </xsl:apply-templates>
 
   </xsl:template>
@@ -151,7 +134,7 @@
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category"  select="$category"/>
+      <xsl:with-param name="category"  select="'work'"/>
     </xsl:call-template>
 
     <xsl:apply-templates>
@@ -167,7 +150,6 @@
     <doc>
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
-
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
       <xsl:if test="$worktitle">
@@ -193,11 +175,13 @@
 
       <xsl:call-template name="add_globals"/>
 
-      <xsl:element name="field">
-        <xsl:attribute name="name">text_tesim</xsl:attribute>
-        <xsl:apply-templates mode="gettext" 
-			     select="./text()|descendant::node()/text()"/>
-      </xsl:element>
+      <xsl:if test="not($category = 'editorial')">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">text_tesim</xsl:attribute>
+	  <xsl:apply-templates mode="gettext" 
+			       select="./text()|descendant::node()/text()"/>
+	</xsl:element>
+      </xsl:if>
     </doc>
   </xsl:template>
 
