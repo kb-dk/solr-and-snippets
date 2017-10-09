@@ -58,7 +58,8 @@ Most Snippet Server scripts support the following arguments
 Some more examples
 
 * Holberg, vol 3, HTML: http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render
-* Holberg, vol 3, Pure text: http://labs.kb.dk/storage/adl/present-text.xq?doc=holb03val.xml
+* Heiberg P.A., Rigsdalers-Sedlens Hændelser, Andet Kapitel. Detagged (pure text): http://labs.kb.dk/storage/adl/present-text.xq?doc=heibergpa01val.xml&id=idm140167182652400
+
 * Den politiske Kandstøber, Actus II http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render&id=idm140583366846000
 * A single 'speak' in that play, 
   * as HTML http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render&id=idm140583366681648
