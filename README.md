@@ -36,6 +36,7 @@ available
 
 * open-seadragon-config.xq (web service providing JSON for OSD)
 * present.xq (general purpose presentation script)
+* present-text.xq (a detagger, it extracts raw text from the file)
 
 For letters we have in addition
 
@@ -57,6 +58,7 @@ Most Snippet Server scripts support the following arguments
 Some more examples
 
 * Holberg, vol 3, HTML: http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render
+* Holberg, vol 3, Pure text: http://labs.kb.dk/storage/adl/present-text.xq?doc=holb03val.xml
 * Den politiske Kandstøber, Actus II http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render&id=idm140583366846000
 * A single 'speak' in that play, 
   * as HTML http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render&id=idm140583366681648
