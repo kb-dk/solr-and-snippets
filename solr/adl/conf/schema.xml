@@ -215,7 +215,7 @@
       http://wiki.apache.org/solr/SolrAdaptersForLuceneSpatial4
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
-      geo="true" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />
+      geo="true" distErrPct="0.025" maxDistErr="0.000009" />
 
     <fieldType name="name" class="solr.TextField" omitNorms="false">
       <analyzer>
