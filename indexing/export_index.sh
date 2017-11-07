@@ -1,8 +1,8 @@
 #!/bin/sh -u
 
-base="http://cop-test-01.kb.dk/cop/solrizr"
+base="http://www.kb.dk/cop/solrizr"
 spotlight_exhibition="dvi"
-syndication="http://cop-test-01.kb.dk/cop/syndication"
+syndication="http://www.kb.dk/cop/syndication"
 solrizr="indexing/cop-subject-solrizr.xsl"
 solr_baseurl="http://index-test.kb.dk/solr/exhibitions"
 
