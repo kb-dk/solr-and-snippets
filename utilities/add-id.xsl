@@ -3,6 +3,7 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns="http://www.tei-c.org/ns/1.0"
 	       xmlns:uuid="java:java.util.UUID"
+	       exclude-result-prefixes="t uuid"
 	       version="2.0">
 
 
@@ -15,6 +16,12 @@
 
   <xsl:template match="/">
     <xsl:apply-templates/>
+  </xsl:template>
+
+  <xsl:template match="/t:TEI">
+    <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+      <xsl:apply-templates/>
+    </TEI>
   </xsl:template>
 
   <xsl:template match="t:*">
