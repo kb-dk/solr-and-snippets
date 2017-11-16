@@ -6,10 +6,6 @@
 	       exclude-result-prefixes="t uuid"
 	       version="2.0">
 
-
-
-  <xsl:param name="fileid"/>
-
   <xsl:output
       method="xml"
       encoding="UTF-8"/>
