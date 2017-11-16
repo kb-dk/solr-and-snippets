@@ -168,3 +168,6 @@ sudo cpan -e install URI::Template
 indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./periods/ --suffix xml
 ```
 
+* Validate bagit manifests or create 
+..* create-bag.rb  
+..* validate-bag.rb
