@@ -169,5 +169,5 @@ indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./
 ```
 
 * Validate bagit manifests or create 
-..* create-bag.rb  
-..* validate-bag.rb
+  * create-bag.rb  
+  * validate-bag.rb
