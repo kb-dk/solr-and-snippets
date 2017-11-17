@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="text-retriever">
+
+    <property file="build.properties"/>
+
+    <property name="build" value="./build"/>
+    <property name="service" value="${build}/text-retriever"/>
+    <property name="service.src" value="./exporters"/>
+
+    <target name="all" depends="service,xar"/>
+    <target name="rebuild" depends="clean,all"/>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete file="expath-pkg.xml"/>
+    </target>
+
+    <target name="service">
+        <mkdir dir="${service}"/>
+        <mkdir dir="${service}/adl"/>
+        <mkdir dir="${service}/sks"/>
+        <copy todir="${service}">
+            <fileset dir="${service.src}/common"/>
+        </copy>
+        <copy todir="${service}/adl">
+            <fileset dir="${service.src}/adl"/>
+        </copy>
+        <copy todir="${service}/sks">
+            <fileset dir="${service.src}/sks"/>
+        </copy>
+    </target>
+
+    <target name="xar">
+        <copy file="expath-pkg.xml.tmpl" tofile="expath-pkg.xml" filtering="true" overwrite="true">
+            <filterset>
+                <filter token="project.name" value="${project.name}"/>
+                <filter token="project.version" value="${project.version}"/>
+            </filterset>
+        </copy>
+        <zip destfile="${build}/${project.name}-${project.version}${git.commit}.xar">
+            <fileset dir=".">
+                <include name="*.*"/>
+                <include name="resources/**"/>
+                <include name="content/**"/>
+                <exclude name=".git*"/>
+                <exclude name="*.tmpl"/>
+                <exclude name="*.properties"/>
+            </fileset>
+        </zip>
+    </target>
+    <target name="upload">
+        <input message="Enter password:" addproperty="server.pass" defaultvalue="">
+            <handler type="secure"/>
+        </input>
+        <property name="xar" value="${project.name}-${project.version}${git.commit}.xar"/>
+        <exec executable="curl">
+            <arg line="-T ${build}/${xar} -u admin:${server.pass} ${server.url}/${xar}"/>
+        </exec>
+    </target>
+</project>
