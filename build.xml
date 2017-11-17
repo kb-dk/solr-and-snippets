@@ -37,14 +37,17 @@
     </target>
 
     <target name="xar" depends="service"  >
-        <copy file="expath-pkg.xml.tmpl" tofile="expath-pkg.xml" filtering="true" overwrite="true">
+      <copy file="repo.xml" tofile="${build}/repo.xml" overwrite="true"/>
+      <copy file="expath-pkg.xml.tmpl" tofile="${build}/expath-pkg.xml" filtering="true" overwrite="true">
             <filterset>
                 <filter token="project.name" value="${project.name}"/>
                 <filter token="project.version" value="${project.version}"/>
             </filterset>
         </copy>
         <zip destfile="${xar}">
-            <fileset dir="build">
+            <fileset dir="${build}">
+                <include name="repo.xml"/>
+                <include name="expath-pkg.xml"/>
                 <include name="text-retriever/**"/>
             </fileset>
         </zip>
@@ -55,7 +58,7 @@
 	<handler type="secure"/>
       </input>
       <exec executable="curl">
-	<arg line="-T ${build}/${xar} -u admin:${server.pass} ${server.url}/${xar}"/>
+	<arg line="-T ${xar} -u admin:${server.pass} ${server.url}/${xar}"/>
       </exec>
     </target>
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repo:meta xmlns="http://exist-db.org/xquery/repo" xmlns:repo="http://exist-db.org/xquery/repo">
+  <repo:description>tools for delivering texts in an extended adl</repo:description>
+  <repo:author>Sigfrid Lundberg</repo:author>
+  <repo:website>https://github.com/Det-Kongelige-Bibliotek/solr-and-snippets</repo:website>
+  <repo:status>alpha</repo:status>
+  <repo:license>GNU-LGPL</repo:license>
+  <repo:copyright>true</repo:copyright>
+  <repo:type>application</repo:type>
+  <repo:target>text-retriever</repo:target>
+  <repo:prepare/>
+  <repo:finish/>
+  <repo:permissions user="admin" password="" group="dba" mode="0775"/>
+  <changelog>
+    <change version="0.0.1">
+      <ul xmlns="http://www.w3.org/1999/xhtml">
+	<li>initial version</li>
+      </ul>
+    </change>
+  </changelog>
+  <deployed/>
+</repo:meta>
