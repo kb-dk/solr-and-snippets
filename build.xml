@@ -7,15 +7,21 @@
     <property name="service" value="${build}/text-retriever"/>
     <property name="service.src" value="./exporters"/>
 
+    <property name="server.url" value="http://localhost:8080/exist/rest/db/"/>
+
+    <property name="xar" value="./${project.name}-${project.version}.xar"/>
+
     <target name="all" depends="service,xar"/>
     <target name="rebuild" depends="clean,all"/>
 
     <target name="clean">
         <delete dir="${build}"/>
         <delete file="expath-pkg.xml"/>
+	<delete file="${xar}"/>
     </target>
 
     <target name="service">
+        <mkdir dir="${build}"/>
         <mkdir dir="${service}"/>
         <mkdir dir="${service}/adl"/>
         <mkdir dir="${service}/sks"/>
@@ -30,31 +36,28 @@
         </copy>
     </target>
 
-    <target name="xar">
+    <target name="xar" depends="service"  >
         <copy file="expath-pkg.xml.tmpl" tofile="expath-pkg.xml" filtering="true" overwrite="true">
             <filterset>
                 <filter token="project.name" value="${project.name}"/>
                 <filter token="project.version" value="${project.version}"/>
             </filterset>
         </copy>
-        <zip destfile="${build}/${project.name}-${project.version}${git.commit}.xar">
-            <fileset dir=".">
-                <include name="*.*"/>
-                <include name="resources/**"/>
-                <include name="content/**"/>
-                <exclude name=".git*"/>
-                <exclude name="*.tmpl"/>
-                <exclude name="*.properties"/>
+        <zip destfile="${xar}">
+            <fileset dir="build">
+                <include name="text-retriever/**"/>
             </fileset>
         </zip>
     </target>
+
     <target name="upload">
-        <input message="Enter password:" addproperty="server.pass" defaultvalue="">
-            <handler type="secure"/>
-        </input>
-        <property name="xar" value="${project.name}-${project.version}${git.commit}.xar"/>
-        <exec executable="curl">
-            <arg line="-T ${build}/${xar} -u admin:${server.pass} ${server.url}/${xar}"/>
-        </exec>
+      <input message="Enter password:" addproperty="server.pass" defaultvalue="">
+	<handler type="secure"/>
+      </input>
+      <exec executable="curl">
+	<arg line="-T ${build}/${xar} -u admin:${server.pass} ${server.url}/${xar}"/>
+      </exec>
     </target>
+
+
 </project>
