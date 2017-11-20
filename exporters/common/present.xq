@@ -14,12 +14,31 @@ declare namespace app="http://kb.dk/this/app";
 declare namespace t="http://www.tei-c.org/ns/1.0";
 declare namespace ft="http://exist-db.org/xquery/lucene";
 
-declare variable  $document := request:get-parameter("doc","");
-declare variable  $frag     := request:get-parameter("id","");
-declare variable  $c        := request:get-parameter("c","texts");
+declare variable  $path     := request:get-parameter("path","");
+
+declare variable  $frag     := 
+                  if($path) then
+½                   replace($path,"(^[^-]*)-(.*$)-([^-]*$)","$3","mi")
+                  else
+                    request:get-parameter("id","");
+
+declare variable  $c        := 
+                  if($path) then
+                    replace($path,"(^[^-]*)-(.*$)-([^-]*$)","$1","mi")
+                  else
+                    request:get-parameter("c","adl");
+
+declare variable  $document := 
+                  if($path) then
+                    let $d = replace($path,"(^[^-]*)-(.*$)-([^-]*$)","$2","mi")
+                    return concat(replace($d,"-","/"),".xml")
+                  else
+                    request:get-parameter("doc","");
+
+
 declare variable  $o        := request:get-parameter("op","render");
-declare variable  $coll     := concat("/db/adl/",$c);
-declare variable  $op       := doc(concat("/db/adl/", $o,".xsl"));
+declare variable  $coll     := concat("/db/text-retriever/",$c);
+declare variable  $op       := doc(concat($coll,"/", $o,".xsl"));
 declare variable  $au_url   := concat($c,'/',$document);
 declare variable  $q        := request:get-parameter('q','');
 declare variable  $targetOp := request:get-parameter('targetOp','');
@@ -37,13 +56,13 @@ return $doc
 let $author_id := doc('/db/adl/creator-relations.xml')//t:row[t:cell/t:ref = $au_url]/t:cell[@role='author']
 
 let $auid := 
-	if ($c = "texts") then
-		let $id := substring-before($author_id,'.xml') 
-		return $id
-	else if ($c = "authors") then
-		let $id := concat($c,'/',$document)
-		return $id
-	else ()
+  if ($c = "texts") then
+     let $id := substring-before($author_id,'.xml') 
+     return $id
+  else if ($c = "authors") then
+     let $id := concat($c,'/',$document)
+     return $id
+  else ()
 
 let $period_id :=
     if ($auid) then

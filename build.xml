@@ -22,7 +22,7 @@
         <delete dir="${build}"/>
     </target>
 
-    <target name="service">
+    <target name="service" depends="clean">
         <mkdir dir="${build}"/>
         <mkdir dir="${service}"/>
         <mkdir dir="${service}/adl"/>
@@ -33,6 +33,12 @@
         <copy todir="${service}/adl">
             <fileset dir="${service.src}/adl"/>
 	</copy>
+        <copy todir="${service}/sks">
+	  <fileset dir="${service.src}/sks"/>
+        </copy>
+    </target>
+
+    <target name="add_data" depends="service">
         <copy todir="${service}/adl/authors">
 	    <fileset dir="${adl_authors}"/>
 	</copy>
@@ -42,20 +48,17 @@
         <copy todir="${service}/adl/texts">
 	    <fileset dir="${adl_texts}"/>
         </copy>
-        <copy todir="${service}/sks">
-	  <fileset dir="${service.src}/sks"/>
-        </copy>
         <copy  todir="${service}/sks">
 	  <fileset dir="${sks_texts}"/>
 	</copy>
     </target>
 
-    <target name="upload">
+    <target name="upload" depends="service">
       <input message="Enter password:" addproperty="server.pass" defaultvalue="">
 	<handler type="secure"/>
       </input>
       <exec executable="./utilities/load_exist.pl">
-	<arg line="--suffix xml,xq,xsl --load ${service} --target text-retriever --host-port ${hostport} --user admin --password ${server.pass}"/>
+	<arg line="--suffix xml,xq,xqm,xsl --load ${service} --target text-retriever --host-port ${hostport} --user admin --password ${server.pass}"/>
       </exec>
     </target>
 
