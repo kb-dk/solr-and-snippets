@@ -7,7 +7,13 @@
     <property name="service" value="${build}/text-retriever"/>
     <property name="service.src" value="./exporters"/>
 
-    <property name="server.url" value="http://localhost:8080/exist/apps/public-repo/public/"/>
+    <property name="hostport" value="localhost:8080"/>
+
+    <property name="adl_texts"   value="../public-adl-text-sources/texts"/>
+    <property name="adl_authors" value="../adl-text-sources/authors"/>
+    <property name="adl_periods" value="../adl-text-sources/periods"/>
+
+    <property name="sks_texts"   value="../SKS_tei/data/v1.9/"/>
 
     <target name="all" depends="service"/>
     <target name="rebuild" depends="clean,all"/>
@@ -26,18 +32,30 @@
         </copy>
         <copy todir="${service}/adl">
             <fileset dir="${service.src}/adl"/>
+	</copy>
+        <copy todir="${service}/adl/authors">
+	    <fileset dir="${adl_authors}"/>
+	</copy>
+        <copy todir="${service}/adl/periods">
+	    <fileset dir="${adl_periods}"/>
+	</copy>
+        <copy todir="${service}/adl/texts">
+	    <fileset dir="${adl_texts}"/>
         </copy>
         <copy todir="${service}/sks">
-            <fileset dir="${service.src}/sks"/>
+	  <fileset dir="${service.src}/sks"/>
         </copy>
+        <copy  todir="${service}/sks">
+	  <fileset dir="${sks_texts}"/>
+	</copy>
     </target>
 
     <target name="upload">
       <input message="Enter password:" addproperty="server.pass" defaultvalue="">
 	<handler type="secure"/>
       </input>
-      <exec executable="curl">
-	<arg line="-T ${xar} -u admin:${server.pass} ${server.url}/${xar}"/>
+      <exec executable="./utilities/load_exist.pl">
+	<arg line="--suffix xml,xq,xsl --load ${service} --target text-retriever --host-port ${hostport} --user admin --password ${server.pass}"/>
       </exec>
     </target>
 
