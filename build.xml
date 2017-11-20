@@ -7,17 +7,13 @@
     <property name="service" value="${build}/text-retriever"/>
     <property name="service.src" value="./exporters"/>
 
-    <property name="server.url" value="http://localhost:8080/exist/rest/db/"/>
+    <property name="server.url" value="http://localhost:8080/exist/apps/public-repo/public/"/>
 
-    <property name="xar" value="./${project.name}-${project.version}.xar"/>
-
-    <target name="all" depends="service,xar"/>
+    <target name="all" depends="service"/>
     <target name="rebuild" depends="clean,all"/>
 
     <target name="clean">
         <delete dir="${build}"/>
-        <delete file="expath-pkg.xml"/>
-	<delete file="${xar}"/>
     </target>
 
     <target name="service">
@@ -34,23 +30,6 @@
         <copy todir="${service}/sks">
             <fileset dir="${service.src}/sks"/>
         </copy>
-    </target>
-
-    <target name="xar" depends="service"  >
-      <copy file="repo.xml" tofile="${build}/repo.xml" overwrite="true"/>
-      <copy file="expath-pkg.xml.tmpl" tofile="${build}/expath-pkg.xml" filtering="true" overwrite="true">
-            <filterset>
-                <filter token="project.name" value="${project.name}"/>
-                <filter token="project.version" value="${project.version}"/>
-            </filterset>
-        </copy>
-        <zip destfile="${xar}">
-            <fileset dir="${build}">
-                <include name="repo.xml"/>
-                <include name="expath-pkg.xml"/>
-                <include name="text-retriever/**"/>
-            </fileset>
-        </zip>
     </target>
 
     <target name="upload">
