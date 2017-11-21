@@ -18,7 +18,8 @@ declare variable  $path     := request:get-parameter("path","");
 
 declare variable  $frag     := 
                   if($path) then
-                    replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$4","mi")
+                  let $lfrag := replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$4","mi")
+                  return if ($lfrag != "root") then $lfrag else ""
                   else
                     request:get-parameter("id","");
 
@@ -56,7 +57,7 @@ return $doc
 let $author_id := doc(concat($coll,"/","creator-relations.xml"))//t:row[t:cell/t:ref = $document]/t:cell[@role='author']
 
 let $auid := 
-  if (contains($document,"texts")) then
+  if (contains($document,"txt.xml") or contains($document,"texts")) then
      let $id := substring-before($author_id,'.xml') 
      return $id
   else if (contains($document,"authors")) then
@@ -79,6 +80,7 @@ let $params :=
    <param name="c"         value="{$c}"/>
    <param name="coll"      value="{$coll}"/>
    <param name="auid"      value="{$author_id}"/>
+   <param name="auid used" value="{$auid}"/>
    <param name="au url"    value="{$au_url}"/>
    <param name="perioid"   value="{$period_id}"/>
    <param name="targetOp"  value="{$targetOp}"/>
@@ -86,11 +88,9 @@ let $params :=
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
 </parameters>
 
-return $params
+(:return $params:)
 
-(:
 for $doc in $list
 let $hdoc := transform:transform($doc,$op,$params)
 return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) 
 else $hdoc
-:)
