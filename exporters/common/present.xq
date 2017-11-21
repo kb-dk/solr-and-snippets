@@ -86,7 +86,11 @@ let $params :=
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
 </parameters>
 
+return $params
+
+(:
 for $doc in $list
 let $hdoc := transform:transform($doc,$op,$params)
 return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) 
 else $hdoc
+:)
