@@ -97,11 +97,12 @@ if($list) {
 sub get_it() {
     my $file = shift;
 
-    $file =~ s|^.*?adl/||;
     my $c = '';
     my $f = '';
+    $file =~ s/^.*?((adl)|(sks))\///;
 
-    ($c,$f) = split(/\//,$file);
+    $c = $1;
+    $f = $file;
 
     print "$c $f \n";
 
@@ -133,12 +134,10 @@ sub send_it() {
     my $res = $ua->request($req);
 
 # Check the outcome of the response
-    while (!$res->is_success) {
+    if(!$res->is_success) {
 	print "Failed updating " , $res->status_line, "\n";
 	print STDERR "Failed updating $file\n" , $res->status_line, "\n";
-        print "wait ... then try again\n";
-	sleep(300);
-#	print STDERR "$content\n";
+	sleep(5);
     }
 
     print "Index successfully updated " , $res->content , "\n";

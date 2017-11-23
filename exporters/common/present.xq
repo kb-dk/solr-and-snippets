@@ -48,14 +48,6 @@ declare variable  $targetOp := request:get-parameter('targetOp','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
-(: I cannot extract a fragment from the database both here and in the transform
- used for rendering. I leave the code below, though, as an aid for memory :)
-
-let $list := 
-for $doc in collection($coll)
-where contains($document,util:document-name($doc))
-return $doc
-
 let $author_id := doc(concat($coll,"/","creator-relations.xml"))//t:row[t:cell/t:ref = $document]/t:cell[@role='author']
 
 let $auid := 
@@ -72,6 +64,16 @@ let $period_id :=
 	let $id := substring-before(substring-after(doc(concat($coll,'/','author-and-period.xml'))//t:row[contains(t:cell,$auid)]/t:cell[@role='period'],'/'),'.xml')
         return $id
     else ()
+
+(: I cannot extract a fragment from the database both here and in the transform
+ used for rendering. I leave the code below, though, as an aid for memory :)
+
+(:let $list := 
+for $doc in collection($coll)
+where contains($document,util:document-name($doc))
+return $doc:)
+
+let $doc := doc(concat("./",$c,"/",$document))
 
 let $params := 
 <parameters>
@@ -92,7 +94,6 @@ let $params :=
 
 (:return $params:)
 
-for $doc in $list
+
 let $hdoc := transform:transform($doc,$op,$params)
-return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) 
-else $hdoc
+return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) else $hdoc
