@@ -31,12 +31,12 @@ declare variable  $c        :=
 declare variable  $document := 
                   if($path) then
                     let $p := substring-before($path,"-shoot")
-                    let $d := replace($p,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$2/$3","mi")
+                    let $d := replace($p,"(^.*?)-([^-]*)","$2","mi")
                     return concat(replace($d,"-","/"),".xml")
                   else
                     request:get-parameter("doc","");
 
-declare variable $inferred_path :=  if($path) then $path else replace(concat($c,'-',substring-before($document,'.xml'),'-',$frag),'/','-');
+declare variable $inferred_path :=  if($path) then $path else replace(concat($c,'-',substring-before($document,'.xml'),'-shoot-',$frag),'/','-');
 
 
 declare variable  $o        := request:get-parameter("op","render");
@@ -92,8 +92,7 @@ let $params :=
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
 </parameters>
 
-(:return $params :)
-
-
 let $hdoc := transform:transform($doc,$op,$params)
-return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) else $hdoc
+return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) else $hdoc 
+
+(:return <d>{$params,concat("./",$c,"/",$document),$hdoc}</d>  :)
