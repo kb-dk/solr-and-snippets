@@ -18,8 +18,8 @@ declare variable  $path     := request:get-parameter("path","");
 
 declare variable  $frag     := 
                   if($path) then
-                  let $lfrag := replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$4","mi")
-                  return if ($lfrag != "root") then $lfrag else ""
+                    let $lfrag := replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$4","mi")
+                    return if ($lfrag = "root") then $lfrag else substring-after($lfrag,"shoot-")
                   else
                     request:get-parameter("id","root");
 
