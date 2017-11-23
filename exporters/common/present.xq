@@ -18,8 +18,7 @@ declare variable  $path     := request:get-parameter("path","");
 
 declare variable  $frag     := 
                   if($path) then
-                    let $lfrag := replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$4","mi")
-                    return if ($lfrag = "root") then $lfrag else substring-after($lfrag,"shoot-")
+                    if(contains($path,"-root")) then "" else substring-after($path,"shoot-")
                   else
                     request:get-parameter("id","root");
 
@@ -31,7 +30,8 @@ declare variable  $c        :=
 
 declare variable  $document := 
                   if($path) then
-                    let $d := replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$2/$3","mi")
+                    let $p := substring-before($path,"-shoot")
+                    let $d := replace($p,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$2/$3","mi")
                     return concat(replace($d,"-","/"),".xml")
                   else
                     request:get-parameter("doc","");
@@ -92,7 +92,7 @@ let $params :=
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
 </parameters>
 
-(:return $params:)
+(:return $params :)
 
 
 let $hdoc := transform:transform($doc,$op,$params)
