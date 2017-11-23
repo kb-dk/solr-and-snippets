@@ -21,7 +21,7 @@ declare variable  $frag     :=
                   let $lfrag := replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$4","mi")
                   return if ($lfrag != "root") then $lfrag else ""
                   else
-                    request:get-parameter("id","");
+                    request:get-parameter("id","root");
 
 declare variable  $c        := 
                   if($path) then
@@ -35,6 +35,8 @@ declare variable  $document :=
                     return concat(replace($d,"-","/"),".xml")
                   else
                     request:get-parameter("doc","");
+
+declare variable $inferred_path :=  if($path) then $path else replace(concat($c,'-',substring-before($document,'.xml'),'-',$frag),'/','-');
 
 
 declare variable  $o        := request:get-parameter("op","render");
@@ -74,7 +76,7 @@ let $period_id :=
 let $params := 
 <parameters>
    <param name="hostname"  value="{request:get-header('HOST')}"/>
-   <param name="path"      value="{$path}"/>
+   <param name="path"      value="{$inferred_path}"/>
    <param name="doc"       value="{$document}"/>
    <param name="id"        value="{$frag}"/>
    <param name="c"         value="{$c}"/>
