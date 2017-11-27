@@ -30,8 +30,8 @@ declare variable  $c        :=
 
 declare variable  $document := 
                   if($path) then
-                    let $p := substring-before($path,"-shoot")
-                    let $d := replace($p,"(^.*?)-([^-]*)","$2","mi")
+                    let $p := if(contains($path,"-root")) then substring-before($path,"-root")  else substring-before($path,"-shoot")
+                    let $d := replace($p,"^(.*?)-([^-]*)","$2","mi")
                     return concat(replace($d,"-","/"),".xml")
                   else
                     request:get-parameter("doc","");
@@ -93,6 +93,8 @@ let $params :=
 </parameters>
 
 let $hdoc := transform:transform($doc,$op,$params)
-return if(request:get-parameter('q','')) then lbl:label-hits($hdoc) else $hdoc 
-
-(:return <d>{$params,concat("./",$c,"/",$document),$hdoc}</d>  :)
+return 
+  if(request:get-parameter("debug","")) then
+     <d>{$params,concat("./",$c,"/",$document),$hdoc}</d>  
+  else
+     if(request:get-parameter('q','')) then lbl:label-hits($hdoc) else $hdoc
