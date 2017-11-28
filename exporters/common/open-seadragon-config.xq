@@ -1,4 +1,4 @@
-xquery version "3.0" encoding "UTF-8";
+xquery version "3.1" encoding "UTF-8";
 
 import module namespace paths="http://kb.dk/this/paths" at "./get-paths.xqm";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -38,7 +38,7 @@ declare option output:media-type "application/json";
 
 declare function local:get-section-navigation(
   $frag as xs:string,
-  $doc  as node() ) as node()*
+  $doc  as node() ) as map()*
 {
    for $div in $doc//node()[@decls and (not($frag) or @xml:id=$frag)]
      let $page := if($frag) then 1
@@ -48,74 +48,60 @@ declare function local:get-section-navigation(
 	for $bibl in //t:bibl[@xml:id=$bib_id]
 	let $tit := $bibl/t:title/text()
         return 
-	<item type="object">
-	   <pair type="string"  name="title">{$tit}</pair>
-           <pair type="integer" name="page">{$page}</pair>
-	</item> 
+	map {
+	   "title":$tit,
+	   "page":$page
+        }
 };
 
 declare function local:get-section-pages(
   $frag as xs:string,
-  $doc  as node() ) as node()*
+  $doc  as node() ) as xs:string*
 {
 	if($frag) then
           for $div in $doc//node()[@decls and @xml:id=$frag]
 	    for $p in $div/preceding::t:pb[1] | $div//t:pb
 	    return
-              <item type="string">
-                {string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')}
-	      </item>
+                string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 	else
 	  for $p in $doc//t:pb
 	  return  
-          <item type="string">
-          {string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')}
-	  </item>
+             string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 };
 
 declare function local:get-pages(
   $frag as xs:string,
-  $doc  as node() ) as node()*
+  $doc  as node() ) as xs:string*
 {
 	if($frag) then
           for $div in $doc//node()[@xml:id=$frag]
 	    for $p in $div/preceding::t:pb[1] | $div/descendant::t:pb
 	    return
-              <item type="string">
-                {string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')}
-	      </item>
+                string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 	else
 	  for $p in $doc//t:pb
 	  return  
-          <item type="string">
-          {string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')}
-	  </item>
+          string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 };
-
-
 
 let $doc := doc(concat("./",$c,"/",$document))
 let $osd := 
-<json type="object"> 
-	<pair type="string"  name="id">kbOSDInstance</pair>	
-	<pair type="boolean" name="showNavigator">true</pair>
-        <pair type="boolean" name="rtl">false</pair>
-        <pair type="integer" name="initialPage">1</pair>
-        <pair type="integer" name="defaultZoomLevel">0</pair>
-        <pair type="boolean" name="sequenceMode">true</pair>
-	<pair name="indexPage" type="array">
-	{
-	local:get-section-navigation($frag,$doc)
-	} 
-	</pair>
-	<pair name="tileSources" type="array">
-	{
+map {
+	"id":"kbOSDInstance",
+	"showNavigator":"true",
+        "rtl":"false",
+        "initialPage":1,
+        "defaultZoomLevel":0,
+        "sequenceMode":"true",
+	"indexPage":array {
+	local:get-section-navigation($frag,$doc) 
+	}, 
+	"tileSources":array{
 	if($mode='text') then
-	  local:get-pages($frag,$doc)
+          local:get-pages($frag,$doc)
 	else
 	  local:get-section-pages($frag,$doc)
         }
-	</pair>
- </json>
+}
 
 return $osd
