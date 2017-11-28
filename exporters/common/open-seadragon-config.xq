@@ -1,6 +1,7 @@
 xquery version "3.0" encoding "UTF-8";
 
-import module namespace json="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace paths="http://kb.dk/this/paths" at "./get-paths.xqm";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
@@ -15,10 +16,14 @@ declare namespace ft="http://exist-db.org/xquery/lucene";
 declare namespace local="http://kb.dk/this/app";
 
 declare variable  $mode     := request:get-parameter("mode","section");
-declare variable  $document := request:get-parameter("doc","");
-declare variable  $frag     := request:get-parameter("id","");
+declare variable  $path     := request:get-parameter("path","");
+
+declare variable  $frag     := paths:frag($path);
+declare variable  $c        := paths:c($path);
+declare variable  $document := paths:document($path);
+declare variable  $inferred_path := paths:inferred_path($path);
+
 declare variable  $work_id  := request:get-parameter("work_id","");
-declare variable  $c        := request:get-parameter("c","texts");
 declare variable  $o        := request:get-parameter("op","solrize");
 declare variable  $status   := request:get-parameter("status","");
 
@@ -27,7 +32,9 @@ declare variable  $content  := util:base64-decode(request:get-data());
 
 declare variable  $coll     := concat('/db/adl/',$c,'/');
 
-declare option    exist:serialize "method=text media-type=application/json";
+
+declare option output:method "json";
+declare option output:media-type "application/json";
 
 declare function local:get-section-navigation(
   $frag as xs:string,
@@ -86,14 +93,9 @@ declare function local:get-pages(
 };
 
 
-let $docs := 
-   for $doc in collection($coll)
-   where util:document-name($doc)=$document
-   return $doc
 
+let $doc := doc(concat("./",$c,"/",$document))
 let $osd := 
-for $doc in $docs[1]
-return
 <json type="object"> 
 	<pair type="string"  name="id">kbOSDInstance</pair>	
 	<pair type="boolean" name="showNavigator">true</pair>
@@ -116,4 +118,4 @@ return
 	</pair>
  </json>
 
-return replace(replace(json:serialize-json($osd),"\\n"," "),"\\/","/")
+return $osd
