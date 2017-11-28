@@ -16,6 +16,8 @@
   <xsl:param name="category" select="'work'"/>
   <xsl:param name="doc" select="'a_very_unique_id'"/>
   <xsl:param name="basename" select="substring-before($doc,'.xml')"/>
+  <xsl:param name="coll" select="''"/>
+  <xsl:param name="path" select="''"/>
   <xsl:param name="author" select="''"/>
   <xsl:param name="author_id" select="''"/>
   <xsl:param name="copyright" select="''"/>
@@ -332,10 +334,10 @@
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@xml:id">
-          <xsl:value-of select="concat($basename,'-',@xml:id)"/>
+          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="$basename"/>
+          <xsl:value-of select="$path"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:element>
@@ -349,7 +351,7 @@
 
     <xsl:element name="field">
       <xsl:attribute name="name">volume_id_ssi</xsl:attribute>
-      <xsl:value-of select="$basename"/>
+      <xsl:value-of select="$path"/>
     </xsl:element>
 
     <xsl:element name="field">
