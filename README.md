@@ -7,6 +7,7 @@ Assume that we have (semi)structured (meta)data in a database or
 repository of some kind.  Then the snippet server is used for
 performing various operations upon those data.
 
+
 Examples of such operations are
 
 * returning documents prepared for indexing
