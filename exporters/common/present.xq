@@ -24,15 +24,15 @@ declare variable  $frag     :=
 
 declare variable  $c        := 
                   if($path) then
-                    replace($path,"(^[^-]*)-(.*)-([^-]*)-([^-]*$)","$1","mi")
+                    replace($path,"(^[^-]*)-(.*)$","$1","mi")
                   else
                     request:get-parameter("c","adl");
 
 declare variable  $document := 
                   if($path) then
-                    let $p := if(contains($path,"-root")) then substring-before($path,"-root")  else substring-before($path,"-shoot")
-                    let $d := replace($p,"^(.*?)-([^-]*)","$2","mi")
-                    return concat(replace($d,"-","/"),".xml")
+                    let $p    := if(contains($path,"-root")) then substring-before($path,"-root")  else substring-before($path,"-shoot")
+                    let $d    := substring-after($p,concat($c,"-"))
+                    return concat(replace($d,"(^[^-]*)-(.*)$","$1","mi"),"/",replace($d,"(^[^-]*)-(.*)$","$2","mi"),".xml")
                   else
                     request:get-parameter("doc","");
 
