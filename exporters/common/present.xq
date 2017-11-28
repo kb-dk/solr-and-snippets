@@ -17,10 +17,10 @@ declare namespace ft="http://exist-db.org/xquery/lucene";
 
 declare variable  $path     := request:get-parameter("path","");
 
-declare variable  $frag     := paths:frag();
-declare variable  $c        := paths:c();
-declare variable  $document := paths:document():
-declare variable  $inferred_path := paths:inferred_path()
+declare variable  $frag     := paths:frag($path);
+declare variable  $c        := paths:c($path);
+declare variable  $document := paths:document($path);
+declare variable  $inferred_path := paths:inferred_path($path);
 
 declare variable  $o        := request:get-parameter("op","render");
 declare variable  $coll     := concat("/db/text-retriever/",$c);
