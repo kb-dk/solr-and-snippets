@@ -2,6 +2,7 @@ xquery version "3.0" encoding "UTF-8";
 
 
 import module namespace lbl="http://kb.dk/this/lbl" at "./label-hits.xqm";
+import module namespace paths="http://kb.dk/this/paths" at "./get-paths.xqm";
 
 declare namespace local="http://kb.dk/this/app";
 declare namespace transform="http://exist-db.org/xquery/transform";
@@ -16,28 +17,10 @@ declare namespace ft="http://exist-db.org/xquery/lucene";
 
 declare variable  $path     := request:get-parameter("path","");
 
-declare variable  $frag     := 
-                  if($path) then
-                    if(contains($path,"-root")) then "" else substring-after($path,"shoot-")
-                  else
-                    request:get-parameter("id","root");
-
-declare variable  $c        := 
-                  if($path) then
-                    replace($path,"(^[^-]*)-(.*)$","$1","mi")
-                  else
-                    request:get-parameter("c","adl");
-
-declare variable  $document := 
-                  if($path) then
-                    let $p    := if(contains($path,"-root")) then substring-before($path,"-root")  else substring-before($path,"-shoot")
-                    let $d    := substring-after($p,concat($c,"-"))
-                    return concat(replace($d,"(^[^-]*)-(.*)$","$1","mi"),"/",replace($d,"(^[^-]*)-(.*)$","$2","mi"),".xml")
-                  else
-                    request:get-parameter("doc","");
-
-declare variable $inferred_path :=  if($path) then $path else replace(concat($c,'-',substring-before($document,'.xml'),'-shoot-',$frag),'/','-');
-
+declare variable  $frag     := paths:frag();
+declare variable  $c        := paths:c();
+declare variable  $document := paths:document():
+declare variable  $inferred_path := paths:inferred_path()
 
 declare variable  $o        := request:get-parameter("op","render");
 declare variable  $coll     := concat("/db/text-retriever/",$c);
@@ -64,14 +47,6 @@ let $period_id :=
 	let $id := substring-before(substring-after(doc(concat($coll,'/','author-and-period.xml'))//t:row[contains(t:cell,$auid)]/t:cell[@role='period'],'/'),'.xml')
         return $id
     else ()
-
-(: I cannot extract a fragment from the database both here and in the transform
- used for rendering. I leave the code below, though, as an aid for memory :)
-
-(:let $list := 
-for $doc in collection($coll)
-where contains($document,util:document-name($doc))
-return $doc:)
 
 let $doc := doc(concat("./",$c,"/",$document))
 
