@@ -21,23 +21,25 @@
   <xsl:param name="author" select="''"/>
   <xsl:param name="author_id" select="''"/>
   <xsl:param name="copyright" select="''"/>
-  <xsl:param name="editor" select="''"/>
+
+  <xsl:param name="editor" >
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
+  </xsl:param>
+
   <xsl:param name="editor_id" select="''"/>
 
   <xsl:param name="volume_title">
-    <xsl:choose>
-      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
-	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
-      </xsl:when>
-      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
-      </xsl:when>
-    </xsl:choose>
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title|
+			  /t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title)[1]">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|
-			  /t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title|
+			   /t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title)[1]">
       <xsl:call-template name="volume_sort_title"/>
     </xsl:for-each>
   </xsl:param>
@@ -48,33 +50,23 @@
   <xsl:param name="c" select="'unknown_collection'"/>
   <xsl:param name="url" select="concat($c,'/',$doc)"/>
 
-  <!--
-  <xsl:param name="relations"  select="exsl:node-set(document('creator-relations.xml'))//t:row[t:cell/t:ref = $url]"/>
-  -->
-
   <xsl:param name="auid" select="''"/>
   <xsl:param name="perioid" select="''"/>
   
-  <!-- this works with xsltproc, but only erratically with xalan :^( -->
-  <!--
-  <xsl:param name="auid">
-	<xsl:value-of select="$relations//t:cell[@role='author']"/>
-  </xsl:param>
-  -->
 
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
 
   <xsl:template match="/">
     <xsl:element name="add">
       <xsl:choose>
-	<xsl:when test="$c = 'authors'">
+	<xsl:when test="contains($path,'adl-authors')">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'author'"/>
 	    <xsl:with-param name="type" select="'work'"/>
 	  </xsl:call-template>
 	  <xsl:apply-templates/>
 	</xsl:when>
-	<xsl:when test="$c = 'periods'">
+	<xsl:when test="contains($path,'adl-periods')">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'period'"/>
 	    <xsl:with-param name="type" select="'work'"/>
@@ -96,9 +88,9 @@
 	<xsl:with-param name="worktitle" select="t:head"/>
 	<xsl:with-param name="category">
 	  <xsl:choose>
-	    <xsl:when test="$c = 'texts'">editorial</xsl:when>
-	    <xsl:when test="$c = 'authors'">author</xsl:when>
-	    <xsl:when test="$c = 'periods'">period</xsl:when>
+	    <xsl:when test="contains($path,'adl-texts')">editorial</xsl:when>
+	    <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+	    <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
 	  </xsl:choose>
 	</xsl:with-param>
       </xsl:call-template>
@@ -107,9 +99,9 @@
     <xsl:apply-templates>
       <xsl:with-param name="category">
 	<xsl:choose>
-	  <xsl:when test="$c = 'texts'"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="$c = 'authors'">author</xsl:when>
-	  <xsl:when test="$c = 'periods'">period</xsl:when>
+	  <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
+	  <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+	  <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
 	</xsl:choose>
       </xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
@@ -223,6 +215,10 @@
     </doc>
   </xsl:template>
 
+  <xsl:template match="t:lb">
+    <xsl:text> </xsl:text>
+  </xsl:template>
+
 
   <xsl:template match="t:lg">
     <xsl:param name="worktitle" select="''"/>
@@ -298,7 +294,7 @@
 	  </xsl:call-template>
 	</xsl:element>
 
-	<xsl:if test="$c = 'authors'">
+	<xsl:if test="contains($path,'adl-authors')">
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
 	    <xsl:value-of select="$volume_sort_title"/>
@@ -396,19 +392,12 @@
 	  <xsl:for-each select="t:bibl">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">author_name_ssi</xsl:attribute>
-	      <xsl:variable name="a">
-		<xsl:for-each select="t:author">
-		  <xsl:choose>
-		    <xsl:when test="not(position() = last())">
-		      <xsl:value-of select="concat(.,'; ')"/>
-		    </xsl:when>
-		    <xsl:otherwise>
-		      <xsl:value-of select="."/>
-		    </xsl:otherwise>
-		  </xsl:choose>
+	      <xsl:for-each select="t:author">
+		<xsl:for-each 
+		    select="t:name"><xsl:value-of 
+		    select="normalize-space(.)"/><xsl:if test="not(position() = last())"><xsl:text>; </xsl:text></xsl:if>
 		</xsl:for-each>
-	      </xsl:variable>
-	      <xsl:value-of select="normalize-space($a)"/>
+	      </xsl:for-each>
 	    </xsl:element>
 	    <xsl:for-each select="t:author">
 	      <xsl:element name="field">
@@ -447,13 +436,13 @@
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">publisher_tesim</xsl:attribute>
 	      <xsl:for-each select="t:publisher">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">publisher_nasim</xsl:attribute>
 	      <xsl:for-each select="t:publisher">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 
@@ -461,13 +450,13 @@
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">place_published_tesim</xsl:attribute>
 	      <xsl:for-each select="t:pubPlace">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">place_published_nasim</xsl:attribute>
 	      <xsl:for-each select="t:pubPlace">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 
@@ -594,11 +583,11 @@
 
   <xsl:template name="volume_sort_title">
     <xsl:choose>
-      <xsl:when test="$c = 'authors' and t:name/@key">
+      <xsl:when test="contains($path,'adl-authors') and t:name/@key">
 	<xsl:value-of select="t:name/@key"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="."/>
+	<xsl:apply-templates mode="gettext"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
