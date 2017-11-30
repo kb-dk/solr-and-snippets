@@ -59,14 +59,14 @@
   <xsl:template match="/">
     <xsl:element name="add">
       <xsl:choose>
-	<xsl:when test="$c = 'authors'">
+	<xsl:when test="contains($path,'adl-authors')">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'author'"/>
 	    <xsl:with-param name="type" select="'work'"/>
 	  </xsl:call-template>
 	  <xsl:apply-templates/>
 	</xsl:when>
-	<xsl:when test="$c = 'periods'">
+	<xsl:when test="contains($path,'adl-periods')">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'period'"/>
 	    <xsl:with-param name="type" select="'work'"/>
@@ -88,9 +88,9 @@
 	<xsl:with-param name="worktitle" select="t:head"/>
 	<xsl:with-param name="category">
 	  <xsl:choose>
-	    <xsl:when test="$c = 'texts'">editorial</xsl:when>
-	    <xsl:when test="$c = 'authors'">author</xsl:when>
-	    <xsl:when test="$c = 'periods'">period</xsl:when>
+	    <xsl:when test="contains($path,'adl-texts')">editorial</xsl:when>
+	    <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+	    <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
 	  </xsl:choose>
 	</xsl:with-param>
       </xsl:call-template>
@@ -99,9 +99,9 @@
     <xsl:apply-templates>
       <xsl:with-param name="category">
 	<xsl:choose>
-	  <xsl:when test="$c = 'texts'"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="$c = 'authors'">author</xsl:when>
-	  <xsl:when test="$c = 'periods'">period</xsl:when>
+	  <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
+	  <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+	  <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
 	</xsl:choose>
       </xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
@@ -294,7 +294,7 @@
 	  </xsl:call-template>
 	</xsl:element>
 
-	<xsl:if test="$c = 'authors'">
+	<xsl:if test="contains($path,'adl-authors')">
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
 	    <xsl:value-of select="$volume_sort_title"/>
@@ -583,7 +583,7 @@
 
   <xsl:template name="volume_sort_title">
     <xsl:choose>
-      <xsl:when test="$c = 'authors' and t:name/@key">
+      <xsl:when test="contains($path,'adl-authors') and t:name/@key">
 	<xsl:value-of select="t:name/@key"/>
       </xsl:when>
       <xsl:otherwise>
