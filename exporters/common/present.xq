@@ -59,9 +59,9 @@ let $params :=
    <param name="c"         value="{$c}"/>
    <param name="coll"      value="{$coll}"/>
    <param name="auid"      value="{$author_id}"/>
-   <param name="auid used" value="{$auid}"/>
-   <param name="au url"    value="{$au_url}"/>
-   <param name="perioid"   value="{$period_id}"/>
+   <param name="auid_used" value="adl-authors-{$auid}-root"/>
+   <param name="au_url"    value="{$au_url}"/>
+   <param name="perioid"   value="adl-authors-{$period_id}-root"/>
    <param name="targetOp"  value="{$targetOp}"/>
    <param name="style"     value="{concat($coll,"/", $o, ".xsl")}"/>
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
