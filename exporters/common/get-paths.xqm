@@ -39,6 +39,7 @@ declare function paths:inferred_path($path as xs:string)  as xs:string {
 	let $document := paths:document($path)
 	let $c    := paths:c($path)
 	let $frag := paths:frag($path)
-	return if($path) then $path else replace(concat($c,'-',substring-before($document,'.xml'),'-shoot-',$frag),'/','-')
+	let $f    := if(contains($frag,'root')) then "-" else "-shoot-"
+	return if($path) then $path else replace(concat($c,'-',substring-before($document,'.xml'),$f,$frag),'/','-')
 };
 

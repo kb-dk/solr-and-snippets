@@ -19,7 +19,7 @@
   <xsl:param name="coll" select="''"/>
   <xsl:param name="path" select="''"/>
   <xsl:param name="author" select="''"/>
-  <xsl:param name="author_id" select="''"/>
+  <xsl:param name="auid_used" select="''"/>
   <xsl:param name="copyright" select="''"/>
 
   <xsl:param name="editor" >
@@ -524,7 +524,7 @@
     <xsl:if test="$auid">
       <xsl:element name="field">
 	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
-	<xsl:value-of select="substring-before($auid,'.xml')"/>
+	<xsl:value-of select="$auid_used"/>
       </xsl:element>
     </xsl:if>
 
@@ -636,7 +636,7 @@
   <xsl:template mode="backtrack" match="*[@decls]">
     <xsl:element name="field">
       <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat($basename,'-',@xml:id)"/>
+      <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
     </xsl:element>
     <xsl:choose>
       <xsl:when test="ancestor::node()[@decls]">
@@ -646,7 +646,7 @@
       <xsl:otherwise>
 	<xsl:element name="field">
 	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$basename"/>
+	  <xsl:value-of select="$path"/>
 	</xsl:element>
       </xsl:otherwise>
     </xsl:choose>

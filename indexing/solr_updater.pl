@@ -86,10 +86,10 @@ if($list) {
 	print localtime() . "\n";
 	my $content = &get_it($file);
 	&send_it($file,$content);
-#    if ($count % 5 == 0) {
-#	&commit_it();
-#        sleep(60) # give solr some rest
-#    }
+	if ($count % 50 == 0) {
+	    &commit_it();
+	    sleep(5) # give solr some rest
+	}
     }
     &commit_it();
 }
