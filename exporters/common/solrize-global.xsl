@@ -81,9 +81,8 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:text[not(@decls)]|t:div[not(@decls)]">
+  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]|t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     
-    <xsl:if test="t:head">
       <xsl:call-template name="trunk_doc">
 	<xsl:with-param name="worktitle" select="t:head"/>
 	<xsl:with-param name="category">
@@ -94,7 +93,6 @@
 	  </xsl:choose>
 	</xsl:with-param>
       </xsl:call-template>
-    </xsl:if>
 
     <xsl:apply-templates>
       <xsl:with-param name="category">
@@ -169,13 +167,20 @@
 
       <xsl:call-template name="add_globals"/>
 
-      <xsl:if test="not($category = 'editorial')">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">text_tesim</xsl:attribute>
-	  <xsl:apply-templates mode="gettext" 
-			       select="./text()|descendant::node()/text()"/>
-	</xsl:element>
-      </xsl:if>
+      <xsl:element name="field">
+	<xsl:attribute name="name">text_tesim</xsl:attribute>
+	<xsl:choose>
+	  <xsl:when test="$category = 'editorial'">
+	    <!-- xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()[not(@decls)]/text()"/ -->
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()/text()"/>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:element>
+
     </doc>
   </xsl:template>
 
