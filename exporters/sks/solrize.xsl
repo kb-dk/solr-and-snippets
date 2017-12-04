@@ -4,6 +4,41 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
   
-  <xsl:include href="../solrize-global.xsl"/>
+  <xsl:import href="../solrize-global.xsl"/>
+
+  <xsl:param name="volume_title">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@level='s']">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
+  </xsl:param>
+
+  <xsl:param name="worktitle">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[not(@level) and not(@type)]">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
+  </xsl:param>
+
+  <xsl:param name="volume_sort_title">
+    <xsl:value-of select="$volume_title"/>
+  </xsl:param>
+
+
+
+  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]|t:div[not(@decls) and  not(ancestor::node()[@decls])]">
+    <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
+    <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="category">
+	<xsl:if test="local-name(.) = 'text'">work</xsl:if>
+      </xsl:with-param>
+    </xsl:call-template>
+
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates>
+
+  </xsl:template>
+
 
 </xsl:transform>
