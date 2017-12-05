@@ -17,6 +17,8 @@
   <xsl:param name="file" select="''"/>
   <xsl:param name="hostname" select="''"/>
   <xsl:param name="facslinks" select="''"/>
+  <xsl:param name="path" select="''"/>
+  
 
   <xsl:output method="xml"
 	      encoding="UTF-8"
@@ -137,9 +139,11 @@
     </p>
   </xsl:template>
 
-  <!-- xsl:template match="t:p/t:note" -->
-
   <xsl:template match="t:note">
+    <xsl:call-template name="inline_note"/>
+  </xsl:template>
+
+  <xsl:template name="inline_note">
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-','_')"/>
     </xsl:variable>
@@ -150,7 +154,7 @@
       <script>
 	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
 	function <xsl:value-of select="$note"/>() {
-	var ele = document.getElementById("<xsl:value-of select="$idstring"/>");
+	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
 	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
 	ele.style.display="inline";
 	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
@@ -174,14 +178,6 @@
       <xsl:value-of select="."/>
     </span>
   </xsl:template>
-
-  <!-- xsl:template match="t:note">
-    <div class="note">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template-->
-
 
   <xsl:template match="t:eg">
     <p class="eg">
@@ -305,8 +301,8 @@
     <ul><xsl:call-template name="add_id"/><xsl:apply-templates/></ul>
   </xsl:template>
 
-  <xsl:template match="t:hi[@rend='bold']|t:emph[@rend='bold']">
-    <strong> <xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
+  <xsl:template match="t:hi[@rend='bold']|t:hi[@rend='bold']|t:emph[@rend='bold']">
+    <strong><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
   </xsl:template>
 
   <xsl:template match="t:hi[@rend='italics']|t:emph[@rend='italics']">
@@ -316,6 +312,11 @@
   <xsl:template match="t:hi[@rend='spat']">
     <em><xsl:call-template name="add_id"/><xsl:apply-templates/></em>
   </xsl:template>
+
+  <xsl:template match="t:hi[@rendition]">
+    <span><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
+  </xsl:template>
+
 
   <xsl:template match="t:item">
     <li><xsl:call-template name="add_id"/><xsl:apply-templates/></li>
@@ -353,6 +354,15 @@
     <xsl:for-each select="t:addrLine">
       <xsl:apply-templates/><xsl:element name="br"/>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="t:ptr">
+    <a>
+      <xsl:attribute name="href" select="@target"/>
+      <xsl:call-template name="add_id"/>
+      <xsl:value-of select="@n"/><xsl:text>
+</xsl:text><xsl:apply-templates/>
+    </a>
   </xsl:template>
 
   <xsl:template match="t:sp">
@@ -458,7 +468,7 @@
   <xsl:template name="add_id_empty_elem">
     <xsl:if test="@xml:id">
       <xsl:attribute name="id">
-	<xsl:value-of select="translate(@xml:id,'-','_')"/>
+	<xsl:value-of select="@xml:id"/>
       </xsl:attribute>
     </xsl:if>
   </xsl:template>

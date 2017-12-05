@@ -22,7 +22,10 @@
     <xsl:value-of select="$volume_title"/>
   </xsl:param>
 
-
+  <xsl:template name="facs_and_text">
+    <field name="has_facs_ssi">no</field>
+    <field name="has_text_ssi">yes</field>
+  </xsl:template>
 
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]|t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
@@ -30,7 +33,7 @@
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
-	<xsl:if test="local-name(.) = 'text'">work</xsl:if>
+	<xsl:if test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:if>
       </xsl:with-param>
     </xsl:call-template>
 
