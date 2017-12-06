@@ -10,13 +10,18 @@
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
 
   <xsl:template match="t:pb">
-    <xsl:if test="not(@edRef)">
-      <xsl:element name="span">
-	<xsl:attribute name="class">pageBreak</xsl:attribute>
-	<xsl:call-template name="add_id"/>
-	<xsl:text> [s.</xsl:text><xsl:value-of select="@n"/><xsl:text>] </xsl:text>
-      </xsl:element>
-    </xsl:if>
+    <xsl:element name="span">
+      <xsl:attribute name="class">pageBreak</xsl:attribute>
+      <xsl:call-template name="add_id"/>
+      <xsl:choose>
+	<xsl:when test="not(@edRef)">
+	  <xsl:text> [s.</xsl:text><xsl:value-of select="@n"/><xsl:text>] </xsl:text>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:text><!-- an invisible anchor --></xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="make-href">
