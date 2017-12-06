@@ -26,12 +26,12 @@
 
   <xsl:template name="make-href">
 
-    <xsl:variable name="href">
       <xsl:choose>
 	<xsl:when test="contains(@target,'#') and not(substring-before(@target,'#'))">
 	  <xsl:value-of select="@target"/>	    
 	</xsl:when>
 	<xsl:otherwise>
+	  <xsl:variable name="href">
 	  <xsl:variable name="fragment">
 	    <xsl:value-of select="concat('#',substring-after(@target,'#'))"/>
 	  </xsl:variable>
@@ -66,10 +66,12 @@
 	      </xsl:choose>
 	    </xsl:otherwise>
 	  </xsl:choose>
+	  </xsl:variable>
+	  <xsl:value-of select="concat('/text/',translate($href,'/','-'))"/>
 	</xsl:otherwise>
       </xsl:choose>
-    </xsl:variable>
-    <xsl:value-of select="concat('/text/',translate($href,'/','-'))"/>
+
+
   </xsl:template>
 
 
