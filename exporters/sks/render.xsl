@@ -177,7 +177,7 @@
     </xsl:element>
     <span style="background-color:yellow;display:none;">
       <xsl:call-template name="add_id"/>
-      <xsl:for-each select="t:lem|t:rdg">
+      <xsl:for-each select="t:lem|t:rdg|t:corr">
 	<xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også: </xsl:text></xsl:if>
 	<xsl:if test="@wit">
 	  <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
