@@ -4,6 +4,6 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
   
-  <xsl:include href="../toc-global.xsl"/>
+  <xsl:import href="../toc-global.xsl"/>
 
 </xsl:transform>

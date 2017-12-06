@@ -570,6 +570,11 @@
       <xsl:value-of select="$c"/>
     </field>
 
+  <xsl:call-template name="facs_and_text"/>
+
+  </xsl:template>
+
+  <xsl:template name="facs_and_text">
     <field name="has_facs_ssi">
       <xsl:choose>
 	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
@@ -585,6 +590,8 @@
     </field>
 
   </xsl:template>
+
+
 
   <xsl:template name="volume_sort_title">
     <xsl:choose>

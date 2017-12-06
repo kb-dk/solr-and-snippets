@@ -3,10 +3,6 @@
 
 Author Sigfrid Lundberg slu@kb.dk
 
-Last updated $Date: 2008/06/24 12:56:46 $ by $Author: slu $
-
-$Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
-
 -->
 <xsl:transform version="1.0"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
@@ -15,6 +11,7 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
+  <xsl:param name="path" select="''"/>
   <xsl:param name="targetOp" select="''"/>
   <xsl:param name="hostname" select="''"/>
 
@@ -89,7 +86,7 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
       <xsl:attribute name="href">
 	<xsl:choose>
 	  <xsl:when test="$targetOp">
-	    <xsl:value-of select="concat('?doc=',$doc,'&amp;op=',$targetOp,'&amp;id=',@xml:id)"/>
+	    <xsl:value-of select="concat('?path=',$path,'&amp;op=',$targetOp,'#',@xml:id)"/>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:value-of select="concat('#',@xml:id)"/>
@@ -97,12 +94,12 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 	</xsl:choose>
       </xsl:attribute>
       <xsl:choose>
-	<xsl:when test="t:head">
+	<xsl:when test="t:head//text()">
 	  <xsl:apply-templates select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:apply-templates select=".//*/text()"/>
+	    <xsl:apply-templates select=".//*/text()|following-sibling::node()//text()"/>
 	  </xsl:variable>
 	  <xsl:value-of
 	      select="substring(normalize-space($some_text),1,20)"/>
