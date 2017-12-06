@@ -11,7 +11,9 @@
 
   <xsl:template match="t:pb">
     <xsl:element name="span">
-      <xsl:attribute name="class">pageBreak</xsl:attribute>
+      <xsl:if test="not(@edRef)">
+	<xsl:attribute name="class">pageBreak</xsl:attribute>
+      </xsl:if>
       <xsl:call-template name="add_id"/>
       <xsl:choose>
 	<xsl:when test="not(@edRef)">
@@ -138,5 +140,58 @@
       </xsl:choose>
     </xsl:if>
   </xsl:template>
+
+  <xsl:template match="t:app">
+    <xsl:call-template name="apparatus_criticus"/>
+  </xsl:template>
+
+  <xsl:template name="apparatus_criticus">
+    <xsl:variable name="idstring">
+      <xsl:value-of select="translate(@xml:id,'-','_')"/>
+    </xsl:variable>
+    <xsl:variable name="note">
+      <xsl:value-of select="concat('apparatus',$idstring)"/>
+    </xsl:variable>
+    <xsl:apply-templates select="t:lem"/>
+    <xsl:element name="sup">
+      <script>
+	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
+	function <xsl:value-of select="$note"/>() {
+	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
+	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
+	ele.style.display="inline";
+	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
+	} else {
+	ele.style.display="none";
+	<xsl:value-of select="concat('disp',$idstring)"/>="none";
+	}
+	}
+      </script>
+      <xsl:element name="a">
+	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
+	<xsl:choose>
+	  <xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
+	  <xsl:otherwise>*</xsl:otherwise>
+	</xsl:choose>
+      </xsl:element>
+    </xsl:element>
+    <span style="background-color:yellow;display:none;">
+      <xsl:call-template name="add_id"/>
+      <xsl:for-each select="t:lem|t:rdg">
+	<xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også: </xsl:text></xsl:if>
+	<xsl:if test="@wit">
+	  <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
+	  <xsl:element name="a">
+	    <xsl:attribute name="title"><xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/></xsl:attribute>
+	    <xsl:value-of select="$witness"/>
+	    </xsl:element>
+	    <xsl:if test="not(t:sic[@rendition = '#so'])">: </xsl:if>
+	</xsl:if>
+	<xsl:apply-templates/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+      </xsl:for-each>
+    </span>
+  </xsl:template>
+
+
 
 </xsl:transform>
