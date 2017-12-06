@@ -24,6 +24,16 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="t:choice[t:abbr and t:expan]">
+    <xsl:element name="a">
+      <xsl:attribute name="title">
+	<xsl:value-of select="t:expan"/>
+      </xsl:attribute>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:abbr"/>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template name="make-href">
 
       <xsl:choose>
