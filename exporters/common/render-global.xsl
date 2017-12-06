@@ -15,6 +15,7 @@
   <xsl:param name="next" select="''"/>
   <xsl:param name="next_encoded" select="''"/>
   <xsl:param name="file" select="''"/>
+  <xsl:param name="c" select="''"/>
   <xsl:param name="hostname" select="''"/>
   <xsl:param name="facslinks" select="''"/>
   <xsl:param name="path" select="''"/>
