@@ -29,7 +29,9 @@
   <xsl:template match="t:choice[t:abbr and t:expan]">
     <xsl:element name="a">
       <xsl:attribute name="title">
-	<xsl:value-of select="t:expan"/>
+	<xsl:for-each select="t:expan">
+	<xsl:value-of select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+	</xsl:for-each>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates select="t:abbr"/>
@@ -89,9 +91,12 @@
 
   <xsl:template match="t:ref">
     <xsl:element name="a">
-      <xsl:attribute name="href">
-	<xsl:call-template name="make-href"/>
-      </xsl:attribute>
+      <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:if test="@target">
+	<xsl:attribute name="href">
+	  <xsl:call-template name="make-href"/>
+	</xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
@@ -168,6 +173,7 @@
 	}
       </script>
       <xsl:element name="a">
+	<xsl:attribute name="title">Tekstkritik</xsl:attribute>
 	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
 	<xsl:choose>
 	  <xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
@@ -178,7 +184,7 @@
     <span style="background-color:yellow;display:none;">
       <xsl:call-template name="add_id"/>
       <xsl:for-each select="t:lem|t:rdg|t:corr">
-	<xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også: </xsl:text></xsl:if>
+	<xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også </xsl:text></xsl:if>
 	<xsl:if test="@wit">
 	  <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
 	  <xsl:element name="a">
