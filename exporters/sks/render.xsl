@@ -26,6 +26,16 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="t:choice[t:reg and t:orig]">
+    <span>
+      <xsl:attribute name="title">
+	oprindelig: <xsl:value-of select="t:orig"/>
+      </xsl:attribute>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:reg"/>
+    </span>
+  </xsl:template>
+
   <xsl:template match="t:choice[t:abbr and t:expan]">
     <xsl:element name="a">
       <xsl:attribute name="title">
