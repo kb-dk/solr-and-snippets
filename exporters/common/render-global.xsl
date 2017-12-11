@@ -201,6 +201,20 @@
     </h2>
   </xsl:template>
 
+  <xsl:template match="t:dateline">
+    <h2 class="head">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </h2>
+  </xsl:template>
+
+  <xsl:template match="t:dateline/t:date">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
   <xsl:template match="t:p">
     <p class="paragraph">
       <xsl:call-template name="add_id"/>

@@ -18,6 +18,12 @@
     </xsl:for-each>
   </xsl:param>
 
+  <xsl:param name="editor" >
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:editor">
+      <xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+    </xsl:for-each>
+  </xsl:param>
+
   <xsl:param name="volume_sort_title">
     <xsl:value-of select="$volume_title"/>
   </xsl:param>

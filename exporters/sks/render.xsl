@@ -26,6 +26,61 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template name="print_date">
+    <xsl:param name="date" select="''"/>
+    <xsl:variable name="year">
+      <xsl:value-of select="substring($date,1,4)"/>
+    </xsl:variable>
+    <xsl:variable name="month_day">
+      <xsl:choose>
+      <xsl:when test="not(contains($date,'0000'))"><xsl:value-of select="substring-after($date,$year)"/></xsl:when>
+      <xsl:otherwise></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <!--
+      date = <xsl:value-of select="$date"/>
+
+      month_day = <xsl:value-of select="$month_day"/>
+
+      year = <xsl:value-of select="$year"/>
+
+      month = <xsl:value-of select="substring($month_day,1,2)"/>
+
+      day   = <xsl:value-of select="substring($month_day,3,4)"/>
+
+    -->
+    <xsl:value-of select="$year"/><xsl:if test="not(contains($date,'0000'))"> &#8211; <xsl:value-of select="substring($month_day,1,2)"/> &#8211; <xsl:value-of select="substring($month_day,3,4)"/></xsl:if>
+  </xsl:template>
+
+  <xsl:template match="t:dateline/t:date">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:call-template name="print_date"> 
+	<xsl:with-param name="date" select="@when"/>
+      </xsl:call-template>
+    </span>
+  </xsl:template>
+
+
+  <xsl:template match="t:corr">
+    <span title="rættelse">
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:add">
+    <span title="tillæg">
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:del">
+    <del title="sletning">
+      <xsl:call-template name="render_stuff"/>
+      <xsl:apply-templates/>
+    </del>
+  </xsl:template>
+
   <xsl:template match="t:choice[t:reg and t:orig]">
     <span>
       <xsl:attribute name="title">
@@ -156,6 +211,19 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="t:witDetail">
+    <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
+    <xsl:element name="span">
+      <xsl:if test="@wit">
+	<xsl:attribute name="title">
+	  <xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
+	</xsl:attribute>
+	<xsl:value-of select="$witness"/>:
+      </xsl:if>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template match="t:app">
     <xsl:call-template name="apparatus_criticus"/>
   </xsl:template>
@@ -197,13 +265,17 @@
 	<xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også </xsl:text></xsl:if>
 	<xsl:if test="@wit">
 	  <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
-	  <xsl:element name="a">
-	    <xsl:attribute name="title"><xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/></xsl:attribute>
+	  <xsl:element name="span">
+	    <xsl:attribute name="title">
+	      <xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
+	    </xsl:attribute>
 	    <xsl:value-of select="$witness"/>
-	    </xsl:element>
-	    <xsl:if test="not(t:sic[@rendition = '#so'])">: </xsl:if>
+	  </xsl:element>
+	  <xsl:if test="not(t:sic[@rendition = '#so'])">: </xsl:if>
 	</xsl:if>
-	<xsl:apply-templates/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+	<xsl:element name="span">
+	<xsl:apply-templates select="."/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
+	</xsl:element><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
       </xsl:for-each>
     </span>
   </xsl:template>
