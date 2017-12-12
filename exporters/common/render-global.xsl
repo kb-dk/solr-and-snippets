@@ -498,4 +498,46 @@
 	select="following::node()[@decls and @xml:id][1]/@xml:id"/>
   </xsl:template>
 
+  <xsl:template match="t:msDesc|t:msPart|t:additional">
+    <div>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="t:adminInfo|t:adminInfo/t:note">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:msIdentifier">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:collection">
+    <strong>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </strong>
+  </xsl:template>
+
+  <xsl:template match="t:physDesc">
+    <div style="font-size: 90%;">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="t:physDesc/t:p">
+    <xsl:apply-templates/>
+    <xsl:element name="br">
+      <xsl:call-template name="add_id_empty_elem"/>      
+    </xsl:element>
+  </xsl:template>
+
 </xsl:stylesheet>
