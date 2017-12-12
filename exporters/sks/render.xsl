@@ -9,6 +9,9 @@
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
 
+  <xsl:variable name="base_uri"  select="'http://kb-images.kb.dk/public/sks/'"/>
+  <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
+
   <xsl:template match="t:pb">
     <xsl:element name="span">
       <xsl:if test="not(@edRef)">
@@ -280,6 +283,17 @@
     </span>
   </xsl:template>
 
+  <xsl:template match="t:graphic">
+    <xsl:element name="img">
+      <xsl:variable name="url">
+      <xsl:value-of select="concat($base_uri,substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg'))"/>
+      </xsl:variable>
+      <xsl:attribute name="src">
+	<xsl:value-of select="concat($url,$iiif_suffix)"/>
+      </xsl:attribute>
+      <xsl:call-template name="add_id"/>
+    </xsl:element>
+  </xsl:template>
 
 
 </xsl:transform>
