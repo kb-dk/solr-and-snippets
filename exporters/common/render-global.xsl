@@ -505,12 +505,20 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="t:adminInfo|t:adminInfo/t:note">
+  <xsl:template match="t:adminInfo">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates mode="biblio_note" />
+    </span>
+  </xsl:template>
+
+  <xsl:template mode="biblio_note" match="t:note">
     <span>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </span>
   </xsl:template>
+
 
   <xsl:template match="t:msIdentifier">
     <span>

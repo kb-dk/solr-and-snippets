@@ -297,10 +297,17 @@
   </xsl:template>
 
   <xsl:template match="t:graphic">
+    <xsl:variable name="float_direction">
+      <xsl:choose>
+	<xsl:when test="count(preceding::t:graphic) mod 2">left</xsl:when>
+	<xsl:otherwise>right</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:element name="img">
       <xsl:variable name="url">
       <xsl:value-of select="concat($base_uri,substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg'))"/>
       </xsl:variable>
+      <xsl:attribute name="style"> max-width: 50%; float: <xsl:value-of select="$float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
       <xsl:attribute name="src">
 	<xsl:value-of select="concat($url,$iiif_suffix)"/>
       </xsl:attribute>
