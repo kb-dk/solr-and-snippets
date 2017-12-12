@@ -316,6 +316,32 @@
     <ul><xsl:call-template name="add_id"/><xsl:apply-templates/></ul>
   </xsl:template>
 
+  <xsl:template match="t:list[@type='TOC']">
+    <p style="padding-left: 1em;" >
+      <xsl:call-template name="add_id"/>
+      <xsl:for-each select="t:item">
+	<xsl:apply-templates/>
+	<xsl:element name="br">
+	  <xsl:call-template name="add_id"/>
+	</xsl:element>
+      </xsl:for-each>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="t:list[t:label]">
+    <div style="padding-left: 1.5em;">
+      <xsl:call-template name="add_id"/>
+      <xsl:for-each select="t:item">
+	<p style="text-indent: -1em;" >
+	  <strong>
+	    <xsl:value-of select="preceding::t:label[1]"/>
+	  </strong><xsl:text>
+</xsl:text> <xsl:apply-templates/>
+	</p>
+      </xsl:for-each>
+    </div>
+  </xsl:template>
+
   <xsl:template match="t:hi[@rend='bold']|t:hi[@rend='bold']|t:emph[@rend='bold']">
     <strong><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
   </xsl:template>

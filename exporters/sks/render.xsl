@@ -297,22 +297,40 @@
   </xsl:template>
 
   <xsl:template match="t:graphic">
-    <xsl:variable name="float_direction">
-      <xsl:choose>
-	<xsl:when test="count(preceding::t:graphic) mod 2">left</xsl:when>
-	<xsl:otherwise>right</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
     <xsl:element name="img">
       <xsl:variable name="url">
       <xsl:value-of select="concat($base_uri,substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg'))"/>
       </xsl:variable>
-      <xsl:attribute name="style"> max-width: 50%; float: <xsl:value-of select="$float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
+      <xsl:attribute name="style"> width: 100%;</xsl:attribute>
       <xsl:attribute name="src">
 	<xsl:value-of select="concat($url,$iiif_suffix)"/>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
     </xsl:element>
+  </xsl:template>
+
+ <xsl:template match="t:figure">
+   <xsl:variable name="float_direction">
+     <xsl:choose>
+       <xsl:when test="count(preceding::t:graphic) mod 2">left</xsl:when>
+       <xsl:otherwise>right</xsl:otherwise>
+     </xsl:choose>
+   </xsl:variable>
+   <xsl:element name="div">
+      <xsl:attribute name="style"> max-width: 50%; float: <xsl:value-of select="$float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
+     <xsl:call-template name="add_id"/>
+     <xsl:apply-templates select="t:graphic"/>
+     <xsl:apply-templates select="t:head"/>
+   </xsl:element>
+ </xsl:template>
+
+  <xsl:template match="t:figure/t:head">
+    <p>
+      <xsl:call-template name="add_id"/>
+      <small>
+	<xsl:apply-templates/>
+      </small>
+    </p>
   </xsl:template>
 
 
