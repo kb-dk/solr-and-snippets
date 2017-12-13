@@ -50,7 +50,9 @@
 
   <xsl:template match="t:text">
     <div>
-      <xsl:call-template name="add_id"/>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">true</xsl:with-param>
+      </xsl:call-template>
 
       <xsl:comment> text </xsl:comment>
 
