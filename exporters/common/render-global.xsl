@@ -201,12 +201,9 @@
     </h2>
   </xsl:template>
 
-  <xsl:template match="t:dateline">
-    <h2 class="head">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </h2>
-  </xsl:template>
+  <xsl:template match="t:dateline"><span>
+    <xsl:call-template name="add_id"/>
+    <xsl:apply-templates/></span></xsl:template>
 
   <xsl:template match="t:dateline/t:date">
     <span>
@@ -493,10 +490,14 @@
     <xsl:if test="$id = @xml:id">
       <xsl:attribute name="class">text snippetRoot</xsl:attribute>      
     </xsl:if>
- 
-    <xsl:if test="not(descendant::node())">
-      <xsl:comment>Instead of content</xsl:comment>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="not(descendant::node())">
+	<xsl:comment>Instead of content</xsl:comment>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:call-template name="expose_link"/>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:if test="@decls">
       <xsl:call-template name="add_prev_next"/>
     </xsl:if>
@@ -572,6 +573,39 @@
     <xsl:element name="br">
       <xsl:call-template name="add_id_empty_elem"/>      
     </xsl:element>
+  </xsl:template>
+
+  <xsl:template name="expose_link">
+    <xsl:variable name="link_id">
+      <xsl:value-of select="concat('expose_link_',@xml:id)"/>
+    </xsl:variable>
+    <xsl:variable name="type">
+      <xsl:choose>
+	<xsl:when test="contains($path,'-root')">-root</xsl:when>
+	<xsl:otherwise>-shoot</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="href">
+      <xsl:value-of select="concat('/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
+    </xsl:variable>
+    <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.display='inherit'</xsl:attribute>
+    <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.display='none'</xsl:attribute>
+
+    <xsl:element name="span">
+      <xsl:attribute name="style">display:none</xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
+      <svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>
+      <xsl:element name="a">
+	<xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
+	klip ud tekst
+      </xsl:element>
+
+      <xsl:element name="a">
+	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
+	gå til tekst
+      </xsl:element>
+    </xsl:element>
+
   </xsl:template>
 
 </xsl:stylesheet>
