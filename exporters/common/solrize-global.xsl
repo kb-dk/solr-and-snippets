@@ -464,6 +464,9 @@
       <xsl:when test="contains($path,'adl-authors') and t:name/@key">
 	<xsl:value-of select="t:name/@key"/>
       </xsl:when>
+      <xsl:when test="contains($path,'adl-periods') and t:name/@key">
+	<xsl:value-of select="t:name/@key"/>
+      </xsl:when>
       <xsl:otherwise>
 	<xsl:apply-templates mode="gettext"/>
       </xsl:otherwise>

@@ -3,9 +3,9 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
-  
-  <xsl:import href="../solrize-global.xsl"/>
 
+  <xsl:import href="../solrize-global.xsl"/>
+  
   <xsl:param name="volume_title">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@level='s']">
       <xsl:apply-templates mode="gettext"  select="."/>
@@ -20,7 +20,9 @@
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:editor">
-      <xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+      <xsl:for-each select="t:name">
+	<xsl:value-of  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+      </xsl:for-each>
     </xsl:for-each>
   </xsl:param>
 
@@ -57,21 +59,28 @@
 
   <xsl:template name="extract_titles_authors_etc">
 
-    <xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Kierkegaard, Søren</xsl:element>
-
-    <xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Kierkegaard, Søren</xsl:element>
-
-    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Søren Kierkegaard</xsl:element>
-
-    <xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Søren Kierkegaard</xsl:element>
-
+    <xsl:choose>
+      <xsl:when test="contains($path,'-txt')">
+	<xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Kierkegaard, Søren</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Kierkegaard, Søren</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Søren Kierkegaard</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Søren Kierkegaard</xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:author">
+	  <xsl:for-each select="t:name">
+	    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>
+	    <xsl:value-of  select="."/>
+	    </xsl:element>
+	  </xsl:for-each>
+	</xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
-
     <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
 
-    <xsl:element name="field"><xsl:attribute name="name">work_title_ssi</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element>
-
-    <xsl:element name="field"><xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element>
+    <!--xsl:element name="field"><xsl:attribute name="name">work_title_ssi</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element --> 
 
   </xsl:template>
 
