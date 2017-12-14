@@ -24,6 +24,12 @@
     </xsl:for-each>
   </xsl:param>
 
+  <xsl:param name="publisher" >
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:authority">
+      <xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+    </xsl:for-each>
+  </xsl:param>
+
   <xsl:param name="volume_sort_title">
     <xsl:value-of select="$volume_title"/>
   </xsl:param>
@@ -49,5 +55,24 @@
 
   </xsl:template>
 
+  <xsl:template name="extract_titles_authors_etc">
+
+    <xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Kierkegaard, Søren</xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Kierkegaard, Søren</xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Søren Kierkegaard</xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Søren Kierkegaard</xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">work_title_ssi</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element>
+
+    <xsl:element name="field"><xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element>
+
+  </xsl:template>
 
 </xsl:transform>
