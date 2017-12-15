@@ -249,7 +249,7 @@
     </doc>
   </xsl:template>
 
-  <xsl:template match="t:div/t:p">
+  <xsl:template match="t:div/t:p|t:body/t:p|t:text/t:p">
 
     <xsl:param name="worktitle" select="''"/>
 
