@@ -428,7 +428,7 @@
       <xsl:value-of  select="count(preceding::node())"/>
     </xsl:element>
 
-    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
+    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
 
     <field name="application_ssim">
       <xsl:value-of select="$app"/>
@@ -514,21 +514,27 @@
   </xsl:template>
 
 
-  <xsl:template mode="backtrack" match="*[@decls]">
-    <xsl:element name="field">
-      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
-    </xsl:element>
+  <xsl:template mode="backtrack" match="node()[@xml:id]">
     <xsl:choose>
-      <xsl:when test="ancestor::node()[@decls]">
-	<xsl:apply-templates mode="backtrack"
-			     select="ancestor::node()[@decls][1]"/>
-      </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="@decls">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$path"/>
+	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
 	</xsl:element>
+	<xsl:choose>
+	  <xsl:when test="ancestor::node()">
+	    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	      <xsl:value-of select="$path"/>
+	    </xsl:element>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
