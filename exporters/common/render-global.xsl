@@ -216,7 +216,7 @@
     </span>
   </xsl:template>
 
-  <xsl:template match="t:p">
+  <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
     <p class="paragraph">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
@@ -224,6 +224,15 @@
       <xsl:apply-templates/>
     </p>
   </xsl:template>
+
+  <xsl:template match="t:p">
+    <p class="paragraph">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </p>
+  </xsl:template>
+
+
 
  <xsl:template match="t:lb">
    <xsl:element name="br">

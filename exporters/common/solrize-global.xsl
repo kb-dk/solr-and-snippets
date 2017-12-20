@@ -249,7 +249,7 @@
     </doc>
   </xsl:template>
 
-  <xsl:template match="t:div/t:p">
+  <xsl:template match="t:div/t:p|t:body/t:p|t:text/t:p">
 
     <xsl:param name="worktitle" select="''"/>
 
@@ -391,6 +391,156 @@
       <xsl:value-of select="normalize-space(t:head|../t:head[1])"/></xsl:element>
     </xsl:if>
 
+    <xsl:call-template name="extract_titles_authors_etc"/>
+
+
+    <xsl:if test="$auid">
+      <xsl:element name="field">
+	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
+	<xsl:value-of select="concat('adl-authors-',$auid_used,'-root')"/>
+      </xsl:element>
+    </xsl:if>
+
+    <xsl:if test="$perioid">
+      <xsl:element name="field">
+	<xsl:attribute name="name">perioid_ssi</xsl:attribute>
+	<xsl:value-of select="concat('adl-periods-',$perioid,'-root')"/>
+      </xsl:element>
+    </xsl:if>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">copyright_ssi</xsl:attribute>
+      <xsl:value-of select="$license"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">editor_ssi</xsl:attribute>
+      <xsl:value-of select="$editor"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">editor_id_ssi</xsl:attribute>
+      <xsl:value-of select="$editor_id"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">position_isi</xsl:attribute>
+      <xsl:value-of  select="count(preceding::node())"/>
+    </xsl:element>
+
+    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
+
+    <field name="application_ssim">
+      <xsl:value-of select="$app"/>
+    </field>
+
+    <field name="subcollection_ssi">
+      <xsl:value-of select="$c"/>
+    </field>
+
+  <xsl:call-template name="facs_and_text"/>
+
+  </xsl:template>
+
+  <xsl:template name="facs_and_text">
+    <field name="has_facs_ssi">
+      <xsl:choose>
+	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+    <field name="has_text_ssi">
+      <xsl:choose>
+	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()|./text()">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+  </xsl:template>
+
+  <xsl:template name="volume_sort_title">
+    <xsl:choose>
+      <xsl:when test="contains($path,'adl-authors') and t:name/@key">
+	<xsl:value-of select="t:name/@key"/>
+      </xsl:when>
+      <xsl:when test="contains($path,'adl-periods') and t:name/@key">
+	<xsl:value-of select="t:name/@key"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates mode="gettext"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="*">
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates>
+  </xsl:template>
+
+  <xsl:template name="page_info">
+    <xsl:if test="preceding::t:pb[1]/@n|descendant::t:pb">
+      <xsl:element name="field">
+        <xsl:attribute name="name">page_ssi</xsl:attribute>
+        <xsl:value-of
+                select="preceding::t:pb[1]/@n|descendant::t:pb/@n[1]"/>
+      </xsl:element>
+      <xsl:element name="field">
+        <xsl:attribute name="name">page_id_ssi</xsl:attribute>
+        <xsl:value-of
+                select="preceding::t:pb[1]/@xml:id|descendant::t:pb/@xml:id[1]"/>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+
+  <xsl:template name="str_massage">
+    <xsl:param name="str" select="''"/>
+    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
+    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
+    <!-- believe that the strings below has to have the same lenght -->
+     <xsl:variable name="meta"><xsl:text>!&apos;&quot;#%;,:.()-_'</xsl:text></xsl:variable>
+    <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
+    <xsl:variable name="str1" select="translate($str,$uppercase,$lowercase)"/>
+    <xsl:variable name="str2" select="translate($str1,$meta,$space)"/>
+    <xsl:variable name="str3" select="normalize-space($str2)"/>
+    <xsl:value-of select="$str3"/>
+  </xsl:template>
+
+  <xsl:template name="author_ssim">
+    <xsl:value-of select="normalize-space(.)"/>
+  </xsl:template>
+
+
+  <xsl:template mode="backtrack" match="node()[@xml:id]">
+    <xsl:choose>
+      <xsl:when test="@decls">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+	</xsl:element>
+	<xsl:choose>
+	  <xsl:when test="ancestor::node()">
+	    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	      <xsl:value-of select="$path"/>
+	    </xsl:element>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="extract_titles_authors_etc">
+
     <xsl:choose>
       <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc">
@@ -525,143 +675,7 @@
 	</xsl:for-each>
       </xsl:otherwise>
     </xsl:choose>
-
-    <xsl:if test="$auid">
-      <xsl:element name="field">
-	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
-	<xsl:value-of select="concat('adl-authors-',$auid_used,'-root')"/>
-      </xsl:element>
-    </xsl:if>
-
-    <xsl:if test="$perioid">
-      <xsl:element name="field">
-	<xsl:attribute name="name">perioid_ssi</xsl:attribute>
-	<xsl:value-of select="concat('adl-periods-',$perioid,'-root')"/>
-      </xsl:element>
-    </xsl:if>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">copyright_ssi</xsl:attribute>
-      <xsl:value-of select="$license"/>
-    </xsl:element>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">editor_ssi</xsl:attribute>
-      <xsl:value-of select="$editor"/>
-    </xsl:element>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">editor_id_ssi</xsl:attribute>
-      <xsl:value-of select="$editor_id"/>
-    </xsl:element>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">position_isi</xsl:attribute>
-      <xsl:value-of  select="count(preceding::node())"/>
-    </xsl:element>
-
-    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
-
-    <field name="application_ssim">
-      <xsl:value-of select="$app"/>
-    </field>
-
-    <field name="subcollection_ssi">
-      <xsl:value-of select="$c"/>
-    </field>
-
-  <xsl:call-template name="facs_and_text"/>
-
   </xsl:template>
 
-  <xsl:template name="facs_and_text">
-    <field name="has_facs_ssi">
-      <xsl:choose>
-	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
-	<xsl:otherwise>no</xsl:otherwise>
-      </xsl:choose>
-    </field>
-
-    <field name="has_text_ssi">
-      <xsl:choose>
-	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()">yes</xsl:when>
-	<xsl:otherwise>no</xsl:otherwise>
-      </xsl:choose>
-    </field>
-
-  </xsl:template>
-
-
-
-  <xsl:template name="volume_sort_title">
-    <xsl:choose>
-      <xsl:when test="contains($path,'adl-authors') and t:name/@key">
-	<xsl:value-of select="t:name/@key"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:apply-templates mode="gettext"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template match="*">
-    <xsl:param name="worktitle" select="''"/>
-    <xsl:apply-templates>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:apply-templates>
-  </xsl:template>
-
-  <xsl:template name="page_info">
-    <xsl:if test="preceding::t:pb[1]/@n|descendant::t:pb">
-      <xsl:element name="field">
-        <xsl:attribute name="name">page_ssi</xsl:attribute>
-        <xsl:value-of
-                select="preceding::t:pb[1]/@n|descendant::t:pb/@n[1]"/>
-      </xsl:element>
-      <xsl:element name="field">
-        <xsl:attribute name="name">page_id_ssi</xsl:attribute>
-        <xsl:value-of
-                select="preceding::t:pb[1]/@xml:id|descendant::t:pb/@xml:id[1]"/>
-      </xsl:element>
-    </xsl:if>
-  </xsl:template>
-
-
-  <xsl:template name="str_massage">
-    <xsl:param name="str" select="''"/>
-    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
-    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
-    <!-- believe that the strings below has to have the same lenght -->
-     <xsl:variable name="meta"><xsl:text>!&apos;&quot;#%;,:.()-_'</xsl:text></xsl:variable>
-    <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
-    <xsl:variable name="str1" select="translate($str,$uppercase,$lowercase)"/>
-    <xsl:variable name="str2" select="translate($str1,$meta,$space)"/>
-    <xsl:variable name="str3" select="normalize-space($str2)"/>
-    <xsl:value-of select="$str3"/>
-  </xsl:template>
-
-  <xsl:template name="author_ssim">
-    <xsl:value-of select="normalize-space(.)"/>
-  </xsl:template>
-
-
-  <xsl:template mode="backtrack" match="*[@decls]">
-    <xsl:element name="field">
-      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
-    </xsl:element>
-    <xsl:choose>
-      <xsl:when test="ancestor::node()[@decls]">
-	<xsl:apply-templates mode="backtrack"
-			     select="ancestor::node()[@decls][1]"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:element name="field">
-	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$path"/>
-	</xsl:element>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
 
 </xsl:transform>
