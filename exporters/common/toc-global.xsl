@@ -22,43 +22,33 @@ Author Sigfrid Lundberg slu@kb.dk
 
   <xsl:template match="/">
     <div>
+      <xsl:comment>
+	<xsl:value-of select="$path"/>
+      </xsl:comment>
       <ul>
 	<xsl:choose>
 	  <xsl:when test="$id">
 	    <xsl:apply-templates select="//node()[@xml:id=$id]"/>
 	  </xsl:when>
 	  <xsl:otherwise>
-	    <xsl:choose>
-	      <xsl:when test="./t:div|./t:text">
-		<xsl:apply-templates select="./t:div|./t:text"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:apply-templates/>
-	      </xsl:otherwise>
-	    </xsl:choose>
+	    <xsl:apply-templates select="//t:body"/>
 	  </xsl:otherwise>
 	</xsl:choose>
       </ul>
     </div>
   </xsl:template>
 
-  <xsl:template match="t:teiHeader|t:front|t:back"/>
+  <xsl:template match="t:teiHeader"/>
 
-  <xsl:template match="t:group|t:text[not(t:head)]|t:body">
-    <xsl:apply-templates/>
-  </xsl:template>
-
-  <xsl:template match="t:text[t:head]|t:div">
+  <xsl:template match="t:group|t:body|t:text|t:div|t:front|t:back">
     <xsl:element name="li">
       <xsl:attribute name="id">
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
-
       <xsl:call-template name="add_anchor"/>
       <xsl:if test="t:text|t:div">
 	<ul>
-	  <xsl:apply-templates
-	      select="t:text|t:div"/>
+	  <xsl:apply-templates select="t:text|t:div"/>
 	</ul>
       </xsl:if>
     </xsl:element>
@@ -82,20 +72,18 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template name="add_anchor">
-    <xsl:element name="a">
-      <xsl:attribute name="href">
-	<xsl:choose>
-	  <xsl:when test="$targetOp">
-	    <xsl:value-of select="concat('?path=',$path,'&amp;op=',$targetOp,'#',@xml:id)"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:value-of select="concat('#',@xml:id)"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </xsl:attribute>
+    <xsl:variable name="bibl">
+      <xsl:value-of select="@decls"/>
+    </xsl:variable>
+    <xsl:variable name="title">
       <xsl:choose>
-	<xsl:when test="t:head//text()">
-	  <xsl:apply-templates select="t:head"/>
+	<xsl:when 
+	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]">
+	  <xsl:value-of
+	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
+	</xsl:when>
+	<xsl:when test="t:head">
+	  <xsl:value-of select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
@@ -106,10 +94,43 @@ Author Sigfrid Lundberg slu@kb.dk
 	  <xsl:text>...</xsl:text>
 	</xsl:otherwise>
       </xsl:choose>
-    </xsl:element>
+    </xsl:variable>
+    <xsl:if test="$title">
+      <xsl:element name="a">
+	<xsl:attribute name="href">
+	  <xsl:choose>
+	    <xsl:when test="$targetOp">
+	      <xsl:value-of select="concat('?path=',$path,'&amp;op=',$targetOp,'#',@xml:id)"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:call-template name="make_href"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:attribute>
+	<xsl:value-of select="$title"/>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
 
-  
+  <xsl:template name="make_href">
+    <xsl:if test="@xml:id">
+      <xsl:choose>
+        <xsl:when test="@decls">
+	  <xsl:choose>
+	    <xsl:when test="contains($path,'-root')">
+	      <xsl:value-of select="concat('/text/',substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="concat('/text/',substring-before($path,'-shoot'),'-shoot-',@xml:id)"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat('#',@xml:id)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
 
 </xsl:transform>
 
