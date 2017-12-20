@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xsl:transform version="1.0"
+<xsl:transform version="2.0"
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
-	       exclude-result-prefixes="t">
+	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	       exclude-result-prefixes="t fn">
   
   <xsl:import href="../render-global.xsl"/>
 
@@ -240,7 +241,7 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:app">
+  <xsl:template match="t:app|rdgGrp">
     <xsl:call-template name="apparatus_criticus"/>
   </xsl:template>
 
@@ -277,23 +278,27 @@
     </xsl:element>
     <span style="background-color:yellow;display:none;">
       <xsl:call-template name="add_id"/>
-      <xsl:for-each select="t:lem|t:rdg|t:corr">
-	<xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også </xsl:text></xsl:if>
-	<xsl:if test="@wit">
-	  <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
-	  <xsl:element name="span">
-	    <xsl:attribute name="title">
-	      <xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
-	    </xsl:attribute>
-	    <xsl:value-of select="$witness"/>
-	  </xsl:element>
-	  <xsl:if test="not(t:sic[@rendition = '#so'])">: </xsl:if>
-	</xsl:if>
-	<xsl:element name="span">
-	<xsl:apply-templates select="."/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
-	</xsl:element><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
-      </xsl:for-each>
+      <xsl:apply-templates mode="apparatus" select="t:rdg|t:rdgGrp|t:corr"/>
     </span>
+  </xsl:template>
+
+  <xsl:template mode="apparatus" match="t:rdg|t:app/t:corr">
+    <xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også </xsl:text></xsl:if>
+    <xsl:if test="@wit">
+      Witness <xsl:value-of select="@wit"/>
+      Tokens <xsl:value-of select="fn:tokenize(@wit,'\s+')"/>
+      <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
+      <xsl:element name="span">
+	<xsl:attribute name="title">
+	  <xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
+	</xsl:attribute>
+	<xsl:value-of select="$witness"/>
+      </xsl:element>
+    </xsl:if>
+    <xsl:element name="span">
+      <xsl:apply-templates/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
+      </xsl:element><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+      <xsl:if test="not(t:sic[@rendition = '#so'])">: </xsl:if>
   </xsl:template>
 
   <xsl:template match="t:graphic">

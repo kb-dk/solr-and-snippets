@@ -3,10 +3,8 @@
 <xsl:stylesheet 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
-    xmlns:str="http://exslt.org/strings"
-    extension-element-prefixes="str"
-    exclude-result-prefixes="t str"
-    version="1.0">
+    exclude-result-prefixes="t"
+    version="2.0">
 
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
