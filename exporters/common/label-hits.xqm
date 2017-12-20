@@ -42,11 +42,16 @@ declare function lbl:filter($input as item()*, $query as xs:string ) as item()* 
         case text()
         return
 	if(matches(replace($node/string(),"[\s\n\r]+"," ","mi"),$query,"mi") ) then
-	let $text := replace($node/string(),"[\s\n\r]+"," ","mi")
+	let $text := tokenize($node/string(),"[\s\n\r]+")
 	return
-	(replace($text,concat($query,".*$"),"","im"),
-		<span style="background-color: rgb(255,255,0);" class="hit">{replace($text,concat("(^.*)(",$query,")(.*$)"),"$2","mi")}</span>,
-		lbl:filter(text{replace($text,concat("^.*?(",$query,")"),"","im")},$query))
+	for $token in $text
+	return 
+	  if(matches($token,concat("^",$query),"mi")) then
+	    let $match     := replace($token,concat("^(",$query,")(.*$)"),"$1","im")
+	    let $remainder := replace($token,concat("^(",$query,")(.*$)"),"$2","im")
+	    return
+	      (<span style="background-color: rgb(255,255,0);" class="hit">{$match}</span>,$remainder," ")
+   	  else ($token," ")
 	else 
 	$node
         (: otherwise pass it through.  Used for, comments, and PIs :)
