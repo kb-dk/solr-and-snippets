@@ -212,8 +212,10 @@
 
   <xsl:template name="render_stuff">
     <xsl:if test="contains(@rendition,'#')">
-      <xsl:variable name="rend" select="substring-after(@rendition,'#')"/> 
+      <xsl:variable name="rend" select="substring-after(@rendition,'#')"/>  
       <xsl:choose>
+	<xsl:when test="$rend = 'capiTyp'"><xsl:attribute name="style">font-variant: small-caps;</xsl:attribute></xsl:when>
+	<xsl:when test="$rend = 'spa'"><xsl:attribute name="style">font-style: italic;</xsl:attribute></xsl:when>
 	<xsl:when test="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]">
 	  <xsl:attribute name="style">
 	    <xsl:value-of select="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]"/>
@@ -247,17 +249,6 @@
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
-
-    <!-- xsl:if test="contains(@rendition,'#')">
-      <xsl:variable name="rend" select="substring-after(@rendition,'#')"/> 
-      <xsl:choose>
-	<xsl:when test="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]">
-	  <xsl:attribute name="style">
-	    <xsl:value-of select="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]"/>
-	  </xsl:attribute>
-	</xsl:when -->
-
-
 
   <xsl:template match="t:rdgGrp"> 
     <xsl:element name="span">
