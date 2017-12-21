@@ -248,10 +248,21 @@
     </xsl:element>
   </xsl:template>
 
+    <!-- xsl:if test="contains(@rendition,'#')">
+      <xsl:variable name="rend" select="substring-after(@rendition,'#')"/> 
+      <xsl:choose>
+	<xsl:when test="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]">
+	  <xsl:attribute name="style">
+	    <xsl:value-of select="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]"/>
+	  </xsl:attribute>
+	</xsl:when -->
+
+
+
   <xsl:template match="t:rdgGrp"> 
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:if test="@rendition = '#semiko'">; </xsl:if><xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
