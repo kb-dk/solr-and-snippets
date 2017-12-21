@@ -3,10 +3,8 @@
 <xsl:stylesheet 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
-    xmlns:str="http://exslt.org/strings"
-    extension-element-prefixes="str"
-    exclude-result-prefixes="t str"
-    version="1.0">
+    exclude-result-prefixes="t"
+    version="2.0">
 
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
@@ -610,12 +608,12 @@
     <xsl:variable name="href">
       <xsl:value-of select="concat('/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
     </xsl:variable>
-    <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.display='inherit'</xsl:attribute>
-    <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.display='none'</xsl:attribute>
+    <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='visible'</xsl:attribute>
+    <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='hidden'</xsl:attribute>
 
 
     <xsl:element name="span">
-      <xsl:attribute name="style">display:none</xsl:attribute>
+      <xsl:attribute name="style">visibility:hidden;display:block;</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
      
       <xsl:element name="a">
