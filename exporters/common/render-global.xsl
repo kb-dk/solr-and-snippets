@@ -608,12 +608,12 @@
     <xsl:variable name="href">
       <xsl:value-of select="concat('/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
     </xsl:variable>
-    <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.display='inherit'</xsl:attribute>
-    <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.display='none'</xsl:attribute>
+    <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='visible'</xsl:attribute>
+    <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='hidden'</xsl:attribute>
 
 
     <xsl:element name="span">
-      <xsl:attribute name="style">display:none</xsl:attribute>
+      <xsl:attribute name="style">visibility:hidden;</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
      
       <xsl:element name="a">
