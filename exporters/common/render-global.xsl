@@ -613,7 +613,7 @@
 
 
     <xsl:element name="span">
-      <xsl:attribute name="style">visibility:hidden;</xsl:attribute>
+      <xsl:attribute name="style">visibility:hidden;display:block;</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
      
       <xsl:element name="a">
