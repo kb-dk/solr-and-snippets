@@ -6,6 +6,13 @@
   
   <xsl:import href="../solrize-global.xsl"/>
 
+  <xsl:param name="editor" >
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
+      <xsl:for-each select="t:resp">
+	<xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:param>
 
 
 </xsl:transform>

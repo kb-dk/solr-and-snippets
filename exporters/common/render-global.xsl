@@ -112,9 +112,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@decls]/t:head">
-    <p style="font-style:italic;">
-      <xsl:apply-templates/>
-    </p>
+    <h1><xsl:call-template name="add_id"/><xsl:apply-templates/></h1>
   </xsl:template>
 
   <xsl:template match="t:div">

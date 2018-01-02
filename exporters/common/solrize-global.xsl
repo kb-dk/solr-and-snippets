@@ -481,16 +481,16 @@
   </xsl:template>
 
   <xsl:template name="page_info">
-    <xsl:if test="preceding::t:pb[1]/@n|descendant::t:pb">
+    <xsl:if test="preceding::t:pb[1]/@n">
       <xsl:element name="field">
         <xsl:attribute name="name">page_ssi</xsl:attribute>
         <xsl:value-of
-                select="preceding::t:pb[1]/@n|descendant::t:pb/@n[1]"/>
+                select="preceding::t:pb[1]/@n"/>
       </xsl:element>
       <xsl:element name="field">
         <xsl:attribute name="name">page_id_ssi</xsl:attribute>
         <xsl:value-of
-                select="preceding::t:pb[1]/@xml:id|descendant::t:pb/@xml:id[1]"/>
+                select="preceding::t:pb[1]/@xml:id"/>
       </xsl:element>
     </xsl:if>
   </xsl:template>
