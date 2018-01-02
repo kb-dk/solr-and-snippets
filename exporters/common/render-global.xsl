@@ -112,7 +112,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@decls]/t:head">
-    <h1><xsl:call-template name="add_id"/><xsl:apply-templates/></h1>
+    <h1 class="head-in-work"><xsl:call-template name="add_id"/><xsl:apply-templates/></h1>
   </xsl:template>
 
   <xsl:template match="t:div">
@@ -195,7 +195,7 @@
   </xsl:template>
 
   <xsl:template match="t:head">
-    <h2 class="head">
+    <h2 class="head-in-text">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </h2>
