@@ -253,7 +253,7 @@
   <xsl:template match="t:rdgGrp"> 
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:if test="@rendition = '#semiko'">; </xsl:if><xsl:apply-templates/>
+      <xsl:if test="@rendition = '#semiko'">; </xsl:if><xsl:apply-templates/><xsl:comment> rdg grp </xsl:comment>
     </xsl:element>
   </xsl:template>
 
@@ -266,6 +266,7 @@
     </xsl:variable>
     <xsl:apply-templates select="t:lem"/>
     <xsl:element name="sup">
+      <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
       <script>
 	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
 	function <xsl:value-of select="$note"/>() {
@@ -282,38 +283,42 @@
       <xsl:element name="a">
 	<xsl:attribute name="title">Tekstkritik</xsl:attribute>
 	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-	<xsl:text>*</xsl:text>
+	<i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i>
       </xsl:element>
     </xsl:element>
-    <!-- xsl:if test="t:sic[@rendition = '#so']"><xsl:text> således også </xsl:text></xsl:if -->
-    <span style="background-color:yellow;display:none;">
+    <span style="background-color:Aquamarine;display:none;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates select="t:rdg|t:rdgGrp|t:corr"/>
     </span>
-    <!-- xsl:if test="not(t:sic[@rendition = '#so'])">: </xsl:if -->
+  </xsl:template>
+
+  <xsl:template match="t:sic">
   </xsl:template>
 
   <xsl:template match="t:rdg">
-    <xsl:if test="@wit">
-      <xsl:comment>
-	Witness <xsl:value-of select="@wit"/>
-      </xsl:comment>
-      <xsl:variable name="witnesses">
-	<xsl:copy-of select="/t:TEI//t:listWit"/>
-      </xsl:variable>
-      <xsl:for-each select="fn:tokenize(@wit,'\s+')">
-	<xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:variable>
-	<xsl:element name="span">
-	  <xsl:attribute name="title">
-	    <xsl:value-of select="$witnesses//t:witness[@xml:id=$witness]"/>
-	  </xsl:attribute>
-	  <xsl:value-of select="$witness"/><xsl:choose>
-	  <xsl:when test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:when><xsl:otherwise><xsl:text>: </xsl:text></xsl:otherwise></xsl:choose></xsl:element>
-      </xsl:for-each>
-    </xsl:if>
+    <xsl:if test="t:sic/@rendition = '#so'"><xsl:text> Således også: </xsl:text></xsl:if>
     <xsl:element name="span">
+      <xsl:if test="@wit">
+	<xsl:call-template name="witness"/>
+      </xsl:if><xsl:choose><xsl:when test="t:sic/@rendition = '#so'"><xsl:text> </xsl:text></xsl:when><xsl:otherwise><xsl:text>: </xsl:text></xsl:otherwise></xsl:choose>
       <xsl:apply-templates/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
-      </xsl:element><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template name="witness">
+    <xsl:comment> Witness <xsl:value-of select="@wit"/> </xsl:comment>
+    <xsl:variable name="witnesses">
+      <xsl:copy-of select="/t:TEI//t:listWit"/>
+    </xsl:variable>
+    <xsl:for-each select="fn:tokenize(@wit,'\s+')">
+      <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:variable>
+      <xsl:element name="span">
+	<xsl:attribute name="title">
+	  <xsl:value-of select="$witnesses//t:witness[@xml:id=$witness]"/>
+	</xsl:attribute>
+	<xsl:value-of select="$witness"/><xsl:choose>
+      <xsl:when test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:when></xsl:choose></xsl:element>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="t:graphic">
