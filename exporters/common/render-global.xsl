@@ -146,7 +146,7 @@
 
   <xsl:template name="inline_note">
     <xsl:variable name="idstring">
-      <xsl:value-of select="translate(@xml:id,'-','_')"/>
+      <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
     </xsl:variable>
     <xsl:variable name="note">
       <xsl:value-of select="concat('note',$idstring)"/>
