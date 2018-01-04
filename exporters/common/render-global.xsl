@@ -168,6 +168,9 @@
 
       <xsl:element name="a">
 	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
+	<xsl:if test="@type='author'">
+	  <xsl:attribute name="title">Forfatterens note.</xsl:attribute>
+	</xsl:if>
 	<xsl:choose>
 	  <xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
 	  <xsl:otherwise>*</xsl:otherwise>
@@ -411,8 +414,10 @@
     <a>
       <xsl:attribute name="href" select="@target"/>
       <xsl:call-template name="add_id"/>
-      <xsl:value-of select="@n"/><xsl:text>
-</xsl:text><xsl:apply-templates/>
+      <xsl:choose>
+	<xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
+	<xsl:otherwise><xsl:text>*</xsl:text></xsl:otherwise>
+      </xsl:choose>
     </a>
   </xsl:template>
 
