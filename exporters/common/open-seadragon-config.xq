@@ -15,7 +15,7 @@ declare namespace t="http://www.tei-c.org/ns/1.0";
 declare namespace ft="http://exist-db.org/xquery/lucene";
 declare namespace local="http://kb.dk/this/app";
 
-declare variable  $mode     := request:get-parameter("mode","section");
+declare variable  $mode     := request:get-parameter("mode","text");
 declare variable  $path     := request:get-parameter("path","");
 
 declare variable  $frag     := paths:frag($path);
