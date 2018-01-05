@@ -102,10 +102,8 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 	  test="contains(@facs,'http') and not(contains(@rend,'missing'))">
         <xsl:element name="img">
 	  <xsl:attribute name="height">750</xsl:attribute>
-	  <xsl:attribute name="data-src">
-            <xsl:value-of select="concat(@facs,'/full/,750/0/native.jpg')"/>
-	  </xsl:attribute>
 	  <xsl:attribute name="src">
+            <xsl:value-of select="concat(@facs,'/full/,750/0/native.jpg')"/>
 	  </xsl:attribute>
         </xsl:element>
       </xsl:when>
@@ -113,11 +111,8 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 	  test="not(contains(@facs,'http')) and not(contains(@rend,'missing'))">
         <xsl:element name="img">
 	  <xsl:attribute name="height">750</xsl:attribute>
-	  <xsl:attribute name="data-src">
-            <xsl:value-of 
-		select="concat($prefix,@facs,'/full/,750/0/native.jpg')"/>
-	  </xsl:attribute>
           <xsl:attribute name="src">
+            <xsl:value-of select="concat($prefix,@facs,'/full/,750/0/native.jpg')"/>
           </xsl:attribute>
         </xsl:element>
       </xsl:when>
