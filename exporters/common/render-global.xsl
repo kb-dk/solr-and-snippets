@@ -618,11 +618,13 @@
     <xsl:element name="span">
       <xsl:attribute name="style">visibility:hidden;display:block;</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
-     
-      <xsl:element name="a">
-	<xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
-	<i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud tekst
-      </xsl:element>
+
+      <xsl:if test="not(contains($href,'adl-authors') or contains($href,'adl-periods') )">
+	<xsl:element name="a">
+	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
+	  <i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud tekst
+	</xsl:element>
+      </xsl:if>
 
       <xsl:element name="a">
 	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
