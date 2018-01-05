@@ -46,9 +46,9 @@ Author Sigfrid Lundberg slu@kb.dk
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test="t:text|t:div">
+      <xsl:if test="t:group|t:body|t:text|t:div|t:front|t:back">
 	<ul>
-	  <xsl:apply-templates select="t:text|t:div"/>
+	  <xsl:apply-templates select="t:group|t:body|t:text|t:div|t:front|t:back"/>
 	</ul>
       </xsl:if>
     </xsl:element>
