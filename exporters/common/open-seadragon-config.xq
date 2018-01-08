@@ -32,6 +32,7 @@ declare variable  $content  := util:base64-decode(request:get-data());
 
 declare variable  $coll     := concat('/db/adl/',$c,'/');
 
+declare variable  $missing  := "http://kb-images.kb.dk/public/sks/other/copyright/info.json";
 
 declare option output:method "json";
 declare option output:media-type "application/json";
@@ -62,11 +63,13 @@ declare function local:get-section-pages(
           for $div in $doc//node()[@decls and @xml:id=$frag]
 	    for $p in $div/preceding::t:pb[1] | $div//t:pb
 	    return
-                string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+	       if($p/@rend = 'missing') then $missing
+	       else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 	else
 	  for $p in $doc//t:pb
 	  return  
-             string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+	     if($p/@rend = 'missing') then $missing
+             else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 };
 
 declare function local:get-pages(
@@ -77,11 +80,13 @@ declare function local:get-pages(
           for $div in $doc//node()[@xml:id=$frag]
 	    for $p in $div/preceding::t:pb[1] | $div/descendant::t:pb
 	    return
-                string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+  	       if($p/@rend = 'missing') then $missing
+               else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 	else
 	  for $p in $doc//t:pb
 	  return  
-          string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+            if($p/@rend = 'missing') then $missing
+            else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 };
 
 let $doc := doc(concat("./",$c,"/",$document))

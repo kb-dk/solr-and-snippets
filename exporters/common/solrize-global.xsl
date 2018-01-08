@@ -452,7 +452,7 @@
 
     <field name="has_text_ssi">
       <xsl:choose>
-	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()">yes</xsl:when>
+	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()|./text()">yes</xsl:when>
 	<xsl:otherwise>no</xsl:otherwise>
       </xsl:choose>
     </field>
