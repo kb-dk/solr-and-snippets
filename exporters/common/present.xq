@@ -28,6 +28,7 @@ declare variable  $op       := doc(concat($coll,"/", $o, ".xsl"));
 declare variable  $au_url   := concat($c,'/',$document);
 declare variable  $q        := request:get-parameter('q','');
 declare variable  $targetOp := request:get-parameter('targetOp','');
+declare variable  $hostport := request:get-parameter('hostport','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
