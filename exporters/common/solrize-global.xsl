@@ -16,26 +16,30 @@
   <xsl:param name="category" select="'work'"/>
   <xsl:param name="doc" select="'a_very_unique_id'"/>
   <xsl:param name="basename" select="substring-before($doc,'.xml')"/>
+  <xsl:param name="coll" select="''"/>
+  <xsl:param name="path" select="''"/>
   <xsl:param name="author" select="''"/>
-  <xsl:param name="author_id" select="''"/>
+  <xsl:param name="auid_used" select="''"/>
   <xsl:param name="copyright" select="''"/>
-  <xsl:param name="editor" select="''"/>
+
+  <xsl:param name="editor" >
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
+  </xsl:param>
+
   <xsl:param name="editor_id" select="''"/>
 
   <xsl:param name="volume_title">
-    <xsl:choose>
-      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
-	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title"/>
-      </xsl:when>
-      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
-	<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title"/>
-      </xsl:when>
-    </xsl:choose>
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title|
+			  /t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title)[1]">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|
-			  /t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title|
+			   /t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title)[1]">
       <xsl:call-template name="volume_sort_title"/>
     </xsl:for-each>
   </xsl:param>
@@ -46,33 +50,23 @@
   <xsl:param name="c" select="'unknown_collection'"/>
   <xsl:param name="url" select="concat($c,'/',$doc)"/>
 
-  <!--
-  <xsl:param name="relations"  select="exsl:node-set(document('creator-relations.xml'))//t:row[t:cell/t:ref = $url]"/>
-  -->
-
   <xsl:param name="auid" select="''"/>
   <xsl:param name="perioid" select="''"/>
   
-  <!-- this works with xsltproc, but only erratically with xalan :^( -->
-  <!--
-  <xsl:param name="auid">
-	<xsl:value-of select="$relations//t:cell[@role='author']"/>
-  </xsl:param>
-  -->
 
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
 
   <xsl:template match="/">
     <xsl:element name="add">
       <xsl:choose>
-	<xsl:when test="$c = 'authors'">
+	<xsl:when test="contains($path,'adl-authors')">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'author'"/>
 	    <xsl:with-param name="type" select="'work'"/>
 	  </xsl:call-template>
 	  <xsl:apply-templates/>
 	</xsl:when>
-	<xsl:when test="$c = 'periods'">
+	<xsl:when test="contains($path,'adl-periods')">
 	  <xsl:call-template name="generate_volume_doc" >
 	    <xsl:with-param name="cat" select="'period'"/>
 	    <xsl:with-param name="type" select="'work'"/>
@@ -87,27 +81,25 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:text[not(@decls)]|t:div[not(@decls)]">
+  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]|t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     
-    <xsl:if test="t:head">
       <xsl:call-template name="trunk_doc">
 	<xsl:with-param name="worktitle" select="t:head"/>
 	<xsl:with-param name="category">
 	  <xsl:choose>
-	    <xsl:when test="$c = 'texts'">editorial</xsl:when>
-	    <xsl:when test="$c = 'authors'">author</xsl:when>
-	    <xsl:when test="$c = 'periods'">period</xsl:when>
+	    <xsl:when test="contains($path,'adl-texts')">editorial</xsl:when>
+	    <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+	    <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
 	  </xsl:choose>
 	</xsl:with-param>
       </xsl:call-template>
-    </xsl:if>
 
     <xsl:apply-templates>
       <xsl:with-param name="category">
 	<xsl:choose>
-	  <xsl:when test="$c = 'texts'"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="$c = 'authors'">author</xsl:when>
-	  <xsl:when test="$c = 'periods'">period</xsl:when>
+	  <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
+	  <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+	  <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
 	</xsl:choose>
       </xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
@@ -175,13 +167,20 @@
 
       <xsl:call-template name="add_globals"/>
 
-      <xsl:if test="not($category = 'editorial')">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">text_tesim</xsl:attribute>
-	  <xsl:apply-templates mode="gettext" 
-			       select="./text()|descendant::node()/text()"/>
-	</xsl:element>
-      </xsl:if>
+      <xsl:element name="field">
+	<xsl:attribute name="name">text_tesim</xsl:attribute>
+	<xsl:choose>
+	  <xsl:when test="$category = 'editorial'">
+	    <!-- xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()[not(@decls)]/text()"/ -->
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()/text()"/>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:element>
+
     </doc>
   </xsl:template>
 
@@ -221,6 +220,10 @@
     </doc>
   </xsl:template>
 
+  <xsl:template match="t:lb">
+    <xsl:text> </xsl:text>
+  </xsl:template>
+
 
   <xsl:template match="t:lg">
     <xsl:param name="worktitle" select="''"/>
@@ -246,7 +249,7 @@
     </doc>
   </xsl:template>
 
-  <xsl:template match="t:div/t:p">
+  <xsl:template match="t:div/t:p|t:body/t:p|t:text/t:p">
 
     <xsl:param name="worktitle" select="''"/>
 
@@ -296,7 +299,7 @@
 	  </xsl:call-template>
 	</xsl:element>
 
-	<xsl:if test="$c = 'authors'">
+	<xsl:if test="contains($path,'adl-authors')">
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
 	    <xsl:value-of select="$volume_sort_title"/>
@@ -332,10 +335,10 @@
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@xml:id">
-          <xsl:value-of select="concat($basename,'-',@xml:id)"/>
+          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="$basename"/>
+          <xsl:value-of select="$path"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:element>
@@ -349,7 +352,7 @@
 
     <xsl:element name="field">
       <xsl:attribute name="name">volume_id_ssi</xsl:attribute>
-      <xsl:value-of select="$basename"/>
+      <xsl:value-of select="$path"/>
     </xsl:element>
 
     <xsl:element name="field">
@@ -388,25 +391,168 @@
       <xsl:value-of select="normalize-space(t:head|../t:head[1])"/></xsl:element>
     </xsl:if>
 
+    <xsl:call-template name="extract_titles_authors_etc"/>
+
+
+    <xsl:if test="$auid">
+      <xsl:element name="field">
+	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
+	<xsl:value-of select="concat('adl-authors-',$auid_used,'-root')"/>
+      </xsl:element>
+    </xsl:if>
+
+    <xsl:if test="$perioid">
+      <xsl:element name="field">
+	<xsl:attribute name="name">perioid_ssi</xsl:attribute>
+	<xsl:value-of select="concat('adl-periods-',$perioid,'-root')"/>
+      </xsl:element>
+    </xsl:if>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">copyright_ssi</xsl:attribute>
+      <xsl:value-of select="$license"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">editor_ssi</xsl:attribute>
+      <xsl:value-of select="$editor"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">editor_id_ssi</xsl:attribute>
+      <xsl:value-of select="$editor_id"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">position_isi</xsl:attribute>
+      <xsl:value-of  select="count(preceding::node())"/>
+    </xsl:element>
+
+    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
+
+    <field name="application_ssim">
+      <xsl:value-of select="$app"/>
+    </field>
+
+    <field name="subcollection_ssi">
+      <xsl:value-of select="$c"/>
+    </field>
+
+  <xsl:call-template name="facs_and_text"/>
+
+  </xsl:template>
+
+  <xsl:template name="facs_and_text">
+    <field name="has_facs_ssi">
+      <xsl:choose>
+	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+    <field name="has_text_ssi">
+      <xsl:choose>
+	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()|./text()">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+  </xsl:template>
+
+  <xsl:template name="volume_sort_title">
+    <xsl:choose>
+      <xsl:when test="contains($path,'adl-authors') and t:name/@key">
+	<xsl:value-of select="t:name/@key"/>
+      </xsl:when>
+      <xsl:when test="contains($path,'adl-periods') and t:name/@key">
+	<xsl:value-of select="t:name/@key"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates mode="gettext"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="*">
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates>
+  </xsl:template>
+
+  <xsl:template name="page_info">
+    <xsl:if test="preceding::t:pb[1]/@n">
+      <xsl:element name="field">
+        <xsl:attribute name="name">page_ssi</xsl:attribute>
+        <xsl:value-of
+                select="preceding::t:pb[1]/@n"/>
+      </xsl:element>
+      <xsl:element name="field">
+        <xsl:attribute name="name">page_id_ssi</xsl:attribute>
+        <xsl:value-of
+                select="preceding::t:pb[1]/@xml:id"/>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+
+  <xsl:template name="str_massage">
+    <xsl:param name="str" select="''"/>
+    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
+    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
+    <!-- believe that the strings below has to have the same lenght -->
+     <xsl:variable name="meta"><xsl:text>!&apos;&quot;#%;,:.()-_'</xsl:text></xsl:variable>
+    <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
+    <xsl:variable name="str1" select="translate($str,$uppercase,$lowercase)"/>
+    <xsl:variable name="str2" select="translate($str1,$meta,$space)"/>
+    <xsl:variable name="str3" select="normalize-space($str2)"/>
+    <xsl:value-of select="$str3"/>
+  </xsl:template>
+
+  <xsl:template name="author_ssim">
+    <xsl:value-of select="normalize-space(.)"/>
+  </xsl:template>
+
+
+  <xsl:template mode="backtrack" match="node()[@xml:id]">
+    <xsl:choose>
+      <xsl:when test="@decls">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+	</xsl:element>
+	<xsl:choose>
+	  <xsl:when test="ancestor::node()">
+	    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	      <xsl:value-of select="$path"/>
+	    </xsl:element>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="extract_titles_authors_etc">
+
     <xsl:choose>
       <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc">
 	  <xsl:for-each select="t:bibl">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">author_name_ssi</xsl:attribute>
-	      <xsl:variable name="a">
-		<xsl:for-each select="t:author">
-		  <xsl:choose>
-		    <xsl:when test="not(position() = last())">
-		      <xsl:value-of select="concat(.,'; ')"/>
-		    </xsl:when>
-		    <xsl:otherwise>
-		      <xsl:value-of select="."/>
-		    </xsl:otherwise>
-		  </xsl:choose>
+	      <xsl:for-each select="t:author">
+		<xsl:for-each 
+		    select="t:name"><xsl:value-of 
+		    select="normalize-space(.)"/><xsl:if test="not(position() = last())"><xsl:text>; </xsl:text></xsl:if>
 		</xsl:for-each>
-	      </xsl:variable>
-	      <xsl:value-of select="normalize-space($a)"/>
+	      </xsl:for-each>
 	    </xsl:element>
 	    <xsl:for-each select="t:author">
 	      <xsl:element name="field">
@@ -445,13 +591,13 @@
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">publisher_tesim</xsl:attribute>
 	      <xsl:for-each select="t:publisher">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">publisher_nasim</xsl:attribute>
 	      <xsl:for-each select="t:publisher">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 
@@ -459,13 +605,13 @@
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">place_published_tesim</xsl:attribute>
 	      <xsl:for-each select="t:pubPlace">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">place_published_nasim</xsl:attribute>
 	      <xsl:for-each select="t:pubPlace">
-		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text> </xsl:text></xsl:if>
+		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
 
@@ -529,136 +675,7 @@
 	</xsl:for-each>
       </xsl:otherwise>
     </xsl:choose>
-
-    <xsl:if test="$auid">
-      <xsl:element name="field">
-	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
-	<xsl:value-of select="substring-before($auid,'.xml')"/>
-      </xsl:element>
-    </xsl:if>
-
-    <xsl:if test="$perioid">
-      <xsl:element name="field">
-	<xsl:attribute name="name">perioid_ssi</xsl:attribute>
-	<xsl:value-of select="$perioid"/>
-      </xsl:element>
-    </xsl:if>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">copyright_ssi</xsl:attribute>
-      <xsl:value-of select="$license"/>
-    </xsl:element>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">editor_ssi</xsl:attribute>
-      <xsl:value-of select="$editor"/>
-    </xsl:element>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">editor_id_ssi</xsl:attribute>
-      <xsl:value-of select="$editor_id"/>
-    </xsl:element>
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">position_isi</xsl:attribute>
-      <xsl:value-of  select="count(preceding::node())"/>
-    </xsl:element>
-
-    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
-
-    <field name="application_ssim">
-      <xsl:value-of select="$app"/>
-    </field>
-
-    <field name="subcollection_ssi">
-      <xsl:value-of select="$c"/>
-    </field>
-
-    <field name="has_facs_ssi">
-      <xsl:choose>
-	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
-	<xsl:otherwise>no</xsl:otherwise>
-      </xsl:choose>
-    </field>
-
-    <field name="has_text_ssi">
-      <xsl:choose>
-	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()">yes</xsl:when>
-	<xsl:otherwise>no</xsl:otherwise>
-      </xsl:choose>
-    </field>
-
   </xsl:template>
 
-  <xsl:template name="volume_sort_title">
-    <xsl:choose>
-      <xsl:when test="$c = 'authors' and t:name/@key">
-	<xsl:value-of select="t:name/@key"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:value-of select="."/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template match="*">
-    <xsl:param name="worktitle" select="''"/>
-    <xsl:apply-templates>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:apply-templates>
-  </xsl:template>
-
-  <xsl:template name="page_info">
-    <xsl:if test="preceding::t:pb[1]/@n|descendant::t:pb">
-      <xsl:element name="field">
-        <xsl:attribute name="name">page_ssi</xsl:attribute>
-        <xsl:value-of
-                select="preceding::t:pb[1]/@n|descendant::t:pb/@n[1]"/>
-      </xsl:element>
-      <xsl:element name="field">
-        <xsl:attribute name="name">page_id_ssi</xsl:attribute>
-        <xsl:value-of
-                select="preceding::t:pb[1]/@xml:id|descendant::t:pb/@xml:id[1]"/>
-      </xsl:element>
-    </xsl:if>
-  </xsl:template>
-
-
-  <xsl:template name="str_massage">
-    <xsl:param name="str" select="''"/>
-    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
-    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
-    <!-- believe that the strings below has to have the same lenght -->
-     <xsl:variable name="meta"><xsl:text>!&apos;&quot;#%;,:.()-_'</xsl:text></xsl:variable>
-    <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
-    <xsl:variable name="str1" select="translate($str,$uppercase,$lowercase)"/>
-    <xsl:variable name="str2" select="translate($str1,$meta,$space)"/>
-    <xsl:variable name="str3" select="normalize-space($str2)"/>
-    <xsl:value-of select="$str3"/>
-  </xsl:template>
-
-  <xsl:template name="author_ssim">
-    <xsl:value-of select="normalize-space(.)"/>
-  </xsl:template>
-
-
-  <xsl:template mode="backtrack" match="*[@decls]">
-    <xsl:element name="field">
-      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat($basename,'-',@xml:id)"/>
-    </xsl:element>
-    <xsl:choose>
-      <xsl:when test="ancestor::node()[@decls]">
-	<xsl:apply-templates mode="backtrack"
-			     select="ancestor::node()[@decls][1]"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:element name="field">
-	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$basename"/>
-	</xsl:element>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
 
 </xsl:transform>

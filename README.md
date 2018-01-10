@@ -7,6 +7,7 @@ Assume that we have (semi)structured (meta)data in a database or
 repository of some kind.  Then the snippet server is used for
 performing various operations upon those data.
 
+
 Examples of such operations are
 
 * returning documents prepared for indexing
@@ -168,3 +169,6 @@ sudo cpan -e install URI::Template
 indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./periods/ --suffix xml
 ```
 
+* Validate bagit create or validate bagit manifests
+  * create-bag.rb  
+  * validate-bag.rb
