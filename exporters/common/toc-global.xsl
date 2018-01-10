@@ -82,12 +82,12 @@ Author Sigfrid Lundberg slu@kb.dk
 	  <xsl:value-of
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
-	<xsl:when test="t:head">
-	  <xsl:value-of select="t:head"/>
+	<xsl:when test="string-length(normalize-space(t:head/text())) &gt; 0">
+	    <xsl:value-of select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:apply-templates select=".//*/text()|following-sibling::node()//text()"/>
+	    <xsl:value-of select="." />
 	  </xsl:variable>
 	  <xsl:value-of
 	      select="substring(normalize-space($some_text),1,20)"/>
