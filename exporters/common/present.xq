@@ -54,6 +54,7 @@ let $doc := doc(concat("./",$c,"/",$document))
 let $params := 
 <parameters>
    <param name="hostname"  value="{request:get-header('HOST')}"/>
+   <param name="hostport"  value="{$hostport}"/>
    <param name="path"      value="{$inferred_path}"/>
    <param name="doc"       value="{$document}"/>
    <param name="id"        value="{$frag}"/>
