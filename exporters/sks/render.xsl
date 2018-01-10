@@ -9,8 +9,7 @@
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
-
-  <xsl:variable name="base_uri"  select="'http://kb-images.kb.dk/public/sks/'"/>
+  <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
   <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
 
   <xsl:template match="t:pb">
@@ -163,7 +162,7 @@
 	    </xsl:otherwise>
 	  </xsl:choose>
 	</xsl:variable>
-	<xsl:value-of select="concat('/text/',translate($href,'/','-'))"/>
+	<xsl:value-of select="concat($adl_baseuri,'/text/',translate($href,'/','-'))"/>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -335,7 +334,7 @@
   <xsl:template match="t:graphic">
     <xsl:element name="img">
       <xsl:variable name="url">
-      <xsl:value-of select="concat($base_uri,substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg'))"/>
+      <xsl:value-of select="concat($iip_baseuri,substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg'))"/>
       </xsl:variable>
       <xsl:attribute name="style"> width: 100%;</xsl:attribute>
       <xsl:attribute name="src">

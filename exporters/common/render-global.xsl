@@ -15,6 +15,15 @@
   <xsl:param name="file" select="''"/>
   <xsl:param name="c" select="''"/>
   <xsl:param name="hostname" select="''"/>
+  <xsl:param name="hostport" select="''"/>
+  <xsl:param name="adl_baseuri">
+    <xsl:choose>
+      <xsl:when test="$hostport">
+	<xsl:value-of select="concat('http://',$hostport)"/>
+      </xsl:when>
+      <xsl:otherwise></xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
   <xsl:param name="facslinks" select="''"/>
   <xsl:param name="path" select="''"/>
   
@@ -609,7 +618,7 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="href">
-      <xsl:value-of select="concat('/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
+      <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
     </xsl:variable>
     <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='visible'</xsl:attribute>
     <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='hidden'</xsl:attribute>
