@@ -43,10 +43,16 @@
         <copy todir="${service}/sks">
 	  <fileset dir="${service.src}/sks"/>
         </copy>
+        <copy todir="${service}/grundtvig">
+	  <fileset dir="${service.src}/grundtvig"/>
+        </copy>
+        <copy todir="${service}/holberg">
+	  <fileset dir="${service.src}/holberg"/>
+        </copy>
     </target>
 
     <target name="add_data" depends="service">
-        <copy todir="${service}/adl/authors">
+        <!-- copy todir="${service}/adl/authors">
 	    <fileset dir="${adl_authors}"/>
 	</copy>
         <copy todir="${service}/adl/periods">
@@ -57,6 +63,12 @@
         </copy>
         <copy  todir="${service}/sks">
 	  <fileset dir="${sks_texts}"/>
+	</copy -->
+        <copy  todir="${service}/grundtvig">
+	  <fileset dir="../other_tei_projects/grundtvig"/>
+	</copy>
+        <copy  todir="${service}/holberg">
+	  <fileset dir="../other_tei_projects/holberg"/>
 	</copy>
     </target>
 
@@ -68,7 +80,7 @@
 	<arg line="--suffix xconf --load ${xconfig_source} --target ${xconfig} --host-port ${hostport} --user admin --password ${server.pass}"/>
       </exec>
       <exec executable="./utilities/load_exist.pl">
-	<arg line="--suffix xml,xq,xqm,xsl --load ${service} --target text-retriever --host-port ${hostport} --user admin --password ${server.pass}"/>
+	<arg line="--suffix xml,xq,xqm,xsl,page --load ${service} --target text-retriever --host-port ${hostport} --user admin --password ${server.pass}"/>
       </exec>
     </target>
 
