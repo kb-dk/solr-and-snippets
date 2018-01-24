@@ -18,14 +18,12 @@
 	<xsl:attribute name="class">pageBreak</xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
-      <xsl:choose>
-	<xsl:when test="not(@edRef)">
-	  <xsl:text> [s.</xsl:text><xsl:value-of select="@n"/><xsl:text>] </xsl:text>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:text><!-- an invisible anchor --></xsl:text>
-	</xsl:otherwise>
-      </xsl:choose>
+	<xsl:choose>
+	  <xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
+	  <xsl:otherwise>
+	    <xsl:text><!-- an invisible anchor --></xsl:text>
+	  </xsl:otherwise>
+	</xsl:choose>
     </xsl:element>
   </xsl:template>
 
