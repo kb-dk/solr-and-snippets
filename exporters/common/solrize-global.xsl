@@ -53,7 +53,7 @@
 
   <xsl:param name="is_monograph">
     <xsl:choose>
-      <xsl:when test="count(//node()[@decls])&gt;1">yes</xsl:when>
+      <xsl:when test="count(//node()[@decls])&lt;2">yes</xsl:when>
       <xsl:otherwise>no</xsl:otherwise>
     </xsl:choose>
   </xsl:param>
