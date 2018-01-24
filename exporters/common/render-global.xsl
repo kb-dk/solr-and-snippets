@@ -507,8 +507,10 @@
 	    </xsl:choose>
 	  </xsl:attribute>
 	</xsl:if>
-	<xsl:text>s. </xsl:text>
-	<small><xsl:value-of select="@n"/></small>
+	<xsl:if test="@n">
+	  <xsl:text>s. </xsl:text>
+	  <small><xsl:value-of select="@n"/></small>
+	</xsl:if>&#xA0;
       </xsl:element>
     </xsl:element>
     </xsl:if>

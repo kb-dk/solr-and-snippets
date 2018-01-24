@@ -99,7 +99,7 @@ sub get_it() {
 
     my $c = '';
     my $f = '';
-    $file =~ s/^.*?((adl)|(sks))\///;
+    $file =~ s/^.*?((grundtvig)|(holberg)|(adl)|(sks))\///;
 
     $c = $1;
     $f = $file;

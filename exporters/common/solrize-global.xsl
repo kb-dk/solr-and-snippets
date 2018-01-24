@@ -31,15 +31,13 @@
   <xsl:param name="editor_id" select="''"/>
 
   <xsl:param name="volume_title">
-    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title|
-			  /t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title)[1]">
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]">
       <xsl:apply-templates mode="gettext"  select="."/>
     </xsl:for-each>
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title|
-			   /t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title)[1]">
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]">
       <xsl:call-template name="volume_sort_title"/>
     </xsl:for-each>
   </xsl:param>
@@ -52,6 +50,13 @@
 
   <xsl:param name="auid" select="''"/>
   <xsl:param name="perioid" select="''"/>
+
+  <xsl:param name="is_monograph">
+    <xsl:choose>
+      <xsl:when test="count(//node()[@decls])&gt;1">yes</xsl:when>
+      <xsl:otherwise>no</xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
   
 
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
@@ -143,6 +148,7 @@
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
       <xsl:if test="$worktitle">
 	<xsl:element name="field">
@@ -287,6 +293,8 @@
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
+
       <xsl:if test="string-length($volume_title)">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
@@ -452,7 +460,7 @@
 
     <field name="has_text_ssi">
       <xsl:choose>
-	<xsl:when test="descendant::t:p/text()|descendant::t:l/text()|./text()">yes</xsl:when>
+	<xsl:when test="descendant-or-self::t:p/text()|descendant-or-self::t:l/text()">yes</xsl:when>
 	<xsl:otherwise>no</xsl:otherwise>
       </xsl:choose>
     </field>
