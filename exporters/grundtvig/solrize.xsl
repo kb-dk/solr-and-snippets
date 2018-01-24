@@ -6,6 +6,11 @@
   
   <xsl:import href="../solrize-global.xsl"/>
 
+  <xsl:param name="worktitle">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[not(@level) and not(@type)]">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
+  </xsl:param>
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">

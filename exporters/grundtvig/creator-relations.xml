@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<table xmlns="http://www.tei-c.org/ns/1.0">
+  <row>
+     <cell role="author">grundtvig-p.xml</cell>
+     <cell role="texts">
+       <ref>1816_297/txt.xml</ref>
+       <ref>1831_490A/txt.xml</ref>
+     </cell>
+  </row>
+</table>

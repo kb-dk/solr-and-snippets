@@ -4,7 +4,7 @@ use strict;
 
 my $sheet = "/home/slu/projects/solr-and-snippets/utilities/add-id.xsl";
 
-if(open(FIND,"find . -name '*.xml' -print |")) {
+if(open(FIND,"find . -name '*.page' -print |")) {
     while(my $file = <FIND>) {
 	next if $file =~ /schemas.xml/;
 	print $file;

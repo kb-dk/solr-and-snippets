@@ -4,7 +4,7 @@ module namespace lbl="http://kb.dk/this/lbl";
 
 declare function lbl:label-hits( $doc  as node()* ) as node()* {
 	let $query := request:get-parameter('q','')
-	return lbl:run-filter($doc,$query) 
+	return lbl:run-filter($doc,$query)
 };
 
 declare function lbl:run-filter($doc as item()*, $query as xs:string ) as node()* {
