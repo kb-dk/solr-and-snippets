@@ -476,17 +476,16 @@
     </xsl:variable>
 
     <xsl:if test="$first &gt; 0">
-    <xsl:element name="span">
-      <xsl:call-template name="add_id_empty_elem"/>
-      <xsl:attribute name="class">pageBreak</xsl:attribute>
-      <xsl:element name="a">
-	<xsl:attribute name="data-no-turbolink">true</xsl:attribute>
+      <xsl:element name="span">
+	<xsl:call-template name="add_id_empty_elem"/>
+	<xsl:attribute name="class">pageBreak</xsl:attribute>
 	<xsl:if test="@n">
-	  <xsl:text>s. </xsl:text>
-	  <small><xsl:value-of select="@n"/></small>
-	</xsl:if>&#xA0;
+	  <xsl:element name="a">
+	    <xsl:attribute name="title">Side <xsl:value-of select="@n"/></xsl:attribute>
+	    <small><xsl:value-of select="@n"/></small>
+	  </xsl:element>
+	</xsl:if>
       </xsl:element>
-    </xsl:element>
     </xsl:if>
   </xsl:template>
 
