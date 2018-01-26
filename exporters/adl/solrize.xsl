@@ -15,5 +15,16 @@
     </xsl:for-each>
   </xsl:param>
 
+ <xsl:param name="volume_title">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title[1]">
+      <xsl:apply-templates mode="gettext"  select="."/>
+    </xsl:for-each>
+  </xsl:param>
+
+  <xsl:param name="volume_sort_title">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title[1]">
+      <xsl:call-template name="volume_sort_title"/>
+    </xsl:for-each>
+  </xsl:param>
 
 </xsl:transform>
