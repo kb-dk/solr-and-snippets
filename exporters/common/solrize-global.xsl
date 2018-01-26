@@ -334,6 +334,15 @@
       </xsl:if>
 
       <xsl:call-template name="add_globals" />
+
+      <xsl:if test="//t:pb[@n]">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">page_ssi</xsl:attribute>
+	  <xsl:value-of
+	      select="//t:pb[1]/@n"/>
+	</xsl:element>
+      </xsl:if>
+
     </doc>
   </xsl:template>
 
