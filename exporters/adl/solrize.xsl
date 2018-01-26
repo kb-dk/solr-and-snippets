@@ -16,15 +16,33 @@
   </xsl:param>
 
  <xsl:param name="volume_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title[1]">
-      <xsl:apply-templates mode="gettext"  select="."/>
-    </xsl:for-each>
+   <xsl:choose>
+     <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title[text()]">
+       <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
+	 <xsl:apply-templates mode="gettext"  select="."/>
+       </xsl:for-each>
+     </xsl:when>
+     <xsl:otherwise>
+       <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+	 <xsl:apply-templates mode="gettext"  select="."/>
+       </xsl:for-each>
+     </xsl:otherwise>
+   </xsl:choose>
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title[1]">
-      <xsl:call-template name="volume_sort_title"/>
-    </xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title[text()]">
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title">
+	  <xsl:call-template name="volume_sort_title"/>
+	</xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+	  <xsl:call-template name="volume_sort_title"/>
+	</xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:param>
 
 </xsl:transform>
