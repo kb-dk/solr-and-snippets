@@ -401,6 +401,8 @@
     </p>
   </xsl:template>
 
+  <xsl:template match="t:facsimile"><!-- the facsimile section shouldn't be rendered --></xsl:template>
+
   <xsl:template match="t:graphic">
     <xsl:element name="img">
       <xsl:attribute name="src">
