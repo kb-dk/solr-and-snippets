@@ -4,6 +4,7 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
   
-  <xsl:include href="../render-global.xsl"/>
+  <xsl:import href="../render-global.xsl"/>
+  <xsl:import href="../apparatus-global.xsl"/>
 
 </xsl:transform>
