@@ -3,14 +3,14 @@
   <row>
     <cell role="author">holberg--p-val.xml</cell>
     <cell role="texts">
-      <ref>tekster/niels_klim/niels_klim_innl.page</ref>
-      <ref>tekster/niels_klim/niels_klim.page</ref>
-      <ref>tekster/niels_klim/niels_klim_overs.page</ref>
-      <ref>tekster/niels_klim/niels_klim_komm.page</ref>
-      <ref>skuespill/jeppe/jeppe_innl.page</ref>
-      <ref>skuespill/jeppe/jeppe_komm.page</ref>
-      <ref>skuespill/jeppe/jeppe_mod.page</ref>
-      <ref>skuespill/jeppe/jeppe.page</ref>
+      <ref>niels_klim/niels_klim_innl.xml</ref>
+      <ref>niels_klim/niels_klim.xml</ref>
+      <ref>niels_klim/niels_klim_overs.xml</ref>
+      <ref>niels_klim/niels_klim_komm.xml</ref>
+      <ref>jeppe/jeppe_innl.xml</ref>
+      <ref>jeppe/jeppe_komm.xml</ref>
+      <ref>jeppe/jeppe_mod.xml</ref>
+      <ref>jeppe/jeppe.xml</ref>
     </cell>
   </row>
 </table>
