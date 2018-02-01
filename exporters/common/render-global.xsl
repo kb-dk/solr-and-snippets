@@ -611,11 +611,11 @@
 	  <i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud tekst
 	</xsl:element>
       </xsl:if>
-
-      <xsl:element name="a">
+      <!-- The gå til tekst function is redundant when the citer URI contains the fragment -->
+      <!-- xsl:element name="a">
 	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
 	<i class="fa fa-link" aria-hidden="true">&#160;</i>gå til tekst
-      </xsl:element>
+      </xsl:element -->
     </xsl:element>
 
   </xsl:template>
