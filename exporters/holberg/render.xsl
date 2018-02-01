@@ -7,6 +7,14 @@
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
 
+  <xsl:param name="publisher" >
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:authority">
+      <xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+    </xsl:for-each>
+  </xsl:param>
+
+
+
   <xsl:template match="t:pb">
     <xsl:variable name="first">
       <xsl:value-of select="count(preceding::t:pb[@ed='A'])"/>
@@ -25,7 +33,6 @@
       </xsl:element>
     </xsl:if>
   </xsl:template>
-
 
   <xsl:template name="make-href">
 
@@ -89,6 +96,51 @@
 
 
   </xsl:template>
+
+
+
+  <xsl:template name="extract_titles_authors_etc">
+
+    <xsl:choose>
+      <xsl:when test="contains($path,'-txt')">
+	<xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Kierkegaard, Søren</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Kierkegaard, Søren</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Søren Kierkegaard</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Søren Kierkegaard</xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:author">
+	  <xsl:for-each select="t:name">
+	    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>
+	    <xsl:value-of  select="."/>
+	    </xsl:element>
+	  </xsl:for-each>
+	</xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+
+  </xsl:template>
+
+  <xsl:template mode="backtrack" match="node()[@xml:id]">
+    <xsl:element name="field">
+      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+      <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+    </xsl:element>
+    <xsl:choose>
+      <xsl:when test="ancestor::node()">
+	<xsl:apply-templates mode="backtrack" select="ancestor::t:div[1]|ancestor::t:text[1]"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	  <xsl:value-of select="$path"/>
+	</xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 
 
 
