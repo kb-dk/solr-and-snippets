@@ -35,12 +35,14 @@ declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 let $author_id := doc(concat($coll,"/","creator-relations.xml"))//t:row[t:cell/t:ref = $document]/t:cell[@role='author']
 
 let $auid := 
-  if (contains($document,"authors")) then
-     let $id := concat($coll,'/',$document)
-     return $id
-  else
-     let $id := substring-before($author_id,'.xml') 
-     return $id
+  if($author_id) then
+    if (contains($document,"authors")) then
+       let $id := concat($coll,'/',$document)
+       return $id
+    else
+       let $id := substring-before($author_id,'.xml') 
+       return $id
+  else ()
 
 let $period_id :=
     if ($auid) then
