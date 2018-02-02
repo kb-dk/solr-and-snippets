@@ -52,7 +52,7 @@
     </target>
 
     <target name="add_data" depends="service">
-        <!-- copy todir="${service}/adl/authors">
+        <!--copy todir="${service}/adl/authors">
 	    <fileset dir="${adl_authors}"/>
 	</copy>
         <copy todir="${service}/adl/periods">

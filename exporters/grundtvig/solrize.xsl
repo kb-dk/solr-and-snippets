@@ -14,7 +14,7 @@
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
-      <xsl:for-each select="t:resp">
+      <xsl:for-each select="t:name">
 	<xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
       </xsl:for-each>
     </xsl:for-each>
