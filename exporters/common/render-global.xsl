@@ -26,7 +26,7 @@
   </xsl:param>
   <xsl:param name="facslinks" select="''"/>
   <xsl:param name="path" select="''"/>
-  
+  <xsl:param name="concordance"><xsl:value-of select="doc('concordance.xml')"/></xsl:param>
 
   <xsl:output method="xml"
 	      encoding="UTF-8"
@@ -611,6 +611,9 @@
 	  <i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud tekst
 	</xsl:element>
       </xsl:if>
+      <!-- xsl:if test="$concordance">
+	<a>garbage</a>
+      </xsl:if -->
       <!-- The gå til tekst function is redundant when the citer URI contains the fragment -->
       <!-- xsl:element name="a">
 	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
