@@ -18,7 +18,7 @@ Largely done. Need to reimplement the links from author portraits and
 period descriptions to texts. Hard work in editing the text. Currently
 low priority.
 
-_Capabilities:_ The corpus itself has no interesting capabilities.
+__Capabilities:__ The corpus itself has no interesting capabilities.
 
 * http://beta-text.kb.dk/text/adl-texts-aare01val-root
 
