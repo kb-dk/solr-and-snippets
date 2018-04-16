@@ -3,9 +3,6 @@
 The joint corpus for ADL and other text sources can be delivered
 through one head, with a common oesophagus but separate guts.
 
-## Capabilities
-
-
 
 ## Corpora
 
