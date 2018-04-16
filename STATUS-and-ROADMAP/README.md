@@ -4,7 +4,7 @@ The joint corpus for ADL and other text sources can be delivered
 through one head, with a common oesophagus but separate guts.
 
 
-## Corpora
+## Corpora and capabilities
 
 Different encoding practices (or even entirely different data
 encodings) yields documents with different capabilities.
