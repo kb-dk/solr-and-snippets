@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform version="2.0"
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
   
@@ -12,8 +13,6 @@
       <xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
     </xsl:for-each>
   </xsl:param>
-
-
 
   <xsl:template match="t:pb">
     <xsl:variable name="first">
@@ -32,6 +31,21 @@
 	</xsl:if>
       </xsl:element>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="t:ref[@type='komm']">
+    <xsl:if test="contains(@type,'komm') and contains(@path,'komm')">
+      <xsl:if test="contains($doc,fn:lower-case(fn:replace(@target,'.page.*$','')))">
+	<a href="{fn:replace(@target,'^(.*#[^:]*?:)','#')}"><xsl:apply-templates/></a>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="t:seg[@type='komm']">
+    <xsl:variable name="href">
+      <xsl:value-of select="concat(fn:replace($path,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
+    </xsl:variable>
+    <a href="{$href}">&#9658;</a>
   </xsl:template>
 
   <xsl:template name="make-href">

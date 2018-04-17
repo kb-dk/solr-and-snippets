@@ -3,6 +3,7 @@
 <xsl:stylesheet 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
+    xmlns:fn="http://www.w3.org/2005/xpath-functions"
     exclude-result-prefixes="t"
     version="2.0">
 
@@ -276,10 +277,18 @@
 
   <xsl:template match="t:ref">
     <xsl:choose>
+      <xsl:when test="fn:matches(@target,'^https?')">
+	<xsl:element name="a">
+	  <xsl:attribute name="href">
+	    <xsl:value-of select="@target/string()"/>
+	  </xsl:attribute> 
+	  <xsl:apply-templates/>
+	</xsl:element>
+      </xsl:when>
       <xsl:when test="contains(@target,'AdlPageRef.xsql')">
 	<xsl:apply-templates/>
       </xsl:when>
-      <xsl:when test="contains(@target,'../texts/')">
+      <!-- xsl:when test="contains(@target,'../texts/')">
 	<xsl:element name="a">
 	  <xsl:call-template name="add_id"/>
 	  <xsl:variable name="frag">
@@ -294,7 +303,7 @@
 	  </xsl:comment>
 	  <xsl:apply-templates/>
 	</xsl:element>
-      </xsl:when>
+      </xsl:when -->
       <xsl:otherwise>
 	<xsl:element name="a">
 	  <xsl:if test="@target">

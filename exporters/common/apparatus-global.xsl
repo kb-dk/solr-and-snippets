@@ -75,9 +75,7 @@
     </xsl:element>
   </xsl:template>
 
-
-
-  <xsl:template match="t:ref">
+  <xsl:template match="t:ref[@type='commentary']">
     <xsl:element name="a">
       <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
       <xsl:if test="@target">
