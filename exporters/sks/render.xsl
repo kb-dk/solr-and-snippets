@@ -111,10 +111,6 @@
     </xsl:element>
   </xsl:template>
 
-
-
-
-
   <xsl:template match="t:dateline/t:date">
     <span>
       <xsl:call-template name="add_id"/>
