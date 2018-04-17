@@ -6,7 +6,7 @@
 	       exclude-result-prefixes="t fn">
   
   <xsl:import href="../render-global.xsl"/>
-  <xsl:import href="../apparatus-global.xsl"/>
+  <xsl:import href="./apparatus.xsl"/>
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
