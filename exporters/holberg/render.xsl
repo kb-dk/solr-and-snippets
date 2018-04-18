@@ -42,8 +42,11 @@
   </xsl:template>
 
   <xsl:template match="t:seg[@type='komm']">
+    <xsl:variable name="p">
+      <xsl:value-of select="replace($path,'(_overs)|(_mod)','')"/>
+    </xsl:variable>
     <xsl:variable name="href">
-      <xsl:value-of select="concat(fn:replace($path,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
+      <xsl:value-of select="concat(fn:replace($p,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
     </xsl:variable>
     <a title="Kommentar" href="{$href}">&#9658;</a>
   </xsl:template>
@@ -53,7 +56,7 @@
      <xsl:variable name="frag">
        <xsl:choose>
 	 <xsl:when test="contains($document,'#')">
-	   <xsl:value-of select="substring-after($document,'#')"/>
+	   <xsl:value-of select="fn:replace(substring-after($document,'#'),':.*$','')"/>
 	 </xsl:when>
 	 <xsl:otherwise>root</xsl:otherwise>
        </xsl:choose>
@@ -61,7 +64,7 @@
      <xsl:variable name="f">
        <xsl:choose>
 	 <xsl:when test="$frag = 'root'">-</xsl:when>
-	 <xsl:otherwise>-shoot-</xsl:otherwise>
+	 <xsl:otherwise>-root#</xsl:otherwise>
        </xsl:choose>
      </xsl:variable>
      <xsl:text>/text/</xsl:text><xsl:value-of select="replace(concat($c,'-',fn:lower-case(fn:replace($document,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
