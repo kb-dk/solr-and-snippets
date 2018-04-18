@@ -308,7 +308,7 @@
 	<xsl:element name="a">
 	  <xsl:if test="@target">
 	    <xsl:attribute name="href">
-	      <xsl:apply-templates select="@target"/>
+	      <xsl:call-template name="make-href"/>
 	    </xsl:attribute> 
 	  </xsl:if>
 	  <xsl:call-template name="add_id"/>
