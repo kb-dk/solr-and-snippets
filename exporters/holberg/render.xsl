@@ -45,7 +45,7 @@
     <xsl:variable name="href">
       <xsl:value-of select="concat(fn:replace($path,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
     </xsl:variable>
-    <a href="{$href}">&#9658;</a>
+    <a title="Kommentar" href="{$href}">&#9658;</a>
   </xsl:template>
 
   <xsl:template name="make-href">
