@@ -84,9 +84,15 @@ declare function local:get-pages(
                else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
 	else
 	  for $p in $doc//t:pb
+	  let $pid := $p/@facs/string()
 	  return  
             if($p/@rend = 'missing') then $missing
-            else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+	    else 
+	     let $uri_path := 
+	         if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
+                 else $pid
+             return  string-join(("http://kb-images.kb.dk/public",$uri_path,"info.json"),'/')
+
 };
 
 let $doc := doc(concat("./",$c,"/",$document))
