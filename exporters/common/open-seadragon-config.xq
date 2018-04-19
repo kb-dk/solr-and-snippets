@@ -90,7 +90,7 @@ declare function local:get-pages(
 	    else 
 	     let $uri_path := 
 	         if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
-                 else concat("/public",$pid)
+                 else concat("public/",$pid)
              return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
 
 };
