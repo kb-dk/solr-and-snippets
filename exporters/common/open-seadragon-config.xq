@@ -37,6 +37,15 @@ declare variable  $missing  := "http://kb-images.kb.dk/public/sks/other/copyrigh
 declare option output:method "json";
 declare option output:media-type "application/json";
 
+
+declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string*
+{
+   let $uri_path := 
+	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
+        else concat("public/",$pid)
+   return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+};
+
 declare function local:get-section-navigation(
   $frag as xs:string,
   $doc  as node() ) as map()*
@@ -62,14 +71,16 @@ declare function local:get-section-pages(
 	if($frag) then
           for $div in $doc//node()[@decls and @xml:id=$frag]
 	    for $p in $div/preceding::t:pb[1] | $div//t:pb
+	    let $pid := $p/@facs/string()
 	    return
 	       if($p/@rend = 'missing') then $missing
-	       else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+     	       else local:get-facs($pid,$doc)
 	else
-	  for $p in $doc//t:pb
+	  for $p in $doc//t:p
+	  let $pid := $p/@facs/string()
 	  return  
 	     if($p/@rend = 'missing') then $missing
-             else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+	     else local:get-facs($pid,$doc)
 };
 
 declare function local:get-pages(
@@ -79,19 +90,17 @@ declare function local:get-pages(
 	if($frag) then
           for $div in $doc//node()[@xml:id=$frag]
 	    for $p in $div/preceding::t:pb[1] | $div/descendant::t:pb
+	    let $pid := $p/@facs/string()
 	    return
   	       if($p/@rend = 'missing') then $missing
-               else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+	       else local:get-facs($pid,$doc)
 	else
 	  for $p in $doc//t:pb
 	  let $pid := $p/@facs/string()
 	  return  
             if($p/@rend = 'missing') then $missing
-	    else 
-	     let $uri_path := 
-	         if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
-                 else concat("public/",$pid)
-             return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+	    else local:get-facs($pid,$doc)
+
 
 };
 
