@@ -6,7 +6,7 @@
 	       exclude-result-prefixes="t fn">
   
   <xsl:import href="../render-global.xsl"/>
-  <xsl:import href="../apparatus-global.xsl"/>
+  <xsl:import href="./apparatus.xsl"/>
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
@@ -52,6 +52,63 @@
 
     -->
     <xsl:value-of select="$year"/><xsl:if test="not(contains($date,'0000'))"> &#8211; <xsl:value-of select="substring($month_day,1,2)"/> &#8211; <xsl:value-of select="substring($month_day,3,4)"/></xsl:if>
+  </xsl:template>
+
+
+
+  <xsl:template match="t:rdgGrp"> 
+    <xsl:element name="span">
+      <xsl:call-template name="add_id"/>
+      <xsl:if test="@rendition = '#semiko'">; </xsl:if><xsl:apply-templates/><xsl:comment> rdg grp </xsl:comment>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="t:app">
+    <xsl:variable name="idstring">
+      <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
+    </xsl:variable>
+    <xsl:variable name="note">
+      <xsl:value-of select="concat('apparatus',$idstring)"/>
+    </xsl:variable>
+    <xsl:apply-templates select="t:lem"/>
+    <xsl:element name="sup">
+      <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
+      <script>
+	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
+	function <xsl:value-of select="$note"/>() {
+	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
+	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
+	ele.style.display="inline";
+	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
+	} else {
+	ele.style.display="none";
+	<xsl:value-of select="concat('disp',$idstring)"/>="none";
+	}
+	}
+      </script>
+      <xsl:element name="a">
+	<xsl:attribute name="title">Tekstkritik</xsl:attribute>
+	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
+	<i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i>
+      </xsl:element>
+    </xsl:element>
+    <span style="background-color:Aquamarine;display:none;">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:rdg|t:rdgGrp|t:corr"/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:sic">
+  </xsl:template>
+
+  <xsl:template match="t:rdg">
+    <xsl:if test="t:sic/@rendition = '#so'"><xsl:text> Således også: </xsl:text></xsl:if>
+    <xsl:element name="span">
+      <xsl:if test="@wit">
+	<xsl:call-template name="witness"/>
+      </xsl:if><xsl:choose><xsl:when test="t:sic/@rendition = '#so'"><xsl:text> </xsl:text></xsl:when><xsl:otherwise><xsl:text>: </xsl:text></xsl:otherwise></xsl:choose>
+      <xsl:apply-templates/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="t:dateline/t:date">

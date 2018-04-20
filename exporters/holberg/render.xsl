@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform version="2.0"
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
   
@@ -12,8 +13,6 @@
       <xsl:apply-templates mode="gettext"  select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
     </xsl:for-each>
   </xsl:param>
-
-
 
   <xsl:template match="t:pb">
     <xsl:variable name="first">
@@ -34,67 +33,47 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template name="make-href">
+  <xsl:template match="t:ref[@type='komm']">
+    <xsl:if test="contains(@type,'komm') and contains(@path,'komm')">
+      <xsl:if test="contains($doc,fn:lower-case(fn:replace(@target,'.page.*$','')))">
+	<a href="{fn:replace(@target,'^(.*#[^:]*?:)','#')}"><xsl:apply-templates/></a>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
 
-    <xsl:variable name="target">
-      <xsl:value-of select="translate(@target,$uppercase,$lowercase)"/>
+  <xsl:template match="t:seg[@type='komm']">
+    <xsl:variable name="p">
+      <xsl:value-of select="replace($path,'(_overs)|(_mod)','')"/>
     </xsl:variable>
+    <xsl:variable name="href">
+      <xsl:value-of select="concat(fn:replace($p,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
+    </xsl:variable>
+    <a title="Kommentar" href="{$href}">&#9658;</a>
+  </xsl:template>
 
-    <xsl:choose>
-      <xsl:when test="contains($target,'#') and not(substring-before($target,'#'))">
-	<xsl:value-of select="$target"/>	    
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:variable name="href">
-	  <xsl:variable name="fragment">
-	    <xsl:if test="contains($target,'#')">
-	      <xsl:value-of select="concat('#',substring-after($target,'#'))"/>
-	    </xsl:if>
-	  </xsl:variable>
-	  <xsl:variable name="file">
-	    <xsl:choose>
-	      <xsl:when test="contains($target,'#')">
-		<xsl:value-of select="substring-before($target,'#')"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:value-of select="$target"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:variable>
-	  <xsl:choose>
-	    <xsl:when test="contains($file,'../')">
-	      <xsl:value-of select="concat($c,'-',substring-before(substring-after($file,'../'),'.xml'),'-root',$fragment)"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:choose>
-		<xsl:when test="contains($path,'-txt')">
-		  <xsl:value-of 
-		      select="concat(substring-before($path,'-txt'),
-			      '-',
-			      substring-before($target,'.xml'),
-			      '-root',
-			      substring-after($target,'.xml'))"/>
-		</xsl:when>
-		<xsl:when test="contains($path,'-kom')">
-		  <xsl:value-of 
-		      select="concat(substring-before($path,'-kom'),'-',substring-before($target,'.xml'),'-root',substring-after($target,'.xml'))"/>
-		</xsl:when>
-		<xsl:when test="contains($path,'-txr')">
-		  <xsl:value-of 
-		      select="concat(substring-before($path,'-txr'),'-',substring-before($target,'.xml'),'-root',substring-after($target,'.xml'))"/>
-		</xsl:when>
-		<xsl:otherwise>
-		  <xsl:value-of select="$target"/>
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:variable>
-	<xsl:value-of select="concat($adl_baseuri,'/text/',translate($href,'/','-'))"/>
-      </xsl:otherwise>
-    </xsl:choose>
+   <xsl:template name="inferred_path">
+     <xsl:param name="document" select="$doc"/>
+     <xsl:variable name="frag">
+       <xsl:choose>
+	 <xsl:when test="contains($document,'#')">
+	   <xsl:value-of select="fn:replace(substring-after($document,'#'),':.*$','')"/>
+	 </xsl:when>
+	 <xsl:otherwise>root</xsl:otherwise>
+       </xsl:choose>
+     </xsl:variable>
+     <xsl:variable name="f">
+       <xsl:choose>
+	 <xsl:when test="$frag = 'root'">-</xsl:when>
+	 <xsl:otherwise>-root#</xsl:otherwise>
+       </xsl:choose>
+     </xsl:variable>
+     <xsl:text>/text/</xsl:text><xsl:value-of select="replace(concat($c,'-',fn:lower-case(fn:replace($document,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
+   </xsl:template>
 
-
+  <xsl:template name="make-href">
+    <xsl:call-template name="inferred_path">
+      <xsl:with-param name="document" select="@target"/>
+    </xsl:call-template>
   </xsl:template>
 
 

@@ -12,33 +12,11 @@
   <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
   <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
 
-  <xsl:template mode="text" match="t:corr">
+  <xsl:template match="t:corr">
     <span title="rættelse">
-      <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </span>
   </xsl:template>
-
-  <xsl:template mode="apparatus" match="t:corr">
-    <span title="rættelse">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-      <xsl:if test="@wit">
-	<xsl:call-template name="witness"/>
-      </xsl:if>
-      <xsl:if test="@resp">
-	<xsl:text>
-	</xsl:text>
-	<xsl:call-template name="witness">
-	  <xsl:with-param name="wit" select="@resp"/>
-	</xsl:call-template>
-      </xsl:if>
-      <xsl:if test="@evidence">
-	[<xsl:value-of select="@evidence"/>]
-      </xsl:if>
-    </span>
-  </xsl:template>
-
 
   <xsl:template match="t:add">
     <span title="tillæg">
@@ -75,7 +53,9 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:ref[@type='commentary']">
+
+
+  <xsl:template match="t:ref">
     <xsl:element name="a">
       <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
       <xsl:if test="@target">
@@ -147,30 +127,10 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template mode="text" match="t:lem">
+  <xsl:template match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template mode="apparatus" match="t:lem">
-    <xsl:element name="span">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>]<xsl:text> 
-      </xsl:text>
-      <xsl:choose>
-	<xsl:when test="@wit">
-	  <xsl:call-template name="witness"/>
-	</xsl:when>
-	<xsl:when test="@resp">
-	  <xsl:call-template name="witness">
-	    <xsl:with-param name="wit" select="@resp"/>
-	  </xsl:call-template>
-	</xsl:when>
-      </xsl:choose>
-      <xsl:text> 
-      </xsl:text>
     </xsl:element>
   </xsl:template>
 
@@ -182,89 +142,61 @@
   </xsl:template>
 
   <xsl:template match="t:app">
-    <!-- i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i> absent_friend  -->
-    <xsl:apply-templates mode="text" select="t:lem"/>
-    <xsl:element name="span">
-      <xsl:call-template name="apparatus-marker"><xsl:with-param name="marker">&#128712; </xsl:with-param></xsl:call-template>
-    </xsl:element>
-
-    <span style="background-color:Aquamarine;display:none;">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="apparatus" select="t:lem"/>
-      <xsl:for-each select="t:rdg|t:rdgGrp|t:corr">
-	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
-      </xsl:for-each>
-    </span>
-
-  </xsl:template>
-
-  <xsl:template name="apparatus-marker">
-    <xsl:param name="marker" select="'missing marker'"/>
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
     </xsl:variable>
     <xsl:variable name="note">
       <xsl:value-of select="concat('apparatus',$idstring)"/>
     </xsl:variable>
-    <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
-    <script>
-      var <xsl:value-of select="concat('disp',$idstring)"/>="none";
-      function <xsl:value-of select="$note"/>() {
-      var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
-      if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
-      ele.style.display="inline";
-      <xsl:value-of select="concat('disp',$idstring)"/>="inline";
-      } else {
-      ele.style.display="none";
-      <xsl:value-of select="concat('disp',$idstring)"/>="none";
-      }
-      }
-    </script>
-    <xsl:element name="a">
-      <xsl:attribute name="title">Tekstkritik</xsl:attribute>
-      <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-      <xsl:value-of select="$marker"/>
+    <xsl:apply-templates select="t:lem"/>
+    <xsl:element name="sup">
+      <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
+      <script>
+	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
+	function <xsl:value-of select="$note"/>() {
+	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
+	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
+	ele.style.display="inline";
+	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
+	} else {
+	ele.style.display="none";
+	<xsl:value-of select="concat('disp',$idstring)"/>="none";
+	}
+	}
+      </script>
+      <xsl:element name="a">
+	<xsl:attribute name="title">Tekstkritik</xsl:attribute>
+	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
+	<i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i>
+      </xsl:element>
     </xsl:element>
+    <span style="background-color:Aquamarine;display:none;">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:rdg|t:rdgGrp|t:corr"/>
+    </span>
   </xsl:template>
 
   <xsl:template match="t:sic">
-    <xsl:apply-templates/> [<em>sic!</em>]
   </xsl:template>
 
-  <xsl:template  mode="apparatus"  match="t:rdg">
+  <xsl:template match="t:rdg">
+    <xsl:if test="t:sic/@rendition = '#so'"><xsl:text> Således også: </xsl:text></xsl:if>
     <xsl:element name="span">
-      <xsl:apply-templates  mode="apparatus" />
       <xsl:if test="@wit">
 	<xsl:call-template name="witness"/>
-      </xsl:if>
-      <xsl:if test="@resp">
-	<xsl:text>
-	</xsl:text>
-	<xsl:call-template name="witness">
-	  <xsl:with-param name="wit" select="@resp"/>
-	</xsl:call-template>
-      </xsl:if>
-      <xsl:if test="@evidence">
-	[<xsl:value-of select="@evidence"/>]
-      </xsl:if>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template  mode="text"  match="t:rdg">
-    <xsl:element name="span">
-      <xsl:apply-templates />
+      </xsl:if><xsl:choose><xsl:when test="t:sic/@rendition = '#so'"><xsl:text> </xsl:text></xsl:when><xsl:otherwise><xsl:text>: </xsl:text></xsl:otherwise></xsl:choose>
+      <xsl:apply-templates/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
     </xsl:element>
   </xsl:template>
 
   <xsl:template name="witness">
-    <xsl:param name="wit" select="@wit"/>
-    <xsl:comment> Witness <xsl:value-of select="$wit"/> </xsl:comment>
+    <xsl:comment> Witness <xsl:value-of select="@wit"/> </xsl:comment>
     <xsl:variable name="witnesses">
       <xsl:copy-of select="/t:TEI//t:listWit"/>
     </xsl:variable>
-    <xsl:for-each select="fn:tokenize($wit,'\s+')">
-      <xsl:variable name="witness"><xsl:choose><xsl:when test="contains(.,'#')"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:when><xsl:otherwise><xsl:value-of select="."/></xsl:otherwise></xsl:choose></xsl:variable>
-      <xsl:element name="em">
+    <xsl:for-each select="fn:tokenize(@wit,'\s+')">
+      <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:variable>
+      <xsl:element name="span">
 	<xsl:attribute name="title">
 	  <xsl:value-of select="$witnesses//t:witness[@xml:id=$witness]"/>
 	</xsl:attribute>
