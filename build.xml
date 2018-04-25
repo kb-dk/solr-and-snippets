@@ -70,6 +70,9 @@
         <copy  todir="${service}/holberg">
 	  <fileset dir="../other_tei_projects/holberg"/>
 	</copy>
+        <copy  todir="${service}/pmm/texts">
+	  <fileset dir="../other_tei_projects/pmm"/>
+	</copy>
     </target>
 
     <target name="upload">
