@@ -4,7 +4,8 @@
     <cell role="author">holberg--p-val.xml</cell>
     <cell role="texts">
       <ref>niels_klim/niels_klim.xml</ref>
-      <ref>jeppe/jeppe.xml</ref>
+      <ref>niels_klim/niels_klim_overs.xml</ref>
+      <ref>jeppe/jeppe_mod.xml</ref>
     </cell>
   </row>
 </table>
