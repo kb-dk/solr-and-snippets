@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<table xmlns="http://www.tei-c.org/ns/1.0">
+  <row>
+    <cell role="author">authors/pmm-p-val.xml</cell>
+    <cell role="texts">
+      <ref>txt006.fpx.xml</ref>
+      <ref>txt063.1.fpx.xml</ref>
+      <ref>txt059.8.fpx.xml</ref>
+      <ref>txt063.2.fpx.xml</ref>
+    </cell>
+  </row>
+</table>
