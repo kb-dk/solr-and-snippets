@@ -49,6 +49,9 @@
         <copy todir="${service}/holberg">
 	  <fileset dir="${service.src}/holberg"/>
         </copy>
+	<copy todir="${service}/pmm">
+	  <fileset dir="${service.src}/pmm"/>
+        </copy>
     </target>
 
     <target name="add_data" depends="service">
