@@ -16,7 +16,7 @@
 
   <xsl:template match="t:pb">
     <xsl:variable name="first">
-      <xsl:value-of select="count(preceding::t:pb[@ed='A'])"/>
+      <xsl:value-of select="count(preceding::t:pb[@facs])"/>
     </xsl:variable>
 
     <xsl:if test="@ed='A' and $first &gt; 0">
