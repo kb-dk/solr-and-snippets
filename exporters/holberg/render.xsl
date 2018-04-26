@@ -16,10 +16,10 @@
 
   <xsl:template match="t:pb">
     <xsl:variable name="first">
-      <xsl:value-of select="count(preceding::t:pb[@ed='A'])"/>
+      <xsl:value-of select="count(preceding::t:pb[@facs])"/>
     </xsl:variable>
 
-    <xsl:if test="@ed='A' and $first &gt; 0">
+    <xsl:if test="@facs and $first &gt; 0">
       <xsl:element name="span">
 	<xsl:attribute name="title">Side <xsl:value-of select="@n"/></xsl:attribute>
 	<xsl:call-template name="add_id_empty_elem"/>
@@ -51,29 +51,33 @@
     <a title="Kommentar" href="{$href}">&#9658;</a>
   </xsl:template>
 
-  <xsl:template name="inferred_path">
-    <xsl:param name="document" select="$doc"/>
-    <xsl:variable name="frag">
-      <xsl:choose>
-	<xsl:when test="contains($document,'#')">
-	  <xsl:value-of select="fn:replace(substring-after($document,'#'),':.*$','')"/>
-	</xsl:when>
-	<xsl:otherwise>root</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="f">
-      <xsl:choose>
-	<xsl:when test="$frag = 'root'">-</xsl:when>
-	<xsl:otherwise>-root#</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:text>/text/</xsl:text><xsl:value-of select="replace(concat($c,'-',fn:lower-case(fn:replace($document,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
-  </xsl:template>
+   <xsl:template name="inferred_path">
+     <xsl:param name="document" select="$doc"/>
+     <xsl:variable name="frag">
+       <xsl:choose>
+	 <xsl:when test="contains($document,'#')">
+	   <xsl:value-of select="fn:replace(substring-after($document,'#'),':.*$','')"/>
+	 </xsl:when>
+	 <xsl:otherwise>root</xsl:otherwise>
+       </xsl:choose>
+     </xsl:variable>
+     <xsl:variable name="f">
+       <xsl:choose>
+	 <xsl:when test="$frag = 'root'">-</xsl:when>
+	 <xsl:otherwise>-root#</xsl:otherwise>
+       </xsl:choose>
+     </xsl:variable>
+     <xsl:text>/text/</xsl:text><xsl:value-of select="replace(concat($c,'-',fn:lower-case(fn:replace($document,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
+   </xsl:template>
 
   <xsl:template name="make-href">
     <xsl:call-template name="inferred_path">
       <xsl:with-param name="document" select="@target"/>
     </xsl:call-template>
   </xsl:template>
+
+
+
+
 
 </xsl:transform>

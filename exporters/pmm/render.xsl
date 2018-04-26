@@ -19,7 +19,7 @@
       <xsl:value-of select="count(preceding::t:pb[@facs])"/>
     </xsl:variable>
 
-    <xsl:if test="@ed='A' and $first &gt; 0">
+    <xsl:if test="@facs and $first &gt; 0">
       <xsl:element name="span">
 	<xsl:attribute name="title">Side <xsl:value-of select="@n"/></xsl:attribute>
 	<xsl:call-template name="add_id_empty_elem"/>
