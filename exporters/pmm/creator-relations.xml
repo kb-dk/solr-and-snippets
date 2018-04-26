@@ -3,10 +3,10 @@
   <row>
     <cell role="author">authors/pmm-p-val.xml</cell>
     <cell role="texts">
-      <ref>txt006.fpx.xml</ref>
-      <ref>txt063.1.fpx.xml</ref>
-      <ref>txt059.8.fpx.xml</ref>
-      <ref>txt063.2.fpx.xml</ref>
+      <ref>txt006.xml</ref>
+      <ref>txt063_1.xml</ref>
+      <ref>txt059_8.xml</ref>
+      <ref>txt063_2.xml</ref>
     </cell>
   </row>
 </table>
