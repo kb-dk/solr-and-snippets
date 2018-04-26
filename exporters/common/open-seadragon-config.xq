@@ -61,15 +61,17 @@ declare function local:get-section-pages(
 {
 	if($frag) then
           for $div in $doc//node()[@decls and @xml:id=$frag]
-	    for $p in $div/preceding::t:pb[1] | $div//t:pb
+	    for $p in $div/preceding::t:pb[1][@facs] | $div//t:pb[@facs]
+	    let $pid := $p/@facs/string()
 	    return
-	       if($p/@rend = 'missing') then $missing
-	       else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+	       let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
+               return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
 	else
-	  for $p in $doc//t:pb
+	  for $p in $doc//t:pb[@facs]
+	  let $pid := $p/@facs/string()
 	  return  
-	     if($p/@rend = 'missing') then $missing
-             else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
+             let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
+             return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
 };
 
 declare function local:get-pages(
@@ -78,21 +80,31 @@ declare function local:get-pages(
 {
 	if($frag) then
           for $div in $doc//node()[@xml:id=$frag]
-	    for $p in $div/preceding::t:pb[1] | $div/descendant::t:pb
+	    for $p in $div/preceding::t:pb[1][@facs] | $div/descendant::t:pb[@facs]
+	    let $pid := $p/@facs/string()
 	    return
-  	       if($p/@rend = 'missing') then $missing
-               else string-join(("http://kb-images.kb.dk/public",$p/@facs/string(),"info.json"),'/')
-	else
-	  for $p in $doc//t:pb
+	      let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
+              return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+  	else
+	  for $p in $doc//t:pb[@facs]
 	  let $pid := $p/@facs/string()
-	  return  
-            if($p/@rend = 'missing') then $missing
-	    else 
-	     let $uri_path := 
-	         if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
-                 else concat("public/",$pid)
-             return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+	  return 
+ 	    let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
+            return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
 
+};
+
+declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
+{
+        if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
+	    let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
+	    return 
+	       if(contains($graphic,"geService/")) then
+	          fn:replace($graphic,"(^.*geService/)(.*)(.jpg)","$2")
+	       else
+	          fn:replace($graphic,"(^.*src=)(.*)(.tif.*$)","$2")
+        else 
+	    concat("public/",fn:replace($pid,"#",""))
 };
 
 let $doc := doc(concat("./",$c,"/",$document))
