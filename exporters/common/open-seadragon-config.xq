@@ -37,6 +37,15 @@ declare variable  $missing  := "http://kb-images.kb.dk/public/sks/other/copyrigh
 declare option output:method "json";
 declare option output:media-type "application/json";
 
+
+declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string*
+{
+   let $uri_path := 
+	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
+        else concat("public/",$pid)
+   return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+};
+
 declare function local:get-section-navigation(
   $frag as xs:string,
   $doc  as node() ) as map()*
@@ -61,6 +70,7 @@ declare function local:get-section-pages(
 {
 	if($frag) then
           for $div in $doc//node()[@decls and @xml:id=$frag]
+
 	    for $p in $div/preceding::t:pb[1][@facs] | $div//t:pb[@facs]
 	    let $pid := $p/@facs/string()
 	    return
@@ -72,6 +82,7 @@ declare function local:get-section-pages(
 	  return  
              let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
              return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+
 };
 
 declare function local:get-pages(
@@ -93,6 +104,7 @@ declare function local:get-pages(
             return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
 
 };
+
 
 declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
 {

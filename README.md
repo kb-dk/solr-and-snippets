@@ -70,33 +70,7 @@ Some more examples
 
 ## Ingest and Indexing utilities
 
-These utilities require the presence a local file system with stuff to be loaded. The resources in the file system are assumed to be maintained using git.
-
-### Retrieving data from origin
-
-```
-indexing/git_retriever.pl --gitdir=<git project> --file_list=files_to_be_indexed.text
-
-where
-
---gitdir is a local directory connected to your origin (usually at github)
---file_list is text file where the names of the updated files are written, one per line
-
-if a file list isn't given, then the file names are written to standard output
-
-```
-
-The git retriever is written in perl, and requires some modules that
-may or may not be on your machine, like Git::Repository. Any of those
-can be installed using the cpan command, e.g.,
-
-```
-sudo cpan -e install Git::Repository
-
-```
-
-The program complains about an uninitialised variable on line 203 in Command.pm. Doesn't seem do any harm.
-
+These utilities require the presence a local file system with stuff to be loaded.
 
 ### Storing to exist
 
