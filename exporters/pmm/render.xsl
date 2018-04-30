@@ -16,10 +16,10 @@
 
   <xsl:template match="t:pb">
     <xsl:variable name="first">
-      <xsl:value-of select="count(preceding::t:pb[@ed='A'])"/>
+      <xsl:value-of select="count(preceding::t:pb[@facs])"/>
     </xsl:variable>
 
-    <xsl:if test="@ed='A' and $first &gt; 0">
+    <xsl:if test="@facs and $first &gt; 0">
       <xsl:element name="span">
 	<xsl:attribute name="title">Side <xsl:value-of select="@n"/></xsl:attribute>
 	<xsl:call-template name="add_id_empty_elem"/>
@@ -33,22 +33,15 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="t:ref[@type='komm']">
-    <xsl:if test="contains(@type,'komm') and contains(@path,'komm')">
-      <xsl:if test="contains($doc,fn:lower-case(fn:replace(@target,'.page.*$','')))">
-	<a href="{fn:replace(@target,'^(.*#[^:]*?:)','#')}"><xsl:apply-templates/></a>
-      </xsl:if>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="t:seg[@type='komm']">
-    <xsl:variable name="p">
-      <xsl:value-of select="replace($path,'(_overs)|(_mod)','')"/>
-    </xsl:variable>
-    <xsl:variable name="href">
-      <xsl:value-of select="concat(fn:replace($p,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
-    </xsl:variable>
-    <a title="Kommentar" href="{$href}">&#9658;</a>
+  <xsl:template match="t:ref[@type='commentary']">
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+	<xsl:call-template name="inferred_path">
+	  <xsl:with-param name="document" select="concat('texts/',@target)"/>
+	</xsl:call-template>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="inferred_path">
@@ -56,18 +49,27 @@
     <xsl:variable name="frag">
       <xsl:choose>
 	<xsl:when test="contains($document,'#')">
-	  <xsl:value-of select="fn:replace(substring-after($document,'#'),':.*$','')"/>
+	  <xsl:value-of select="fn:replace($document,'^(.*#)','')"/>
 	</xsl:when>
 	<xsl:otherwise>root</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="g"><xsl:value-of select="fn:replace(fn:lower-case($document),'.((xml)|(page)).*$','')"/></xsl:variable>
     <xsl:variable name="f">
       <xsl:choose>
 	<xsl:when test="$frag = 'root'">-</xsl:when>
 	<xsl:otherwise>-root#</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:text>/text/</xsl:text><xsl:value-of select="replace(concat($c,'-',fn:lower-case(fn:replace($document,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
+    <xsl:text>/text/</xsl:text>
+    <xsl:value-of select="fn:replace(concat($c,'-',$g,$f,$frag),'/','-')"/>
+  </xsl:template>
+
+  <xsl:template match="t:note[@type='commentary']">
+    <xsl:element name="div">
+      <xsl:call-template name="add_id_empty_elem"/>
+      <xsl:apply-templates/>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="make-href">

@@ -608,8 +608,6 @@
     </xsl:variable>
     <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='visible'</xsl:attribute>
     <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='hidden'</xsl:attribute>
-
-
     <xsl:element name="span">
       <xsl:attribute name="style">visibility:hidden;display:block;</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>

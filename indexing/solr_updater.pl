@@ -99,7 +99,12 @@ sub get_it() {
 
     my $c = '';
     my $f = '';
-    $file =~ s/^.*?((grundtvig)|(holberg)|(adl)|(sks))\///;
+
+#
+# This one is unforgivable:
+#
+
+    $file =~ s/^.*?((pmm)|(grundtvig)|(holberg)|(adl)|(sks))\///;
 
     $c = $1;
     $f = $file;
