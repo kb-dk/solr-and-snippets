@@ -78,9 +78,16 @@
   </xsl:template>
 
   <xsl:template name="doc_relations">
-    <xsl:call-template name="inferred_path">
-      <xsl:with-param name="document" select="concat(fn:replace($doc,'(^.*)(/[^/]*$)','$1/'),@corresp)"/>
-    </xsl:call-template>
+    <xsl:if test="@corresp">
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+	<xsl:call-template name="inferred_path">
+	  <xsl:with-param name="document" select="concat(fn:replace($doc,'(^.*)(/[^/]*$)','$1/'),@corresp/string())"/>
+	</xsl:call-template>
+      </xsl:attribute>
+      oversættelse / tekst
+    </xsl:element>
+    </xsl:if>
   </xsl:template>
 
 
