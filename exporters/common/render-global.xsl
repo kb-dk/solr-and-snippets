@@ -27,6 +27,8 @@
   </xsl:param>
   <xsl:param name="facslinks" select="''"/>
   <xsl:param name="path" select="''"/>
+  <xsl:param name="capabilities" select="''"/>
+  <xsl:param name="cap" select="document($capabilities)"/>
 
   <xsl:output method="xml"
 	      encoding="UTF-8"

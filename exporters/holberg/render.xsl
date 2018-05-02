@@ -51,6 +51,11 @@
     <a title="Kommentar" href="{$href}">&#9658;</a>
   </xsl:template>
 
+  <xsl:template match="t:label">
+    <span><xsl:call-template name="add_id_empty_elem"/><xsl:apply-templates/></span><xsl:text>
+</xsl:text>
+  </xsl:template>
+
    <xsl:template name="inferred_path">
      <xsl:param name="document" select="$doc"/>
      <xsl:variable name="frag">
@@ -79,14 +84,16 @@
 
   <xsl:template name="doc_relations">
     <xsl:if test="@corresp">
-    <xsl:element name="a">
-      <xsl:attribute name="href">
-	<xsl:call-template name="inferred_path">
-	  <xsl:with-param name="document" select="concat(fn:replace($doc,'(^.*)(/[^/]*$)','$1/'),@corresp/string())"/>
-	</xsl:call-template>
-      </xsl:attribute>
-      oversættelse / tekst
-    </xsl:element>
+      <xsl:variable name="file" select="substring-before(@corresp,'#')"/>
+      <xsl:text> | </xsl:text>
+      <xsl:element name="a">
+	<xsl:attribute name="href">
+	  <xsl:call-template name="inferred_path">
+	    <xsl:with-param name="document" select="concat(fn:replace($doc,'(^.*)(/[^/]*$)','$1/'),@corresp/string())"/>
+	  </xsl:call-template>
+	</xsl:attribute>
+	<xsl:value-of select="$cap/t:bibl/node()[@target=$file]/@type"/> 
+      </xsl:element>
     </xsl:if>
   </xsl:template>
 
