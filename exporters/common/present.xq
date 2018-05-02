@@ -52,6 +52,9 @@ let $period_id :=
 
 let $doc := doc(concat("./",$c,"/",$document))
 
+let $concordance := fn:replace(  concat($coll,"/",$document) , "([^/]+)$" , "concordance.xml")
+
+
 let $params := 
 <parameters>
    <param name="hostname"  value="{request:get-header('HOST')}"/>
@@ -68,6 +71,7 @@ let $params :=
    <param name="targetOp"  value="{$targetOp}"/>
    <param name="style"     value="{concat($coll,"/", $o, ".xsl")}"/>
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
+   <param name="concordance" value="{$concordance}"/>
 </parameters>
 
 let $hdoc := transform:transform($doc,$op,$params) 

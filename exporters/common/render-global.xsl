@@ -9,11 +9,11 @@
 
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
+  <xsl:param name="file" select="fn:replace($doc,'.*/([^/]+)$','$1')"/>
   <xsl:param name="prev" select="''"/>
   <xsl:param name="prev_encoded" select="''"/>
   <xsl:param name="next" select="''"/>
   <xsl:param name="next_encoded" select="''"/>
-  <xsl:param name="file" select="''"/>
   <xsl:param name="c" select="''"/>
   <xsl:param name="hostname" select="''"/>
   <xsl:param name="hostport" select="''"/>
@@ -27,7 +27,6 @@
   </xsl:param>
   <xsl:param name="facslinks" select="''"/>
   <xsl:param name="path" select="''"/>
-  <xsl:param name="concordance"><xsl:value-of select="doc('concordance.xml')"/></xsl:param>
 
   <xsl:output method="xml"
 	      encoding="UTF-8"
@@ -618,17 +617,15 @@
 	  <i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud tekst
 	</xsl:element>
       </xsl:if>
-      <!-- xsl:if test="$concordance">
-	<a>garbage</a>
-      </xsl:if -->
-      <!-- The gå til tekst function is redundant when the citer URI contains the fragment -->
-      <!-- xsl:element name="a">
-	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
-	<i class="fa fa-link" aria-hidden="true">&#160;</i>gå til tekst
-      </xsl:element -->
-&#160;
+      <xsl:call-template name="doc_relations"/>
+
+      <xsl:text>&#160;</xsl:text>
 
     </xsl:element>
+
+  </xsl:template>
+
+  <xsl:template name="doc_relations">
 
   </xsl:template>
 
