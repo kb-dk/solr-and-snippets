@@ -191,7 +191,24 @@
   </xsl:template>
 
 
+  <xsl:template match="t:castList">
 
+    <xsl:param name="worktitle" select="''"/>
+
+    <doc>
+
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
+
+      <xsl:call-template name="add_globals"/>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">genre_ssi</xsl:attribute>
+        <xsl:text>play</xsl:text>
+      </xsl:element>
+
+    </doc>
+
+  </xsl:template>
 
   <xsl:template match="t:sp">
     <xsl:param name="worktitle" select="''"/>

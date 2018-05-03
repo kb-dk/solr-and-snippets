@@ -340,6 +340,34 @@
     </td>
   </xsl:template>
 
+  <xsl:template match="t:castList">
+    <div class="castList">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="t:castItem">
+    <p class="castItem">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="t:castItem/t:role">
+    <strong class="role">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </strong>
+  </xsl:template>
+
+  <xsl:template match="t:castItem/t:actor">
+    <span class="actor">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
   <xsl:template match="t:list[@type='ordered']">
     <ol><xsl:call-template name="add_id"/><xsl:apply-templates/></ol>
   </xsl:template>
@@ -456,9 +484,20 @@
     </dl>
   </xsl:template>
 
+  <xsl:template match="t:stage/t:p">
+    <p class="paragraph">
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">false</xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates/>
+    </p>
+  </xsl:template>
+
   <xsl:template match="t:speaker">
     <xsl:element name="span">
-      <xsl:call-template name="add_id"/>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">false</xsl:with-param>
+      </xsl:call-template>
       <xsl:apply-templates/>
     </xsl:element>
     <xsl:text>
@@ -468,7 +507,9 @@
   <xsl:template match="t:sp/t:stage|t:p/t:stage|t:lg/t:stage|t:l/t:stage">
     <em class="stage"><xsl:text>
       </xsl:text><xsl:element name="span">
-      <xsl:call-template name="add_id"/>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">false</xsl:with-param>
+      </xsl:call-template>
       <xsl:apply-templates/>
     </xsl:element></em><xsl:text>
     </xsl:text>
@@ -605,7 +646,14 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="href">
-      <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
+      <xsl:choose>
+	<xsl:when test="contains($path,@xml:id)">
+	  <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-root#',@xml:id)"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
     <xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='visible'</xsl:attribute>
     <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='hidden'</xsl:attribute>
@@ -616,7 +664,10 @@
       <xsl:if test="not(contains($href,'adl-authors') or contains($href,'adl-periods') )">
 	<xsl:element name="a">
 	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
-	  <i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud tekst
+	  <xsl:choose>
+	    <xsl:when test="contains($path,@xml:id)">tilbage til teksten</xsl:when>
+	    <xsl:otherwise><i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud teksten</xsl:otherwise>
+	  </xsl:choose>
 	</xsl:element>
       </xsl:if>
       <xsl:call-template name="doc_relations"/>
