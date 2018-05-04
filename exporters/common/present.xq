@@ -32,7 +32,12 @@ declare variable  $hostport := request:get-parameter('hostport','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
-let $author_id := doc(concat($coll,"/","creator-relations.xml"))//t:row[t:cell/t:ref = $document]/t:cell[@role='author']
+let $adoc :=
+for $d in collection($coll)
+where util:document-name($d)="creator-relations.xml"
+return $d
+
+let $author_id := $adoc//t:row[contains($document,t:cell/t:ref)]/t:cell[@role='author']
 
 let $auid := 
   if($author_id) then
