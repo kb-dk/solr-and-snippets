@@ -32,7 +32,12 @@ declare variable  $hostport := request:get-parameter('hostport','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
-let $author_id := doc(concat($coll,"/","creator-relations.xml"))//t:row[t:cell/t:ref = $document]/t:cell[@role='author']
+let $adoc :=
+for $d in collection($coll)
+where util:document-name($d)="creator-relations.xml"
+return $d
+
+let $author_id := $adoc//t:row[contains($document,t:cell/t:ref)]/t:cell[@role='author']
 
 let $auid := 
   if($author_id) then
@@ -52,6 +57,9 @@ let $period_id :=
 
 let $doc := doc(concat("./",$c,"/",$document))
 
+let $capabilities := fn:replace(  concat($coll,"/",$document) , "([^/]+)$" , "capabilities.xml")
+
+
 let $params := 
 <parameters>
    <param name="hostname"  value="{request:get-header('HOST')}"/>
@@ -68,6 +76,8 @@ let $params :=
    <param name="targetOp"  value="{$targetOp}"/>
    <param name="style"     value="{concat($coll,"/", $o, ".xsl")}"/>
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
+   <param name="creator relations file" value="{util:document-name($adoc)}"/>
+   <param name="capabilities" value="{$capabilities}"/>
 </parameters>
 
 let $hdoc := transform:transform($doc,$op,$params) 

@@ -39,5 +39,21 @@
   </xsl:template>
 
 
+  <xsl:template mode="backtrack" match="node()[@xml:id]">
+    <xsl:element name="field">
+      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+      <xsl:choose>
+	<xsl:when test="not(contains(@xml:id,'root'))">
+	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="$path"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
+  </xsl:template>
+
+
 
 </xsl:transform>
