@@ -76,6 +76,7 @@ let $params :=
    <param name="targetOp"  value="{$targetOp}"/>
    <param name="style"     value="{concat($coll,"/", $o, ".xsl")}"/>
    <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
+   <param name="creator relations file" value="{util:document-name($adoc)}"/>
    <param name="capabilities" value="{$capabilities}"/>
 </parameters>
 
