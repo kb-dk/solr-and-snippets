@@ -424,7 +424,7 @@
   </xsl:template>
 
   <xsl:template match="t:item">
-    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
+r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
   <xsl:template match="t:figure">
@@ -669,7 +669,7 @@
 	<xsl:element name="a">
 	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
 	  <xsl:choose>
-	    <xsl:when test="contains($path,@xml:id)">tilbage til teksten</xsl:when>
+	    <xsl:when test="contains($path,@xml:id)">tilbage</xsl:when>
 	    <xsl:otherwise><i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud teksten</xsl:otherwise>
 	  </xsl:choose>
 	</xsl:element>
