@@ -122,8 +122,10 @@
 
   <xsl:template name="make-href">
 
+    <xsl:param name="go_to" select="@target"/>
+
     <xsl:variable name="target">
-      <xsl:value-of select="translate(@target,$uppercase,$lowercase)"/>
+      <xsl:value-of select="fn:lower-case($go_to)"/>
     </xsl:variable>
 
     <xsl:choose>

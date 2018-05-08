@@ -4,7 +4,8 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    exclude-result-prefixes="t"
+    xmlns:me="urn:my-things"
+    exclude-result-prefixes="t me"
     version="2.0">
 
   <xsl:param name="id" select="''"/>
@@ -638,6 +639,24 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
       <xsl:call-template name="add_id_empty_elem"/>      
     </xsl:element>
   </xsl:template>
+
+  <xsl:function name="me:looks_like">
+    <xsl:variable name="what">
+      <xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
+	<xsl:if test="contains($doc,@target)">
+	  <xsl:value-of select="@type"/>
+	</xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$what">
+	<xsl:value-of select="$what"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="''"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
 
   <xsl:template name="expose_link">
     <xsl:variable name="link_id">
