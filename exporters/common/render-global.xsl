@@ -419,8 +419,12 @@
   </xsl:template>
 
 
-  <xsl:template match="t:item">
+  <xsl:template match="t:list/t:item">
     <li><xsl:call-template name="add_id"/><xsl:apply-templates/></li>
+  </xsl:template>
+
+  <xsl:template match="t:item">
+    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
   <xsl:template match="t:figure">
