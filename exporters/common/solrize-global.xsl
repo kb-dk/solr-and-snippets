@@ -22,6 +22,9 @@
   <xsl:param name="auid_used" select="''"/>
   <xsl:param name="copyright" select="''"/>
 
+  <xsl:param name="capabilities" select="''"/>
+  <xsl:param name="cap" select="document($capabilities)"/>
+
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
       <xsl:apply-templates mode="gettext"  select="."/>
@@ -713,6 +716,24 @@
 	  </xsl:element>
 
 	</xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="me_looks_like">
+    <xsl:variable name="what">
+      <xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
+	<xsl:if test="contains($doc,@target)">
+	  <xsl:value-of select="@type"/>
+	</xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$what">
+	<xsl:value-of select="$what"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="''"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
