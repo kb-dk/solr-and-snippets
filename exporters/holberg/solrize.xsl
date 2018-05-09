@@ -6,6 +6,8 @@
   
   <xsl:import href="../solrize-global.xsl"/>
 
+  <xsl:param name="category" select="'work'"/>
+
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
       <xsl:for-each select="t:resp">
@@ -23,12 +25,17 @@
   <xsl:template match="t:text">
     <xsl:variable name="dir_path" select="substring-before($doc,'/')"/>
     <xsl:variable name="file_basename" select="substring-before(substring-after($doc,'/'),'.xml')"/>
+
+    <xsl:variable name="i_am_a">
+      <xsl:call-template name="me_looks_like"/>
+    </xsl:variable>
+
     <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
-	<xsl:if test="$dir_path = $file_basename">work</xsl:if>
+	<xsl:if test="$i_am_a = 'Tekst'">work</xsl:if>
       </xsl:with-param>
     </xsl:call-template>
 

@@ -4,7 +4,8 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    exclude-result-prefixes="t"
+    xmlns:me="urn:my-things"
+    exclude-result-prefixes="t me"
     version="2.0">
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
@@ -58,6 +59,7 @@
   <xsl:template match="t:ref">
     <xsl:element name="a">
       <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:call-template name="add_id"/>
       <xsl:if test="@target">
 	<xsl:attribute name="href">
 	  <xsl:call-template name="make-href"/>
@@ -67,18 +69,46 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:note">
+   <xsl:template match="t:label">
+    <xsl:param name="anchor" select="''"/>
+
     <xsl:choose>
-      <xsl:when test="@type='commentary'">
-	<xsl:element name="p">
-	  <xsl:call-template name="add_id"/>
-	  <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
-	</xsl:element>
+      <xsl:when test="me:looks_like() = 'Kommentar'">
+	<xsl:variable name="p">
+	  <xsl:value-of select="replace($path,'-kom','-txt')"/>
+	</xsl:variable>
+	<xsl:variable name="href">
+	  <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>
+	</xsl:variable>
+	<span>
+	  <a>
+	    <xsl:attribute name="href">
+	      <xsl:value-of select="$href"/> 
+	    </xsl:attribute>
+	    <xsl:apply-templates/>
+	  </a>
+	</span>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:call-template name="inline_note"/>
+	<span><xsl:call-template name="add_id_empty_elem"/><xsl:apply-templates/><xsl:value-of select="$anchor"/></span><xsl:text>
+      </xsl:text>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="t:note">
+    <p><xsl:call-template name="add_id_empty_elem"/>
+      <xsl:choose>
+	<xsl:when test="@type='commentary'">
+	  <xsl:apply-templates>
+	    <xsl:with-param name="anchor" select="@xml:id"/>
+	  </xsl:apply-templates>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:call-template name="inline_note"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </p>
   </xsl:template>
 
   <xsl:template mode="note_body" match="t:p">
