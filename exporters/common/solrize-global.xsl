@@ -436,6 +436,7 @@
 
     <xsl:call-template name="extract_titles_authors_etc"/>
 
+    <xsl:call-template name="what_i_can"/>
 
     <xsl:if test="$auid">
       <xsl:element name="field">
@@ -738,5 +739,21 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="what_i_can">
+    <xsl:if test="$cap//t:ref|$cap//t:relatedItem">
+      <xsl:element name="field">
+	<xsl:attribute name="name">capabilities_ssi</xsl:attribute>
+	<xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
+	  <xsl:text>&lt;a href='</xsl:text><xsl:call-template name="inferred_path"><xsl:with-param name="document" select="@target"/></xsl:call-template><xsl:text>'></xsl:text><xsl:value-of select="@type"/><xsl:text>&lt;/a>
+</xsl:text>
+	</xsl:for-each>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+   <xsl:template name="inferred_path">
+     <xsl:param name="document"/>
+     <xsl:value-of select="$document"/>
+   </xsl:template>
 
 </xsl:transform>
