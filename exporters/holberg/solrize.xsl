@@ -62,7 +62,7 @@
        </xsl:choose>
      </xsl:variable>
      <xsl:text>/text/</xsl:text><xsl:value-of
-     select="translate(concat($c,'-',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
+     select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
    </xsl:template>
 
 
