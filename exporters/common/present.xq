@@ -80,7 +80,7 @@ let $params :=
    <param name="capabilities" value="{$capabilities}"/>
 </parameters>
 
-let $hdoc := transform:transform($doc,$op,$params) 
+let $hdoc := transform:transform($doc,$op,$params)
 return 
   if(request:get-parameter("debug","")) then
      <d>{$params,concat("./",$c,"/",$document),$hdoc}</d>  

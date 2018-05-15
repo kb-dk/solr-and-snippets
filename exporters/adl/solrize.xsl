@@ -45,4 +45,6 @@
     </xsl:choose>
   </xsl:param>
 
+  <xsl:template name="what_i_can"/>
+
 </xsl:transform>

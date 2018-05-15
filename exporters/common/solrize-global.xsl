@@ -740,7 +740,7 @@
   </xsl:template>
 
   <xsl:template name="what_i_can">
-    <xsl:if test="$cap//t:ref|$cap//t:relatedItem">
+    <xsl:if test="$capabilities and ($cap//t:ref|$cap//t:relatedItem)">
       <xsl:element name="field">
 	<xsl:attribute name="name">capabilities_ssi</xsl:attribute>
 	<xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
