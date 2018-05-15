@@ -7,6 +7,8 @@
   <xsl:import href="../solrize-global.xsl"/>
 
 
+  <xsl:param name="subcollection" select="'adl'"/>
+
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
       <xsl:for-each select="t:resp">

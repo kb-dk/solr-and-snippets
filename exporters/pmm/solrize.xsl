@@ -5,6 +5,7 @@
 	       exclude-result-prefixes="t">
   
   <xsl:import href="../solrize-global.xsl"/>
+  <xsl:param name="subcollection" select="'pmm'"/>
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">

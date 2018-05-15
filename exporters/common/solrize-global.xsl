@@ -50,7 +50,7 @@
   <xsl:param name="published_date" select="''"/>
   <xsl:param name="c" select="'unknown_collection'"/>
   <xsl:param name="url" select="concat($c,'/',$doc)"/>
-
+  <xsl:param name="subcollection" select="'adl'"/>
   <xsl:param name="auid" select="''"/>
   <xsl:param name="perioid" select="''"/>
 
@@ -479,7 +479,7 @@
     </field>
 
     <field name="subcollection_ssi">
-      <xsl:value-of select="$c"/>
+      <xsl:value-of select="$subcollection"/>
     </field>
 
   <xsl:call-template name="facs_and_text"/>
