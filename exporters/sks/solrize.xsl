@@ -5,7 +5,8 @@
 	       exclude-result-prefixes="t">
 
   <xsl:import href="../solrize-global.xsl"/>
-  
+  <xsl:param name="subcollection" select="'sks'"/>  
+
   <xsl:param name="volume_title">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@level='s']">
       <xsl:apply-templates mode="gettext"  select="."/>
@@ -102,5 +103,6 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="what_i_can"/>
 
 </xsl:transform>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <table xmlns="http://www.tei-c.org/ns/1.0">
   <row>
-    <cell role="author">authors/holberg--p-val.xml</cell>
+    <cell role="author">holberg--p-val.xml</cell>
     <cell role="texts">
       <ref>niels_klim.xml</ref>
       <ref>niels_klim_overs.xml</ref>

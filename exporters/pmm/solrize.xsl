@@ -5,6 +5,7 @@
 	       exclude-result-prefixes="t">
   
   <xsl:import href="../solrize-global.xsl"/>
+  <xsl:param name="subcollection" select="'pmm'"/>
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
@@ -58,5 +59,7 @@
     </xsl:element>
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
   </xsl:template>
+
+  <xsl:template name="what_i_can"/>
 
 </xsl:transform>
