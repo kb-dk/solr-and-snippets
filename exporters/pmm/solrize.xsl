@@ -59,4 +59,6 @@
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
   </xsl:template>
 
+  <xsl:template name="what_i_can"/>
+
 </xsl:transform>
