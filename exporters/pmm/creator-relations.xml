@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <table xmlns="http://www.tei-c.org/ns/1.0">
   <row>
-    <cell role="author">authors/pmm-p-val.xml</cell>
+    <cell role="author">pmm-p-val.xml</cell>
     <cell role="texts">
       <ref>txt006.xml</ref>
       <ref>txt063_1.xml</ref>
