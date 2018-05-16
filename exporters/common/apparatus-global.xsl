@@ -191,11 +191,15 @@
     <span style="background-color:Aquamarine;display:none;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates mode="apparatus" select="t:lem"/>
-      <xsl:for-each select="t:rdg|t:rdgGrp|t:corr">
-	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+      <xsl:for-each select="t:rdg|t:rdgGrp|t:corr|t:note">
+	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()"><xsl:comment> ; </xsl:comment></xsl:if>
       </xsl:for-each>
     </span>
 
+  </xsl:template>
+
+  <xsl:template mode="apparatus" match="t:note">
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template name="apparatus-marker">
