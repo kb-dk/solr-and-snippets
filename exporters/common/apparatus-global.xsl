@@ -56,8 +56,8 @@
     </del>
   </xsl:template>
 
-  <xsl:template mode="apparatus" match="t:del">
-    <span title="sletning">
+  <xsl:template mode="apparatus" match="t:add|t:del">
+    <span title="{local-name(.)}">
       <xsl:call-template name="render_before_after"/>
       <xsl:apply-templates/>
       <xsl:call-template name="render_before_after">
@@ -182,7 +182,7 @@
   <xsl:template mode="apparatus" match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>]<xsl:text> 
+      <xsl:apply-templates mode="apparatus"/>]<xsl:text> 
       </xsl:text>
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
