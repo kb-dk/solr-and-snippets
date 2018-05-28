@@ -8,6 +8,11 @@
   <xsl:param name="subcollection" select="'holberg'"/>
   <xsl:param name="category" select="'work'"/>
 
+  <xsl:param name="i_am_a">
+    <xsl:call-template name="me_looks_like"/>
+  </xsl:param>
+
+
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
       <xsl:for-each select="t:resp">
@@ -25,10 +30,6 @@
   <xsl:template match="t:text">
     <xsl:variable name="dir_path" select="substring-before($doc,'/')"/>
     <xsl:variable name="file_basename" select="substring-before(substring-after($doc,'/'),'.xml')"/>
-
-    <xsl:variable name="i_am_a">
-      <xsl:call-template name="me_looks_like"/>
-    </xsl:variable>
 
     <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
@@ -79,6 +80,31 @@
       </xsl:choose>
     </xsl:element>
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
+  </xsl:template>
+
+
+  <xsl:template name="extract_titles_authors_etc">
+
+    <xsl:choose>
+      <xsl:when test="contains($i_am_a,'Tekst')">
+	<xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Holberg, Ludvig</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Holberg, Ludvig</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Ludvig Holberg</xsl:element>
+	<xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Ludvig Holberg</xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:author">
+	  <xsl:for-each select="t:name">
+	    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>
+	    <xsl:value-of  select="."/>
+	    </xsl:element>
+	  </xsl:for-each>
+	</xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+
   </xsl:template>
 
 

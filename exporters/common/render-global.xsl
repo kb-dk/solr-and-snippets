@@ -688,8 +688,8 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 	<xsl:element name="a">
 	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
 	  <xsl:choose>
-	    <xsl:when test="contains($path,@xml:id)">tilbage</xsl:when>
-	    <xsl:otherwise><i class="fa fa-scissors" aria-hidden="true">&#160;</i>klip ud teksten</xsl:otherwise>
+	    <xsl:when test="contains($path,@xml:id)">Vis det hele</xsl:when>
+	    <xsl:otherwise><i class="fa fa-scissors" aria-hidden="true">&#160;</i>Vis kun denne del</xsl:otherwise>
 	  </xsl:choose>
 	</xsl:element>
       </xsl:if>
