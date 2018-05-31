@@ -7,6 +7,8 @@
     exclude-result-prefixes="t"
     version="2.0">
 
+  <xsl:param name="use_marker" select="'no'"/>
+
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
   <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
@@ -213,7 +215,6 @@
   </xsl:template>
 
   <xsl:template match="t:app">
-    <!-- i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i> absent_friend  -->
     <xsl:apply-templates mode="text" select="t:lem"/>
     <xsl:element name="span">
       <xsl:call-template name="apparatus-marker"><xsl:with-param name="marker">&#128712; </xsl:with-param></xsl:call-template>
@@ -264,7 +265,14 @@
     <xsl:element name="a">
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-      <xsl:value-of select="$marker"/>
+      <xsl:choose>
+	<xsl:when test="$use_marker='yes'  and $marker">
+	  <xsl:value-of select="$marker"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i> 
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:element>
   </xsl:template>
 
