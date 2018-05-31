@@ -256,6 +256,10 @@
     <xsl:text> </xsl:text>
   </xsl:template>
 
+  <xsl:template match="t:lg[t:lg]">
+    <xsl:apply-templates/>
+  </xsl:template>
+
 
   <xsl:template match="t:lg">
     <xsl:param name="worktitle" select="''"/>

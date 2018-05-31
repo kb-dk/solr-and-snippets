@@ -7,6 +7,8 @@
   <xsl:import href="../solrize-global.xsl"/>
   <xsl:param name="subcollection" select="'sks'"/>  
 
+  <xsl:param name="is_monograph">no</xsl:param>
+
   <xsl:param name="volume_title">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@level='s']">
       <xsl:apply-templates mode="gettext"  select="."/>

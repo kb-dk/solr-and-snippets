@@ -245,11 +245,15 @@
 
 
 
- <xsl:template match="t:lb">
-   <xsl:element name="br">
-    <xsl:call-template name="add_id_empty_elem"/>
-   </xsl:element>
- </xsl:template>
+  <xsl:template match="t:lb">
+    <xsl:element name="br">
+      <xsl:call-template name="add_id_empty_elem"/>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="t:lg[t:lg]">
+    <xsl:apply-templates/>
+  </xsl:template>
 
   <xsl:template match="t:lg">
     <p class="lineGroup">
