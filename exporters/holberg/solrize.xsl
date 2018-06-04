@@ -12,7 +12,6 @@
     <xsl:call-template name="me_looks_like"/>
   </xsl:param>
 
-
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
       <xsl:for-each select="t:resp">
@@ -85,23 +84,11 @@
 
   <xsl:template name="extract_titles_authors_etc">
 
-    <xsl:choose>
-      <xsl:when test="contains($i_am_a,'Tekst')">
-	<xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Holberg, Ludvig</xsl:element>
-	<xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Holberg, Ludvig</xsl:element>
-	<xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Ludvig Holberg</xsl:element>
-	<xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Ludvig Holberg</xsl:element>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:author">
-	  <xsl:for-each select="t:name">
-	    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>
-	    <xsl:value-of  select="."/>
-	    </xsl:element>
-	  </xsl:for-each>
-	</xsl:for-each>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Holberg, Ludvig</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Holberg, Ludvig</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Ludvig Holberg</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Ludvig Holberg</xsl:element>
+     
     <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
 

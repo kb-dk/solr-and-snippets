@@ -23,7 +23,14 @@
   <xsl:param name="copyright" select="''"/>
 
   <xsl:param name="capabilities" select="''"/>
-  <xsl:param name="cap" select="document($capabilities)"/>
+  <xsl:param name="cap">
+    <xsl:choose>
+    <xsl:when test="string(document($capabilities))">
+      <xsl:value-of select="document($capabilities)"/>
+    </xsl:when>
+    <xsl:otherwise></xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
@@ -727,11 +734,13 @@
 
   <xsl:template name="me_looks_like">
     <xsl:variable name="what">
-      <xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
-	<xsl:if test="contains($doc,@target)">
-	  <xsl:value-of select="@type"/>
-	</xsl:if>
-      </xsl:for-each>
+      <xsl:if test="$capabilities">
+	<xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
+	  <xsl:if test="contains($doc,@target)">
+	    <xsl:value-of select="@type"/>
+	  </xsl:if>
+	</xsl:for-each>
+      </xsl:if>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="$what">
