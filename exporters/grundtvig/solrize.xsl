@@ -12,11 +12,16 @@
     <xsl:call-template name="me_looks_like"/>
   </xsl:param>
 
-  <xsl:param name="worktitle">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[not(@level) and not(@type)]">
+  <xsl:param name="volume_title">
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]">
       <xsl:apply-templates mode="gettext"  select="."/>
     </xsl:for-each>
   </xsl:param>
+
+  <xsl:param name="worktitle">
+    <xsl:value-of select="$volume_title"/>
+  </xsl:param>
+
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
@@ -26,9 +31,6 @@
     </xsl:for-each>
   </xsl:param>
 
-  <xsl:param name="volume_title">
-    <xsl:value-of select="$worktitle"/>
-  </xsl:param>
 
   <xsl:param name="volume_sort_title">
     <xsl:value-of select="$worktitle"/>
