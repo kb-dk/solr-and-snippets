@@ -16,4 +16,6 @@ for t in "${!specimen[@]}"
 do
     echo "$t":
     $SAXON -xsl:"build/text-retriever/$t/solrize.xsl" -s:"${specimen[$t]}" | xmllint - | tail -8
+    $SAXON -xsl:"build/text-retriever/$t/toc.xsl" -s:"${specimen[$t]}" | xmllint - | tail -8
 done
+
