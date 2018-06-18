@@ -2,7 +2,7 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-               exclude-result-prefixes="t"
+	       exclude-result-prefixes="t fn"
                version="2.0">
 
   <!-- not a poisonous adder -->
@@ -364,13 +364,15 @@
 
       <xsl:call-template name="add_globals" />
 
-      <xsl:if test="//t:pb[@n]">
+      <xsl:for-each select="//t:pb">
+	<xsl:if test="position()=1">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">page_ssi</xsl:attribute>
 	  <xsl:value-of
-	      select="//t:pb[1]/@n"/>
+	      select="@n"/>
 	</xsl:element>
-      </xsl:if>
+	</xsl:if>
+      </xsl:for-each>
 
     </doc>
   </xsl:template>
