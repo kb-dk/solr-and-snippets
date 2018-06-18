@@ -82,7 +82,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	  <xsl:value-of
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
-	<xsl:when test="string-length(normalize-space(t:head/text())) &gt; 0">
+	<xsl:when test="string-length(normalize-space(string-join(' ',t:head/text()))) &gt; 0">
 	    <xsl:value-of select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
@@ -90,7 +90,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	    <xsl:value-of select="." />
 	  </xsl:variable>
 	  <xsl:value-of
-	      select="substring(normalize-space($some_text),1,20)"/>
+	      select="substring(normalize-space(string-join(' ',$some_text)),1,20)"/>
 	  <xsl:text>...</xsl:text>
 	</xsl:otherwise>
       </xsl:choose>
