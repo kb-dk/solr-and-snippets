@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:t="http://www.tei-c.org/ns/1.0"
-	       xmlns:exsl="http://exslt.org/common"
-	       extension-element-prefixes="exsl"
-               exclude-result-prefixes="t exsl"
-               version="1.0">
+	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	       exclude-result-prefixes="t fn"
+               version="2.0">
 
   <!-- not a poisonous adder -->
 
@@ -365,13 +364,15 @@
 
       <xsl:call-template name="add_globals" />
 
-      <xsl:if test="//t:pb[@n]">
+      <xsl:for-each select="//t:pb">
+	<xsl:if test="position()=1">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">page_ssi</xsl:attribute>
 	  <xsl:value-of
-	      select="//t:pb[1]/@n"/>
+	      select="@n"/>
 	</xsl:element>
-      </xsl:if>
+	</xsl:if>
+      </xsl:for-each>
 
     </doc>
   </xsl:template>
@@ -435,7 +436,7 @@
     <xsl:if test="t:head|../t:head">
       <xsl:element name="field">
       <xsl:attribute name="name">head_tesim</xsl:attribute>
-      <xsl:value-of select="normalize-space(t:head|../t:head[1])"/></xsl:element>
+      <xsl:value-of select="normalize-space(fn:string-join(' ',(t:head|../t:head[1])))"/></xsl:element>
     </xsl:if>
 
     <xsl:call-template name="extract_titles_authors_etc"/>
@@ -543,16 +544,13 @@
     </xsl:if>
   </xsl:template>
 
-
   <xsl:template name="str_massage">
     <xsl:param name="str" select="''"/>
-    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
-    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
     <!-- believe that the strings below has to have the same lenght -->
      <xsl:variable name="meta"><xsl:text>!&apos;&quot;#%;,:.()-_'</xsl:text></xsl:variable>
     <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
-    <xsl:variable name="str1" select="translate($str,$uppercase,$lowercase)"/>
-    <xsl:variable name="str2" select="translate($str1,$meta,$space)"/>
+    <xsl:variable name="str1" select="fn:lower-case($str)"/>
+    <xsl:variable name="str2" select="translate(fn:string-join(' ',$str1),$meta,$space)"/>
     <xsl:variable name="str3" select="normalize-space($str2)"/>
     <xsl:value-of select="$str3"/>
   </xsl:template>
@@ -560,7 +558,6 @@
   <xsl:template name="author_ssim">
     <xsl:value-of select="normalize-space(.)"/>
   </xsl:template>
-
 
   <xsl:template mode="backtrack" match="node()[@xml:id]">
     <xsl:choose>
