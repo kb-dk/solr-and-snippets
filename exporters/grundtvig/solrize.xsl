@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xsl:transform version="1.0"
+<xsl:transform version="2.0"
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
-	       exclude-result-prefixes="t">
+	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	       exclude-result-prefixes="t fn">
   
   <xsl:import href="../solrize-global.xsl"/>
 
@@ -12,11 +13,16 @@
     <xsl:call-template name="me_looks_like"/>
   </xsl:param>
 
-  <xsl:param name="worktitle">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[not(@level) and not(@type)]">
+  <xsl:param name="volume_title">
+    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]">
       <xsl:apply-templates mode="gettext"  select="."/>
     </xsl:for-each>
   </xsl:param>
+
+  <xsl:param name="worktitle">
+    <xsl:value-of select="$volume_title"/>
+  </xsl:param>
+
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
@@ -26,9 +32,6 @@
     </xsl:for-each>
   </xsl:param>
 
-  <xsl:param name="volume_title">
-    <xsl:value-of select="$worktitle"/>
-  </xsl:param>
 
   <xsl:param name="volume_sort_title">
     <xsl:value-of select="$worktitle"/>
