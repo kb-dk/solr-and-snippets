@@ -1,0 +1,887 @@
+<?xml version="1.0"?>
+<table xmlns="http://www.tei-c.org/ns/1.0">
+  <row>
+    <cell role="author">aakjaer-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/aakjaer01val.xml</ref>
+      <ref>texts/aakjaer02val.xml</ref>
+      <ref>texts/aakjaer03tom.xml</ref>
+      <ref>texts/aakjaer04tom.xml</ref>
+      <ref>texts/aakjaer05tom.xml</ref>
+      <ref>texts/aakjaer06val.xml</ref>
+      <ref>texts/aakjaer07tom.xml</ref>
+      <ref>texts/aakjaer08tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">aarestrup-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/aare01val.xml</ref>
+      <ref>texts/aare02val.xml</ref>
+      <ref>texts/aare03val.xml</ref>
+      <ref>texts/aare04val.xml</ref>
+      <ref>texts/aarestrup05.xml</ref>
+      <ref>texts/aarestrup06a.xml</ref>
+      <ref>texts/aarestrup06b.xml</ref>
+      <ref>texts/aarestrup06c.xml</ref>
+      <ref>texts/aarestrup06d.xml</ref>
+      <ref>texts/aarestrup06e.xml</ref>
+      <ref>texts/aarestrup06f.xml</ref>
+      <ref>texts/aarestrup06.xml</ref>
+      <ref>texts/aarestrup07val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">hca-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/hcaeventyr01val.xml</ref>
+      <ref>texts/hcaeventyr02val.xml</ref>
+      <ref>texts/hcaeventyr03val.xml</ref>
+      <ref>texts/hcaeventyr04val.xml</ref>
+      <ref>texts/hcaeventyr05val.xml</ref>
+      <ref>texts/hcaeventyr06val.xml</ref>
+      <ref>texts/hcaeventyr07val.xml</ref>
+      <ref>texts/hcaisverrigval.xml</ref>
+      <ref>texts/andersen01val.xml</ref>
+      <ref>texts/andersen02val.xml</ref>
+      <ref>texts/andersen03val.xml</ref>
+      <ref>texts/andersen04val.xml</ref>
+      <ref>texts/andersen05val.xml</ref>
+      <ref>texts/andersen06val.xml</ref>
+      <ref>texts/andersen07val.xml</ref>
+      <ref>texts/andersenhc08val.xml</ref>
+      <ref>texts/andersenhc_09.xml</ref>
+      <ref>texts/andersenhc_10.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">arrebo-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/arre02tom.xml</ref>
+      <ref>texts/arre03tom.xml</ref>
+      <ref>texts/arre04tom.xml</ref>
+      <ref>texts/arre05tom.xml</ref>
+      <ref>texts/arrebo01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">bagger-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/bagger01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">baggesen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/baggesen01val.xml</ref>
+      <ref>texts/baggesen02val.xml</ref>
+      <ref>texts/baggesen03tom.xml</ref>
+      <ref>texts/baggesen04tom.xml</ref>
+      <ref>texts/baggesen05tom.xml</ref>
+      <ref>texts/baggesen06.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">bang-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/bang01val.xml</ref>
+      <ref>texts/bang02val.xml</ref>
+      <ref>texts/bang03val.xml</ref>
+      <ref>texts/bang04val.xml</ref>
+      <ref>texts/bang05val.xml</ref>
+      <ref>texts/bang06val.xml</ref>
+      <ref>texts/bang07val.xml</ref>
+      <ref>texts/bang08val.xml</ref>
+      <ref>texts/bang09val.xml</ref>
+      <ref>texts/bang10tom.xml</ref>
+      <ref>texts/bang11val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">bergsoe-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/berg01tom.xml</ref>
+      <ref>texts/berg03tom.xml</ref>
+      <ref>texts/berg04tom.xml</ref>
+      <ref>texts/berg05tom.xml</ref>
+      <ref>texts/berg06tom.xml</ref>
+      <ref>texts/berg07tom.xml</ref>
+      <ref>texts/bergsoe02.xml</ref>
+      <ref>texts/bergsoev01ny.xml</ref>
+      <ref>texts/bergsoev02.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author"/>
+    <cell role="texts">
+      <ref>texts/biehl01.xml</ref>
+      <ref>texts/biehl02tom.xml</ref>
+      <ref>texts/biehl03tom.xml</ref>
+      <ref>texts/biehl04tom.xml</ref>
+      <ref>texts/biehl05tom.xml</ref>
+      <ref>texts/biehl06tom.xml</ref>
+      <ref>texts/biehl07tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">blicher-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/blic03val.xml</ref>
+      <ref>texts/blich01tom.xml</ref>
+      <ref>texts/blich02tom.xml</ref>
+      <ref>texts/blich04.xml</ref>
+      <ref>texts/blich05.xml</ref>
+      <ref>texts/blich06.xml</ref>
+      <ref>texts/blich07.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">boetcher-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/boedtcher01.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">bording-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/bord02tom.xml</ref>
+      <ref>texts/bord03tom.xml</ref>
+      <ref>texts/bording01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">brahe-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/tycho-01-tilurania.xml</ref>
+      <ref>texts/tycho01tom.xml</ref>
+      <ref>texts/tycho02tom.xml</ref>
+      <ref>texts/tycho-02-uraniahaec.xml</ref>
+      <ref>texts/tycho-03-urindskrift.xml</ref>
+      <ref>texts/tycho-04-uraniatitani.xml</ref>
+      <ref>texts/tycho-05-epigrammersofiebrahe-eriklange.xml</ref>
+      <ref>texts/tycho-06-siquidagat.xml</ref>
+      <ref>texts/tycho06tom.xml</ref>
+      <ref>texts/tycho-07-brevdigteriklange.xml</ref>
+      <ref>texts/tycho07tom.xml</ref>
+      <ref>texts/tycho08tom.xml</ref>
+      <ref>texts/tycho-08-tvillingebror.xml</ref>
+      <ref>texts/tycho09tom.xml</ref>
+      <ref>texts/tycho15tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">brandes-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/brandes01tom.xml</ref>
+      <ref>texts/brandes02tom.xml</ref>
+      <ref>texts/brandes03tom.xml</ref>
+      <ref>texts/brandes04.xml</ref>
+      <ref>texts/brandes05.xml</ref>
+      <ref>texts/brandes06.xml</ref>
+      <ref>texts/brandes07tom.xml</ref>
+      <ref>texts/brandes08tom.xml</ref>
+      <ref>texts/brandes09tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">ed-brand-bibl.xml</cell>
+    <cell role="texts">
+      <ref>texts/brandesed_03.xml</ref>
+      <ref>texts/brandesed_04.xml</ref>
+      <ref>texts/brandesed_05.xml</ref>
+      <ref>texts/brandesed_06.xml</ref>
+      <ref>texts/brandesed_07.xml</ref>
+      <ref>texts/brandesed_08.xml</ref>
+      <ref>texts/brandesed_09.xml</ref>
+      <ref>texts/brandesed_10.xml</ref>
+      <ref>texts/brandesed_11.xml</ref>
+      <ref>texts/brandesed_12.xml</ref>
+      <ref>texts/brandesed_13.xml</ref>
+      <ref>texts/brandesed_14.xml</ref>
+      <ref>texts/brandesed_15.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">brorson-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/brorson01.xml</ref>
+      <ref>texts/brorson02val.xml</ref>
+      <ref>texts/brorson03grval.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author"/>
+    <cell role="texts">
+      <ref>texts/bruunval.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">chievitz-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/chievitz01.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">claussen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/claussen01.xml</ref>
+      <ref>texts/claussen02.xml</ref>
+      <ref>texts/claussen03val.xml</ref>
+      <ref>texts/claussen04val.xml</ref>
+      <ref>texts/claussen05val.xml</ref>
+      <ref>texts/claussen06val.xml</ref>
+      <ref>texts/claussen07val.xml</ref>
+      <ref>texts/claussen08val.xml</ref>
+      <ref>texts/claussen09val.xml</ref>
+      <ref>texts/claussen10val.xml</ref>
+      <ref>texts/claussen11val.xml</ref>
+      <ref>texts/claussen12val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">dalgas-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/dalgasdomval.xml</ref>
+      <ref>texts/dalgaslideval.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">drachmann-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/drachmann01.xml</ref>
+      <ref>texts/drachmann02tom.xml</ref>
+      <ref>texts/drachmann03tom.xml</ref>
+      <ref>texts/drachmann04tom.xml</ref>
+      <ref>texts/drachmann05tom.xml</ref>
+      <ref>texts/drachmann06tom.xml</ref>
+      <ref>texts/drachmann07tom.xml</ref>
+      <ref>texts/drachmann08tom.xml</ref>
+      <ref>texts/drachmann09tom.xml</ref>
+      <ref>texts/drachmann10tom.xml</ref>
+      <ref>texts/drachmann11tom.xml</ref>
+      <ref>texts/drachmann12tom.xml</ref>
+      <ref>texts/drachmann13val.xml</ref>
+      <ref>texts/drachmann14val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">ewald-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/ewal07tom.xml</ref>
+      <ref>texts/ewal08tom.xml</ref>
+      <ref>texts/ewal09tom.xml</ref>
+      <ref>texts/ewald01dkval.xml</ref>
+      <ref>texts/ewald02dkval.xml</ref>
+      <ref>texts/ewald03val.xml</ref>
+      <ref>texts/ewald04val.xml</ref>
+      <ref>texts/ewald05val.xml</ref>
+      <ref>texts/ewald06val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">falster-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/falster01.xml</ref>
+      <ref>texts/falster02.xml</ref>
+      <ref>texts/falster03.xml</ref>
+      <ref>texts/falster04.xml</ref>
+      <ref>texts/falster05.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">fibiger-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/fibiger01.xml</ref>
+      <ref>texts/fibiger02val.xml</ref>
+      <ref>texts/fibiger04tom.xml</ref>
+      <ref>texts/fibiger05tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">gjellerup-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/gjellerup01.xml</ref>
+      <ref>texts/gjellerup02.xml</ref>
+      <ref>texts/gjellerup03.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">goldschmidt-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/goldschmidt01.xml</ref>
+      <ref>texts/goldschmidt02t.xml</ref>
+      <ref>texts/goldschmidt03.xml</ref>
+      <ref>texts/goldschmidt04.xml</ref>
+      <ref>texts/goldschmidt05tom.xml</ref>
+      <ref>texts/goldschmidt06tom.xml</ref>
+      <ref>texts/goldschmidt07tom.xml</ref>
+      <ref>texts/goldschmidt08tom.xml</ref>
+      <ref>texts/goldschmidt09tom.xml</ref>
+      <ref>texts/goldschmidt10tom.xml</ref>
+      <ref>texts/goldschmidt11tom.xml</ref>
+      <ref>texts/goldschmidt12tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">grundtvig-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/grundtvig01val.xml</ref>
+      <ref>texts/grundtvig02val.xml</ref>
+      <ref>texts/grundtvig03val.xml</ref>
+      <ref>texts/grundtvig04val.xml</ref>
+      <ref>texts/grundtvig05val.xml</ref>
+      <ref>texts/grundtvig06val.xml</ref>
+      <ref>texts/grundtvig07val.xml</ref>
+      <ref>texts/grundtvig08val.xml</ref>
+      <ref>texts/grundtvig09val.xml</ref>
+      <ref>texts/grundtvig10val.xml</ref>
+      <ref>texts/grundtvig11val.xml</ref>
+      <ref>texts/grundtvig12val.xml</ref>
+      <ref>texts/grundtvig13tom.xml</ref>
+      <ref>texts/grundtvig14tom.xml</ref>
+      <ref>texts/grundtvig15tom.xml</ref>
+      <ref>texts/grundtvig16tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">gyllembourg-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/gyllem01tom.xml</ref>
+      <ref>texts/gyllem02tom.xml</ref>
+      <ref>texts/gyllem03tom.xml</ref>
+      <ref>texts/gyllem04tom.xml</ref>
+      <ref>texts/gyllem05tom.xml</ref>
+      <ref>texts/gyllem06tom.xml</ref>
+      <ref>texts/gyllem07tom.xml</ref>
+      <ref>texts/gyllem08tom.xml</ref>
+      <ref>texts/gyllem09tom.xml</ref>
+      <ref>texts/gyllem10tom.xml</ref>
+      <ref>texts/gyllem11tom.xml</ref>
+      <ref>texts/gyllem12tom.xml</ref>
+      <ref>texts/gyllem13.xml</ref>
+      <ref>texts/gyllem14val.xml</ref>
+      <ref>texts/gyllem15.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">hauch-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/hauch01val.xml</ref>
+      <ref>texts/hauch02val.xml</ref>
+      <ref>texts/hauch03val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">fruheiberg-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/heibfr01.xml</ref>
+      <ref>texts/heibfr02.xml</ref>
+      <ref>texts/heibfr03.xml</ref>
+      <ref>texts/heibfr04.xml</ref>
+      <ref>texts/heibfr05val.xml</ref>
+      <ref>texts/heibfr06val.xml</ref>
+      <ref>texts/heibfr07val.xml</ref>
+      <ref>texts/heibfr08val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">jlheiberg-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/heibergjl04val.xml</ref>
+      <ref>texts/heibergjl05val.xml</ref>
+      <ref>texts/heiberg_bind01.xml</ref>
+      <ref>texts/heiberg_bind02val.xml</ref>
+      <ref>texts/heiberg_bind03.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">paheiberg-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/heibergpa01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">helgesen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/helg04tom.xml</ref>
+      <ref>texts/helg06val2.xml</ref>
+      <ref>texts/helg07tom.xml</ref>
+      <ref>texts/helgesen01.xml</ref>
+      <ref>texts/helgesen02.xml</ref>
+      <ref>texts/helgesen03.xml</ref>
+      <ref>texts/helgesen05.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">hertz-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/hertz01tom.xml</ref>
+      <ref>texts/hertz02tom.xml</ref>
+      <ref>texts/hertz03val.xml</ref>
+      <ref>texts/hertz04val.xml</ref>
+      <ref>texts/hertz05tom.xml</ref>
+      <ref>texts/hertz06tom.xml</ref>
+      <ref>texts/hertz07tom.xml</ref>
+      <ref>texts/hertz08tom.xml</ref>
+      <ref>texts/hertz09_lev.xml</ref>
+      <ref>texts/hertz10_lev.xml</ref>
+      <ref>texts/hertz11_lev.xml</ref>
+      <ref>texts/hertz13tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">hjort-p-valid.xml</cell>
+    <cell role="texts">
+      <ref>texts/hjort_01.xml</ref>
+      <ref>texts/hjort_02.xml</ref>
+      <ref>texts/hjort_03.xml</ref>
+      <ref>texts/hjort_04.xml</ref>
+      <ref>texts/hjort_05.xml</ref>
+      <ref>texts/hjort_06.xml</ref>
+      <ref>texts/hjort_07.xml</ref>
+      <ref>texts/hjort_08.xml</ref>
+      <ref>texts/hjort_09.xml</ref>
+      <ref>texts/hjort_10.xml</ref>
+      <ref>texts/hjort_11.xml</ref>
+      <ref>texts/hjort_12.xml</ref>
+      <ref>texts/hjort_13.xml</ref>
+      <ref>texts/hjort_14.xml</ref>
+      <ref>texts/hjort_15.xml</ref>
+      <ref>texts/hjort_16.xml</ref>
+      <ref>texts/hjort_17.xml</ref>
+      <ref>texts/hjort_18.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">holberg--p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/holb03val.xml</ref>
+      <ref>texts/holb04val.xml</ref>
+      <ref>texts/holb05val.xml</ref>
+      <ref>texts/holb06val.xml</ref>
+      <ref>texts/holb07val.xml</ref>
+      <ref>texts/holb11val.xml</ref>
+      <ref>texts/holberg01val.xml</ref>
+      <ref>texts/holberg02.xml</ref>
+      <ref>texts/holberg08.xml</ref>
+      <ref>texts/holberg09.xml</ref>
+      <ref>texts/holberg10.xml</ref>
+      <ref>texts/holberg12.xml</ref>
+      <ref>texts/holberg13val.xml</ref>
+      <ref>texts/holberg14val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">hostrup-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/hostrup01.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">h-rode-bibl.xml</cell>
+    <cell role="texts">
+      <ref>texts/rode_01.xml</ref>
+      <ref>texts/rode_02.xml</ref>
+      <ref>texts/rode_03.xml</ref>
+      <ref>texts/rode_04.xml</ref>
+      <ref>texts/rode_05.xml</ref>
+      <ref>texts/rode_06.xml</ref>
+      <ref>texts/rode_07.xml</ref>
+      <ref>texts/rode_08.xml</ref>
+      <ref>texts/rode_09.xml</ref>
+      <ref>texts/rode_11.xml</ref>
+      <ref>texts/rode_12.xml</ref>
+      <ref>texts/rode_13.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">ingemann-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/ingemann01.xml</ref>
+      <ref>texts/ingemann02.xml</ref>
+      <ref>texts/ingemann03val.xml</ref>
+      <ref>texts/ingemann04tom.xml</ref>
+      <ref>texts/ingemann05tom.xml</ref>
+      <ref>texts/ingemann06tom.xml</ref>
+      <ref>texts/ingemann07tom.xml</ref>
+      <ref>texts/ingemann08tom.xml</ref>
+      <ref>texts/ingemann09tom.xml</ref>
+      <ref>texts/ingemann10tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">jf-jacob-bibl.xml</cell>
+    <cell role="texts">
+      <ref>texts/jacobjf_01.xml</ref>
+      <ref>texts/jacobjf_02.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">jpjacobsen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/jacobjp06val.xml</ref>
+      <ref>texts/jacobjp07val.xml</ref>
+      <ref>texts/jacobjp08val.xml</ref>
+      <ref>texts/jacob01val.xml</ref>
+      <ref>texts/jacob02val.xml</ref>
+      <ref>texts/jacob03val.xml</ref>
+      <ref>texts/jacob04val.xml</ref>
+      <ref>texts/jacob05val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">jakobknudsen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/knudsenj01val.xml</ref>
+      <ref>texts/knudsenj02val.xml</ref>
+      <ref>texts/knudsenj09val.xml</ref>
+      <ref>texts/knud03atom.xml</ref>
+      <ref>texts/knud03btom.xml</ref>
+      <ref>texts/knud03ctom.xml</ref>
+      <ref>texts/knud04atom.xml</ref>
+      <ref>texts/knud04btom.xml</ref>
+      <ref>texts/knud05atom.xml</ref>
+      <ref>texts/knud05btom.xml</ref>
+      <ref>texts/knud06atom.xml</ref>
+      <ref>texts/knud06btom.xml</ref>
+      <ref>texts/knud07atom.xml</ref>
+      <ref>texts/knud07btom.xml</ref>
+      <ref>texts/knud08tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">juel-hansen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/juelh01val.xml</ref>
+      <ref>texts/juelh02val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">kidde-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/kidde01val.xml</ref>
+      <ref>texts/kidde02val.xml</ref>
+      <ref>texts/kidde03.xml</ref>
+      <ref>texts/kidde04ny.xml</ref>
+      <ref>texts/kidde05val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">kierkegaard-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/kierkegaard01val.xml</ref>
+      <ref>texts/kierkegaard02val.xml</ref>
+      <ref>texts/kierkegaard03val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">kingo-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/kingo01val.xml</ref>
+      <ref>texts/kingo02val.xml</ref>
+      <ref>texts/kingo03val.xml</ref>
+      <ref>texts/kingo04val.xml</ref>
+      <ref>texts/kingo05.xml</ref>
+      <ref>texts/kingo06a.xml</ref>
+      <ref>texts/kingo06b.xml</ref>
+      <ref>texts/kingo07.xml</ref>
+      <ref>texts/kingo09val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">kaalund-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/kaalund01.xml</ref>
+      <ref>texts/kaalund02val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">larsen-th--p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/larsenthfiredigt.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">larsk-bibl.xml</cell>
+    <cell role="texts">
+      <ref>texts/larsenk_02.xml</ref>
+      <ref>texts/larsenk_03.xml</ref>
+      <ref>texts/larsenk_04.xml</ref>
+      <ref>texts/larsenk_05.xml</ref>
+      <ref>texts/larsenk_06.xml</ref>
+      <ref>texts/larsenk_07.xml</ref>
+      <ref>texts/larsenk_08.xml</ref>
+      <ref>texts/larsenk_09.xml</ref>
+      <ref>texts/larsenk_10.xml</ref>
+      <ref>texts/larsenk_11.xml</ref>
+      <ref>texts/larsenk_12.xml</ref>
+      <ref>texts/larsenk_13.xml</ref>
+      <ref>texts/larsenk_14.xml</ref>
+      <ref>texts/larsenk_15.xml</ref>
+      <ref>texts/larsenk_16.xml</ref>
+      <ref>texts/larsenk_17.xml</ref>
+      <ref>texts/larsenk_18.xml</ref>
+      <ref>texts/larsenk_19.xml</ref>
+      <ref>texts/larsenk_20.xml</ref>
+      <ref>texts/Lars.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">leonora-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/leon02tom.xml</ref>
+      <ref>texts/leonora01.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">lysch-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/lysc02tom.xml</ref>
+      <ref>texts/lyschander.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">s-mich-bibl.xml</cell>
+    <cell role="texts">
+      <ref>texts/michs_01.xml</ref>
+      <ref>texts/michs_02.xml</ref>
+      <ref>texts/michs_03.xml</ref>
+      <ref>texts/michs_04.xml</ref>
+      <ref>texts/michs_05.xml</ref>
+      <ref>texts/michs_06.xml</ref>
+      <ref>texts/michs_07.xml</ref>
+      <ref>texts/michs_08.xml</ref>
+      <ref>texts/michs_09.xml</ref>
+      <ref>texts/michs_10.xml</ref>
+      <ref>texts/michs_11.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">pmm-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/moeller01val.xml</ref>
+      <ref>texts/moeller02val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author"/>
+    <cell role="texts">
+      <ref>texts/munp1.xml</ref>
+      <ref>texts/munp2.xml</ref>
+      <ref>texts/munp3.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">nansen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/nansen01tom.xml</ref>
+      <ref>texts/nansen02tom.xml</ref>
+      <ref>texts/nansen03ny.xml</ref>
+      <ref>texts/nansen04tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">oehlens-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/oehl01val.xml</ref>
+      <ref>texts/oehl02val.xml</ref>
+      <ref>texts/oehl03val.xml</ref>
+      <ref>texts/oehl04val.xml</ref>
+      <ref>texts/oehl05val.xml</ref>
+      <ref>texts/oehl06.xml</ref>
+      <ref>texts/oehl07val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">palladius-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/palladius01val.xml</ref>
+      <ref>texts/palladius02val.xml</ref>
+      <ref>texts/palladius03val.xml</ref>
+      <ref>texts/palladius04val.xml</ref>
+      <ref>texts/palladius05val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">paludan-muller-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/paludanm01.xml</ref>
+      <ref>texts/paludanm02.xml</ref>
+      <ref>texts/paludanm03.xml</ref>
+      <ref>texts/paludanm04.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">ploug-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/plough01.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">addaravnkilde-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/ravn01tom.xml</ref>
+      <ref>texts/ravn02tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">richardt-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/richardt01.xml</ref>
+      <ref>texts/richardt02.xml</ref>
+      <ref>texts/richardt03.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">saxo-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/saxoval.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">schack-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/schackval.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">schandorph-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/schandorph01val.xml</ref>
+      <ref>texts/schandorph02val.xml</ref>
+      <ref>texts/schandorph03ret1.xml</ref>
+      <ref>texts/schandorph04.xml</ref>
+      <ref>texts/schandorph05.xml</ref>
+      <ref>texts/schandorph06.xml</ref>
+      <ref>texts/schandorph07.xml</ref>
+      <ref>texts/schandorph08.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">sibb-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/sibbern01val.xml</ref>
+      <ref>texts/sibbern02val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">skjold-bibl.xml</cell>
+    <cell role="texts">
+      <ref>texts/skjold_01.xml</ref>
+      <ref>texts/skjold_02.xml</ref>
+      <ref>texts/skjold_03.xml</ref>
+      <ref>texts/skjold_04.xml</ref>
+      <ref>texts/skjold_05.xml</ref>
+      <ref>texts/skjold_06.xml</ref>
+      <ref>texts/skjold_07.xml</ref>
+      <ref>texts/skjold_08.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">skram-e-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/skrame01.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">staffeldt-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/staf02tom.xml</ref>
+      <ref>texts/staf03tom.xml</ref>
+      <ref>texts/staffeldt01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">steffens-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/stef02tom.xml</ref>
+      <ref>texts/stef03tom.xml</ref>
+      <ref>texts/stef04tom.xml</ref>
+      <ref>texts/stef05tom.xml</ref>
+      <ref>texts/stef06tom.xml</ref>
+      <ref>texts/stef07tom.xml</ref>
+      <ref>texts/stef08tom.xml</ref>
+      <ref>texts/stef09tom.xml</ref>
+      <ref>texts/stef10tom.xml</ref>
+      <ref>texts/stef11tom.xml</ref>
+      <ref>texts/steffens01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">sthen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/sthen01val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">stub-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/stub01val.xml</ref>
+      <ref>texts/stub02val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">stuckenberg-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/stuckenberg01.xml</ref>
+      <ref>texts/stuckenberg02.xml</ref>
+      <ref>texts/stuckenberg03.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">thomissoen-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/thom01tom.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">topsoe-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/topsoe01.xml</ref>
+      <ref>texts/topsoe02.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">wessel-p2.xml</cell>
+    <cell role="texts">
+      <ref>texts/wessel-anno7603.xml</ref>
+      <ref>texts/wesselhhl.xml</ref>
+      <ref>texts/wessel-lykken.xml</ref>
+      <ref>texts/wesselhhl.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">wied.xml</cell>
+    <cell role="texts">
+      <ref>texts/wied01val.xml</ref>
+      <ref>texts/wied02val.xml</ref>
+      <ref>texts/wied03tom.xml</ref>
+      <ref>texts/wied04tom.xml</ref>
+      <ref>texts/wied05val.xml</ref>
+      <ref>texts/wied06val.xml</ref>
+      <ref>texts/wied07val.xml</ref>
+      <ref>texts/wied08val.xml</ref>
+      <ref>texts/wied09val.xml</ref>
+      <ref>texts/wied10val.xml</ref>
+      <ref>texts/wied11val.xml</ref>
+      <ref>texts/wied12val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">winther-p-val.xml</cell>
+    <cell role="texts">
+      <ref>texts/wintherchr01val.xml</ref>
+      <ref>texts/wintherchr02val.xml</ref>
+      <ref>texts/wintherchr03val.xml</ref>
+    </cell>
+  </row>
+  <row>
+    <cell role="author">worm-p.xml</cell>
+    <cell role="texts">
+      <ref>texts/worm01val.xml</ref>
+      <ref>texts/worm02tom.xml</ref>
+      <ref>texts/worm03tom.xml</ref>
+      <ref>texts/worm04tom.xml</ref>
+    </cell>
+  </row>
+</table>

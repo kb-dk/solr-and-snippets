@@ -56,6 +56,7 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:p">
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:head">
@@ -73,25 +74,28 @@ Author Sigfrid Lundberg slu@kb.dk
 
   <xsl:template name="add_anchor">
     <xsl:variable name="bibl">
-      <xsl:value-of select="@decls"/>
+      <xsl:choose>
+	<xsl:when test="contains('#',@decls)"><xsl:value-of select="substring-after('#',@decls)"/></xsl:when>
+	<xsl:otherwise><xsl:value-of select="@decls"/></xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
     <xsl:variable name="title">
       <xsl:choose>
 	<xsl:when 
 	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]">
 	  <xsl:value-of
-	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
+	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/> burp
 	</xsl:when>
 	<xsl:when test="string-length(normalize-space(string-join(' ',t:head/text()))) &gt; 0">
 	    <xsl:value-of select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:value-of select="." />
+	    <xsl:apply-templates select="./node()" />
 	  </xsl:variable>
 	  <xsl:value-of
-	      select="substring(normalize-space(string-join(' ',$some_text)),1,20)"/>
-	  <xsl:text>...</xsl:text>
+	      select="substring(normalize-space($some_text/string()),1,30)"/>
+	  <xsl:if test="string-length(normalize-space($some_text/string())) &gt; 30"><xsl:text>...</xsl:text></xsl:if>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
