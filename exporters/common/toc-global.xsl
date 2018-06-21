@@ -56,7 +56,6 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:p">
-    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:head">
@@ -75,7 +74,7 @@ Author Sigfrid Lundberg slu@kb.dk
   <xsl:template name="add_anchor">
     <xsl:variable name="bibl">
       <xsl:choose>
-	<xsl:when test="contains('#',@decls)"><xsl:value-of select="substring-after('#',@decls)"/></xsl:when>
+	<xsl:when test="contains(@decls,'#')"><xsl:value-of select="substring-after(@decls,'#')"/></xsl:when>
 	<xsl:otherwise><xsl:value-of select="@decls"/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -84,14 +83,14 @@ Author Sigfrid Lundberg slu@kb.dk
 	<xsl:when 
 	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]">
 	  <xsl:value-of
-	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/> burp
+	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
-	<xsl:when test="string-length(normalize-space(string-join(' ',t:head/text()))) &gt; 0">
+	<xsl:when test="t:head[text()]">
 	    <xsl:value-of select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:apply-templates select="./node()" />
+	    <xsl:apply-templates select="./text()" />
 	  </xsl:variable>
 	  <xsl:value-of
 	      select="substring(normalize-space($some_text/string()),1,30)"/>
