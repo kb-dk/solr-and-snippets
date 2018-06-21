@@ -470,7 +470,9 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 
   <xsl:template match="t:ptr">
     <a>
-      <xsl:attribute name="href" select="@target"/>
+      <xsl:attribute name="href">
+	<xsl:call-template name="make-href"/>
+      </xsl:attribute>
       <xsl:call-template name="add_id"/>
       <xsl:choose>
 	<xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
