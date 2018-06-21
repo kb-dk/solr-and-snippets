@@ -59,7 +59,7 @@
     </target>
 
     <target name="add_data" depends="service">
-        <!-- copy todir="${service}/adl/authors">
+        <copy todir="${service}/adl/authors">
 	    <fileset dir="${adl_authors}"/>
 	</copy>
         <copy todir="${service}/adl/periods">
@@ -79,7 +79,7 @@
 	</copy>
         <copy  todir="${service}/pmm/texts">
 	  <fileset dir="../other_tei_projects/pmm"/>
-	</copy -->
+	</copy>
         <copy  todir="${service}/abbyy/texts">
 	  <fileset dir="../OCR_TEI/abbyy"/>
 	</copy>
