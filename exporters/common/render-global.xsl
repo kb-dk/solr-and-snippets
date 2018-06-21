@@ -478,7 +478,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 	<xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
 	<xsl:otherwise><xsl:text>*</xsl:text></xsl:otherwise>
       </xsl:choose>
-    </a>	<!--select="@target"/-->
+    </a>
   </xsl:template>
 
   <xsl:template match="t:sp">
