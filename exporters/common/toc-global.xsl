@@ -56,6 +56,7 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:p">
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:head">
@@ -90,7 +91,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:apply-templates select="./text()" />
+	    <xsl:apply-templates select=".//text()" />
 	  </xsl:variable>
 	  <xsl:value-of
 	      select="substring(normalize-space($some_text/string()),1,30)"/>
@@ -98,7 +99,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="$title">
+    <xsl:if test="string-length(normalize-space($title)) &gt; 0">
       <xsl:element name="a">
 	<xsl:attribute name="href">
 	  <xsl:choose>
