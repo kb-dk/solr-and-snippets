@@ -30,6 +30,7 @@
         <mkdir dir="${service}"/>
         <mkdir dir="${service}/adl"/>
         <mkdir dir="${service}/sks"/>
+        <mkdir dir="${service}/abbyy"/>
 	<mkdir dir="${xconfig_source}"/>
 	<copy todir="${xconfig_source}">
 	  <fileset dir="${service.src}/index"/>
@@ -52,10 +53,13 @@
 	<copy todir="${service}/pmm">
 	  <fileset dir="${service.src}/pmm"/>
         </copy>
+	<copy todir="${service}/abbyy">
+	  <fileset dir="${service.src}/abbyy"/>
+        </copy>
     </target>
 
     <target name="add_data" depends="service">
-        <copy todir="${service}/adl/authors">
+        <!-- copy todir="${service}/adl/authors">
 	    <fileset dir="${adl_authors}"/>
 	</copy>
         <copy todir="${service}/adl/periods">
@@ -75,6 +79,9 @@
 	</copy>
         <copy  todir="${service}/pmm/texts">
 	  <fileset dir="../other_tei_projects/pmm"/>
+	</copy -->
+        <copy  todir="${service}/abbyy/texts">
+	  <fileset dir="../OCR_TEI/abbyy"/>
 	</copy>
     </target>
 
