@@ -152,6 +152,29 @@
     </p>
   </xsl:template>
 
+  <xsl:template match="t:persName|t:placeName">
+    <xsl:variable name="class">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
+	<xsl:otherwise>Plads</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <span class="inline-entity-{$class}">
+      <xsl:call-template name="add_id"/>
+      <xsl:if test="@key">
+	<xsl:attribute name="title"><xsl:value-of select="$class"/>: <xsl:value-of select="@key"/></xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:title">
+    <em class="inline-title">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </em>
+  </xsl:template>
+
   <xsl:template match="t:note">
     <xsl:call-template name="inline_note"/>
   </xsl:template>
@@ -519,6 +542,8 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="t:milestone"/>
   
   <xsl:template match="t:pb">
     <xsl:variable name="first">
