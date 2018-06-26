@@ -214,7 +214,14 @@
     </xsl:element>
     <span style="background-color:yellow;display:none;">
       <xsl:call-template name="add_id"/>
-      <xsl:value-of select="."/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:note/t:p">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
     </span>
   </xsl:template>
 

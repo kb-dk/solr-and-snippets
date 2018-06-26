@@ -63,6 +63,32 @@
     </span>
   </xsl:template>
 
+<xsl:template match="t:label">
+    <xsl:param name="anchor" select="../@xml:id"/>
+    <xsl:choose>
+      <xsl:when test="contains($path,'kom')">
+        <xsl:variable name="p">
+          <xsl:value-of select="replace($path,'(kom)','txt')"/>
+        </xsl:variable>
+        <xsl:variable name="href">
+          <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>
+        </xsl:variable>
+        <span>
+          <a>
+            <xsl:attribute name="href">
+              <xsl:value-of select="$href"/> 
+            </xsl:attribute>
+            <xsl:apply-templates/>
+          </a>
+        </span>
+      </xsl:when>
+      <xsl:otherwise>
+        <span><xsl:call-template name="add_id_empty_elem"/><xsl:apply-templates/><xsl:value-of select="$anchor"/></span><xsl:text>
+      </xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template name="make-href">
 
     <xsl:param name="go_to" select="@target"/>

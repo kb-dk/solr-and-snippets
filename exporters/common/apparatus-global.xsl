@@ -108,6 +108,7 @@
 
   <xsl:template match="t:ref[@type='commentary']">
     <xsl:element name="a">
+      <xsl:call-template name="add_id"/>
       <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
       <xsl:if test="@target">
 	<xsl:attribute name="href">
@@ -211,18 +212,18 @@
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">before</xsl:with-param>
     </xsl:call-template>
-    <em>
-      <xsl:apply-templates/> <xsl:comment> witness detail </xsl:comment>
-    </em>
     <xsl:element name="span">
       <xsl:attribute name="title">
 	<xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
       </xsl:attribute>
+      <em><xsl:apply-templates/> <xsl:comment> witness detail </xsl:comment></em>
       <xsl:value-of select="@n"/>
     </xsl:element>
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">after</xsl:with-param>
     </xsl:call-template>
+    <xsl:text>
+    </xsl:text>
   </xsl:template>
 
 
