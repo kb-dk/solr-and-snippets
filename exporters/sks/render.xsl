@@ -69,21 +69,20 @@
 
   <xsl:template match="t:figure[@type='blank']"/>
 
-  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto']]">
+  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto' or @n='smudstitelblad' ]]">
     <div>
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
       <xsl:attribute name="style">
       <xsl:choose>
 	<xsl:when test="t:head/@n='motto'">text-align:right;</xsl:when>
-	<xsl:when test="t:head/@n='titelblad'">text-align:center;</xsl:when>
-	<xsl:otherwise>text-align:left;</xsl:otherwise>
+	<xsl:otherwise>text-align:center;</xsl:otherwise>
       </xsl:choose>
       </xsl:attribute>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
-  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto']]/t:p">
+  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto' or @n='smudstitelblad']]/t:p">
     <xsl:apply-templates/><br><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></br>
   </xsl:template>
 
