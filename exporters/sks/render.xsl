@@ -6,12 +6,14 @@
 	       exclude-result-prefixes="t fn">
   
   <xsl:import href="../render-global.xsl"/>
-  <xsl:import href="./apparatus.xsl"/>
+  <xsl:import href="../apparatus-global.xsl"/>
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
   <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
   <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
+
+  <xsl:variable name="sks_acronym" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@type='short']"/>
 
   <xsl:template match="t:pb">
     <xsl:element name="span">
@@ -55,69 +57,65 @@
   </xsl:template>
 
 
-
-  <xsl:template match="t:rdgGrp"> 
-    <xsl:element name="span">
+  <xsl:template match="t:dateline">
+    <strong>
       <xsl:call-template name="add_id"/>
-      <xsl:if test="@rendition = '#semiko'">; </xsl:if><xsl:apply-templates/><xsl:comment> rdg grp </xsl:comment>
-    </xsl:element>
+      <xsl:if test="../@n">
+	<xsl:if test="$sks_acronym"><xsl:value-of select="$sks_acronym"/>:</xsl:if><xsl:value-of select="../@n"/>
+      </xsl:if>
+      <xsl:apply-templates/>
+    </strong>
   </xsl:template>
 
-  <xsl:template match="t:app">
-    <xsl:variable name="idstring">
-      <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
-    </xsl:variable>
-    <xsl:variable name="note">
-      <xsl:value-of select="concat('apparatus',$idstring)"/>
-    </xsl:variable>
-    <xsl:apply-templates select="t:lem"/>
-    <xsl:element name="sup">
-      <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
-      <script>
-	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
-	function <xsl:value-of select="$note"/>() {
-	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
-	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
-	ele.style.display="inline";
-	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
-	} else {
-	ele.style.display="none";
-	<xsl:value-of select="concat('disp',$idstring)"/>="none";
-	}
-	}
-      </script>
-      <xsl:element name="a">
-	<xsl:attribute name="title">Tekstkritik</xsl:attribute>
-	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-	<i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i>
-      </xsl:element>
-    </xsl:element>
-    <span style="background-color:Aquamarine;display:none;">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates select="t:rdg|t:rdgGrp|t:corr"/>
-    </span>
+  <xsl:template match="t:figure[@type='blank']"/>
+
+  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto' or @n='smudstitelblad' ]]">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="style">
+      <xsl:choose>
+	<xsl:when test="t:head/@n='motto'">text-align:right;</xsl:when>
+	<xsl:otherwise>text-align:center;</xsl:otherwise>
+      </xsl:choose>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </div>
   </xsl:template>
 
-  <xsl:template match="t:sic">
-  </xsl:template>
-
-  <xsl:template match="t:rdg">
-    <xsl:if test="t:sic/@rendition = '#so'"><xsl:text> Således også: </xsl:text></xsl:if>
-    <xsl:element name="span">
-      <xsl:if test="@wit">
-	<xsl:call-template name="witness"/>
-      </xsl:if><xsl:choose><xsl:when test="t:sic/@rendition = '#so'"><xsl:text> </xsl:text></xsl:when><xsl:otherwise><xsl:text>: </xsl:text></xsl:otherwise></xsl:choose>
-      <xsl:apply-templates/><xsl:if test="@evidence">[<xsl:value-of select="@evidence"/>]</xsl:if>
-    </xsl:element>
+  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto' or @n='smudstitelblad']]/t:p">
+    <xsl:apply-templates/><br><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></br>
   </xsl:template>
 
   <xsl:template match="t:dateline/t:date">
-    <span>
-      <xsl:call-template name="add_id"/>
-      <xsl:call-template name="print_date"> 
-	<xsl:with-param name="date" select="@when"/>
-      </xsl:call-template>
-    </span>
+    <xsl:call-template name="print_date"> 
+      <xsl:with-param name="date" select="@when"/>
+    </xsl:call-template>
+  </xsl:template>
+
+<xsl:template match="t:label">
+    <xsl:param name="anchor" select="../@xml:id"/>
+    <xsl:choose>
+      <xsl:when test="contains($path,'kom')">
+        <xsl:variable name="p">
+          <xsl:value-of select="replace($path,'(kom)','txt')"/>
+        </xsl:variable>
+        <xsl:variable name="href">
+          <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>
+        </xsl:variable>
+        <span>
+          <a>
+            <xsl:attribute name="href">
+              <xsl:value-of select="$href"/> 
+            </xsl:attribute>
+            <xsl:apply-templates/>
+          </a>
+        </span>
+      </xsl:when>
+      <xsl:otherwise>
+        <span><xsl:call-template name="add_id_empty_elem"/><xsl:apply-templates/><xsl:value-of select="$anchor"/></span><xsl:text>
+      </xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="make-href">

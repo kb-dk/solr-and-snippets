@@ -152,6 +152,29 @@
     </p>
   </xsl:template>
 
+  <xsl:template match="t:persName|t:placeName">
+    <xsl:variable name="class">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
+	<xsl:otherwise>Plads</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <span class="inline-entity-{$class}">
+      <xsl:call-template name="add_id"/>
+      <xsl:if test="@key">
+	<xsl:attribute name="title"><xsl:value-of select="$class"/>: <xsl:value-of select="@key"/></xsl:attribute>
+      </xsl:if>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:title">
+    <em class="inline-title">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </em>
+  </xsl:template>
+
   <xsl:template match="t:note">
     <xsl:call-template name="inline_note"/>
   </xsl:template>
@@ -191,7 +214,14 @@
     </xsl:element>
     <span style="background-color:yellow;display:none;">
       <xsl:call-template name="add_id"/>
-      <xsl:value-of select="."/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="t:note/t:p">
+    <span>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
     </span>
   </xsl:template>
 
@@ -212,10 +242,12 @@
   <xsl:template match="t:head/t:lb"><xsl:text> </xsl:text></xsl:template>
 
   <xsl:template match="t:head">
-    <h2 class="head-in-text">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </h2>
+    <xsl:if test="./node()">
+      <h2 class="head-in-text">
+	<xsl:call-template name="add_id"/>
+	<xsl:apply-templates/>
+      </h2>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="t:dateline"><span>
@@ -244,8 +276,6 @@
       <xsl:apply-templates/>
     </p>
   </xsl:template>
-
-
 
   <xsl:template match="t:lb">
     <xsl:element name="br">
@@ -519,6 +549,8 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="t:milestone"/>
   
   <xsl:template match="t:pb">
     <xsl:variable name="first">
@@ -670,11 +702,10 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <!-- xsl:attribute name="onMouseOver">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='visible'</xsl:attribute>
-    <xsl:attribute name="onMouseOut">document.getElementById('<xsl:value-of select="$link_id"/>').style.visibility='hidden'</xsl:attribute -->
+   
     <xsl:element name="span">
       <xsl:attribute name="class">exposableDocumentFunctions</xsl:attribute>
-      <xsl:attribute name="style">visibility:hidden;display:block;</xsl:attribute>
+      <xsl:attribute name="style">display:none;</xsl:attribute>
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
 
       <xsl:if test="not(contains($href,'adl-authors') or contains($href,'adl-periods') )">
