@@ -13,6 +13,8 @@
   <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
   <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
 
+  <xsl:variable name="sks_acronym" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@type='short']"/>
+
   <xsl:template match="t:pb">
     <xsl:element name="span">
       <xsl:if test="not(@edRef)">
@@ -54,13 +56,41 @@
     <xsl:value-of select="$year"/><xsl:if test="not(contains($date,'0000'))"> &#8211; <xsl:value-of select="substring($month_day,1,2)"/> &#8211; <xsl:value-of select="substring($month_day,3,4)"/></xsl:if>
   </xsl:template>
 
-  <xsl:template match="t:dateline/t:date">
-    <span>
+
+  <xsl:template match="t:dateline">
+    <strong>
       <xsl:call-template name="add_id"/>
-      <xsl:call-template name="print_date"> 
-	<xsl:with-param name="date" select="@when"/>
-      </xsl:call-template>
-    </span>
+      <xsl:if test="../@n">
+	<xsl:if test="$sks_acronym"><xsl:value-of select="$sks_acronym"/>:</xsl:if><xsl:value-of select="../@n"/>
+      </xsl:if>
+      <xsl:apply-templates/>
+    </strong>
+  </xsl:template>
+
+  <xsl:template match="t:figure[@type='blank']"/>
+
+  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto']]">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="style">
+      <xsl:choose>
+	<xsl:when test="t:head/@n='motto'">text-align:right;</xsl:when>
+	<xsl:when test="t:head/@n='titelblad'">text-align:center;</xsl:when>
+	<xsl:otherwise>text-align:left;</xsl:otherwise>
+      </xsl:choose>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto']]/t:p">
+    <xsl:apply-templates/><br><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></br>
+  </xsl:template>
+
+  <xsl:template match="t:dateline/t:date">
+    <xsl:call-template name="print_date"> 
+      <xsl:with-param name="date" select="@when"/>
+    </xsl:call-template>
   </xsl:template>
 
 <xsl:template match="t:label">

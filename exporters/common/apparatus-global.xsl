@@ -153,7 +153,9 @@
       <xsl:for-each select="fn:tokenize($rendit,'\s+')">
 	<xsl:variable name="rend" select="substring-after(.,'#')"/> 
 	<xsl:for-each select="$grenditions/t:rendition[@xml:id = $rend][@scope=$scope]">
-	  <xsl:value-of select="fn:replace(.,'^.*&quot;(.*?)&quot;.*$','$1')"/>
+	  <em>
+	    <xsl:value-of select="fn:replace(.,'^.*&quot;(.*?)&quot;.*$','$1')"/>
+	  </em>
 	</xsl:for-each>
       </xsl:for-each>
     </xsl:if>

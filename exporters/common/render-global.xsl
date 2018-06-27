@@ -242,10 +242,12 @@
   <xsl:template match="t:head/t:lb"><xsl:text> </xsl:text></xsl:template>
 
   <xsl:template match="t:head">
-    <h2 class="head-in-text">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </h2>
+    <xsl:if test="./node()">
+      <h2 class="head-in-text">
+	<xsl:call-template name="add_id"/>
+	<xsl:apply-templates/>
+      </h2>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="t:dateline"><span>
@@ -274,8 +276,6 @@
       <xsl:apply-templates/>
     </p>
   </xsl:template>
-
-
 
   <xsl:template match="t:lb">
     <xsl:element name="br">
