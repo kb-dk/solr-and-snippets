@@ -2,7 +2,8 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t fn"
+	       xmlns:me="urn:my-things"
+	       exclude-result-prefixes="t fn me"
                version="2.0">
 
   <!-- not a poisonous adder -->
@@ -364,16 +365,6 @@
 
       <xsl:call-template name="add_globals" />
 
-      <xsl:for-each select="//t:pb">
-	<xsl:if test="position()=1">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">page_ssi</xsl:attribute>
-	  <xsl:value-of
-	      select="@n"/>
-	</xsl:element>
-	</xsl:if>
-      </xsl:for-each>
-
     </doc>
   </xsl:template>
 
@@ -494,7 +485,7 @@
   <xsl:template name="facs_and_text">
     <field name="has_facs_ssi">
       <xsl:choose>
-	<xsl:when test="preceding::t:pb[@facs and not(@rend = 'missing')]|descendant::t:pb[@facs and not(@rend = 'missing')]">yes</xsl:when>
+	<xsl:when test="me:right_kind_of_page(.,/t:TEI)">yes</xsl:when>
 	<xsl:otherwise>no</xsl:otherwise>
       </xsl:choose>
     </field>
@@ -530,16 +521,17 @@
   </xsl:template>
 
   <xsl:template name="page_info">
-    <xsl:if test="preceding::t:pb[1]/@n">
+    <xsl:variable name="pg" select="me:right_kind_of_page(.,/t:TEI)"/>
+    <xsl:if  test="$pg">
       <xsl:element name="field">
         <xsl:attribute name="name">page_ssi</xsl:attribute>
         <xsl:value-of
-                select="preceding::t:pb[1]/@n"/>
+                select="$pg/@n"/>
       </xsl:element>
       <xsl:element name="field">
         <xsl:attribute name="name">page_id_ssi</xsl:attribute>
         <xsl:value-of
-                select="preceding::t:pb[1]/@xml:id"/>
+                select="$pg/@xml:id"/>
       </xsl:element>
     </xsl:if>
   </xsl:template>
@@ -753,6 +745,23 @@
       </xsl:element>
     </xsl:if>
   </xsl:template>
+
+  <xsl:function name="me:right_kind_of_page">
+    <xsl:param name="here"/>
+    <xsl:param name="root"/>
+    <xsl:choose>
+      <xsl:when test="$here/preceding::t:pb[@facs and not(@rend = 'missing')]">
+	<xsl:copy-of select="$here/preceding::t:pb[@facs and not(@rend = 'missing')][1]"/>
+      </xsl:when>
+      <xsl:when test="$here/descendant::t:pb[@facs and not(@rend = 'missing')]">
+	<xsl:copy-of select="$here/descendant::t:pb[@facs and not(@rend = 'missing')][1]"/>
+      </xsl:when>
+      <xsl:otherwise>
+      <xsl:value-of select="false()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+
 
    <xsl:template name="inferred_path">
      <xsl:param name="document"/>

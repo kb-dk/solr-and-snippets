@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t fn">
+	       xmlns:me="urn:my-things"
+	       exclude-result-prefixes="t fn me">
   
   <xsl:import href="../solrize-global.xsl"/>
   <xsl:param name="subcollection" select="'pmm'"/>
@@ -60,6 +61,18 @@
     </xsl:element>
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
   </xsl:template>
+
+<!--
+   <xsl:function name="me:right_kind_of_page">
+    <xsl:param name="here"/>
+    <xsl:param name="root"/>
+    
+    <xsl:for-each select="$here/preceding::t:pb[1]">
+      <xsl:copy-of select="."/>
+    </xsl:for-each>
+  </xsl:function>
+
+   [fn:replace($here/@facs,'#','') = $root//t:facsimile/t:graphic/@xml:id] -->
 
   <xsl:template name="what_i_can"/>
 
