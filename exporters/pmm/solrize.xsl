@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t fn">
+	       xmlns:me="urn:my-things"
+	       exclude-result-prefixes="t fn me">
   
   <xsl:import href="../solrize-global.xsl"/>
   <xsl:param name="subcollection" select="'pmm'"/>
