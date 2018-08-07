@@ -1,3 +1,8 @@
+## This branch is OLD and DEPRECATED. The code here is used for maintenance of an old index somewhere. 
+
+## You should just ignore this
+
+
 # Solrs and Snippets 
 
 All the software are variations upon a single theme. The theme can be
