@@ -315,6 +315,14 @@
 
   <xsl:template match="t:ref">
     <xsl:choose>
+      <xsl:when test="fn:matches(@target,'^#')">
+	<xsl:element name="a">
+	  <xsl:attribute name="href">
+	    <xsl:value-of select="@target/string()"/>
+	  </xsl:attribute> 
+	  <xsl:apply-templates/>
+	</xsl:element>
+      </xsl:when>
       <xsl:when test="fn:matches(@target,'^https?')">
 	<xsl:element name="a">
 	  <xsl:attribute name="href">
