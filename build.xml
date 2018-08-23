@@ -58,7 +58,7 @@
       </copy>
     </target>
 
-    <target name="add_letter">
+    <target name="add_letters">
       <property name="xconfig"        value="system/config/db/letter_books"/>
       <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
       <property name="service"        value="${build}/letter_books"/>
