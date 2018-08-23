@@ -3,7 +3,7 @@ xquery version "3.0" encoding "UTF-8";
 import module namespace json="http://xqilla.sourceforge.net/lib/xqjson";
 import module namespace lbl="http://kb.dk/this/lbl" at "./label-hits.xqm";
 
-declare namespace xdb        = "http://exist-db.org/xquery/xmldb";
+(:declare namespace xdb        = "http://exist-db.org/xquery/xmldb";:)
 declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace response="http://exist-db.org/xquery/response";

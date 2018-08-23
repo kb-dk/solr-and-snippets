@@ -13,8 +13,6 @@
     <property name="adl_periods" value="../adl-text-sources/periods"/>
     <property name="sks_texts"   value="../SKS_tei/data/v1.9/"/>
 
-  
-
     <target name="all" depends="service"/>
     <target name="rebuild" depends="clean,all"/>
 
@@ -60,7 +58,22 @@
       </copy>
     </target>
 
-    <target name="add_letters">
+    <target name="add_letter">
+      <property name="xconfig"        value="system/config/db/letter_books"/>
+      <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
+      <property name="service"        value="${build}/letter_books"/>
+      <property name="target"         value="letter_books"/>
+      <property name="service"        value="${build}/${target}"/>
+
+      <copy todir="${service}">
+	<fileset dir="${service.src}/letters"/>
+      </copy>
+      <echo>${xconfig}</echo>
+      <echo>${xconfig_source}</echo>
+      <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
+    </target>
+
+    <target name="add_letter_data">
       <property name="xconfig"        value="system/config/db/letter_books"/>
       <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
       <property name="service"        value="${build}/letter_books"/>
@@ -70,9 +83,7 @@
       <copy todir="${service}">
 	<fileset dir="../letter-corpus/letter_books"/>
       </copy>
-      <copy todir="${service}">
-	<fileset dir="${service.src}/letters"/>
-      </copy>
+
       <echo>${xconfig}</echo>
       <echo>${xconfig_source}</echo>
       <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
