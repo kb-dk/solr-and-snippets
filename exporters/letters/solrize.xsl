@@ -23,7 +23,12 @@
   <xsl:param name="copyright" select="''"/>
   <xsl:param name="editor" select="''"/>
   <xsl:param name="editor_id" select="''"/>
-  <xsl:param name="volume_title" select="''"/>
+  <xsl:param name="volume_title">
+    <xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+      <xsl:value-of select="."/><xsl:if test="position()&lt;last()"><xsl:text> </xsl:text></xsl:if>
+    </xsl:for-each>
+  </xsl:param>
+
   <xsl:param name="volume_id" select="''"/>
   <xsl:param name="publisher" select="''"/>
   <xsl:param name="published_place" select="''"/>
