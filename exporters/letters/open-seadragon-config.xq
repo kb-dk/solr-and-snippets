@@ -30,7 +30,7 @@ declare variable  $status   := request:get-parameter("status","");
 (: The posted content should actually live in a param with the same name :)
 declare variable  $content  := util:base64-decode(request:get-data());
 
-declare variable  $coll     := concat('/db/adl/',$c,'/');
+declare variable  $coll     := concat('/db/',$c,'/');
 
 declare variable  $missing  := "http://kb-images.kb.dk/public/sks/other/copyright/info.json";
 
@@ -119,7 +119,11 @@ declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:s
 	    concat("public/",fn:replace($pid,"#",""))
 };
 
-let $doc := doc(concat("./",$c,"/",$document))
+let $doc := 
+for $d in collection($coll)
+where util:document-name($d)=$document
+return $d
+
 let $osd := 
 map {
 	"id":"kbOSDInstance",
@@ -128,14 +132,14 @@ map {
         "initialPage":1,
         "defaultZoomLevel":0,
         "sequenceMode":"true",
-	"indexPage":array {
-	local:get-section-navigation($frag,$doc) 
-	}, 
+ 	"indexPage":array {
+		local:get-section-navigation($frag,$doc)
+	},
 	"tileSources":array{
-	if($mode='text') then
-          local:get-pages($frag,$doc)
-	else
-	  local:get-section-pages($frag,$doc)
+		if($mode='text') then
+		local:get-pages($frag,$doc)
+		else
+		local:get-section-pages($frag,$doc)
         }
 }
 
