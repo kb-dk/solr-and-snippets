@@ -3,8 +3,7 @@
 
     <property file="build.properties"/>
 
-    <property name="build" value="./build"/>
-    <property name="service" value="${build}/text-retriever"/>
+    <property name="build" value="build"/>
     <property name="service.src" value="./exporters"/>
 
     <property name="hostport" value="localhost:8080"/>
@@ -12,11 +11,7 @@
     <property name="adl_texts"   value="../public-adl-text-sources/texts"/>
     <property name="adl_authors" value="../adl-text-sources/authors"/>
     <property name="adl_periods" value="../adl-text-sources/periods"/>
-
     <property name="sks_texts"   value="../SKS_tei/data/v1.9/"/>
-
-    <property name="xconfig"     value="system/config/db/text-retriever"/>
-    <property name="xconfig_source" value="${build}/system/config/db/text-retriever"/>
 
     <target name="all" depends="service"/>
     <target name="rebuild" depends="clean,all"/>
@@ -26,36 +21,72 @@
     </target>
 
     <target name="service" depends="clean">
-        <mkdir dir="${build}"/>
-        <mkdir dir="${service}"/>
-        <mkdir dir="${service}/adl"/>
-        <mkdir dir="${service}/sks"/>
-        <mkdir dir="${service}/abbyy"/>
-	<mkdir dir="${xconfig_source}"/>
-	<copy todir="${xconfig_source}">
-	  <fileset dir="${service.src}/index"/>
-	</copy>
-        <copy todir="${service}">
-            <fileset dir="${service.src}/common"/>
-        </copy>
-        <copy todir="${service}/adl">
-            <fileset dir="${service.src}/adl"/>
-	</copy>
-        <copy todir="${service}/sks">
-	  <fileset dir="${service.src}/sks"/>
-        </copy>
-        <copy todir="${service}/grundtvig">
-	  <fileset dir="${service.src}/grundtvig"/>
-        </copy>
-        <copy todir="${service}/holberg">
-	  <fileset dir="${service.src}/holberg"/>
-        </copy>
-	<copy todir="${service}/pmm">
-	  <fileset dir="${service.src}/pmm"/>
-        </copy>
-	<copy todir="${service}/abbyy">
-	  <fileset dir="${service.src}/abbyy"/>
-        </copy>
+      <property name="xconfig"     value="system/config/db/text-retriever"/>
+      <property name="xconfig_source" value="${build}/system/config/db/text-retriever"/>
+      <property name="target" value="text-retriever"/>
+      <property name="service" value="${build}/${target}"/>
+
+      <mkdir dir="${build}"/>
+      <mkdir dir="${service}"/>
+      <mkdir dir="${service}/adl"/>
+      <mkdir dir="${service}/sks"/>
+      <mkdir dir="${service}/abbyy"/>
+      <mkdir dir="${xconfig_source}"/>
+      <copy todir="${xconfig_source}">
+	<fileset dir="${service.src}/index"/>
+      </copy>
+      <copy todir="${service}">
+	<fileset dir="${service.src}/common"/>
+      </copy>
+      <copy todir="${service}/adl">
+	<fileset dir="${service.src}/adl"/>
+      </copy>
+      <copy todir="${service}/sks">
+	<fileset dir="${service.src}/sks"/>
+      </copy>
+      <copy todir="${service}/grundtvig">
+	<fileset dir="${service.src}/grundtvig"/>
+      </copy>
+      <copy todir="${service}/holberg">
+	<fileset dir="${service.src}/holberg"/>
+      </copy>
+      <copy todir="${service}/pmm">
+	<fileset dir="${service.src}/pmm"/>
+      </copy>
+      <copy todir="${service}/abbyy">
+	<fileset dir="${service.src}/abbyy"/>
+      </copy>
+    </target>
+
+    <target name="add_letters">
+      <property name="xconfig"        value="system/config/db/letter_books"/>
+      <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
+      <property name="service"        value="${build}/letter_books"/>
+      <property name="target"         value="letter_books"/>
+      <property name="service"        value="${build}/${target}"/>
+
+      <copy todir="${service}">
+	<fileset dir="${service.src}/letters"/>
+      </copy>
+      <echo>${xconfig}</echo>
+      <echo>${xconfig_source}</echo>
+      <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
+    </target>
+
+    <target name="add_letter_data">
+      <property name="xconfig"        value="system/config/db/letter_books"/>
+      <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
+      <property name="service"        value="${build}/letter_books"/>
+      <property name="target"         value="letter_books"/>
+      <property name="service"        value="${build}/${target}"/>
+
+      <copy todir="${service}">
+	<fileset dir="../letter-corpus/letter_books"/>
+      </copy>
+
+      <echo>${xconfig}</echo>
+      <echo>${xconfig_source}</echo>
+      <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
     </target>
 
     <target name="add_data" depends="service">
@@ -90,12 +121,8 @@
 	<handler type="secure"/>
       </input>
       <exec executable="./utilities/load_exist.pl">
-	<arg line="--suffix xconf --load ${xconfig_source} --target ${xconfig} --host-port ${hostport} --user admin --password ${server.pass}"/>
-      </exec>
-      <exec executable="./utilities/load_exist.pl">
-	<arg line="--suffix xml,xq,xqm,xsl,page --load ${service} --target text-retriever --host-port ${hostport} --user admin --password ${server.pass}"/>
+	<arg line="--suffix xconf,xml,xq,xqm,xsl,page --load build  --target / --host-port ${hostport} --user admin --password ${server.pass}"/>
       </exec>
     </target>
-
 
 </project>

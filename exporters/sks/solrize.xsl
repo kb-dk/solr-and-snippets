@@ -83,9 +83,6 @@
     <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
 
-    <!-- xsl:element name="field"><xsl:attribute name="name">work_title_ssi</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element -->
-    <xsl:element name="field"><xsl:attribute name="name">work_title_tesim</xsl:attribute><xsl:value-of select="$worktitle"/></xsl:element> 
-
   </xsl:template>
 
   <xsl:template mode="backtrack" match="node()[@xml:id]">

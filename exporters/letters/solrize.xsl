@@ -14,24 +14,42 @@
   <xsl:param name="category" select="'letter'"/>
   <xsl:param name="root_category" select="'work'"/>
   <xsl:param name="file" select="'a_very_unique_id'"/>
-  <xsl:param name="id"   select="''"/>
+  <xsl:param name="id">/<xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:idno"><xsl:value-of select="."/></xsl:for-each></xsl:param>
   <xsl:param name="prev" select="''"/>
   <xsl:param name="next" select="''"/>
   <xsl:param name="work_id" select="''"/>
-  <xsl:param name="author" select="''"/>
+  <xsl:param name="author">
+    <xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:author">
+      <xsl:value-of select="."/><xsl:if test="position()&lt;last()"><xsl:text> </xsl:text></xsl:if>
+    </xsl:for-each>
+  </xsl:param>
   <xsl:param name="author_id" select="''"/>
   <xsl:param name="copyright" select="''"/>
   <xsl:param name="editor" select="''"/>
   <xsl:param name="editor_id" select="''"/>
-  <xsl:param name="volume_title" select="''"/>
-  <xsl:param name="volume_id" select="''"/>
-  <xsl:param name="publisher" select="''"/>
-  <xsl:param name="published_place" select="''"/>
+  <xsl:param name="volume_title">
+    <xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title">
+      <xsl:value-of select="."/><xsl:if test="position()&lt;last()"><xsl:text> </xsl:text></xsl:if>
+    </xsl:for-each>
+  </xsl:param>
+  <xsl:param name="volume_id" select="concat('/',/t:TEI/t:teiHeader/t:fileDesc/t:idno)"/>
+
+  <xsl:param name="publisher">
+    <xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt">
+      <xsl:value-of select="./t:publisher"/>
+    </xsl:for-each>
+  </xsl:param>
+
+  <xsl:param name="published_place">
+    <xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt">
+      <xsl:value-of select="./t:pubPlace"/>
+    </xsl:for-each>
+  </xsl:param>
+
   <xsl:param name="published_date" select="''"/>
   <xsl:param name="uri_base" select="'http://udvikling.kb.dk/'"/>
   <xsl:param name="url" select="concat($uri_base,$file)"/>
   <xsl:param name="submixion" select="''"/>
-
 
   <xsl:param name="status" select="''"/>
   <!-- Status: created|waiting|working|completed -->
@@ -42,7 +60,7 @@
 
   <xsl:template match="/">
     <xsl:element name="add">
-
+   
       <xsl:choose>
 	<xsl:when test="$id">
 	  <xsl:for-each select="//node()[$id=@xml:id]">
@@ -257,11 +275,9 @@
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@xml:id">
-          <xsl:value-of select="concat(substring-before($file,'.xml'),'-',@xml:id)"/>
+          <xsl:value-of select="concat('/',/t:TEI/t:teiHeader/t:fileDesc/t:idno,'-',@xml:id)"/>
         </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="substring-before($file,'.xml')"/>
-        </xsl:otherwise>
+        <xsl:otherwise>/<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/></xsl:otherwise>
       </xsl:choose>
     </xsl:element>
 
@@ -306,10 +322,7 @@
 	<xsl:attribute
 	  name="name">has_model_ssim</xsl:attribute>Letter</xsl:element>
 
-    <xsl:element name="field">
-      <xsl:attribute name="name">volume_id_ssi</xsl:attribute>
-      <xsl:value-of select="$volume_id"/>
-    </xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">volume_id_ssi</xsl:attribute>/<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/></xsl:element>
 
     <xsl:element name="field">
       <xsl:attribute name="name">url_ssi</xsl:attribute>

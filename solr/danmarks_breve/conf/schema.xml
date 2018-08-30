@@ -214,9 +214,10 @@
     <!-- An alternative geospatial field type new to Solr 4.  It supports multiValued and polygon shapes.
       For more information about this and other Spatial fields new to Solr 4, see:
       http://wiki.apache.org/solr/SolrAdaptersForLuceneSpatial4
-    -->
+
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
       geo="true" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />
+    -->
 
     <fieldType name="name" class="solr.TextField" omitNorms="false">
       <analyzer>
@@ -226,14 +227,14 @@
       </analyzer>
     </fieldType>
 
-    
-    <fieldType name="name" class="solr.TextField" omitNorms="false">
+    <!-- NFKC, case folding, diacritics removed -->
+    <!-- fieldType name="name" class="solr.TextField" omitNorms="false">
       <analyzer>
         <tokenizer class="solr.ICUTokenizerFactory"/>
-        <filter class="solr.ICUFoldingFilterFactory"/>  <!-- NFKC, case folding, diacritics removed -->
+        <filter class="solr.ICUFoldingFilterFactory"/>  
         <filter class="solr.TrimFilterFactory"/>
       </analyzer>
-    </fieldType>
+    </fieldType -->
 
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
