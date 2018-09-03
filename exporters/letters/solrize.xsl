@@ -14,7 +14,10 @@
   <xsl:param name="category" select="'letter'"/>
   <xsl:param name="root_category" select="'work'"/>
   <xsl:param name="file" select="'a_very_unique_id'"/>
+  <!-- seems utterly wrong
   <xsl:param name="id">/<xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:idno"><xsl:value-of select="."/></xsl:for-each></xsl:param>
+  -->
+  <xsl:param name="id" select="''"/>
   <xsl:param name="prev" select="''"/>
   <xsl:param name="next" select="''"/>
   <xsl:param name="work_id" select="''"/>
@@ -147,7 +150,7 @@
 	<xsl:element name="field">
 	  <xsl:attribute name="name">previous_id_ssi</xsl:attribute>
 	  <xsl:value-of 
-	      select="concat(substring-before($file,'.xml'),'-',$lprev)"/>
+	      select="concat($volume_id,'-',$lprev)"/>
 	</xsl:element>
       </xsl:if>
 
@@ -155,7 +158,7 @@
 	<xsl:element name="field">
 	  <xsl:attribute name="name">next_id_ssi</xsl:attribute>
 	  <xsl:value-of 
-	      select="concat(substring-before($file,'.xml'),'-',$lnext)"/>
+	      select="concat($volume_id,'-',$lnext)"/>
 	</xsl:element>
       </xsl:if>
 
