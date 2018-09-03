@@ -12,7 +12,7 @@
               method="xml"/>
 
   <xsl:param name="category" select="'letter'"/>
-  <xsl:param name="root_category" select="'work'"/>
+  <xsl:param name="root_category" select="'letterbook'"/>
   <xsl:param name="file" select="'a_very_unique_id'"/>
   <!-- seems utterly wrong
   <xsl:param name="id">/<xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:idno"><xsl:value-of select="."/></xsl:for-each></xsl:param>
@@ -248,19 +248,16 @@
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
       <xsl:element name="field">
-        <xsl:attribute name="name">cat_ssi</xsl:attribute>
-        <xsl:value-of select="$root_category"/>
-      </xsl:element>
-      <xsl:element name="field">
         <xsl:attribute name="name">work_title_tesim</xsl:attribute>
         <xsl:value-of select="$volume_title"/>
       </xsl:element>
-      <xsl:call-template name="add_globals" />
+      <xsl:call-template name="add_globals">
+	<xsl:with-param name="category"><xsl:value-of select="$root_category"/></xsl:with-param>
+      </xsl:call-template>
     </doc>
   </xsl:template>
 
   <xsl:template name="add_globals">
-    
     <xsl:param name="category">text</xsl:param>
 
     <xsl:element name="field">
