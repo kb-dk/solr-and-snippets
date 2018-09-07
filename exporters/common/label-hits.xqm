@@ -7,7 +7,7 @@ declare function lbl:label-hits( $doc  as node()* ) as node()* {
 	let $match_type := request:get-parameter('match','all')
 	return
 	if(contains($match_type,'phrase')) then
-	lbl:run-filter($doc,replace($query,"[\*\?\.,\s\n\r]+",".","mi"))
+	lbl:run-filter($doc,replace($query,"[\*\?\.,\s\n\r]+","..?","mi")) (: ..? = one or possibly two characters :)
 	else
 	lbl:run-filter($doc,$query)
 };
