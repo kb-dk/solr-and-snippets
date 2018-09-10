@@ -4,7 +4,12 @@ module namespace lbl="http://kb.dk/this/lbl";
 
 declare function lbl:label-hits( $doc  as node()* ) as node()* {
 	let $query := request:get-parameter('q','')
-	return lbl:run-filter($doc,$query)
+	let $match_type := request:get-parameter('match','all')
+	return
+	if(contains($match_type,'phrase')) then
+	lbl:run-filter($doc,replace($query,"[\*\?\.,\s\n\r]+","..?","mi")) (: ..? = one or possibly two characters :)
+	else
+	lbl:run-filter($doc,$query)
 };
 
 declare function lbl:run-filter($doc as item()*, $query as xs:string ) as node()* {
@@ -41,20 +46,43 @@ declare function lbl:filter($input as item()*, $query as xs:string ) as item()* 
         }
         case text()
         return
-	if(matches(replace($node/string(),"[\s\n\r]+"," ","mi"),$query,"mi") ) then
-	let $text := tokenize($node/string(),"[\s\n\r]+")
-	return
-	for $token in $text
-	return 
-	  if(matches($token,concat("^",$query),"mi")) then
-	    let $match     := replace($token,concat("^(",$query,")(.*$)"),"$1","im")
-	    let $remainder := replace($token,concat("^(",$query,")(.*$)"),"$2","im")
-	    return
-	      (<span style="background-color: rgb(255,255,0);" class="hit">{$match}</span>,$remainder," ")
-   	  else ($token," ")
-	else 
-	$node
+	   let $match_type := request:get-parameter('match','all')
+	   return
+	   if(contains($match_type,'phrase')) then
+	     lbl:do_phrase_labeling($node,$query)
+	   else
+	     lbl:do_word_labeling($node,$query)
         (: otherwise pass it through.  Used for, comments, and PIs :)
 	default return $node
 };
 
+declare function lbl:do_word_labeling($node as item(),$query as xs:string) as item()* {
+   if(matches(replace($node/string(),"[\s\n\r]+"," ","mi"),$query,"mi") ) then
+	let $text := tokenize($node/string(),"[\s\n\r]+")
+	return
+	for $token in $text
+	return 
+	if(matches($token,concat("^",$query),"mi")) then
+	let $match     := replace($token,concat("^(",$query,")(.*$)"),"$1","im")
+	    let $remainder := replace($token,concat("^(",$query,")(.*$)"),"$2","im")
+	    return
+	      (<span style="background-color: rgb(255,255,0);" class="hit">{$match}</span>,$remainder," ")
+	else ($token," ")
+   else $node
+};
+
+declare function lbl:do_phrase_labeling($text as node(),$query as xs:string) as item()* {
+   for $token in $text
+   return
+   let $clause := replace($token,"[\s\n\r]+"," ","mi")
+   return
+   if(matches($clause,$query,"i") ) then
+     let $before    := replace($clause,concat($query,".*$"),"","i")
+     let $after     := replace(substring-after($clause,$before),concat("^",$query),"","i")
+     let $match     := substring-before(substring-after($clause,$before),$after)
+     let $remainder := if(string-length($after) > 0) then lbl:do_phrase_labeling(text{$after},$query) else ()
+     return ($before , 
+	     <span style="background-color: rgb(255,255,0);" class="hit">{$match}</span>, $remainder)
+   else text{$clause}
+
+};
