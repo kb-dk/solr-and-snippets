@@ -63,8 +63,8 @@ declare function lbl:do_word_labeling($node as item(),$query as xs:string) as it
 	for $token in $text
 	return 
 	if(matches($token,concat("^",$query),"mi")) then
-	let $match     := replace($token,concat("^(",$query,")(.*$)"),"$1","im")
-	    let $remainder := replace($token,concat("^(",$query,")(.*$)"),"$2","im")
+	   let $match     := replace($token,concat("^(",$query,")(.*$)"),"$1","im")
+	   let $remainder := replace($token,concat("^(",$query,")(.*$)"),"$2","im")
 	    return
 	      (<span style="background-color: rgb(255,255,0);" class="hit">{$match}</span>,$remainder," ")
 	else ($token," ")
@@ -79,7 +79,13 @@ declare function lbl:do_phrase_labeling($text as node(),$query as xs:string) as 
    if(matches($clause,$query,"i") ) then
      let $before    := replace($clause,concat($query,".*$"),"","i")
      let $after     := replace(substring-after($clause,$before),concat("^",$query),"","i")
-     let $match     := substring-before(substring-after($clause,$before),$after)
+     let $match     := if(contains($before,"\w+") and contains($after, "\w+")) then 
+	                  substring-before(substring-after($clause,$before),$after)
+	               else
+	                  if(contains($before,"\w+")) then substring-after($clause,$before)
+                          else if(contains($after,"\w+")) then substring-before($clause,$after)	
+	                  else $clause
+
      let $remainder := if(string-length($after) > 0) then lbl:do_phrase_labeling(text{$after},$query) else ()
      return ($before , 
 	     <span style="background-color: rgb(255,255,0);" class="hit">{$match}</span>, $remainder)
