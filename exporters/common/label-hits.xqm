@@ -77,14 +77,9 @@ declare function lbl:do_phrase_labeling($text as node(),$query as xs:string) as 
    let $clause := replace($token,"[\s\n\r]+"," ","mi")
    return
    if(matches($clause,$query,"i") ) then
-     let $before    := replace($clause,concat($query,".*$"),"","i")
+     let $before    := replace($clause,concat("(^.*?)(",$query,".*$)"),"$1","i")
      let $after     := replace(substring-after($clause,$before),concat("^",$query),"","i")
-     let $match     := if(contains($before,"\w+") and contains($after, "\w+")) then 
-	                  substring-before(substring-after($clause,$before),$after)
-	               else
-	                  if(contains($before,"\w+")) then substring-after($clause,$before)
-                          else if(contains($after,"\w+")) then substring-before($clause,$after)	
-	                  else $clause
+     let $match     := replace($clause,concat("^.*(",$query,").*$"),"$1","i")
 
      let $remainder := if(string-length($after) > 0) then lbl:do_phrase_labeling(text{$after},$query) else ()
      return ($before , 
