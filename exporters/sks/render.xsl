@@ -107,7 +107,7 @@
             <xsl:attribute name="href">
               <xsl:value-of select="$href"/> 
             </xsl:attribute>
-            <xsl:apply-templates/>
+             &#9668; <xsl:apply-templates/>
           </a>
         </span>
       </xsl:when>
