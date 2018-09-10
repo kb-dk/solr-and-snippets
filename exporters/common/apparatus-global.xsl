@@ -115,7 +115,7 @@
 	  <xsl:call-template name="make-href"/>
 	</xsl:attribute>
       </xsl:if>
-      <xsl:apply-templates/>
+      &#9658; <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
