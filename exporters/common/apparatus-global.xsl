@@ -81,7 +81,8 @@
     </span>
   </xsl:template>
 
-  <xsl:template match="t:unclear"><xsl:apply-templates/></xsl:template>
+  <xsl:template match="t:supplied"><span title="Supplering"><xsl:call-template name="add_id"/>[<xsl:apply-templates/>]</span></xsl:template>
+  <xsl:template match="t:unclear"><span title="unclear"><xsl:call-template name="add_id"/><xsl:apply-templates/></span></xsl:template>
   <xsl:template mode="apparatus" match="t:unclear"><span title="unclear">&lt;<xsl:apply-templates/>&gt;</span></xsl:template>
 
   <xsl:template match="t:choice[t:reg and t:orig]">
@@ -203,10 +204,10 @@
   </xsl:template>
 
   <xsl:template match="t:witDetail">
-    <em>
+    <!-- em>
       <xsl:comment> detail </xsl:comment>
       <xsl:apply-templates/>
-    </em>
+    </em -->
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:witDetail">
