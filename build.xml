@@ -30,7 +30,7 @@
       <mkdir dir="${service}"/>
       <mkdir dir="${service}/adl"/>
       <mkdir dir="${service}/sks"/>
-      <mkdir dir="${service}/abbyy"/>
+      <mkdir dir="${service}/tk"/>
       <mkdir dir="${xconfig_source}"/>
       <copy todir="${xconfig_source}">
 	<fileset dir="${service.src}/index"/>
@@ -53,7 +53,7 @@
       <copy todir="${service}/pmm">
 	<fileset dir="${service.src}/pmm"/>
       </copy>
-      <copy todir="${service}/abbyy">
+      <copy todir="${service}/tk">
 	<fileset dir="${service.src}/abbyy"/>
       </copy>
     </target>
@@ -111,8 +111,8 @@
         <copy  todir="${service}/pmm/texts">
 	  <fileset dir="../other_tei_projects/pmm"/>
 	</copy>
-        <copy  todir="${service}/abbyy/texts">
-	  <fileset dir="../OCR_TEI/abbyy"/>
+        <copy  todir="${service}/tk/texts">
+	  <fileset dir="../trykkefrihedsskrifter/tei_dir"/>
 	</copy>
     </target>
 
