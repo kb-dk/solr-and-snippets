@@ -54,7 +54,7 @@
 	<fileset dir="${service.src}/pmm"/>
       </copy>
       <copy todir="${service}/tfs">
-	<fileset dir="${service.src}/abbyy"/>
+	<fileset dir="${service.src}/tfs"/>
       </copy>
     </target>
 

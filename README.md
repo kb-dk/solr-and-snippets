@@ -30,6 +30,47 @@ Currently
 The Snippet Server has to support CRUD basic functionalities. The
 indexing is is currently SOLR and the snippet crud eXist
 
+## How to install the Snippet Server and its Data
+
+The installation is more or less automatic. However, the data to be
+installed has to be available in the directory above the current
+one. Inspect the build.xml for more information. That is, note the
+definitions of targets
+
+* service
+* add_data
+* add_letters
+* add_letter_data
+
+All the data is on github and can be cloned from there. For example:
+To install the text-service backend on http://just.an.example.org:8080
+
+```
+ ant clean
+ ant service
+ ant add_data
+ ant upload -Dhostport=just.an.example.org:8080
+
+```
+
+To set the permissions of all scripts in one go, "retrieve" the
+following URI
+
+```
+ http://just.an.example.org:8080/exist/rest/db/text-retriever/xchmod.xq
+
+```
+
+which (at least on some eXist installations) sets the execute
+permissions on all *.xq files. It doesn't work always, and as of
+writing this, it is not yet known when and where it works. Then you
+have to do that manually according to the eXist manual. See your server
+
+```
+http://just.an.example.org:8080/exist/apps/dashboard/index.html
+
+```
+
 ## The Snippet Server and its arguments
 
 The scripts and transforms are in the directory exports. For ADL the following are
