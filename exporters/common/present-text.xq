@@ -12,12 +12,9 @@ declare variable  $coll          := concat("/db/text-retriever/",$c);
 
 declare option exist:serialize "method=text media-type=text/plain encoding=UTF-8";
 
-let $doc :=
-for $d in collection($coll)
-where util:document-name($d)=$document
-return $d
+let $doc := doc(concat("./",$c,"/",$document))
 
-return 
+return
 if($frag) then
 $doc//node()[@xml:id = $frag]//text()
 else 
