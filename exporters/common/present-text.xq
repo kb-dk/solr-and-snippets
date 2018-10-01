@@ -1,11 +1,14 @@
 xquery version "3.0" encoding "UTF-8";
 
 declare namespace t="http://www.tei-c.org/ns/1.0";
+import module namespace paths="http://kb.dk/this/paths" at "./get-paths.xqm";
+declare variable  $path     := request:get-parameter("path","");
 
-declare variable  $document := request:get-parameter("doc","");
-declare variable  $frag     := request:get-parameter("id","");
-declare variable  $c        := request:get-parameter("c","texts");
-declare variable  $coll     := concat("/db/adl/",$c);
+declare variable  $frag          := paths:frag($path);
+declare variable  $c             := paths:c($path);
+declare variable  $document      := paths:document($path);
+declare variable  $inferred_path := paths:inferred_path($path);
+declare variable  $coll          := concat("/db/text-retriever/",$c);
 
 declare option exist:serialize "method=text media-type=text/plain encoding=UTF-8";
 
