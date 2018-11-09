@@ -54,6 +54,34 @@
     </xsl:choose>
   </xsl:param>
 
+  <xsl:template match="t:text[@decls]|t:div[@decls]">
+    <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
+    <xsl:variable name="worktitle">
+      <xsl:choose>
+	<xsl:when 
+	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]">
+	  <xsl:value-of
+              select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
+	</xsl:when>
+	<xsl:when test="t:head">
+	  <xsl:value-of select="t:head"/>
+	</xsl:when>
+	<xsl:otherwise>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="category"  select="'work'"/>
+    </xsl:call-template>
+
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates>
+
+  </xsl:template>
+
  <xsl:template match="t:text">
     <xsl:variable name="dir_path" select="substring-before($doc,'/')"/>
     <xsl:variable name="file_basename" select="substring-before(substring-after($doc,'/'),'.xml')"/>
