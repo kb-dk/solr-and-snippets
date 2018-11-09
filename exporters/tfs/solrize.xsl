@@ -59,9 +59,9 @@
     <xsl:variable name="worktitle">
       <xsl:choose>
 	<xsl:when 
-	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]">
+	    test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]/t:title">
 	  <xsl:value-of
-              select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
+              select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]/t:title"/>
 	</xsl:when>
 	<xsl:when test="t:head">
 	  <xsl:value-of select="t:head"/>
@@ -111,6 +111,67 @@
       </xsl:choose>
     </xsl:element>
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
+  </xsl:template>
+
+  <xsl:template name="extract_titles_authors_etc">
+    <xsl:call-template name="common_extract_titles_authors_etc"/>
+
+    <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
+      <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
+      <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>
+
+      <xsl:if test="$bibl/t:publisher">
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">>publisher_tesim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:publisher"/>
+	</xsl:element>
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">>publisher_nasim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:publisher"/>
+	</xsl:element>
+
+      </xsl:if>
+
+      <xsl:if test="$bibl/t:extent">
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">format_tesim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:extent"/>
+	</xsl:element>
+
+      </xsl:if>
+
+      <xsl:if test="$bibl/t:author">
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">author_name_tesim</xsl:attribute>
+	    <xsl:value-of select="$bibl/t:author"/>
+	  </xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">author_nasim</xsl:attribute>
+	    <xsl:value-of select="$bibl/t:author"/>
+	  </xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">author_name_ssi</xsl:attribute>
+	    <xsl:value-of select="$bibl/t:author"/>
+	  </xsl:element>
+
+      </xsl:if>
+
+      <xsl:if test="$bibl/t:date">
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">date_published_ssi</xsl:attribute>
+	    <xsl:value-of select="$bibl/t:date"/>
+	</xsl:element>
+
+      </xsl:if>
+
+    </xsl:if>
+
   </xsl:template>
 
   <xsl:template name="what_i_can"/>
