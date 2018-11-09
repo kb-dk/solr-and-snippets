@@ -72,7 +72,7 @@
     </xsl:variable>
 
     <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="worktitle" select="''"/>
       <xsl:with-param name="category"  select="'work'"/>
     </xsl:call-template>
 
@@ -82,20 +82,18 @@
 
   </xsl:template>
 
- <xsl:template match="t:text">
+  <xsl:template match="t:text[not(@decls|descendant-or-self::node()[@decls]/@decls)]">
     <xsl:variable name="dir_path" select="substring-before($doc,'/')"/>
     <xsl:variable name="file_basename" select="substring-before(substring-after($doc,'/'),'.xml')"/>
     <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">work</xsl:with-param>
+      <xsl:with-param name="category"></xsl:with-param>
     </xsl:call-template>
-
     <xsl:apply-templates>
       <xsl:with-param name="worktitle" select="$worktitle"/>
     </xsl:apply-templates>
-
   </xsl:template>
 
   <xsl:template mode="backtrack" match="node()[@xml:id]">
@@ -114,21 +112,33 @@
   </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
-    <xsl:call-template name="common_extract_titles_authors_etc"/>
 
     <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
       <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
       <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>
 
+      <xsl:if test="$bibl/t:title">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:title"/>
+	</xsl:element>
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:title"/>
+	</xsl:element>
+
+      </xsl:if>
+
       <xsl:if test="$bibl/t:publisher">
 
 	<xsl:element name="field">
-	  <xsl:attribute name="name">>publisher_tesim</xsl:attribute>
+	  <xsl:attribute name="name">publisher_tesim</xsl:attribute>
 	  <xsl:value-of select="$bibl/t:publisher"/>
 	</xsl:element>
 
 	<xsl:element name="field">
-	  <xsl:attribute name="name">>publisher_nasim</xsl:attribute>
+	  <xsl:attribute name="name">publisher_nasim</xsl:attribute>
 	  <xsl:value-of select="$bibl/t:publisher"/>
 	</xsl:element>
 
