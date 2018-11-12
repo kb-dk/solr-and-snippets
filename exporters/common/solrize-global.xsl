@@ -577,6 +577,10 @@
   </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
+    <xsl:call-template name="common_extract_titles_authors_etc"/>
+  </xsl:template>
+
+  <xsl:template name="common_extract_titles_authors_etc">
 
     <xsl:choose>
       <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
