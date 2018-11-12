@@ -632,23 +632,15 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   <xsl:template match="t:adminInfo">
     <span>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="biblio_note" />
+      <xsl:apply-templates />
     </span>
   </xsl:template>
-
-  <xsl:template mode="biblio_note" match="t:note">
+  
+  <xsl:template match="t:adminInfo/t:note">
     <span>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="biblio_note"/>
+      <xsl:apply-templates/>
     </span>
-  </xsl:template>
-
-  <xsl:template match="physDesc">
-    <small><xsl:apply-templates/></small>
-  </xsl:template>
-
-  <xsl:template  mode="biblio_note" match="t:p">
-    <xsl:apply-templates mode="biblio_note"/>
   </xsl:template>
 
   <xsl:template match="t:msIdentifier">
@@ -666,7 +658,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
   <xsl:template match="t:physDesc">
-    <div style="font-size: 90%;">
+    <div style="font-size: 80%;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </div>
