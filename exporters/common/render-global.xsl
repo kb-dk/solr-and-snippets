@@ -639,10 +639,17 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   <xsl:template mode="biblio_note" match="t:note">
     <span>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:apply-templates mode="biblio_note"/>
     </span>
   </xsl:template>
 
+  <xsl:template match="physDesc">
+    <small><xsl:apply-templates/></small>
+  </xsl:template>
+
+  <xsl:template  mode="biblio_note" match="t:p">
+    <xsl:apply-templates mode="biblio_note"/>
+  </xsl:template>
 
   <xsl:template match="t:msIdentifier">
     <span>
