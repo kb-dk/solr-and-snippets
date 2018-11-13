@@ -630,16 +630,11 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
   <xsl:template match="t:adminInfo">
+<!-- Content model herej is 
+     t:note|t:availability|t:custodialHist|t:recordHist|t:witDetail -->
     <span>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates />
-    </span>
-  </xsl:template>
-  
-  <xsl:template match="t:adminInfo/t:note">
-    <span>
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:apply-templates select="t:note/t:p"/>
     </span>
   </xsl:template>
 
