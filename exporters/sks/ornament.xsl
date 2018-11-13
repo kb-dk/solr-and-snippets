@@ -39,6 +39,11 @@
     </p>
   </xsl:template>
 
+  <xsl:template match="t:figure[@type='hashSingleDouble']">
+    <p style="text-align:center;">
+      <xsl:text>╪</xsl:text>
+    </p>
+  </xsl:template>
 
   <xsl:template match="t:figure[@type='divisionRulerDouble']">
     <p style="text-align:center;">
