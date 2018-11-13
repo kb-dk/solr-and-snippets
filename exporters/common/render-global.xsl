@@ -633,10 +633,10 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
     </div>
   </xsl:template>
 
-  <xsl:template match="t:msPart|t:additional">
+  <xsl:template match="t:msPart">
     <xsl:element name="div">
       <xsl:call-template name="add_id"/>
-      <xsl:attribute name="style">float:left; width:88%;</xsl:attribute>
+      <xsl:attribute name="style">float:left; width:85%;</xsl:attribute>
       <xsl:apply-templates/>
       <div style="clear:both;">
 	<xsl:text>
@@ -650,7 +650,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
      t:note|t:availability|t:custodialHist|t:recordHist|t:witDetail -->
     <div>
       <xsl:call-template name="add_id"/>
-      <xsl:attribute name="style">float:left; width:88%;</xsl:attribute>
+      <xsl:attribute name="style">float:left; width:85%;</xsl:attribute>
       <xsl:apply-templates select="t:note/t:p"/>
     </div>
   </xsl:template>
@@ -658,7 +658,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   <xsl:template match="t:msIdentifier">
     <div>
       <xsl:call-template name="add_id"/>
-      <xsl:attribute name="style">float:left; width:10%;</xsl:attribute>
+      <xsl:attribute name="style">float:left; width:12%;</xsl:attribute>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
@@ -670,10 +670,10 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
     </strong>
   </xsl:template>
 
-  <xsl:template match="t:physDesc">
+  <xsl:template match="t:physDesc|t:additional">
     <div style="font-size: 80%;">
       <xsl:call-template name="add_id"/>
-      <xsl:attribute name="style">float:left; width:88%;</xsl:attribute>
+      <xsl:attribute name="style">float:left; width:85%;</xsl:attribute>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
