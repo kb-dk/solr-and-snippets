@@ -8,26 +8,26 @@
 
   <xsl:template match="t:figure[@type='3crossesDown']">
     <p style="text-align:center;">
-      <xsl:text>+  +</xsl:text><br/>
+      <xsl:text>+ &#160; +</xsl:text><br/>
       <xsl:text>+</xsl:text><br/>
     </p>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='3asterisksDown']">
     <p style="text-align:center;">
-<xsl:text>*  *</xsl:text><br/>
-<xsl:text>*</xsl:text><br/>
+      <xsl:text>* &#160; *</xsl:text><br/>
+      <xsl:text>*</xsl:text><br/>
     </p>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='3asterisksUp']">
     <p style="text-align:center;">
-<xsl:text>*</xsl:text><br/>
-<xsl:text>*  *</xsl:text><br/>
+      <xsl:text>*</xsl:text><br/>
+      <xsl:text>* &#160; *</xsl:text><br/>
     </p>
   </xsl:template>
 
-  <xsl:template match="t:figure[@type='hash']">
+  <xsl:template match="t:figure[@type='hash' or @type='hashBlank']">
     <p style="text-align:center;">
       <xsl:text>#</xsl:text><br/>
     </p>
@@ -66,7 +66,7 @@
 
   <xsl:template match="t:figure[@type='2asterisks']">
     <p style="text-align:center;">
-      <xsl:text>*  *</xsl:text><br/>
+      <xsl:text>* &#160; *</xsl:text><br/>
     </p>
   </xsl:template>
 
