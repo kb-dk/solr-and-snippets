@@ -233,14 +233,17 @@
   </xsl:template>
 
   <xsl:template match="t:quote">
-    <q class="quote">
+    <blockquote class="quote" style="margin-left:+5%;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
-    </q>
+    </blockquote>
+  </xsl:template>
+
+  <xsl:template match="t:quote/t:p">
+    <xsl:apply-templates/><br/>
   </xsl:template>
 
   <xsl:template match="t:head/t:lb"><xsl:text> </xsl:text></xsl:template>
-
   <xsl:template match="t:head">
     <xsl:if test="./node()">
       <h2 class="head-in-text">
@@ -622,27 +625,42 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 	select="following::node()[@decls and @xml:id][1]/@xml:id"/>
   </xsl:template>
 
-  <xsl:template match="t:msDesc|t:msPart|t:additional">
+
+ <xsl:template match="t:msDesc">
     <div>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
+  <xsl:template match="t:msPart|t:additional">
+    <xsl:element name="div">
+      <xsl:call-template name="add_id"/>
+      <xsl:attribute name="style">float:left; width:88%;</xsl:attribute>
+      <xsl:apply-templates/>
+      <div style="clear:both;">
+	<xsl:text>
+	</xsl:text>
+      </div>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template match="t:adminInfo">
 <!-- Content model herej is 
      t:note|t:availability|t:custodialHist|t:recordHist|t:witDetail -->
-    <span>
+    <div>
       <xsl:call-template name="add_id"/>
+      <xsl:attribute name="style">float:left; width:88%;</xsl:attribute>
       <xsl:apply-templates select="t:note/t:p"/>
-    </span>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:msIdentifier">
-    <span>
+    <div>
       <xsl:call-template name="add_id"/>
+      <xsl:attribute name="style">float:left; width:10%;</xsl:attribute>
       <xsl:apply-templates/>
-    </span>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:collection">
@@ -655,6 +673,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   <xsl:template match="t:physDesc">
     <div style="font-size: 80%;">
       <xsl:call-template name="add_id"/>
+      <xsl:attribute name="style">float:left; width:88%;</xsl:attribute>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
