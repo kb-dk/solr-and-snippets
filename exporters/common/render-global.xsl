@@ -631,6 +631,10 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </div>
+    <div style="clear:both;">
+      <xsl:text>
+      </xsl:text>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:msPart">
