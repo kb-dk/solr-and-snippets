@@ -66,7 +66,7 @@
   </xsl:template>
 
   <xsl:template match="t:note[@type='commentary']">
-    <xsl:element name="div">
+    <xsl:element name="p">
       <xsl:call-template name="add_id_empty_elem"/>
       <xsl:apply-templates/>
     </xsl:element>
