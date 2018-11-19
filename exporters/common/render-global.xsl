@@ -631,8 +631,11 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
       <xsl:call-template name="add_id"/>
       <xsl:attribute name="style">indent-left:+1em;</xsl:attribute>
       <xsl:apply-templates/>
-      <div style="clear:both;"><xsl:text> </xsl:text></div>
     </div>
+    <p style="clear:both;">
+      <xsl:text> 
+      </xsl:text>      
+    </p>
   </xsl:template>
 
   <xsl:template match="t:msPart">
@@ -655,8 +658,8 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
   <xsl:template match="t:msIdentifier">
-    <p class="head-in-text">
-      <xsl:attribute name="style">float:left; width:15%;</xsl:attribute>
+    <p>
+      <xsl:attribute name="style">float:left; width:8%;</xsl:attribute>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </p>
