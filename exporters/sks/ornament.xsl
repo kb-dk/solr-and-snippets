@@ -8,8 +8,8 @@
 
   <xsl:template match="t:figure[@type='3crossesDown']">
     <p style="text-align:center;">
-      <xsl:text>+ &#160; +</xsl:text><br/>
-      <xsl:text>+</xsl:text><br/>
+      <xsl:text>† &#160; †</xsl:text><br/>
+      <xsl:text>†</xsl:text><br/>
     </p>
   </xsl:template>
 
