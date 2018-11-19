@@ -629,24 +629,19 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
  <xsl:template match="t:msDesc">
     <div>
       <xsl:call-template name="add_id"/>
+      <xsl:attribute name="style">indent-left:+1em;</xsl:attribute>
       <xsl:apply-templates/>
-    </div>
-    <div style="clear:both;">
-      <xsl:text>
-      </xsl:text>
+      <div style="clear:both;"><xsl:text> </xsl:text></div>
     </div>
   </xsl:template>
 
   <xsl:template match="t:msPart">
-    <xsl:element name="div">
+    <div>
       <xsl:call-template name="add_id"/>
       <xsl:attribute name="style">float:left; width:85%;</xsl:attribute>
       <xsl:apply-templates/>
-      <div style="clear:both;">
-	<xsl:text>
-	</xsl:text>
-      </div>
-    </xsl:element>
+      <br style="clear:both;"/>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:adminInfo">
@@ -660,18 +655,15 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
   <xsl:template match="t:msIdentifier">
-    <div>
+    <p class="head-in-text">
+      <xsl:attribute name="style">float:left; width:15%;</xsl:attribute>
       <xsl:call-template name="add_id"/>
-      <xsl:attribute name="style">float:left; width:12%;</xsl:attribute>
       <xsl:apply-templates/>
-    </div>
+    </p>
   </xsl:template>
 
-  <xsl:template match="t:collection">
-    <strong>
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </strong>
+  <xsl:template match="t:collection|t:idno">
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:physDesc|t:additional">
@@ -684,9 +676,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   
   <xsl:template match="t:physDesc/t:p">
     <xsl:apply-templates/>
-    <xsl:element name="br">
-      <xsl:call-template name="add_id_empty_elem"/>      
-    </xsl:element>
+    <xsl:element name="br"><xsl:call-template name="add_id_empty_elem"/></xsl:element>
   </xsl:template>
 
   <xsl:function name="me:looks_like">

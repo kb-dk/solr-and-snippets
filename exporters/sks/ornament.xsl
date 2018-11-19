@@ -75,4 +75,13 @@
     </p>
   </xsl:template>
 
+ <xsl:template match="t:figure[@type='blank']">
+    <p style="text-align:center;">
+      <br style="clear: both;"/>
+    </p>
+  </xsl:template>
+
+
+
+
 </xsl:stylesheet>
