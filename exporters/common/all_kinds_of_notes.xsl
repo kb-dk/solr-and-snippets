@@ -36,6 +36,14 @@
 	      indent="yes"/>
 
 
+  <xsl:template name="make_author_note_list">
+    <xsl:for-each select="descendant-or-self::ptr[@type='author']">
+      <xsl:if test="position() = first()"><hr/></xsl:if>
+      <xsl:call-template name="show_note">
+	<xsl:with-param name="display" select="'none'"/>
+      </xsl:call-template>
+    </xsl:for-each>
+  </xsl:template>
 
   <xsl:template match="t:ptr[@type = 'author']">
     <xsl:variable name="target">
@@ -53,6 +61,23 @@
   </xsl:template>
 
   <xsl:template name="inline_note">
+    <xsl:call-template name="general_note_code">
+      <xsl:with-param name="display" select="'none'"/>
+    </xsl:call-template>
+    <xsl:call-template name="show_note">
+      <xsl:with-param name="display" select="'none'"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template name="show_note">
+    <span style="background-color:yellow;display:{$display};">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+  <xsl:template name="general_note_code">
+    <xsl:param name="display" select="'none'"/>
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
     </xsl:variable>
@@ -85,10 +110,7 @@
 	</xsl:choose>
       </xsl:element>
     </xsl:element>
-    <span style="background-color:yellow;display:none;">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </span>
+
   </xsl:template>
 
   <xsl:template match="t:note/t:p">
