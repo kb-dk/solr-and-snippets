@@ -40,7 +40,7 @@
     <xsl:for-each select="descendant-or-self::ptr[@type='author']">
       <xsl:if test="position() = 1"><hr/></xsl:if>
       <xsl:call-template name="show_note">
-	<xsl:with-param name="display" select="'none'"/>
+	<xsl:with-param name="display" select="'block'"/>
       </xsl:call-template>
     </xsl:for-each>
   </xsl:template>
