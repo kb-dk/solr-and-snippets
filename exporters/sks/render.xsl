@@ -7,6 +7,8 @@
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
+  <xsl:import href="./all_kinds_of_notes.xsl"/>
+
   <xsl:import href="./ornament.xsl"/>
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />

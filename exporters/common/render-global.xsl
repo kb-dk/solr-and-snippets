@@ -175,56 +175,6 @@
     </em>
   </xsl:template>
 
-  <xsl:template match="t:note">
-    <xsl:call-template name="inline_note"/>
-  </xsl:template>
-
-  <xsl:template name="inline_note">
-    <xsl:variable name="idstring">
-      <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
-    </xsl:variable>
-    <xsl:variable name="note">
-      <xsl:value-of select="concat('note',$idstring)"/>
-    </xsl:variable>
-    <xsl:element name="sup">
-      <script>
-	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
-	function <xsl:value-of select="$note"/>() {
-	var ele = document.getElementById("<xsl:value-of select="@xml:id"/>");
-	if(<xsl:value-of select="concat('disp',$idstring)"/>=="none") {
-	ele.style.display="inline";
-	<xsl:value-of select="concat('disp',$idstring)"/>="inline";
-	} else {
-	ele.style.display="none";
-	<xsl:value-of select="concat('disp',$idstring)"/>="none";
-	}
-	}
-      </script>
-
-      <xsl:element name="a">
-	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-	<xsl:if test="@type='author'">
-	  <xsl:attribute name="title">Forfatterens note.</xsl:attribute>
-	</xsl:if>
-	<xsl:choose>
-	  <xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
-	  <xsl:otherwise>*</xsl:otherwise>
-	</xsl:choose>
-      </xsl:element>
-    </xsl:element>
-    <span style="background-color:yellow;display:none;">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </span>
-  </xsl:template>
-
-  <xsl:template match="t:note/t:p">
-    <span>
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </span>
-  </xsl:template>
-
   <xsl:template match="t:eg">
     <p class="eg">
       <xsl:call-template name="add_id"/>
@@ -271,6 +221,7 @@
       </xsl:call-template>
       <xsl:apply-templates/>
     </p>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:p">
@@ -278,6 +229,7 @@
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </p>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -297,6 +249,7 @@
       </xsl:call-template>
       <xsl:apply-templates/>
     </p>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:l">
@@ -520,6 +473,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 	<xsl:apply-templates select="t:stage|t:p|t:lg|t:pb|t:l"/>
       </dd>
     </dl>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:stage/t:p">

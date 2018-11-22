@@ -397,17 +397,6 @@
 
   </xsl:template>
 
-  <xsl:template match="t:ptr[@type = 'author']">
-    <xsl:variable name="target">
-      <xsl:value-of select="substring-after(@target,'#')"/>
-    </xsl:variable>
-    <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
-      <xsl:call-template name="inline_note"/>
-    </xsl:for-each>
-  </xsl:template>
-
-  <xsl:template match="t:note[@type = 'author']"/>
-
   <xsl:template match="t:graphic">
     <xsl:element name="img">
       <xsl:variable name="url">
