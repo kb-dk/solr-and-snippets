@@ -49,10 +49,6 @@
 
   <xsl:template match="t:note[@type = 'author']"/>
 
-  <xsl:template match="t:note">
-    <xsl:call-template name="inline_note"/>
-  </xsl:template>
-
   <xsl:template name="inline_note">
     <xsl:call-template name="general_note_code">
       <xsl:with-param name="display" select="'none'"/>
