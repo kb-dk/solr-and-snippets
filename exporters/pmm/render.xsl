@@ -79,4 +79,8 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="t:note">
+    <xsl:call-template name="inline_note"/>
+  </xsl:template>
+
 </xsl:transform>
