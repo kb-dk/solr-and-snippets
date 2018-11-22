@@ -38,7 +38,7 @@
 
   <xsl:template name="make_author_note_list">
     <xsl:for-each select="descendant-or-self::ptr[@type='author']">
-      <xsl:if test="position() = first()"><hr/></xsl:if>
+      <xsl:if test="position() = 1"><hr/></xsl:if>
       <xsl:call-template name="show_note">
 	<xsl:with-param name="display" select="'none'"/>
       </xsl:call-template>
@@ -70,6 +70,7 @@
   </xsl:template>
 
   <xsl:template name="show_note">
+    <xsl:param name="display" select="'none'"/>
     <span style="background-color:yellow;display:{$display};">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
