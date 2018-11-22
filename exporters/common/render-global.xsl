@@ -221,6 +221,7 @@
       </xsl:call-template>
       <xsl:apply-templates/>
     </p>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:p">
@@ -228,6 +229,7 @@
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </p>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -247,6 +249,7 @@
       </xsl:call-template>
       <xsl:apply-templates/>
     </p>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:l">
@@ -470,6 +473,7 @@ r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
 	<xsl:apply-templates select="t:stage|t:p|t:lg|t:pb|t:l"/>
       </dd>
     </dl>
+    <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
   <xsl:template match="t:stage/t:p">

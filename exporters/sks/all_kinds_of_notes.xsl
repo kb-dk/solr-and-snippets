@@ -8,6 +8,9 @@
     exclude-result-prefixes="t me"
     version="2.0">
 
+  <xsl:import href="../all_kinds_of_notes-global.xsl"/>
+
+
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
   <xsl:param name="file" select="fn:replace($doc,'.*/([^/]+)$','$1')"/>
@@ -31,31 +34,48 @@
   <xsl:param name="capabilities" select="''"/>
   <xsl:param name="cap" select="document($capabilities)"/>
 
-  <xsl:import href="../all_kinds_of_notes-global.xsl"/>
-
   <xsl:output method="xml"
 	      encoding="UTF-8"
 	      indent="yes"/>
 
   <xsl:template name="make_author_note_list">
-    <xsl:for-each select="descendant-or-self::ptr[@type='author']">
-      <xsl:if test="position() = 1"><hr/></xsl:if>
-      <xsl:call-template name="show_note">
-	<xsl:with-param name="display" select="'block'"/>
-      </xsl:call-template>
-    </xsl:for-each>
+    <xsl:if test="descendant-or-self::t:ptr[@type='author']">
+      <div style="border-top: thin solid lightgray; width: 67%;">
+	<strong>Noter:</strong>
+	<ol>
+	  <xsl:for-each select="descendant-or-self::t:ptr[@type='author']">
+	    <xsl:variable name="target">
+	      <xsl:value-of select="substring-after(@target,'#')"/>
+	    </xsl:variable>
+	    <li>
+	      <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
+		<xsl:call-template name="show_note">
+		  <xsl:with-param name="display" select="'block'"/>
+		  <xsl:with-param name="bgcolor" select="'inherit'"/>
+		</xsl:call-template>
+	      </xsl:for-each> 
+	    </li>
+	  </xsl:for-each>
+	</ol>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="t:ptr[@type = 'author']">
+    <xsl:variable name="pos">
+      <xsl:value-of select="1+count(preceding-sibling::t:ptr[@type = 'author'])"/>
+    </xsl:variable>
     <xsl:variable name="target">
       <xsl:value-of select="substring-after(@target,'#')"/>
     </xsl:variable>
     <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
-      <xsl:call-template name="inline_note"/>
-    </xsl:for-each>
+      <sup>
+	<xsl:element name="a">
+	  <xsl:attribute name="href">#<xsl:value-of select="$target"/></xsl:attribute>
+	  <xsl:value-of select="$pos"/>
+	</xsl:element>
+      </sup>
+    </xsl:for-each> 
   </xsl:template>
-
-
-
 
 </xsl:stylesheet>

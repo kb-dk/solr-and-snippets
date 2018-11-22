@@ -64,7 +64,8 @@
 
   <xsl:template name="show_note">
     <xsl:param name="display" select="'none'"/>
-    <span style="background-color:yellow;display:{$display};">
+    <xsl:param name="bgcolor" select="'yellow'"/>
+    <span style="background-color:{$bgcolor};display:{$display};">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </span>
@@ -72,6 +73,7 @@
 
   <xsl:template name="general_note_code">
     <xsl:param name="display" select="'none'"/>
+    <xsl:param name="lbl" select="'*'"/>
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
     </xsl:variable>
@@ -100,7 +102,7 @@
 	</xsl:if>
 	<xsl:choose>
 	  <xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
-	  <xsl:otherwise>*</xsl:otherwise>
+	  <xsl:otherwise><xsl:value-of select="$lbl"/></xsl:otherwise>
 	</xsl:choose>
       </xsl:element>
     </xsl:element>
