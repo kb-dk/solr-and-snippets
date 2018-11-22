@@ -6,7 +6,7 @@
 	       exclude-result-prefixes="t">
 
   <xsl:import href="../render-global.xsl"/>  
-  <xsl:import href="../all_kinds_of_notes.xsl"/>
+  <xsl:import href="../all_kinds_of_notes-global.xsl"/>
 
    <xsl:template name="inferred_path">
      <xsl:param name="document" select="$doc"/>
