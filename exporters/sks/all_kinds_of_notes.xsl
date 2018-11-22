@@ -53,7 +53,7 @@
 		  <xsl:with-param name="display" select="'block'"/>
 		  <xsl:with-param name="bgcolor" select="'inherit'"/>
 		</xsl:call-template>
-	      </xsl:for-each> 
+	      </xsl:for-each>(<a href="#ref{$target}">tilbage</a>)
 	    </li>
 	  </xsl:for-each>
 	</ol>
@@ -70,6 +70,9 @@
     </xsl:variable>
     <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
       <sup>
+	<xsl:attribute name="id">
+	  <xsl:attribute name="href">ref<xsl:value-of select="$target"/></xsl:attribute>
+	</xsl:attribute>
 	<xsl:element name="a">
 	  <xsl:attribute name="href">#<xsl:value-of select="$target"/></xsl:attribute>
 	  <xsl:value-of select="$pos"/>
