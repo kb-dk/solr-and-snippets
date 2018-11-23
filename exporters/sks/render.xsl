@@ -25,12 +25,15 @@
 	<xsl:attribute name="class">pageBreak</xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
-	<xsl:choose>
-	  <xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
-	  <xsl:otherwise>
-	    <xsl:text><!-- an invisible anchor --></xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+      <xsl:if test="@facs">
+	<xsl:call-template name="sks_page_speciment"/>
+      </xsl:if>
+      <xsl:choose>
+	<xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
+	<xsl:otherwise>
+	  <xsl:text><!-- an invisible anchor --></xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:element>
   </xsl:template>
 
