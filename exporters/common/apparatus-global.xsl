@@ -17,12 +17,6 @@
     <xsl:copy-of select="/t:TEI//t:tagsDecl/*"/>
   </xsl:variable>
 
-
-  <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
-  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
-  <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
-  <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
-
   <xsl:template mode="text" match="t:corr">
     <span title="rættelse">
       <xsl:call-template name="add_id"/>

@@ -7,20 +7,36 @@
     exclude-result-prefixes="t"
     version="2.0">
 
-  <xsl:template match="t:graphic">
+  <xsl:variable name="iip_baseuri"  select="'http://kb-images.kb.dk/public/sks/'"/>
+  <xsl:variable name="iiif_suffix" select="'/full/full/0/native.jpg'"/>
+  <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
+
+  <xsl:template name="render_graphic">
+    <xsl:param name="graphic_uri"/>
+    <xsl:param name="width">100%</xsl:param>
+
     <xsl:element name="img">
-      <xsl:variable name="url">
-      <xsl:value-of select="concat($iip_baseuri,substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg'))"/>
-      </xsl:variable>
-      <xsl:attribute name="style"> width: 100%;</xsl:attribute>
+      <xsl:attribute name="style"> width: <xsl:value-of select="$width"/>;</xsl:attribute>
       <xsl:attribute name="src">
-	<xsl:value-of select="concat($url,$iiif_suffix)"/>
+	<xsl:value-of select="concat($iip_baseuri,$url,$iiif_suffix)"/>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
     </xsl:element>
+
   </xsl:template>
 
- <xsl:template match="t:figure">
+  <xsl:template match="t:graphic">
+    <xsl:call-template name="render_graphic">
+      <xsl:with-param name="graphic_uri">
+	<xsl:value-of 
+	    select="concat(substring-before(translate(substring-after(@url,'../'),
+			   $uppercase,$lowercase),'.jpg'))"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="t:figure">
    <xsl:variable name="float_direction">
      <xsl:choose>
        <xsl:when test="count(preceding::t:graphic) mod 2">left</xsl:when>
