@@ -26,7 +26,7 @@
       </xsl:if>
       <xsl:call-template name="add_id"/>
       <xsl:if test="@facs">
-	<xsl:call-template name="sks_page_speciment"/>
+	<xsl:call-template name="sks_page_specimen"/>
       </xsl:if>
       <xsl:choose>
 	<xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>

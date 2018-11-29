@@ -16,7 +16,7 @@
       <xsl:call-template name="render_graphic">
 	<xsl:with-param name="graphic_uri">
 	  <xsl:value-of 
-	      select="concat(substring-before(translate(substring-after(@facs,'../'),$uppercase,$lowercase),'.jpg'))"/>
+	      select="substring-before(translate(substring-after(@facs,'../'),$uppercase,$lowercase),'.jpg')"/>
 	</xsl:with-param>
       </xsl:call-template>
 

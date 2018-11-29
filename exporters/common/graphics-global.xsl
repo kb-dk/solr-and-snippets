@@ -19,7 +19,7 @@
     <xsl:element name="img">
       <xsl:attribute name="style"> width: <xsl:value-of select="$width"/>;</xsl:attribute>
       <xsl:attribute name="src">
-	<xsl:value-of select="concat($iip_baseuri,$url,$iiif_suffix)"/>
+	<xsl:value-of select="concat($iip_baseuri,$graphic_uri,$iiif_suffix)"/>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
     </xsl:element>
@@ -30,8 +30,7 @@
     <xsl:call-template name="render_graphic">
       <xsl:with-param name="graphic_uri">
 	<xsl:value-of 
-	    select="concat(substring-before(translate(substring-after(@url,'../'),
-			   $uppercase,$lowercase),'.jpg'))"/>
+	    select="substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg')"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
