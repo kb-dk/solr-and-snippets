@@ -32,7 +32,7 @@
     </xsl:call-template>
   </xsl:template>
 
-
+  <xsl:template name="make_author_note_list"/>
 
 
 </xsl:transform>
