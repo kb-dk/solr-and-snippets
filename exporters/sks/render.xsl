@@ -7,6 +7,7 @@
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
+  <xsl:import href="./graphics.xsl"/>
   <xsl:import href="./all_kinds_of_notes.xsl"/>
 
   <xsl:import href="./ornament.xsl"/>
@@ -24,12 +25,15 @@
 	<xsl:attribute name="class">pageBreak</xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
-	<xsl:choose>
-	  <xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
-	  <xsl:otherwise>
-	    <xsl:text><!-- an invisible anchor --></xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+      <xsl:if test="@facs">
+	<xsl:call-template name="sks_page_specimen"/>
+      </xsl:if>
+      <xsl:choose>
+	<xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
+	<xsl:otherwise>
+	  <xsl:text><!-- an invisible anchor --></xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:element>
   </xsl:template>
 
