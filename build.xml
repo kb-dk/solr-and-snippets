@@ -96,7 +96,7 @@
       <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
     </target>
 
-    <target name="add_data" depends="service">
+    <target name="add_base_data" depends="service">
       <copy todir="${service}/adl/authors">
 	<fileset dir="${adl_authors}"/>
       </copy>
