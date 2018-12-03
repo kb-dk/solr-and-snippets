@@ -93,48 +93,37 @@
     
       <xsl:call-template name="trunk_doc">
 	<xsl:with-param name="worktitle" select="t:head"/>
-	<xsl:with-param name="category">
-	  <xsl:choose>
-	    <xsl:when test="contains($path,'adl-texts')">editorial</xsl:when>
-	    <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-	    <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-	  </xsl:choose>
-	</xsl:with-param>
+	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
     <xsl:apply-templates>
-      <xsl:with-param name="category">
-	<xsl:choose>
-	  <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-	  <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-	</xsl:choose>
-      </xsl:with-param>
+      <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
     </xsl:apply-templates>
 
   </xsl:template>
 
+
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
+      <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+      <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
     
-      <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle" select="t:head"/>
-	<xsl:with-param name="category">
-	  <xsl:choose>
-	    <xsl:when test="contains($path,'adl-texts')">editorial</xsl:when>
-	    <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-	    <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-	  </xsl:choose>
-	</xsl:with-param>
-      </xsl:call-template>
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="t:head"/>
+      <xsl:with-param name="category">
+	<xsl:call-template name="get_category"/>
+      </xsl:with-param>
+    </xsl:call-template>
 
     <xsl:apply-templates>
       <xsl:with-param name="category">
-	<xsl:choose>
-	  <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-	  <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-	</xsl:choose>
+	<xsl:call-template name="get_category"/>
       </xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
     </xsl:apply-templates>

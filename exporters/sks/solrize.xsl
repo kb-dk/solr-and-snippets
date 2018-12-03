@@ -45,9 +45,39 @@
     <field name="has_text_ssi">yes</field>
   </xsl:template>
 
-  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]|t:div[not(@decls) and  not(ancestor::node()[@decls])]">
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-kom-')">editorial</xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
+
     <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
+
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="category">
+	<xsl:call-template name="get_category"/>
+      </xsl:with-param>
+    </xsl:call-template>
+
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:apply-templates>
+
+    <xsl:call-template name="text_type"/>
+
+  </xsl:template>
+
+ <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
+
+    <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
+    <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
+
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
@@ -61,8 +91,22 @@
 
   </xsl:template>
 
-  <xsl:template name="extract_titles_authors_etc">
+  <xsl:template name="text_type">
+    <xsl:if test="@subtype">
+      <xsl:element name="field">
+	<xsl:attribute name="name">text_type_ssi</xsl:attribute>
+	<xsl:choose>
+	  <xsl:when test="@subtype='journalsAndPapers'">Journaler og papierer</xsl:when>
+	  <xsl:when test="@subtype='publishedWritings'">Trykte skrifter</xsl:when>
+	  <xsl:when test="@subtype='lettersAndDedications'">Breve og dedikationer</xsl:when>
+	  <xsl:when test="@subtype='unpublishedWritings'">Utrykte skrifter</xsl:when>
+	  <xsl:when test="@subtype='documents'">Dokumenter</xsl:when>
+	</xsl:choose>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
 
+  <xsl:template name="extract_titles_authors_etc">
     <xsl:choose>
       <xsl:when test="contains($path,'-txt')">
 	<xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Kierkegaard, Søren</xsl:element>
