@@ -47,16 +47,25 @@
       <copy todir="${service}/grundtvig">
 	<fileset dir="${service.src}/grundtvig"/>
       </copy>
+      <copy todir="${service}/tfs">
+	<fileset dir="${service.src}/tfs"/>
+      </copy>
+    </target>
+
+
+    <target name="other_services">
+      <!--
+      These live in exporters/ATTIC so they won't build unless you move them back
+      -->
+      <mkdir dir="${build}"/>
       <copy todir="${service}/holberg">
 	<fileset dir="${service.src}/holberg"/>
       </copy>
       <copy todir="${service}/pmm">
 	<fileset dir="${service.src}/pmm"/>
       </copy>
-      <copy todir="${service}/tfs">
-	<fileset dir="${service.src}/tfs"/>
-      </copy>
     </target>
+
 
     <target name="add_letters">
       <property name="xconfig"        value="system/config/db/letter_books"/>
