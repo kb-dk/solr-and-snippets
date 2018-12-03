@@ -28,16 +28,18 @@
 
       <mkdir dir="${build}"/>
       <mkdir dir="${service}"/>
-      <mkdir dir="${service}/adl"/>
-      <mkdir dir="${service}/sks"/>
-      <mkdir dir="${service}/tfs"/>
       <mkdir dir="${xconfig_source}"/>
+
       <copy todir="${xconfig_source}">
 	<fileset dir="${service.src}/index"/>
       </copy>
       <copy todir="${service}">
 	<fileset dir="${service.src}/common"/>
       </copy>
+     
+    </target>
+
+    <target name="base_service" depends="service">
       <copy todir="${service}/adl">
 	<fileset dir="${service.src}/adl"/>
       </copy>
@@ -52,11 +54,7 @@
       </copy>
     </target>
 
-
-    <target name="other_services">
-      <!--
-      These live in exporters/ATTIC so they won't build unless you move them back
-      -->
+    <target name="other_services" depends="service">
       <mkdir dir="${build}"/>
       <copy todir="${service}/holberg">
 	<fileset dir="${service.src}/holberg"/>
@@ -99,31 +97,35 @@
     </target>
 
     <target name="add_data" depends="service">
-        <copy todir="${service}/adl/authors">
-	    <fileset dir="${adl_authors}"/>
-	</copy>
-        <copy todir="${service}/adl/periods">
-	    <fileset dir="${adl_periods}"/>
-	</copy>
-        <copy todir="${service}/adl/texts">
-	    <fileset dir="${adl_texts}"/>
-        </copy>
-        <copy  todir="${service}/sks">
-	  <fileset dir="${sks_texts}"/>
-	</copy>
-        <copy  todir="${service}/grundtvig">
-	  <fileset dir="../other_tei_projects/grundtvig"/>
-	</copy>
-        <copy  todir="${service}/holberg">
-	  <fileset dir="../other_tei_projects/holberg"/>
-	</copy>
-        <copy  todir="${service}/pmm/texts">
-	  <fileset dir="../other_tei_projects/pmm"/>
-	</copy>
-        <copy  todir="${service}/tfs/texts">
-	  <fileset dir="../trykkefrihedsskrifter/tei_dir"/>
-	</copy>
+      <copy todir="${service}/adl/authors">
+	<fileset dir="${adl_authors}"/>
+      </copy>
+      <copy todir="${service}/adl/periods">
+	<fileset dir="${adl_periods}"/>
+      </copy>
+      <copy todir="${service}/adl/texts">
+	<fileset dir="${adl_texts}"/>
+      </copy>
+      <copy  todir="${service}/sks">
+	<fileset dir="${sks_texts}"/>
+      </copy>
+      <copy  todir="${service}/grundtvig">
+	<fileset dir="../other_tei_projects/grundtvig"/>
+      </copy>
+      <copy  todir="${service}/tfs/texts">
+	<fileset dir="../trykkefrihedsskrifter/tei_dir"/>
+      </copy>
     </target>
+
+    <target name="add_other_data" depends="service">
+      <copy  todir="${service}/holberg">
+	<fileset dir="../other_tei_projects/holberg"/>
+      </copy>
+      <copy  todir="${service}/pmm/texts">
+	<fileset dir="../other_tei_projects/pmm"/>
+      </copy>
+    </target>
+    
 
     <target name="upload">
       <input message="Enter password:" addproperty="server.pass" defaultvalue="">
