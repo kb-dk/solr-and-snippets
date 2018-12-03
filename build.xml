@@ -96,7 +96,7 @@
       <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
     </target>
 
-    <target name="add_base_data" depends="service">
+    <target name="add_base_data" depends="base_service">
       <copy todir="${service}/adl/authors">
 	<fileset dir="${adl_authors}"/>
       </copy>
@@ -117,7 +117,7 @@
       </copy>
     </target>
 
-    <target name="add_other_data" depends="service">
+    <target name="add_other_data" depends="other_services">
       <copy  todir="${service}/holberg">
 	<fileset dir="../other_tei_projects/holberg"/>
       </copy>
