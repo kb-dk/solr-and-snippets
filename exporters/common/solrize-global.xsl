@@ -105,6 +105,7 @@
 
 
   <xsl:template name="get_category">
+    <xsl:param name="category"/>
     <xsl:choose>
       <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
       <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
@@ -164,6 +165,8 @@
     <xsl:param name="category"  select="''"/>
     <doc>
 
+      <xsl:comment> trunk_doc </xsl:comment>
+
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
@@ -171,13 +174,18 @@
       <xsl:if test="$worktitle">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:element>
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	  <xsl:call-template name="str_massage">
 	    <xsl:with-param name="str" select="$worktitle"/>
 	  </xsl:call-template>
 	</xsl:element>
 
 	<xsl:element name="field">
-	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	  <xsl:attribute name="name">volume_sort_title_ssi</xsl:attribute>
 	  <xsl:call-template name="str_massage">
 	    <xsl:with-param name="str" select="$volume_sort_title"/>
 	  </xsl:call-template>
@@ -195,8 +203,8 @@
 	<xsl:attribute name="name">text_tesim</xsl:attribute>
 	<xsl:choose>
 	  <xsl:when test="$category = 'editorial'">
-	    <!-- xsl:apply-templates mode="gettext" 
-				 select="./text()|descendant::node()[not(@decls)]/text()"/ -->
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()[not(@decls)]/text()"/>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:apply-templates mode="gettext" 
@@ -205,9 +213,13 @@
 	</xsl:choose>
       </xsl:element>
 
+      <xsl:call-template name="text_type"/>
+
+
     </doc>
   </xsl:template>
 
+  <xsl:template name="text_type"/>
 
   <xsl:template match="t:castList">
 
@@ -335,7 +347,9 @@
   <xsl:template name="generate_volume_doc">
     <xsl:param name="type" select="'trunk'"/>
     <xsl:param name="cat" select="'volume'"/>
+    <xsl:param name="is_monograph" select="$is_monograph"/>
     <doc>
+      <xsl:comment> generate_volume_doc </xsl:comment>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
@@ -558,7 +572,7 @@
     <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
     <xsl:variable name="str1" select="fn:lower-case($str)"/>
     <xsl:variable name="str2" select="translate(fn:string-join(' ',$str1),$meta,$space)"/>
-    <xsl:variable name="str3" select="normalize-space($str2)"/>
+    <xsl:variable name="str3" select="normalize-space($str1)"/>
     <xsl:value-of select="$str3"/>
   </xsl:template>
 

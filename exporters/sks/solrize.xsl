@@ -37,8 +37,21 @@
   </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:value-of select="$volume_title"/>
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@level='s']">
+      <xsl:value-of select="."/>
+    </xsl:for-each>
   </xsl:param>
+
+  <xsl:template match="/">
+    <xsl:element name="add">
+      <xsl:call-template name="generate_volume_doc" >
+	<xsl:with-param name="cat">volume</xsl:with-param>
+	<xsl:with-param name="type" select="'trunk'"/>
+	<xsl:with-param name="is_monograph" select="'yes'"/>
+      </xsl:call-template>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
 
   <xsl:template name="facs_and_text">
     <field name="has_facs_ssi">no</field>
@@ -51,12 +64,13 @@
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-kom-')">editorial</xsl:when>
     </xsl:choose>
-  </xsl:template>
+    </xsl:template>
 
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
 
-    <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
-    <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
+    <xsl:comment> work: <xsl:value-of select="$worktitle"/></xsl:comment>
+    <xsl:comment> volume/series: <xsl:value-of select="$volume_title"/></xsl:comment>
+    <xsl:comment> matching t:text without @decls </xsl:comment>
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
@@ -69,14 +83,13 @@
       <xsl:with-param name="worktitle" select="$worktitle"/>
     </xsl:apply-templates>
 
-    <xsl:call-template name="text_type"/>
-
   </xsl:template>
 
- <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
+  <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
 
     <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
+    <xsl:comment> matching t:div without @decls </xsl:comment>
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
@@ -84,6 +97,8 @@
 	<xsl:if test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:if>
       </xsl:with-param>
     </xsl:call-template>
+
+    <xsl:comment> you want to go deeper </xsl:comment>
 
     <xsl:apply-templates>
       <xsl:with-param name="worktitle" select="$worktitle"/>
