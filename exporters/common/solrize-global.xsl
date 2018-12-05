@@ -97,7 +97,7 @@
   <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     
       <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle" select="t:head"/>
+	<xsl:with-param name="worktitle" select="t:head[1]"/>
 	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
