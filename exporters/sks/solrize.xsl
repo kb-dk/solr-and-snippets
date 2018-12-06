@@ -111,7 +111,7 @@
       <xsl:element name="field">
 	<xsl:attribute name="name">text_type_ssi</xsl:attribute>
 	<xsl:choose>
-	  <xsl:when test="@subtype='journalsAndPapers'">Journaler og papierer</xsl:when>
+	  <xsl:when test="@subtype='journalsAndPapers'">Journaler og papirer</xsl:when>
 	  <xsl:when test="@subtype='publishedWritings'">Trykte skrifter</xsl:when>
 	  <xsl:when test="@subtype='lettersAndDedications'">Breve og dedikationer</xsl:when>
 	  <xsl:when test="@subtype='unpublishedWritings'">Utrykte skrifter</xsl:when>
