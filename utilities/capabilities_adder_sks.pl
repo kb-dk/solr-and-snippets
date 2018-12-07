@@ -21,9 +21,9 @@ if(open(FIND,"$find_cmd |") ) {
 	    if($file =~ m/int_1.xml/) {
 		$type = "Indledning";
 	    } elsif($file =~ m/int_2.xml/) {
-		$type = "Yderligere kommentarer";
-	    } elsif($file =~ m/kom.xml/) {
 		$type = "Kommentar";
+	    } elsif($file =~ m/kom.xml/) {
+		$type = "Tekstkommentarer";
 	    } elsif($file =~ m/txr.xml/) {
 		$type = "Tekstredegørelse";
 	    }

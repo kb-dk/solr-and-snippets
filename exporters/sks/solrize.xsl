@@ -162,6 +162,6 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template name="what_i_can"/>
+  <!-- xsl:template name="what_i_can"/ -->
 
 </xsl:transform>
