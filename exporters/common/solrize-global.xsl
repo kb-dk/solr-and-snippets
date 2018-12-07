@@ -218,6 +218,8 @@
 	</xsl:choose>
       </xsl:element>
 
+      <xsl:call-template name="text_extracts"/>
+
       <xsl:call-template name="text_type"/>
 
 
@@ -633,6 +635,49 @@
     </xsl:choose>
   </xsl:template>
 
+  
+  <xsl:template name="text_extracts">
+
+    <xsl:variable name="sp_text">
+      <xsl:apply-templates mode="gettext" select="descendant::t:sp"/>
+    </xsl:variable>
+
+    <xsl:variable name="p_text">
+      <xsl:apply-templates mode="gettext" select="./t:p|descendant::t:div/t:p"/>
+    </xsl:variable>
+
+    <xsl:variable name="lg_text">
+      <xsl:apply-templates mode="gettext" select="descendant::t:lg/t:l"/> 
+    </xsl:variable>
+
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">contains_ssi</xsl:attribute>
+      <xsl:choose>
+	<xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">play</xsl:when>
+	<xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">poetry</xsl:when>
+	<xsl:otherwise>prose</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">performance_extract_tesim</xsl:attribute>
+      <xsl:apply-templates mode="gettext" select="descendant::t:sp"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">prose_extract_tesim</xsl:attribute>
+      <xsl:apply-templates mode="gettext" select="./t:p|descendant::t:div/t:p"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">verse_extract_tesim</xsl:attribute>
+      <xsl:apply-templates mode="gettext" select="descendant::t:lg/t:l"/> 
+    </xsl:element>
+
+  </xsl:template>
+
+
   <xsl:template name="extract_titles_authors_etc">
     <xsl:call-template name="common_extract_titles_authors_etc"/>
   </xsl:template>
@@ -826,9 +871,9 @@
   </xsl:function>
 
 
-   <xsl:template name="inferred_path">
-     <xsl:param name="document"/>
-     <xsl:value-of select="$document"/>
-   </xsl:template>
-
+  <xsl:template name="inferred_path">
+    <xsl:param name="document"/>
+    <xsl:value-of select="$document"/>
+  </xsl:template>
+   
 </xsl:transform>
