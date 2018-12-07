@@ -60,7 +60,12 @@
       <xsl:otherwise>no</xsl:otherwise>
     </xsl:choose>
   </xsl:param>
-  
+
+  <xsl:param name="worktitle">
+    <xsl:if test="contains($is_monograph,'yes')">
+      <xsl:value-of select="$volume_title"/>
+    </xsl:if>
+  </xsl:param>
 
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
 
@@ -89,33 +94,49 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]|t:div[not(@decls) and  not(ancestor::node()[@decls])]">
+  <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     
       <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle" select="t:head"/>
-	<xsl:with-param name="category">
-	  <xsl:choose>
-	    <xsl:when test="contains($path,'adl-texts')">editorial</xsl:when>
-	    <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-	    <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-	  </xsl:choose>
-	</xsl:with-param>
+	<xsl:with-param name="worktitle" select="t:head[1]"/>
+	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
     <xsl:apply-templates>
+      <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
+      <xsl:with-param name="worktitle" select="t:head"/>
+    </xsl:apply-templates>
+
+  </xsl:template>
+
+
+  <xsl:template name="get_category">
+    <xsl:param name="category"/>
+    <xsl:choose>
+      <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
+      <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+      <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
+    
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="t:head"/>
       <xsl:with-param name="category">
-	<xsl:choose>
-	  <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
-	  <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-	  <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-	</xsl:choose>
+	<xsl:call-template name="get_category"/>
+      </xsl:with-param>
+    </xsl:call-template>
+
+    <xsl:apply-templates>
+      <xsl:with-param name="category">
+	<xsl:call-template name="get_category"/>
       </xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
     </xsl:apply-templates>
 
   </xsl:template>
 
-  <xsl:template match="t:text[@decls]|t:div[@decls]">
+  <xsl:template match="t:div[@decls]">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
     <xsl:variable name="worktitle">
       <xsl:choose>
@@ -149,6 +170,8 @@
     <xsl:param name="category"  select="''"/>
     <doc>
 
+      <xsl:comment> trunk_doc </xsl:comment>
+
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
@@ -156,13 +179,18 @@
       <xsl:if test="$worktitle">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:element>
+
+	<xsl:element name="field">
+	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	  <xsl:call-template name="str_massage">
 	    <xsl:with-param name="str" select="$worktitle"/>
 	  </xsl:call-template>
 	</xsl:element>
 
 	<xsl:element name="field">
-	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	  <xsl:attribute name="name">volume_sort_title_ssi</xsl:attribute>
 	  <xsl:call-template name="str_massage">
 	    <xsl:with-param name="str" select="$volume_sort_title"/>
 	  </xsl:call-template>
@@ -180,8 +208,8 @@
 	<xsl:attribute name="name">text_tesim</xsl:attribute>
 	<xsl:choose>
 	  <xsl:when test="$category = 'editorial'">
-	    <!-- xsl:apply-templates mode="gettext" 
-				 select="./text()|descendant::node()[not(@decls)]/text()"/ -->
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()[not(@decls)]/text()"/>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:apply-templates mode="gettext" 
@@ -190,9 +218,13 @@
 	</xsl:choose>
       </xsl:element>
 
+      <xsl:call-template name="text_type"/>
+
+
     </doc>
   </xsl:template>
 
+  <xsl:template name="text_type"/>
 
   <xsl:template match="t:castList">
 
@@ -320,30 +352,55 @@
   <xsl:template name="generate_volume_doc">
     <xsl:param name="type" select="'trunk'"/>
     <xsl:param name="cat" select="'volume'"/>
+    <xsl:param name="is_monograph" select="$is_monograph"/>
+
     <doc>
+      <xsl:comment> generate_volume_doc </xsl:comment>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
       <xsl:if test="string-length($volume_title)">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	  <xsl:value-of select="normalize-space($volume_title)"/>
-	</xsl:element>
-	<xsl:element name="field">
-	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
-	  <xsl:call-template name="str_massage">
-	    <xsl:with-param name="str" select="$volume_sort_title"/>
-	  </xsl:call-template>
-	</xsl:element>
+	<xsl:choose>
+	  <xsl:when test="$is_monograph = 'yes'">
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	      <xsl:value-of select="normalize-space($worktitle)"/>
+	    </xsl:element>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	      <xsl:call-template name="str_massage">
+		<xsl:with-param name="str" select="$volume_sort_title"/>
+	      </xsl:call-template>
+	    </xsl:element>
 
-	<xsl:if test="contains($path,'adl-authors')">
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
-	    <xsl:value-of select="$volume_sort_title"/>
-	  </xsl:element>
-	</xsl:if>
+	    <xsl:if test="contains($path,'adl-authors')">
+	      <xsl:element name="field">
+		<xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
+		<xsl:value-of select="$volume_sort_title"/>
+	      </xsl:element>
+	    </xsl:if>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	      <xsl:value-of select="normalize-space($volume_title)"/>
+	    </xsl:element>
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	      <xsl:call-template name="str_massage">
+		<xsl:with-param name="str" select="$volume_sort_title"/>
+	      </xsl:call-template>
+	    </xsl:element>
 
+	    <xsl:if test="contains($path,'adl-authors')">
+	      <xsl:element name="field">
+		<xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
+		<xsl:value-of select="$volume_sort_title"/>
+	      </xsl:element>
+	    </xsl:if>
+	  </xsl:otherwise>
+	</xsl:choose>
       </xsl:if>
 
       <xsl:if test="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]">
@@ -543,7 +600,7 @@
     <xsl:variable name="space"><xsl:text>                        </xsl:text></xsl:variable>
     <xsl:variable name="str1" select="fn:lower-case($str)"/>
     <xsl:variable name="str2" select="translate(fn:string-join(' ',$str1),$meta,$space)"/>
-    <xsl:variable name="str3" select="normalize-space($str2)"/>
+    <xsl:variable name="str3" select="normalize-space($str1)"/>
     <xsl:value-of select="$str3"/>
   </xsl:template>
 
