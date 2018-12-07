@@ -800,8 +800,10 @@
       <xsl:element name="field">
 	<xsl:attribute name="name">capabilities_ssi</xsl:attribute>
 	<xsl:for-each select="$cap//t:ref|$cap//t:relatedItem">
+	  <xsl:if test="not(contains(@type,'ignore'))">
 	  <xsl:text>&lt;a href='</xsl:text><xsl:call-template name="inferred_path"><xsl:with-param name="document" select="@target"/></xsl:call-template><xsl:text>'></xsl:text><xsl:value-of select="@type"/><xsl:text>&lt;/a>
 </xsl:text>
+	  </xsl:if>
 	</xsl:for-each>
       </xsl:element>
     </xsl:if>

@@ -63,6 +63,8 @@
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-kom-')">editorial</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-ekom-')">editorial</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-int_')">editorial</xsl:when>
     </xsl:choose>
     </xsl:template>
 
@@ -121,6 +123,26 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template name="inferred_path">
+    <xsl:param name="document" select="$doc"/>
+    <xsl:variable name="frag">
+      <xsl:choose>
+	<xsl:when test="contains($document,'#')">
+	  <xsl:value-of select="substring-after($document,'#')"/>
+	</xsl:when>
+	<xsl:otherwise>root</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="f">
+      <xsl:choose>
+	<xsl:when test="$frag = 'root'">-</xsl:when>
+	<xsl:otherwise>-root#</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:text>/text/</xsl:text><xsl:value-of
+    select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
+  </xsl:template>
+
   <xsl:template name="extract_titles_authors_etc">
     <xsl:choose>
       <xsl:when test="contains($path,'-txt')">
@@ -162,6 +184,6 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template name="what_i_can"/>
+  <!-- xsl:template name="what_i_can"/ -->
 
 </xsl:transform>

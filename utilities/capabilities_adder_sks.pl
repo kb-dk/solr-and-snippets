@@ -18,10 +18,12 @@ if(open(FIND,"$find_cmd |") ) {
 	    next unless $file =~ m/.*xml/;
 	    next if $file =~ m/txt.xml$/;
 	    my $type = "ignore";
-	    if($file =~ m/int_.*xml/) {
+	    if($file =~ m/int_1.xml/) {
 		$type = "Indledning";
-	    } elsif($file =~ m/kom.xml/) {
+	    } elsif($file =~ m/int_2.xml/) {
 		$type = "Kommentar";
+	    } elsif($file =~ m/kom.xml/) {
+		$type = "Tekstkommentarer";
 	    } elsif($file =~ m/txr.xml/) {
 		$type = "Tekstredegørelse";
 	    }
@@ -45,7 +47,7 @@ sub caps {
     my $data = shift;
     my $doc = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
     $doc .= "<bibl xmlns='http://www.tei-c.org/ns/1.0'>\n";
-    $doc .= "<ref type='Tekst' target='txt.xml'/>\n";
+    $doc .= "<ref type='Huvudtekst' target='txt.xml'/>\n";
     while( my ($key,$val) = each %$data) {
 	next unless $key =~ m/xml$/;
 	$doc .=  '<relatedItem type="' . $val . '" target="' . $key . '"/>'."\n";
