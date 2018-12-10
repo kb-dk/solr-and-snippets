@@ -219,7 +219,6 @@
       </xsl:element>
 
       <xsl:call-template name="text_extracts"/>
-
       <xsl:call-template name="text_type"/>
 
 
@@ -639,7 +638,7 @@
   <xsl:template name="text_extracts">
 
     <xsl:variable name="sp_text">
-      <xsl:apply-templates mode="gettext" select="descendant::t:sp"/>
+      <xsl:apply-templates mode="gettext" select="./t:sp|descendant::t:sp//node()"/>
     </xsl:variable>
 
     <xsl:variable name="p_text">
