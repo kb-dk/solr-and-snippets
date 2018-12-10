@@ -136,7 +136,7 @@
 
   </xsl:template>
 
-  <xsl:template match="t:div[@decls]">
+  <xsl:template match="node()[@decls]">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
     <xsl:variable name="worktitle">
       <xsl:choose>
