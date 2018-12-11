@@ -648,16 +648,28 @@
     <xsl:variable name="lg_text">
       <xsl:apply-templates mode="gettext" select="descendant::t:lg/t:l"/> 
     </xsl:variable>
-
-
-    <xsl:element name="field">
-      <xsl:attribute name="name">contains_ssi</xsl:attribute>
-      <xsl:choose>
-	<xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">play</xsl:when>
-	<xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">poetry</xsl:when>
-	<xsl:when test="string-length($p_text) &gt; string-length($sp_text) and string-length($p_text) &gt; string-length($lg_text)">prose</xsl:when>
-      </xsl:choose>
-    </xsl:element>
+   
+    <xsl:choose>
+      <xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">
+	<xsl:call-template name="mkfield">
+	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	  <xsl:with-param name="value">play</xsl:with-param>
+	</xsl:call-template>
+      </xsl:when>
+      <xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">
+	<xsl:call-template name="mkfield">
+	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	  <xsl:with-param name="value">poetry</xsl:with-param>
+	</xsl:call-template>
+      </xsl:when>
+      <xsl:when test="string-length($p_text) &gt; string-length($sp_text) and string-length($p_text) &gt; string-length($lg_text)">
+	<xsl:call-template name="mkfield">
+	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	  <xsl:with-param name="value">prose</xsl:with-param>
+	</xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+   
 
     <xsl:element name="field">
       <xsl:attribute name="name">performance_extract_tesim</xsl:attribute>
@@ -676,6 +688,14 @@
 
   </xsl:template>
 
+  <xsl:template name="mkfield">
+    <xsl:param name="field"/>
+    <xsl:param name="value"/>
+    <xsl:element name="field">
+      <xsl:attribute name="name"><xsl:value-of select="$field"/></xsl:attribute>
+      <xsl:value-of select="$value"/>
+    </xsl:element>
+  </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
     <xsl:call-template name="common_extract_titles_authors_etc"/>
