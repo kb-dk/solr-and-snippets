@@ -655,7 +655,7 @@
       <xsl:choose>
 	<xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">play</xsl:when>
 	<xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">poetry</xsl:when>
-	<xsl:otherwise>prose</xsl:otherwise>
+	<xsl:when test="string-length($p_text) &gt; string-length($sp_text) and string-length($p_text) &gt; string-length($lg_text)">prose</xsl:when>
       </xsl:choose>
     </xsl:element>
 
