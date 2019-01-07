@@ -8,7 +8,6 @@
   
   <xsl:import href="../solrize-global.xsl"/>
 
-
   <xsl:param name="subcollection" select="'adl'"/>
 
   <xsl:param name="editor" >

@@ -136,7 +136,7 @@
 
   </xsl:template>
 
-  <xsl:template match="t:div[@decls]">
+  <xsl:template match="node()[@decls]">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
     <xsl:variable name="worktitle">
       <xsl:choose>
@@ -218,6 +218,7 @@
 	</xsl:choose>
       </xsl:element>
 
+      <xsl:call-template name="text_extracts"/>
       <xsl:call-template name="text_type"/>
 
 
@@ -633,6 +634,69 @@
     </xsl:choose>
   </xsl:template>
 
+  
+  <xsl:template name="text_extracts">
+
+    <xsl:variable name="sp_text">
+      <xsl:apply-templates mode="gettext" select="./t:sp|descendant::t:sp//node()"/>
+    </xsl:variable>
+
+    <xsl:variable name="p_text">
+      <xsl:apply-templates mode="gettext" select="./t:p|descendant::t:div/t:p"/>
+    </xsl:variable>
+
+    <xsl:variable name="lg_text">
+      <xsl:apply-templates mode="gettext" select="descendant::t:lg/t:l"/> 
+    </xsl:variable>
+   
+    <xsl:choose>
+      <xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">
+	<xsl:call-template name="mkfield">
+	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	  <xsl:with-param name="value">play</xsl:with-param>
+	</xsl:call-template>
+      </xsl:when>
+      <xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">
+	<xsl:call-template name="mkfield">
+	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	  <xsl:with-param name="value">poetry</xsl:with-param>
+	</xsl:call-template>
+      </xsl:when>
+      <xsl:when test="string-length($p_text) &gt; string-length($sp_text) and string-length($p_text) &gt; string-length($lg_text)">
+	<xsl:call-template name="mkfield">
+	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	  <xsl:with-param name="value">prose</xsl:with-param>
+	</xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+   
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">performance_extract_tesim</xsl:attribute>
+      <xsl:apply-templates mode="gettext" select="descendant::t:sp"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">prose_extract_tesim</xsl:attribute>
+      <xsl:apply-templates mode="gettext" select="./t:p|descendant::t:div/t:p"/>
+    </xsl:element>
+
+    <xsl:element name="field">
+      <xsl:attribute name="name">verse_extract_tesim</xsl:attribute>
+      <xsl:apply-templates mode="gettext" select="descendant::t:lg/t:l"/> 
+    </xsl:element>
+
+  </xsl:template>
+
+  <xsl:template name="mkfield">
+    <xsl:param name="field"/>
+    <xsl:param name="value"/>
+    <xsl:element name="field">
+      <xsl:attribute name="name"><xsl:value-of select="$field"/></xsl:attribute>
+      <xsl:value-of select="$value"/>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template name="extract_titles_authors_etc">
     <xsl:call-template name="common_extract_titles_authors_etc"/>
   </xsl:template>
@@ -826,9 +890,9 @@
   </xsl:function>
 
 
-   <xsl:template name="inferred_path">
-     <xsl:param name="document"/>
-     <xsl:value-of select="$document"/>
-   </xsl:template>
-
+  <xsl:template name="inferred_path">
+    <xsl:param name="document"/>
+    <xsl:value-of select="$document"/>
+  </xsl:template>
+   
 </xsl:transform>
