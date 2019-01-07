@@ -409,14 +409,18 @@
   </xsl:template>
 
   <xsl:template match="t:item">
-r    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
+    <p><xsl:call-template name="add_id"/><xsl:apply-templates/></p>
   </xsl:template>
 
+  <!-- hide figures that don't contain graphics -->
   <xsl:template match="t:figure">
-    <xsl:element name="div">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </xsl:element>
+    <xsl:comment> Here is a figure </xsl:comment>
+    <xsl:if test="t:graphic/@url or @type">
+      <xsl:element name="div">
+	<xsl:call-template name="add_id"/>
+	<xsl:apply-templates/>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="t:figure/t:head">
