@@ -48,12 +48,12 @@ The same kind of file for a volume in SKS
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
 <bibl xmlns='http://www.tei-c.org/ns/1.0'>
-<ref type='Huvudtekst' target='txt.xml'/>
-<relatedItem type="Kommentar" target="int_2.xml"/>
-<relatedItem type="Tekstkommentarer" target="kom.xml"/>
-<relatedItem type="ignore" target="capabilities.xml"/>
-<relatedItem type="Tekstredegørelse" target="txr.xml"/>
-<relatedItem type="Indledning" target="int_1.xml"/>
+  <ref type='Huvudtekst' target='txt.xml'/>
+  <relatedItem type="Kommentar" target="int_2.xml"/>
+  <relatedItem type="Tekstkommentarer" target="kom.xml"/>
+  <relatedItem type="ignore" target="capabilities.xml"/>
+  <relatedItem type="Tekstredegørelse" target="txr.xml"/>
+  <relatedItem type="Indledning" target="int_1.xml"/>
 </bibl>
 
 ```
@@ -67,7 +67,8 @@ three directories
 
 the first of which contains *work* wheras the other two are
 *editorial* (they contain essays about the authors and the times they
-were active, respectively).
+were active, respectively). There are no detailed comments or
+introductions.
 
  
 
