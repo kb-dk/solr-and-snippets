@@ -38,13 +38,25 @@ reference to the file described and to related items.
   <relatedItem type="Kommentar" target="niels_klim_komm.xml"/>
   <relatedItem type="Oversættelse" target="niels_klim_overs.xml"/>
   <relatedItem type="Tekstredegørelse" target="niels_klim_innl.xml"/>
-  <!--  Tekst Kommentar Tekstredegørelse -->
+  <relatedItem type="ignore" target="capabilities.xml"/>	
 </bibl>
 
 ```
 
 The same kind of file for a volume in SKS
 
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<bibl xmlns='http://www.tei-c.org/ns/1.0'>
+<ref type='Huvudtekst' target='txt.xml'/>
+<relatedItem type="Kommentar" target="int_2.xml"/>
+<relatedItem type="Tekstkommentarer" target="kom.xml"/>
+<relatedItem type="ignore" target="capabilities.xml"/>
+<relatedItem type="Tekstredegørelse" target="txr.xml"/>
+<relatedItem type="Indledning" target="int_1.xml"/>
+</bibl>
+
+```
 
 Arkiv før Dansk Literatur, ADL, contains its material in
 three directories
