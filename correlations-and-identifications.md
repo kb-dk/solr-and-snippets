@@ -6,6 +6,8 @@ disseminated by the service. Then there are texts that are about that
 material. We refer to the former as *work* and the latter as being
 *editorial*
 
+Only the works and text inside the works are searchable.
+
 ## Correlations
 
 Søren Kierkegaards Skrifter, SKS (Kierkegaard's collected works)
@@ -24,22 +26,27 @@ other relations. For instance, the Holberg project contains the texts
 in the original language (sometimes Latin, sometimes early 18th
 century Danish) and then translations or modernisations
 
-A *work* file may have related files which we refer to as *capabilities*, 
+A *work* file may have related files which we refer to as
+*capabilities*. A capability file is in TEI xml and contain a
+reference to the file described and to related items.
+
 ```
-&lt;?xml version="1.0" encoding="UTF-8" ?>
-&lt;bibl xmlns="http://www.tei-c.org/ns/1.0">
-  &lt;title>Nicolai Klimii iter subterraneum&lt;/title>
-  &lt;ref type="Tekst" target="niels_klim.xml"/>
-  &lt;relatedItem type="Kommentar" target="niels_klim_komm.xml"/>
-  &lt;relatedItem type="Oversættelse" target="niels_klim_overs.xml"/>
-  &lt;relatedItem type="Tekstredegørelse" target="niels_klim_innl.xml"/>
-  &lt;!--  Tekst Kommentar Tekstredegørelse -->
-&lt;/bibl>
+<?xml version="1.0" encoding="UTF-8" ?>
+<bibl xmlns="http://www.tei-c.org/ns/1.0">
+  <title>Nicolai Klimii iter subterraneum</title>
+  <ref type="Tekst" target="niels_klim.xml"/>
+  <relatedItem type="Kommentar" target="niels_klim_komm.xml"/>
+  <relatedItem type="Oversættelse" target="niels_klim_overs.xml"/>
+  <relatedItem type="Tekstredegørelse" target="niels_klim_innl.xml"/>
+  <!--  Tekst Kommentar Tekstredegørelse -->
+</bibl>
+
 ```
 
+The same kind of file for a volume in SKS
 
 
-Likewise, Arkiv før Dansk Literatur, ADL, contains its material in
+Arkiv før Dansk Literatur, ADL, contains its material in
 three directories
 
 * texts
