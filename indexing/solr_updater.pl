@@ -15,7 +15,7 @@ my %param;
 
 my $solrizer_template    = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
 my $solr_template        = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update");
-my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit}");
+my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit,softCommit}");
 
 
 my $result = GetOptions (
@@ -32,7 +32,8 @@ if($delete_all) {
     $delete_query = '*:*';
 }
 
-$param{'commit'}='true';
+$param{'softCommit'} = 'true';
+$param{'commit'}     = 'true';
 
 $ua->agent("adl_solr_client/0.1 ");
 
@@ -87,11 +88,11 @@ if($list) {
 	my $content = &get_it($file);
 	&send_it($file,$content);
 	if ($count % 50 == 0) {
-	    &commit_it();
-	    sleep(5) # give solr some rest
+#	    &commit_it();
+#	    sleep(5) # give solr some rest
 	}
     }
-    &commit_it();
+#    &commit_it();
 }
 
 sub get_it() {
@@ -148,6 +149,8 @@ sub send_it() {
     print "Index successfully updated " , $res->content , "\n";
 
 }
+
+
 
 sub commit_it() {
     print "Committing $solr_commit_uri\n";
