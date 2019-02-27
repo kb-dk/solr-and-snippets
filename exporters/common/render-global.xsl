@@ -160,10 +160,10 @@
       </xsl:choose>
     </xsl:variable>
     <span class="inline-entity-{$class}">
-      <xsl:call-template name="add_id"/>
       <xsl:if test="@key">
 	<xsl:attribute name="title"><xsl:value-of select="$class"/>: <xsl:value-of select="@key"/></xsl:attribute>
       </xsl:if>
+      <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </span>
   </xsl:template>
