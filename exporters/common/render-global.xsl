@@ -671,7 +671,15 @@
     <xsl:variable name="href">
       <xsl:choose>
 	<xsl:when test="contains($path,@xml:id)">
-	  <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-root#',@xml:id)"/>
+	  <xsl:choose>
+	    <xsl:when test="ancestor::node()[@decls][1]/@xml:id">
+	      <xsl:value-of 
+		  select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',ancestor::node()[@decls][1]/@xml:id)"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-root#',@xml:id)"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
@@ -688,17 +696,15 @@
 	<xsl:element name="a">
 	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
 	  <xsl:choose>
-	    <xsl:when test="contains($path,@xml:id)">Vis det hele</xsl:when>
+	    <xsl:when test="contains($path,@xml:id)">Vis det hele </xsl:when>
 	    <xsl:otherwise><i class="fa fa-scissors" aria-hidden="true">&#160;</i>Vis kun denne del</xsl:otherwise>
 	  </xsl:choose>
 	</xsl:element>
       </xsl:if>
+
       <xsl:call-template name="doc_relations"/>
-
       <xsl:text>&#160;</xsl:text>
-
     </xsl:element>
-
   </xsl:template>
 
   <xsl:template name="doc_relations">
