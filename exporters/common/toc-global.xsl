@@ -27,8 +27,8 @@ Author Sigfrid Lundberg slu@kb.dk
       </xsl:comment>
       <ul>
 	<xsl:choose>
-	  <xsl:when test="$id">
-	    <xsl:apply-templates select="//node()[@xml:id=$id]"/>
+	  <xsl:when test="//node()[@decls]">
+	    <xsl:apply-templates select="//node()[@decls]"/>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:apply-templates select="//t:body"/>
@@ -40,19 +40,18 @@ Author Sigfrid Lundberg slu@kb.dk
 
   <xsl:template match="t:teiHeader"/>
 
-  <xsl:template match="t:group|t:body|t:text|t:div|t:front|t:back">
+  <xsl:template match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
     <xsl:element name="li">
       <xsl:attribute name="id">
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test="t:group|t:body|t:text|t:div|t:front|t:back">
+      <xsl:if test=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
 	<ul>
-	  <xsl:apply-templates select="t:group|t:body|t:text|t:div|t:front|t:back"/>
+	  <xsl:apply-templates select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
 	</ul>
       </xsl:if>
     </xsl:element>
-
   </xsl:template>
 
   <xsl:template match="t:p">
@@ -120,22 +119,15 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:if test="@xml:id">
       <xsl:choose>
         <xsl:when test="@decls">
-	  <xsl:choose>
-	    <xsl:when test="contains($path,'-root')">
-	      <xsl:value-of select="concat('/text/',substring-before($path,'-root'),'-shoot-',@xml:id)"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:value-of select="concat('/text/',substring-before($path,'-shoot'),'-shoot-',@xml:id)"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
+	  <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot','shoot-'),@xml:id)"/>
         </xsl:when>
         <xsl:otherwise>
 	  <xsl:choose>
-	    <xsl:when test="contains($path,'-root')">
-	      <xsl:value-of select="concat('/text/',substring-before($path,'-root'),'-root#',@xml:id)"/>
+	    <xsl:when test="./ancestor::node()[@decls]">
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:value-of select="concat('/text/',substring-before($path,'-shoot'),'-root#',@xml:id)"/>
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot','root#'),@xml:id)"/>
 	    </xsl:otherwise>
 	  </xsl:choose>
         </xsl:otherwise>
