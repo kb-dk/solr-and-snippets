@@ -130,7 +130,14 @@ Author Sigfrid Lundberg slu@kb.dk
 	  </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="concat('#',@xml:id)"/>
+	  <xsl:choose>
+	    <xsl:when test="contains($path,'-root')">
+	      <xsl:value-of select="concat('/text/',substring-before($path,'-root'),'-root#',@xml:id)"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+	      <xsl:value-of select="concat('/text/',substring-before($path,'-shoot'),'-root#',@xml:id)"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:if>

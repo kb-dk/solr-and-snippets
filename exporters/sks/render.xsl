@@ -99,7 +99,7 @@
     </xsl:call-template>
   </xsl:template>
 
-<xsl:template match="t:label">
+  <xsl:template match="t:label">
     <xsl:param name="anchor" select="../@xml:id"/>
     <xsl:choose>
       <xsl:when test="contains($path,'kom')">

@@ -15,7 +15,7 @@ my %param;
 
 my $solrizer_template    = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
 my $solr_template        = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update");
-my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?softCommit}");
+my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit,softCommit}");
 
 
 my $result = GetOptions (
@@ -131,9 +131,9 @@ sub send_it() {
     print "$file\n";
 
 # Create an update request
-    print $solr_commit_uri . "\n";
-    my $req = HTTP::Request->new(POST =>  $solr_commit_uri);
-    # my $req = HTTP::Request->new(POST => $solr_uri);
+    print $solr_uri . "\n";
+    # my $req = HTTP::Request->new(POST =>  $solr_commit_uri);
+    my $req = HTTP::Request->new(POST => $solr_uri);
     $req->content_type('text/xml; charset=utf-8');
     $req->content($content);
 
