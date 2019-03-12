@@ -28,7 +28,9 @@ Author Sigfrid Lundberg slu@kb.dk
       <ul>
 	<xsl:choose>
 	  <xsl:when test="//node()[@decls]">
-	    <xsl:apply-templates select="//node()[@decls]"/>
+	    <xsl:for-each  select="//node()[not(@decls)]//node()[@decls]">
+	      <xsl:apply-templates/>
+	    </xsl:for-each>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:apply-templates select="//t:body"/>
