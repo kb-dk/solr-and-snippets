@@ -21,7 +21,7 @@
 
   <xsl:template match="t:pb">
     <xsl:element name="span">
-      <xsl:if test="not(@edRef)">
+      <xsl:if test="contains(@edRef,'SKS')">
 	<xsl:attribute name="class">pageBreak</xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
@@ -29,7 +29,7 @@
 	<xsl:call-template name="sks_page_specimen"/>
       </xsl:if>
       <xsl:choose>
-	<xsl:when test="@n and not(@edRef)"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
+	<xsl:when test="@n and contains(@edRef,'SKS')"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
 	<xsl:otherwise>
 	  <xsl:text><!-- an invisible anchor --></xsl:text>
 	</xsl:otherwise>

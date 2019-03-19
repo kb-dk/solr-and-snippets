@@ -21,10 +21,15 @@
       <str name="dir">${solr.ulog.dir:}</str>
     </updateLog>
     <autoCommit>
-      <maxTime>600000</maxTime>
-      <maxDocs>10000</maxDocs>
-      <openSearcher>false</openSearcher>
+      <maxTime>60000</maxTime>
+      <maxDocs>1000</maxDocs>
+      <openSearcher>true</openSearcher>
     </autoCommit>
+    <autoSoftCommit>
+      <maxTime>60000</maxTime>
+      <maxDocs>1000</maxDocs>
+      <openSearcher>true</openSearcher>
+    </autoSoftCommit>
   </updateHandler>
 
   <requestHandler name="search" class="solr.SearchHandler" default="true">
