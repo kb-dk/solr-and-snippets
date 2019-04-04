@@ -15,7 +15,7 @@ my %param;
 
 my $solrizer_template    = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
 my $solr_template        = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update");
-my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit}");
+my $solr_commit_template = URI::Template->new("http://{solr_host}:{solr_port}/solr/{collection}/update{?commit,softCommit}");
 
 
 my $result = GetOptions (
@@ -32,7 +32,8 @@ if($delete_all) {
     $delete_query = '*:*';
 }
 
-$param{'commit'}='true';
+$param{'softCommit'} = 'true';
+$param{'commit'}     = 'true';
 
 $ua->agent("adl_solr_client/0.1 ");
 
@@ -86,22 +87,28 @@ if($list) {
 	print localtime() . "\n";
 	my $content = &get_it($file);
 	&send_it($file,$content);
-#    if ($count % 5 == 0) {
-#	&commit_it();
-#        sleep(60) # give solr some rest
-#    }
+	if ($count % 50 == 0) {
+#	    &commit_it();
+#	    sleep(5) # give solr some rest
+	}
     }
-    &commit_it();
+#    &commit_it();
 }
 
 sub get_it() {
     my $file = shift;
 
-    $file =~ s|^.*?adl/||;
     my $c = '';
     my $f = '';
 
-    ($c,$f) = split(/\//,$file);
+#
+# This one is unforgivable:
+#
+
+    $file =~ s/^.*?((pmm)|(grundtvig)|(holberg)|(adl)|(sks)|(tfs))\///;
+
+    $c = $1;
+    $f = $file;
 
     print "$c $f \n";
 
@@ -125,6 +132,7 @@ sub send_it() {
 
 # Create an update request
     print $solr_uri . "\n";
+    # my $req = HTTP::Request->new(POST =>  $solr_commit_uri);
     my $req = HTTP::Request->new(POST => $solr_uri);
     $req->content_type('text/xml; charset=utf-8');
     $req->content($content);
@@ -133,17 +141,17 @@ sub send_it() {
     my $res = $ua->request($req);
 
 # Check the outcome of the response
-    while (!$res->is_success) {
+    if(!$res->is_success) {
 	print "Failed updating " , $res->status_line, "\n";
 	print STDERR "Failed updating $file\n" , $res->status_line, "\n";
-        print "wait ... then try again\n";
-	sleep(300);
-#	print STDERR "$content\n";
+	sleep(5);
     }
 
     print "Index successfully updated " , $res->content , "\n";
 
 }
+
+
 
 sub commit_it() {
     print "Committing $solr_commit_uri\n";

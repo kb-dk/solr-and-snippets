@@ -7,6 +7,7 @@ Assume that we have (semi)structured (meta)data in a database or
 repository of some kind.  Then the snippet server is used for
 performing various operations upon those data.
 
+
 Examples of such operations are
 
 * returning documents prepared for indexing
@@ -28,6 +29,47 @@ Currently
 
 The Snippet Server has to support CRUD basic functionalities. The
 indexing is is currently SOLR and the snippet crud eXist
+
+## How to install the Snippet Server and its Data
+
+The installation is more or less automatic. However, the data to be
+installed has to be available in the directory above the current
+one. Inspect the build.xml for more information. That is, note the
+definitions of targets
+
+* service
+* add_data
+* add_letters
+* add_letter_data
+
+All the data is on github and can be cloned from there. For example:
+To install the text-service backend on http://just.an.example.org:8080
+
+```
+ ant clean
+ ant service
+ ant add_data
+ ant upload -Dhostport=just.an.example.org:8080
+
+```
+
+To set the permissions of all scripts in one go, "retrieve" the
+following URI
+
+```
+ http://just.an.example.org:8080/exist/rest/db/text-retriever/xchmod.xq
+
+```
+
+which (at least on some eXist installations) sets the execute
+permissions on all *.xq files. It doesn't work always, and as of
+writing this, it is not yet known when and where it works. Then you
+have to do that manually according to the eXist manual. See your server
+
+```
+http://just.an.example.org:8080/exist/apps/dashboard/index.html
+
+```
 
 ## The Snippet Server and its arguments
 
@@ -69,33 +111,7 @@ Some more examples
 
 ## Ingest and Indexing utilities
 
-These utilities require the presence a local file system with stuff to be loaded. The resources in the file system are assumed to be maintained using git.
-
-### Retrieving data from origin
-
-```
-indexing/git_retriever.pl --gitdir=<git project> --file_list=files_to_be_indexed.text
-
-where
-
---gitdir is a local directory connected to your origin (usually at github)
---file_list is text file where the names of the updated files are written, one per line
-
-if a file list isn't given, then the file names are written to standard output
-
-```
-
-The git retriever is written in perl, and requires some modules that
-may or may not be on your machine, like Git::Repository. Any of those
-can be installed using the cpan command, e.g.,
-
-```
-sudo cpan -e install Git::Repository
-
-```
-
-The program complains about an uninitialised variable on line 203 in Command.pm. Doesn't seem do any harm.
-
+These utilities require the presence a local file system with stuff to be loaded.
 
 ### Storing to exist
 
@@ -168,3 +184,6 @@ sudo cpan -e install URI::Template
 indexing/transform-all.pl --sheet exporters/common/preprocess.xsl --directory ./periods/ --suffix xml
 ```
 
+* Validate bagit create or validate bagit manifests
+  * create-bag.rb  
+  * validate-bag.rb
