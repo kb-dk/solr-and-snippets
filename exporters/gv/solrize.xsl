@@ -7,7 +7,7 @@
   
   <xsl:import href="../solrize-global.xsl"/>
 
-  <xsl:param name="subcollection" select="'grundtvig'"/>
+  <xsl:param name="subcollection" select="'gv'"/>
 
   <xsl:param name="i_am_a">
     <xsl:call-template name="me_looks_like"/>
