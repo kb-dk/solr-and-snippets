@@ -9,9 +9,22 @@ use strict;
 #
 
 my $where_is_grundtvig = "../GV/";
+my $where_should_it_go = "./build/text-retriever/";
 
 if( open(my $gv, "(cd $where_is_grundtvig ;  find . -regextype sed -regex '^.*18[0-9][0-9]GV.*\$' -type f -print)|") ) {
     while(my $file = <$gv>) {
-	print $file;
+	chomp $file;
+	my $uri = "";
+	if($file =~ m/(18\d\d)_(\d+[a-zA-Z]?)_?(\d+)?_(com|intro|txr|txt|v0).xml$/) {
+	    if($3) {
+		$uri = join '/',("gv",$1,$2,$3,$4);
+	    } else {
+		$uri = join '/',("gv",$1,$2,$4);
+	    }
+	    my $path = $uri;
+	    $path =~ s/[^\/]+$//;
+	    $file =~ s/^\.\///;
+	    print "mkdir -p  $where_should_it_go$path ; cp  $where_is_grundtvig$file $where_should_it_go$uri.xml\n";
+	}
     }
 }
