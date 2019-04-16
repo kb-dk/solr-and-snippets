@@ -24,7 +24,12 @@ if( open(my $gv, "(cd $where_is_grundtvig ;  find . -regextype sed -regex '^.*18
 	    my $path = $uri;
 	    $path =~ s/[^\/]+$//;
 	    $file =~ s/^\.\///;
-	    print "mkdir -p  $where_should_it_go$path ; cp  $where_is_grundtvig$file $where_should_it_go$uri.xml\n";
+
+	    my $copy = "cp  $where_is_grundtvig$file $where_should_it_go$uri.xml";
+	    my $transform = "xsltproc   utilities/add-id.xsl $where_is_grundtvig$file > $where_should_it_go$uri.xml";
+
+#	    print "mkdir -p  $where_should_it_go$path ; $copy\n";
+	    print "mkdir -p  $where_should_it_go$path ; $transform\n";
 	}
     }
 }
