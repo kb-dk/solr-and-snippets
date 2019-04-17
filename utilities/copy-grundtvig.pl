@@ -17,9 +17,9 @@ if( open(my $gv, "(cd $where_is_grundtvig ;  find . -regextype sed -regex '^.*18
 	my $uri = "";
 	if($file =~ m/(18\d\d)_(\d+[a-zA-Z]?)_?(\d+)?_(com|intro|txr|txt|v0).xml$/) {
 	    if($3) {
-		$uri = join '/',("gv",$1,$2,$3,$4);
+		$uri = join '/',("gv",join("_",$1,$2,$3),$4);
 	    } else {
-		$uri = join '/',("gv",$1,$2,$4);
+		$uri = join '/',("gv",join("_",$1,$2),$4);
 	    }
 	    my $path = $uri;
 	    $path =~ s/[^\/]+$//;

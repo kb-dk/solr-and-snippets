@@ -8,6 +8,8 @@
 
     <property name="hostport" value="localhost:8080"/>
 
+    <!-- GV, grundtvig isn't here because the copy is too complicated for ant -->
+
     <property name="adl_texts"   value="../public-adl-text-sources/texts"/>
     <property name="adl_authors" value="../adl-text-sources/authors"/>
     <property name="adl_periods" value="../adl-text-sources/periods"/>

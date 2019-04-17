@@ -7,6 +7,8 @@
   
   <xsl:import href="../solrize-global.xsl"/>
 
+  <xsl:param name="is_monograph">yes</xsl:param>
+
   <xsl:param name="subcollection" select="'gv'"/>
 
   <xsl:param name="i_am_a">
@@ -36,6 +38,36 @@
   <xsl:param name="volume_sort_title">
     <xsl:value-of select="$worktitle"/>
   </xsl:param>
+
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-v0-')">work</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-com-')">editorial</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-intro-')">editorial</xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="inferred_path">
+    <xsl:param name="document" select="$doc"/>
+    <xsl:variable name="frag">
+      <xsl:choose>
+	<xsl:when test="contains($document,'#')">
+	  <xsl:value-of select="substring-after($document,'#')"/>
+	</xsl:when>
+	<xsl:otherwise>root</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="f">
+      <xsl:choose>
+	<xsl:when test="$frag = 'root'">-</xsl:when>
+	<xsl:otherwise>-root#</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:text>/text/</xsl:text><xsl:value-of
+    select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
+  </xsl:template>
 
 
   <xsl:template name="me_looks_like">

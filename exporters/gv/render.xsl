@@ -50,9 +50,13 @@
 			      '-root',
 			      substring-after($target,'.xml'))"/>
 		</xsl:when>
-		<xsl:when test="contains($path,'-kom')">
+		<xsl:when test="contains($path,'-intro')">
 		  <xsl:value-of 
-		      select="concat(substring-before($path,'-kom'),'-',substring-before($target,'.xml'),'-root',substring-after($target,'.xml'))"/>
+		      select="concat(substring-before($path,'-intro'),'-',substring-before($target,'.xml'),'-root',substring-after($target,'.xml'))"/>
+		</xsl:when>
+		<xsl:when test="contains($path,'-com')">
+		  <xsl:value-of 
+		      select="concat(substring-before($path,'-com'),'-',substring-before($target,'.xml'),'-root',substring-after($target,'.xml'))"/>
 		</xsl:when>
 		<xsl:when test="contains($path,'-txr')">
 		  <xsl:value-of 
