@@ -776,8 +776,6 @@
 		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
-
-
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">date_published_ssi</xsl:attribute>
 	      <xsl:for-each select="t:date">
@@ -789,27 +787,28 @@
       </xsl:when>
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
-
 	  <xsl:if test="string-length(t:title)">
-	  <!-- xsl:element name="field">
-	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	    <xsl:call-template name="str_massage">
-	      <xsl:with-param name="str">
-		<xsl:for-each select="t:title">
-		  <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
-		</xsl:for-each>
-	      </xsl:with-param>
-	    </xsl:call-template>
-	  </xsl:element -->
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	      <xsl:call-template name="str_massage">
+		<xsl:with-param name="str">
+		  <xsl:for-each select="t:title">
+		    <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+		  </xsl:for-each>
+		</xsl:with-param>
+	      </xsl:call-template>
+	    </xsl:element>
 	  </xsl:if>
 
 	  <xsl:if test="t:title">
-	    <!--
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	      <xsl:value-of select="t:title"/>
 	    </xsl:element>
-	    -->
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+	      <xsl:value-of select="t:title"/>
+	    </xsl:element>
 	  </xsl:if>
 
 	  <xsl:element name="field">

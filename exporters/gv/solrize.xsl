@@ -15,8 +15,10 @@
     <xsl:call-template name="me_looks_like"/>
   </xsl:param>
 
+  <!-- sourceDesc in GV seems to contain Garbage -->
   <xsl:param name="volume_title">
-    <xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]">
+    <!-- xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]" -->
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[1]">
       <xsl:apply-templates mode="gettext"  select="."/>
     </xsl:for-each>
   </xsl:param>
@@ -42,7 +44,7 @@
   <xsl:template name="get_category">
     <xsl:choose>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-v0-')">work</xsl:when>
+      <xsl:when test="local-name(.) = 'text' and contains($path,'-v0-')">editorial</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-com-')">editorial</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-intro-')">editorial</xsl:when>

@@ -9,6 +9,27 @@
   <xsl:import href="../graphics-global.xsl"/>
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
 
+  <xsl:template match="t:pb">
+    <xsl:element name="span">
+      <xsl:if test="contains(@ed,'A')">
+	<xsl:attribute name="class">pageBreak</xsl:attribute>
+      </xsl:if>
+      <xsl:call-template name="add_id"/>
+      <xsl:if test="@facs">
+	<xsl:call-template name="page_specimen"/>
+      </xsl:if>
+      <xsl:choose>
+	<xsl:when test="@n and contains(@ed,'A')"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
+	<xsl:otherwise>
+	  <xsl:text><!-- an invisible anchor --></xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template name="page_specimen">
+  </xsl:template>
+
   <xsl:template name="make-href">
 
     <xsl:variable name="target">
