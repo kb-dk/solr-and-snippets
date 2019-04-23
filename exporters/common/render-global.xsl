@@ -433,15 +433,6 @@
   </xsl:template>
 
   <xsl:template match="t:facsimile"><!-- the facsimile section shouldn't be rendered --></xsl:template>
-
-  <xsl:template match="t:graphic">
-    <xsl:element name="img">
-      <xsl:attribute name="src">
-	<xsl:apply-templates select="@url"/>
-      </xsl:attribute>
-      <xsl:call-template name="add_id"/>
-    </xsl:element>
-  </xsl:template>
   
   <xsl:template match="t:address">
     <xsl:element name="br">
