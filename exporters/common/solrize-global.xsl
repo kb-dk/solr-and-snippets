@@ -97,7 +97,16 @@
   <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     
       <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle" select="t:head[1]"/>
+	<xsl:with-param name="worktitle">
+	  <xsl:choose>
+	    <xsl:when test="string-length(worktitle)">
+	      <xsl:value-of select="$worktitle"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:value-of select="t:head[1]"/>
+	  </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:with-param>
 	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
@@ -121,7 +130,7 @@
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
     
     <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="t:head"/>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
 	<xsl:call-template name="get_category"/>
       </xsl:with-param>
