@@ -114,8 +114,29 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="t:seg[@type='com']">
+    <xsl:element name="a">
+      <xsl:call-template name="add_id"/>
+      <xsl:if test="@type='com'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:if test="@n">
+	<xsl:attribute name="href">
+	  <xsl:call-template name="make-href"/>
+	</xsl:attribute>
+      </xsl:if>
+      &#9658; <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+
   <xsl:template match="t:note">
     <xsl:choose>
+      <!-- this is GV -->
+      <xsl:when test="ancestor::t:text[@type='com']">
+	<xsl:element name="p">
+	  <xsl:call-template name="add_id"/>
+	  <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
+	</xsl:element>
+      </xsl:when>
+      <!-- this is SKS -->
       <xsl:when test="@type='commentary'">
 	<xsl:element name="p">
 	  <xsl:call-template name="add_id"/>

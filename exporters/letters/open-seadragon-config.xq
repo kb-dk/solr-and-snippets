@@ -122,11 +122,11 @@ return $d
 let $osd := 
 map {
 	"id":"kbOSDInstance",
-	"showNavigator":"true",
-        "rtl":"false",
+	"showNavigator": xs:boolean(1),
+        "rtl": xs:boolean(0),
         "initialPage":1,
         "defaultZoomLevel":0,
-        "sequenceMode":"true",
+        "sequenceMode": xs:boolean(1),
  	"indexPage":array {
 		local:get-section-navigation($frag,$doc)
 	},

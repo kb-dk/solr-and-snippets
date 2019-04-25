@@ -8,6 +8,8 @@
 
     <property name="hostport" value="localhost:8080"/>
 
+    <!-- GV, grundtvig isn't here because the copy is too complicated for ant -->
+
     <property name="adl_texts"   value="../public-adl-text-sources/texts"/>
     <property name="adl_authors" value="../adl-text-sources/authors"/>
     <property name="adl_periods" value="../adl-text-sources/periods"/>
@@ -46,8 +48,8 @@
       <copy todir="${service}/sks">
 	<fileset dir="${service.src}/sks"/>
       </copy>
-      <copy todir="${service}/grundtvig">
-	<fileset dir="${service.src}/grundtvig"/>
+      <copy todir="${service}/gv">
+	<fileset dir="${service.src}/gv"/>
       </copy>
       <copy todir="${service}/tfs">
 	<fileset dir="${service.src}/tfs"/>
@@ -96,6 +98,13 @@
       <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
     </target>
 
+    <target name="add_grundtvig" depends="base_service">
+      <exec executable="/bin/bash">
+	<arg line="-c"/>
+	<arg line='"./utilities/copy-grundtvig.pl | /bin/bash"'/>
+      </exec>
+    </target>
+
     <target name="add_base_data" depends="base_service">
       <copy todir="${service}/adl/authors">
 	<fileset dir="${adl_authors}"/>
@@ -108,9 +117,6 @@
       </copy>
       <copy  todir="${service}/sks">
 	<fileset dir="${sks_texts}"/>
-      </copy>
-      <copy  todir="${service}/grundtvig">
-	<fileset dir="../other_tei_projects/grundtvig"/>
       </copy>
       <copy  todir="${service}/tfs/texts">
 	<fileset dir="../trykkefrihedsskrifter/tei_dir"/>

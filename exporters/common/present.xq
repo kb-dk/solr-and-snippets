@@ -58,7 +58,7 @@ let $period_id :=
 let $doc := doc(concat("./",$c,"/",$document))
 
 let $capabilities := fn:replace(  concat($coll,"/",$document) , "([^/]+)$" , "capabilities.xml")
-
+let $set_xpath    := response:set-header('X-Volume-ID',$inferred_path)
 
 let $params := 
 <parameters>

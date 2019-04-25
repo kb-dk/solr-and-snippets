@@ -4,7 +4,9 @@
 	       xmlns="http://www.tei-c.org/ns/1.0"
 	       xmlns:uuid="java:java.util.UUID"
 	       exclude-result-prefixes="t uuid"
-	       version="2.0">
+	       version="1.0">
+
+
 
   <xsl:output
       method="xml"
@@ -23,7 +25,10 @@
   <xsl:template match="t:*">
     <xsl:element name="{name()}">
       <xsl:if test="not(@xml:id)">
-	<xsl:attribute name="xml:id"><xsl:value-of select="concat('id',uuid:randomUUID())"/></xsl:attribute>
+	<xsl:attribute name="xml:id">
+	<!-- xsl:value-of select="concat('id',uuid:randomUUID())"/ -->
+	<xsl:value-of select="generate-id(.)"/>
+	</xsl:attribute>
       </xsl:if>
       <xsl:apply-templates select="@*|node()"/>
     </xsl:element>

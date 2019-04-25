@@ -97,7 +97,16 @@
   <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
     
       <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle" select="t:head[1]"/>
+	<xsl:with-param name="worktitle">
+	  <xsl:choose>
+	    <xsl:when test="string-length(worktitle)">
+	      <xsl:value-of select="$worktitle"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:value-of select="t:head[1]"/>
+	  </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:with-param>
 	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
@@ -121,7 +130,7 @@
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
     
     <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="t:head"/>
+      <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
 	<xsl:call-template name="get_category"/>
       </xsl:with-param>
@@ -776,8 +785,6 @@
 		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
-
-
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">date_published_ssi</xsl:attribute>
 	      <xsl:for-each select="t:date">
@@ -789,27 +796,28 @@
       </xsl:when>
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
-
 	  <xsl:if test="string-length(t:title)">
-	  <!-- xsl:element name="field">
-	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	    <xsl:call-template name="str_massage">
-	      <xsl:with-param name="str">
-		<xsl:for-each select="t:title">
-		  <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
-		</xsl:for-each>
-	      </xsl:with-param>
-	    </xsl:call-template>
-	  </xsl:element -->
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	      <xsl:call-template name="str_massage">
+		<xsl:with-param name="str">
+		  <xsl:for-each select="t:title">
+		    <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+		  </xsl:for-each>
+		</xsl:with-param>
+	      </xsl:call-template>
+	    </xsl:element>
 	  </xsl:if>
 
 	  <xsl:if test="t:title">
-	    <!--
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
 	      <xsl:value-of select="t:title"/>
 	    </xsl:element>
-	    -->
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+	      <xsl:value-of select="t:title"/>
+	    </xsl:element>
 	  </xsl:if>
 
 	  <xsl:element name="field">
