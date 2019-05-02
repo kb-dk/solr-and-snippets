@@ -51,7 +51,9 @@ show you the targets. The current ones are shown in the table below.
 | ant service | Copies
 ``` asdf
 adf
-adsf ``` |
+adsf 
+```
+|
 
 * add_data
 * add_letters
