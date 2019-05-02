@@ -23,7 +23,7 @@ just a part of a document returned.
 
 Currently 
 
-* the data is often in XML format
+* all the data is in XML format
 * the snippet server functionalities are written in XSLT or Xquery or both
 * the snippets are returned in JSON, HTML or XML
 
@@ -32,36 +32,59 @@ indexing is is currently SOLR and the snippet crud eXist
 
 ## How to install the Snippet Server and its Data
 
-The installation is more or less automatic. However, the data to be
-installed has to be available in the directory above the current
-one. Inspect the build.xml for more information. That is, note the
-definitions of targets
+The installation is more or less automatic. It is using the eXist
+servers REST API, so all data are sent to the server using PUT
+requests.
 
-* service
-* add_data
-* add_letters
-* add_letter_data
-
-All the data is on github and can be cloned from there. For example:
-To install the text-service backend on http://just.an.example.org:8080
+The installation is taking place by copying the data into a build
+directory in the source tree.
 
 ```
- ant clean
+ant -p
+```
+
+show you the targets. The current ones are shown in the tables below.
+
+### Build and data preparation targets
+
+| Ant command | Description | Depends |
+|:------------|:------------|:--------|
+| ant clean   | Delete ./build ||
+| ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for adl, gv and sks into the file system | clean |
+| ant base_service | Adds functions specific for  adl, gv, tfs and sks | service |
+| ant other_services | For installing pmm and holberg | service |
+| ant add_letters | Adds scripts for Danmarks Breve | | 
+| ant add_letter_data | Adds data for Danmarks Breve | | 
+| ant&nbsp;add_grundtvig_data | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
+| ant add_base_data | Copies  adl, tfs and sks  | base_service |
+| ant add_other_data | Copies data for pmm and holberg |  other_services |
+| ant&nbsp;upload&nbsp;-Dhostport=just.an.example.org:8080 | Installs the text-service backend on http://just.an.example.org:8080. Requires password for the user "admin" on that server | |
+
+### Example
+
+To install a snippet server on a server with hostname and port number just.an.example.org:8080 use the
+following to build and install in the database:
+
+```
  ant service
- ant add_data
+ ant base_service
+ ant add_base_data
+ ant add_grundtvig_data
  ant upload -Dhostport=just.an.example.org:8080
 
 ```
 
-To set the permissions of all scripts in one go, "retrieve" the
+Your new snippet server will contain adl, gv, tfs and sks. To set the permissions of all scripts in one go, "retrieve" the
 following URI
 
 ```
- http://just.an.example.org:8080/exist/rest/db/text-retriever/xchmod.xq
+ http://admin@just.an.example.org:8080/exist/rest/db/text-retriever/xchmod.xq
 
 ```
 
-which (at least on some eXist installations) sets the execute
+which obviously requires password for "admin" user on just.an.example.org:8080
+
+I sets (at least on some eXist installations) the execute
 permissions on all *.xq files. It doesn't work always, and as of
 writing this, it is not yet known when and where it works. Then you
 have to do that manually according to the eXist manual. See your server
