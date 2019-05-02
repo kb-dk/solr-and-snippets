@@ -48,7 +48,7 @@ show you the targets. The current ones are shown in the table below.
 | Ant command | Description |
 |:------------|:------------|
 | ant clean   | Delete ./build |
-| ant service | Copies <br>```asdf<br>adf<br>adsf```|
+| ant service | Copies <br>```asdf```<br>```adf```<br>```adsf```|
 
 * add_data
 * add_letters
