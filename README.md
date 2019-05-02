@@ -23,7 +23,7 @@ just a part of a document returned.
 
 Currently 
 
-* the data is often in XML format
+* all the data is in XML format
 * the snippet server functionalities are written in XSLT or Xquery or both
 * the snippets are returned in JSON, HTML or XML
 
@@ -32,12 +32,27 @@ indexing is is currently SOLR and the snippet crud eXist
 
 ## How to install the Snippet Server and its Data
 
-The installation is more or less automatic. However, the data to be
-installed has to be available in the directory above the current
-one. Inspect the build.xml for more information. That is, note the
-definitions of targets
+The installation is more or less automatic. It is using the eXist
+servers REST API, so all data are sent to the server using PUT
+requests.
 
-* service
+The installation is taking place by copying the data into a build
+directory in the source tree.
+
+```
+ant -p
+```
+
+show you the targets. The current ones are shown in the table below.
+
+| Ant command | Description |
+|:------------|:------------|
+| ant clean   | Delete ./build |
+| ant service | Copies
+``` asdf
+adf
+adsf ``` |
+
 * add_data
 * add_letters
 * add_letter_data
