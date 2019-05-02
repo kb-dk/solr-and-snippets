@@ -43,24 +43,40 @@ directory in the source tree.
 ant -p
 ```
 
-show you the targets. The current ones are shown in the table below.
+show you the targets. The current ones are shown in the tables below.
 
-| Ant command | Description |
-|:------------|:------------|
-| ant clean   | Delete ./build |
-| ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for ADL, GV and SKS into the file system |
+### Build and data preparation targets
 
-* add_data
-* add_letters
-* add_letter_data
+| Ant command | Description | Depends |
+|:------------|:------------|:--------|
+| ant clean   | Delete ./build ||
+| ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for adl, gv and sks into the file system | clean |
+| ant base_service | Adds functions specific for  adl, gv, tfs and sks | service |
+| ant other_services | For installing pmm and holberg | service |
+| ant add_letters | Adds scripts for Danmarks Breve | | 
+| ant add_letter_data | Adds data for Danmarks Breve | | 
+| ant add_grundtvig_data | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
+| ant add_base_data | Copies  adl, tfs and sks  | base_service |
+| ant add_other_data | Copies data for pmm and holberg |  other_services |
 
 All the data is on github and can be cloned from there. For example:
 To install the text-service backend on http://just.an.example.org:8080
 
+### Installation target
+
+| Ant command | Description | Depends |
+
+
+
+### Example
+
+To install a snippet server on a server with hostname and port number just.an.example.org:8080 use the
+following to build and install in the database:
+
 ```
- ant clean
  ant service
- ant add_data
+ ant base_service
+ ant add_base_data
  ant upload -Dhostport=just.an.example.org:8080
 
 ```
@@ -69,7 +85,7 @@ To set the permissions of all scripts in one go, "retrieve" the
 following URI
 
 ```
- http://just.an.example.org:8080/exist/rest/db/text-retriever/xchmod.xq
+ http://admin@just.an.example.org:8080/exist/rest/db/text-retriever/xchmod.xq
 
 ```
 
