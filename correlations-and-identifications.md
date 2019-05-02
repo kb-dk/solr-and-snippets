@@ -73,7 +73,7 @@ The same kind of file for a volume in SKS
 
 ``` 
 
-A third variation on the same theme. Here is Grundtvigs Værker
+A third variation on the same theme: Here is Grundtvigs Værker
 (GV). Comments are here in com.xml and we have introductions in
 intro.xml. Finally we have variants in vn.xml, n>=0. I have found one
 example with v0.xml and v1.xml but it seems there will only be
