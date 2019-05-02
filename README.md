@@ -48,7 +48,7 @@ show you the targets. The current ones are shown in the table below.
 | Ant command | Description |
 |:------------|:------------|
 | ant clean   | Delete ./build |
-| ant service | Copies <br>```asdf```<br>```adf```<br>```adsf```|
+| ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for ADL, GV and SKS into the file system |
 
 * add_data
 * add_letters
