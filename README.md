@@ -55,7 +55,7 @@ show you the targets. The current ones are shown in the tables below.
 | ant other_services | For installing pmm and holberg | service |
 | ant add_letters | Adds scripts for Danmarks Breve | | 
 | ant add_letter_data | Adds data for Danmarks Breve | | 
-| ant add_grundtvig_data | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
+| ant&nbsp;add_grundtvig_data | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
 | ant add_base_data | Copies  adl, tfs and sks  | base_service |
 | ant add_other_data | Copies data for pmm and holberg |  other_services |
 
