@@ -27,12 +27,14 @@
   </xsl:template>
 
   <xsl:template match="t:graphic">
-    <xsl:call-template name="render_graphic">
-      <xsl:with-param name="graphic_uri">
-	<xsl:value-of 
-	    select="substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg')"/>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:if test="@url">
+      <xsl:call-template name="render_graphic">
+	<xsl:with-param name="graphic_uri">
+	  <xsl:value-of 
+	      select="substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg')"/>
+	</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="t:figure">
