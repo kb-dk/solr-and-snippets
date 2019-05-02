@@ -58,15 +58,7 @@ show you the targets. The current ones are shown in the tables below.
 | ant&nbsp;add_grundtvig_data | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
 | ant add_base_data | Copies  adl, tfs and sks  | base_service |
 | ant add_other_data | Copies data for pmm and holberg |  other_services |
-
-All the data is on github and can be cloned from there. For example:
-To install the text-service backend on http://just.an.example.org:8080
-
-### Installation target
-
-| Ant command | Description | Depends |
-
-
+| ant&nbsp;upload&nbsp;-Dhostport=just.an.example.org:8080 | Installs the text-service backend on http://just.an.example.org:8080. Requires password for the user "admin" on that server | |
 
 ### Example
 
