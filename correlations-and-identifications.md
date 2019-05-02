@@ -71,6 +71,25 @@ The same kind of file for a volume in SKS
   <relatedItem type="Indledning" target="int_1.xml"/>
 </bibl>
 
+``` 
+
+A third variation on the same theme. Here is Grundtvigs Værker
+(GV). Comments are here in com.xml and we have introductions in
+intro.xml. Finally we have variants in vn.xml, n>=0. I have found one
+example with v0.xml and v1.xml but it seems there will only be
+v0.xml. On the other hand there will be introductions that introduce
+more than one text. (As of writing this we have not yet solved the
+user interface problem for that.)
+
+
+```
+<bibl>
+  <ref type="Hovedtekst" target="txt.xml"/>
+  <relatedItem type="Tekstkommentarer" target="com.xml"/>
+  <relatedItem type="Tekstredegørelse" target="txr.xml"/>
+  <relatedItem type="Indledning" target="intro.xml"/>
+  <relatedItem type="Variant" target="v0.xml"/>
+</bibl>
 ```
 
 There are one capability.xml per work file.
