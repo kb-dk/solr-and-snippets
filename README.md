@@ -69,11 +69,12 @@ following to build and install in the database:
  ant service
  ant base_service
  ant add_base_data
+ ant add_grundtvig_data
  ant upload -Dhostport=just.an.example.org:8080
 
 ```
 
-To set the permissions of all scripts in one go, "retrieve" the
+Your new snippet server will contain adl, gv, tfs and sks. To set the permissions of all scripts in one go, "retrieve" the
 following URI
 
 ```
@@ -81,7 +82,9 @@ following URI
 
 ```
 
-which (at least on some eXist installations) sets the execute
+which obviously requires password for "admin" user on just.an.example.org:8080
+
+I sets (at least on some eXist installations) the execute
 permissions on all *.xq files. It doesn't work always, and as of
 writing this, it is not yet known when and where it works. Then you
 have to do that manually according to the eXist manual. See your server
