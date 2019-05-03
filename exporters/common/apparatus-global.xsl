@@ -4,10 +4,12 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    exclude-result-prefixes="t"
+    xmlns:my="urn:things"
+    exclude-result-prefixes="t my"
     version="2.0">
 
   <xsl:param name="use_marker" select="'no'"/>
+  
 
   <xsl:variable name="witnesses">
     <xsl:copy-of select="/t:TEI//t:sourceDesc/t:listWit/*"/>
@@ -133,7 +135,8 @@
       <xsl:when test="ancestor::t:text[@type='com']">
 	<xsl:element name="p">
 	  <xsl:call-template name="add_id"/>
-	  <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
+	  <xsl:value-of select="my:gv-lemma(@xml:id)"/>
+	  <xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
 	</xsl:element>
       </xsl:when>
       <!-- this is SKS -->
@@ -148,6 +151,16 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:function name="my:gv-lemma">
+    <xsl:param name="xid"/>
+    <xsl:variable name="file" select="fn:replace($doc,'com.xml','txt.xml')"/>
+    <xsl:variable name="txtdoc" select="document($file)"/>
+    <xsl:value-of select="$file"/>
+    <xsl:value-of select="concat(fn:replace($path,'^(.*)(-com-)(.*)$','$1-txt-$3'),'#',$xid)"/>
+    lemma=<xsl:value-of select="$txtdoc//t:seg[@xml:id=$xid]/string()"/>
+  </xsl:function>
+
 
   <xsl:template mode="note_body" match="t:p">
     <xsl:apply-templates/>
