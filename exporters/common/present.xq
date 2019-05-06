@@ -32,10 +32,7 @@ declare variable  $hostport := request:get-parameter('hostport','');
 
 declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
 
-let $adoc :=
-for $d in collection($coll)
-where util:document-name($d)="creator-relations.xml"
-return $d
+let $adoc := doc(concat($coll,"/","creator-relations.xml"))
 
 let $author_id := $adoc//t:row[contains($document,t:cell/t:ref)]/t:cell[@role='author']
 
@@ -74,9 +71,8 @@ let $params :=
    <param name="au_url"    value="{$au_url}"/>
    <param name="perioid"   value="{$period_id}"/>
    <param name="targetOp"  value="{$targetOp}"/>
-   <param name="style"     value="{concat($coll,"/", $o, ".xsl")}"/>
-   <param name="crearel"   value="{concat($coll,"/","creator-relations.xml")}"/>
-   <param name="creator relations file" value="{util:document-name($adoc)}"/>
+   <param name="style"     value="{concat($coll,'/', $o, '.xsl')}"/>
+   <param name="crearel"   value="{concat($coll,'/','creator-relations.xml')}"/>
    <param name="capabilities" value="{$capabilities}"/>
 </parameters>
 
