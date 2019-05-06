@@ -4,10 +4,17 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:t="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    exclude-result-prefixes="t"
+    xmlns:my="urn:things"
+    exclude-result-prefixes="t my fn"
     version="2.0">
 
+  <xsl:param name="coll" select="''"/>
+  <xsl:variable name="txtfile" select="concat($coll,'/',fn:replace($doc,'com.xml','txt.xml'))"/>
+  <xsl:variable name="txtdoc" select="document($txtfile)"/>
+
+
   <xsl:param name="use_marker" select="'no'"/>
+  
 
   <xsl:variable name="witnesses">
     <xsl:copy-of select="/t:TEI//t:sourceDesc/t:listWit/*"/>
@@ -116,13 +123,18 @@
 
   <xsl:template match="t:seg[@type='com']">
     <xsl:element name="a">
-      <xsl:call-template name="add_id"/>
       <xsl:if test="@type='com'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
-      <xsl:if test="@n">
+      <xsl:choose>
+      <xsl:when test="@n">
 	<xsl:attribute name="href">
 	  <xsl:call-template name="make-href"/>
 	</xsl:attribute>
-      </xsl:if>
+	<xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:call-template name="add_id"/>
+      </xsl:otherwise>
+      </xsl:choose>
       &#9658; <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
@@ -133,7 +145,8 @@
       <xsl:when test="ancestor::t:text[@type='com']">
 	<xsl:element name="p">
 	  <xsl:call-template name="add_id"/>
-	  <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
+	  <xsl:value-of select="my:gv-lemma(@xml:id)"/>
+	  <xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
 	</xsl:element>
       </xsl:when>
       <!-- this is SKS -->
@@ -148,6 +161,18 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:function name="my:gv-lemma">
+    <xsl:param name="xid"/>
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+	<xsl:value-of select="concat(fn:replace($path,'^(.*)(-com-)(.*)$','$1-txt-$3'),'#',$xid)"/>
+      </xsl:attribute>
+      <xsl:if test="$txtdoc">
+	<xsl:value-of select="$txtdoc//t:seg[@n=$xid]/string()"/>
+      </xsl:if>
+    </xsl:element>
+  </xsl:function>
 
   <xsl:template mode="note_body" match="t:p">
     <xsl:apply-templates/>

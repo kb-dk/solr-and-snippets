@@ -2,6 +2,7 @@
 <xsl:transform version="2.0"
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
+	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       exclude-result-prefixes="t">
   
   <xsl:import href="../render-global.xsl"/>
@@ -30,6 +31,15 @@
 
   <xsl:template name="page_specimen">
   </xsl:template>
+
+  <xsl:template match="t:seg[@type='com']">
+    <xsl:variable name="href">
+      <xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/>
+    </xsl:variable>
+    <a title="Kommentar" id="{@n}" href="{$href}">&#9658; <xsl:apply-templates/></a>
+  </xsl:template>
+
+
 
   <xsl:template name="make-href">
 

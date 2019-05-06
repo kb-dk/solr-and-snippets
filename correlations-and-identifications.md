@@ -83,6 +83,7 @@ user interface problem for that.)
 
 
 ```
+<?xml version="1.0" encoding="UTF-8" ?>
 <bibl>
   <ref type="Hovedtekst" target="txt.xml"/>
   <relatedItem type="Tekstkommentarer" target="com.xml"/>
