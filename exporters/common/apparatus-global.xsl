@@ -111,7 +111,8 @@
   <xsl:template match="t:ref[@type='commentary']">
     <xsl:element name="a">
       <xsl:call-template name="add_id"/>
-      <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
+      <xsl:attribute name="class">comment</xsl:attribute>
       <xsl:if test="@target">
 	<xsl:attribute name="href">
 	  <xsl:call-template name="make-href"/>
@@ -123,7 +124,8 @@
 
   <xsl:template match="t:seg[@type='com']">
     <xsl:element name="a">
-      <xsl:if test="@type='com'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
+      <xsl:attribute name="class">comment</xsl:attribute>
       <xsl:choose>
       <xsl:when test="@n">
 	<xsl:attribute name="href">
