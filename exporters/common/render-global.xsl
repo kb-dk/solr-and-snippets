@@ -687,8 +687,8 @@
 	<xsl:element name="a">
 	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
 	  <xsl:choose>
-	    <xsl:when test="contains($path,@xml:id)">Vis det hele </xsl:when>
-	    <xsl:otherwise><i class="fa fa-scissors" aria-hidden="true">&#160;</i>Vis kun denne del</xsl:otherwise>
+	    <xsl:when test="contains($path,@xml:id)"><span  class="symbol the_whole" title="Vis det hele">&#8617; </span> </xsl:when>
+	    <xsl:otherwise><span title="Vis kun denne del" class="symbol quote" >&#9986; </span></xsl:otherwise>
 	  </xsl:choose>
 	</xsl:element>
       </xsl:if>
