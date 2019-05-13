@@ -51,7 +51,7 @@
     <xsl:variable name="href">
       <xsl:value-of select="concat(fn:replace($p,'-((root)|(shoot).*$)','_komm-root#'),@target)"/>
     </xsl:variable>
-    <a title="Kommentar" id="{@target}" href="{$href}">&#9658;</a>
+    <a class="comment" title="Kommentar" id="{@target}" href="{$href}"><span class="symbol comment">&#9658;</span></a>
   </xsl:template>
 
   <xsl:template match="t:item[t:label]">
@@ -119,13 +119,25 @@
   <xsl:template name="doc_relations">
     <xsl:if test="@corresp">
       <xsl:variable name="file" select="substring-before(@corresp,'#')"/>
-      <xsl:text> | </xsl:text>
+      <xsl:variable name="rel">
+	<xsl:choose>
+	  <xsl:when test="contains(@corresp,'mod')">modernized</xsl:when>
+	  <xsl:when test="contains(@corresp,'overs')">translation</xsl:when>
+	  <xsl:otherwise>original</xsl:otherwise>
+	</xsl:choose>
+      </xsl:variable>
+
       <xsl:element name="a">
+	<xsl:attribute name="class"><xsl:value-of select="$rel"/></xsl:attribute>
 	<xsl:attribute name="href">
 	  <xsl:call-template name="inferred_path">
 	    <xsl:with-param name="document" select="concat(fn:replace($doc,'(^.*)(/[^/]*$)','$1/'),@corresp/string())"/>
 	  </xsl:call-template>
 	</xsl:attribute>
+	<xsl:element name="span">
+	  <xsl:attribute name="class">symbol <xsl:value-of select="$rel"/></xsl:attribute>
+	  &#128279;
+	</xsl:element>
 	<xsl:value-of select="$cap/t:bibl/node()[@target=$file]/@type"/> 
       </xsl:element>
     </xsl:if>
@@ -134,5 +146,7 @@
  <xsl:template match="t:note">
     <xsl:call-template name="inline_note"/>
   </xsl:template>
+
+
 
 </xsl:transform>

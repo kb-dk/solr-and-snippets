@@ -679,17 +679,40 @@
     </xsl:variable>
    
     <xsl:element name="span">
-      <xsl:attribute name="class">exposableDocumentFunctions</xsl:attribute>
-      <xsl:attribute name="style">display:none;</xsl:attribute>
+      <!-- xsl:attribute name="class">exposableDocumentFunctions</xsl:attribute>
+      <xsl:attribute name="style">display:none;</xsl:attribute -->
       <xsl:attribute name="id"><xsl:value-of select="$link_id"/></xsl:attribute>
 
       <xsl:if test="not(contains($href,'adl-authors') or contains($href,'adl-periods') )">
-	<xsl:element name="a">
-	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
+	<xsl:variable name="class">
 	  <xsl:choose>
-	    <xsl:when test="contains($path,@xml:id)"><span  class="symbol the_whole" title="Vis det hele">&#8617; </span> </xsl:when>
-	    <xsl:otherwise><span title="Vis kun denne del" class="symbol quote" >&#9986; </span></xsl:otherwise>
+	    <xsl:when test="contains($path,@xml:id)">the_whole</xsl:when>
+	    <xsl:otherwise>quote</xsl:otherwise>
 	  </xsl:choose>
+	</xsl:variable>
+
+	<xsl:variable name="text">
+	  <xsl:choose>
+	    <xsl:when test="contains($path,@xml:id)">Vis det hele</xsl:when>
+	    <xsl:otherwise>Vis kun denne del</xsl:otherwise>
+	  </xsl:choose>
+	</xsl:variable>
+
+	<xsl:variable name="symbol">
+	  <xsl:choose>
+	    <xsl:when test="contains($path,@xml:id)">&#8617; </xsl:when>
+	    <xsl:otherwise>&#9986; </xsl:otherwise>
+	  </xsl:choose>
+	</xsl:variable>
+
+	<xsl:element name="a">
+	  <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
+	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
+	  <xsl:element name="span">
+	    <xsl:attribute name="class">symbol <xsl:value-of select="$class"/></xsl:attribute>
+	    <xsl:attribute name="title"><xsl:value-of select="$text"/></xsl:attribute>
+	  </xsl:element>
+	  <xsl:value-of select="$symbol"/>
 	</xsl:element>
       </xsl:if>
 

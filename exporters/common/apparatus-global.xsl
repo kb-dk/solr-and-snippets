@@ -362,6 +362,7 @@
       }
     </script>
     <xsl:element name="a">
+      <xsl:attribute name="class">info</xsl:attribute>
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
       <xsl:choose>
