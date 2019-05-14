@@ -111,19 +111,22 @@
   <xsl:template match="t:ref[@type='commentary']">
     <xsl:element name="a">
       <xsl:call-template name="add_id"/>
-      <xsl:if test="@type='commentary'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
+      <xsl:attribute name="class">comment</xsl:attribute>
       <xsl:if test="@target">
 	<xsl:attribute name="href">
 	  <xsl:call-template name="make-href"/>
 	</xsl:attribute>
       </xsl:if>
-      &#9658; <xsl:apply-templates/>
+      <span class="symbol comment">&#9658;</span> 
+      <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
   <xsl:template match="t:seg[@type='com']">
     <xsl:element name="a">
-      <xsl:if test="@type='com'"><xsl:attribute name="title">Kommentar</xsl:attribute></xsl:if>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
+      <xsl:attribute name="class">comment</xsl:attribute>
       <xsl:choose>
       <xsl:when test="@n">
 	<xsl:attribute name="href">
@@ -135,7 +138,8 @@
 	<xsl:call-template name="add_id"/>
       </xsl:otherwise>
       </xsl:choose>
-      &#9658; <xsl:apply-templates/>
+      <span class="symbol comment">&#9658;</span> 
+      <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
@@ -336,7 +340,7 @@
   </xsl:template>
 
   <xsl:template name="apparatus-marker">
-    <xsl:param name="marker" select="'missing marker'"/>
+    <xsl:param name="marker" select="'&#9432;'"/>
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
     </xsl:variable>
@@ -358,6 +362,7 @@
       }
     </script>
     <xsl:element name="a">
+      <xsl:attribute name="class">info</xsl:attribute>
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
       <xsl:choose>
@@ -365,7 +370,7 @@
 	  <xsl:value-of select="$marker"/>
 	</xsl:when>
 	<xsl:otherwise>
-	  <i class="fa fa-info-circle" aria-hidden="true"><xsl:comment> * </xsl:comment></i> 
+	  <span class="symbol info">&#9432; </span>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:element>
