@@ -36,7 +36,7 @@
     <xsl:variable name="href">
       <xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/>
     </xsl:variable>
-    <a title="Kommentar" id="{@n}" href="{$href}">&#9658; <xsl:apply-templates/></a>
+    <a class="comment" title="Kommentar" id="{@n}" href="{$href}"><span class="symbol comment">&#9658;</span> <xsl:apply-templates/></a>
   </xsl:template>
 
 

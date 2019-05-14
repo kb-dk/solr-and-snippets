@@ -103,6 +103,8 @@
 	<arg line="-c"/>
 	<arg line='"./utilities/copy-grundtvig.pl | /bin/bash"'/>
       </exec>
+      <echo>NB you might need to update capabilities.</echo>
+      <echo>note to self utilities/capabilities_adder_gv.pl?</echo>
     </target>
 
     <target name="add_base_data" depends="base_service">
