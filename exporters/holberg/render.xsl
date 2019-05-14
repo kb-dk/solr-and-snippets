@@ -129,6 +129,7 @@
 
       <xsl:element name="a">
 	<xsl:attribute name="class"><xsl:value-of select="$rel"/></xsl:attribute>
+	<xsl:attribute name="title"><xsl:value-of select="$cap/t:bibl/node()[@target=$file]/@type"/> </xsl:attribute>
 	<xsl:attribute name="href">
 	  <xsl:call-template name="inferred_path">
 	    <xsl:with-param name="document" select="concat(fn:replace($doc,'(^.*)(/[^/]*$)','$1/'),@corresp/string())"/>
@@ -138,7 +139,6 @@
 	  <xsl:attribute name="class">symbol <xsl:value-of select="$rel"/></xsl:attribute>
 	  &#128279;
 	</xsl:element>
-	<xsl:value-of select="$cap/t:bibl/node()[@target=$file]/@type"/> 
       </xsl:element>
     </xsl:if>
   </xsl:template>
