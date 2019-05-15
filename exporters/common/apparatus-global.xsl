@@ -149,7 +149,11 @@
       <xsl:when test="ancestor::t:text[@type='com']">
 	<xsl:element name="p">
 	  <xsl:call-template name="add_id"/>
-	  <xsl:value-of select="my:gv-lemma(@xml:id)"/>
+	  <xsl:call-template name="gv-lemma">
+	    <xsl:with-param name="xid">
+	      <xsl:value-of select="@xml:id"/>
+	    </xsl:with-param>
+	  </xsl:call-template>
 	  <xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
 	</xsl:element>
       </xsl:when>
@@ -166,17 +170,18 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:function name="my:gv-lemma">
+  <xsl:template name="gv-lemma">
     <xsl:param name="xid"/>
     <xsl:element name="a">
       <xsl:attribute name="href">
-	<xsl:value-of select="concat(fn:replace($path,'^(.*)(-com-)(.*)$','$1-txt-$3'),'#',$xid)"/>
+	<xsl:value-of select="concat('/text/',fn:replace($path,'^(.*)(-com-)(.*)$','$1-txt-$3'),'#',$xid)"/>
       </xsl:attribute>
       <xsl:if test="$txtdoc">
-	<xsl:value-of select="$txtdoc//t:seg[@n=$xid]/string()"/>
+	<!-- one to many relation (sometimes one to too many) here -->
+	<xsl:value-of select="$txtdoc//t:seg[@n=$xid][1]"/>
       </xsl:if>
     </xsl:element>
-  </xsl:function>
+  </xsl:template>
 
   <xsl:template mode="note_body" match="t:p">
     <xsl:apply-templates/>
