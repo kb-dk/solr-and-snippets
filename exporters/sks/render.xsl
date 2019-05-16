@@ -19,22 +19,66 @@
 
   <xsl:variable name="sks_acronym" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@type='short']"/>
 
+  <!-- 
+       These are the @edRefs found on page breaks in SKS
+
+      6 EPIII
+    154 EPI-II
+      1 EPVI
+  10766 SKS
+   1101 SV1
+    406 SV2
+   4992 SV3
+
+  -->
   <xsl:template match="t:pb">
-    <xsl:element name="span">
-      <xsl:if test="contains(@edRef,'SKS')">
-	<xsl:attribute name="class">pageBreak</xsl:attribute>
-      </xsl:if>
-      <xsl:call-template name="add_id"/>
       <xsl:if test="@facs">
 	<xsl:call-template name="sks_page_specimen"/>
       </xsl:if>
-      <xsl:choose>
-	<xsl:when test="@n and contains(@edRef,'SKS')"><a><small><xsl:value-of select="@n"/></small></a></xsl:when>
-	<xsl:otherwise>
-	  <xsl:text><!-- an invisible anchor --></xsl:text>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:element>
+
+      <xsl:variable name="witness">
+	<xsl:value-of select="replace(@edRef,'#','')"/>
+      </xsl:variable>
+
+      <xsl:variable name="title">
+	<xsl:choose>
+	  <xsl:when test="@n and contains(@edRef,'SKS')">SKS</xsl:when>
+	  <xsl:otherwise>
+	    <xsl:if test="@edRef">
+	      <xsl:choose>
+		<xsl:when test="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"> 
+		  <xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/> (<xsl:value-of select="$witness"/>)
+		</xsl:when>
+		<xsl:otherwise>
+		  <xsl:value-of select="$witness"/>
+		</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:if>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:variable>
+
+      <xsl:if test="@n">
+	<xsl:element name="a">
+	  <xsl:attribute name="title">Side: <xsl:value-of select="@n"/> <xsl:if test="@edRef">(<xsl:value-of select="$title"/>)</xsl:if></xsl:attribute>
+	  <xsl:attribute name="class">pagination</xsl:attribute>
+	  <xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
+	  <xsl:call-template name="add_id"/>
+
+	  <xsl:variable name="class">
+	    <xsl:choose>
+	      <xsl:when test="@n and contains(@edRef,'SKS')">symbol pagination edition</xsl:when>
+	      <xsl:otherwise>symbol pagination other</xsl:otherwise>
+	    </xsl:choose>
+	  </xsl:variable>
+
+	  <xsl:element name="small">
+	    <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
+	    <xsl:value-of select="@n"/>
+	  </xsl:element>
+
+	</xsl:element>
+      </xsl:if>
   </xsl:template>
 
   <xsl:template name="print_date">
