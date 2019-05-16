@@ -186,7 +186,7 @@
   <xsl:template match="t:title">
     <em class="title" title="Titel">
       <xsl:call-template name="add_id"/>
-      <span class="symbol title">&#128214;</span>
+      <span class="symbol title">&#128214;</span><xsl:text> </xsl:text>
       <xsl:apply-templates/>
     </em>
   </xsl:template>

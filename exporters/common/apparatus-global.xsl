@@ -434,12 +434,12 @@
 	<xsl:variable name="witness"><xsl:choose><xsl:when test="contains(.,'#')"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:when><xsl:otherwise><xsl:value-of select="."/></xsl:otherwise></xsl:choose></xsl:variable>
 	<xsl:if test="$witnesses//t:witness[@xml:id=$witness]">
 	  <xsl:element name="em">
+	    <xsl:attribute name="class">witness</xsl:attribute>
 	    <xsl:attribute name="title">
 	      <xsl:value-of select="$witnesses//t:witness[@xml:id=$witness]"/>
 	    </xsl:attribute>
-	    <xsl:value-of select="$witness"/><xsl:choose>
+	    <xsl:value-of select="$witness"/></xsl:element><xsl:choose>
 	    <xsl:when test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:when></xsl:choose><xsl:comment> witness </xsl:comment>
-	  </xsl:element>
 	  <xsl:text>
 	  </xsl:text>
 	</xsl:if>
