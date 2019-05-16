@@ -154,7 +154,7 @@
 	      <xsl:value-of select="@xml:id"/>
 	    </xsl:with-param>
 	  </xsl:call-template>
-	  <xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
+	  <xsl:apply-templates mode="note_body" select="t:p"/>
 	</xsl:element>
       </xsl:when>
       <!-- this is SKS -->
@@ -172,15 +172,18 @@
 
   <xsl:template name="gv-lemma">
     <xsl:param name="xid"/>
+    <!-- one to many relation (sometimes one to too many) here -->
+    <!--
+    <xsl:text>: </xsl:text>
     <xsl:element name="a">
       <xsl:attribute name="href">
 	<xsl:value-of select="concat('/text/',fn:replace($path,'^(.*)(-com-)(.*)$','$1-txt-$3'),'#',$xid)"/>
       </xsl:attribute>
       <xsl:if test="$txtdoc">
-	<!-- one to many relation (sometimes one to too many) here -->
 	<xsl:value-of select="$txtdoc//t:seg[@n=$xid][1]"/>
       </xsl:if>
     </xsl:element>
+    -->
   </xsl:template>
 
   <xsl:template mode="note_body" match="t:p">

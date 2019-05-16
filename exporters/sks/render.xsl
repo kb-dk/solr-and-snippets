@@ -72,9 +72,9 @@
 	    </xsl:choose>
 	  </xsl:variable>
 
-	  <xsl:element name="span">
+	  <xsl:element name="small">
 	    <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
-	    [<xsl:value-of select="@n"/>]
+	    <xsl:value-of select="@n"/>
 	  </xsl:element>
 
 	</xsl:element>
