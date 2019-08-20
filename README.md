@@ -89,6 +89,8 @@ permissions on all *.xq files. It doesn't work always, and as of
 writing this, it is not yet known when and where it works. Then you
 have to do that manually according to the eXist manual. See your server
 
+The upload function is implemented as a [perl script](#ingest-and-indexing-utilities) executed by ant
+
 ```
 http://just.an.example.org:8080/exist/apps/dashboard/index.html
 
