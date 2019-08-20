@@ -62,8 +62,7 @@ show you the targets. The current ones are shown in the tables below.
 
 The upload function is implemented as a [perl
 script](#ingest-and-indexing-utilities) executed by ant. Requires perl
-library libwww-perl, available as standard package on all Linux
-distributions know my me, or from cpan.
+library libwww-perl, available as standard package for Linux or from CPAN.
 
 ### Example
 
