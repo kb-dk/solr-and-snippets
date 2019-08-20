@@ -60,6 +60,11 @@ show you the targets. The current ones are shown in the tables below.
 | ant add_other_data | Copies data for pmm and holberg |  other_services |
 | ant&nbsp;upload&nbsp;-Dhostport=just.an.example.org:8080 | Installs the text-service backend on http://just.an.example.org:8080. Requires password for the user "admin" on that server | |
 
+The upload function is implemented as a [perl
+script](#ingest-and-indexing-utilities) executed by ant. Requires perl
+library libwww-perl, available as standard package on all Linux
+distributions know my me, or from cpan.
+
 ### Example
 
 To install a snippet server on a server with hostname and port number just.an.example.org:8080 use the
@@ -88,8 +93,6 @@ I sets (at least on some eXist installations) the execute
 permissions on all *.xq files. It doesn't work always, and as of
 writing this, it is not yet known when and where it works. Then you
 have to do that manually according to the eXist manual. See your server
-
-The upload function is implemented as a [perl script](#ingest-and-indexing-utilities) executed by ant
 
 ```
 http://just.an.example.org:8080/exist/apps/dashboard/index.html
