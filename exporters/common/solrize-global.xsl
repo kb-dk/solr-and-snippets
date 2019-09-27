@@ -796,7 +796,8 @@
       </xsl:when>
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
-	  <xsl:if test="string-length(t:title)">
+	  <!-- seems redundant, but weel see -->
+	  <!-- xsl:if test="string-length(t:title)">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_ssi</xsl:attribute>
 	      <xsl:call-template name="str_massage">
@@ -807,7 +808,7 @@
 		</xsl:with-param>
 	      </xsl:call-template>
 	    </xsl:element>
-	  </xsl:if>
+	  </xsl:if -->
 
 	  <xsl:if test="t:title">
 	    <xsl:element name="field">

@@ -32,6 +32,9 @@ if($delete_all) {
     $delete_query = '*:*';
 }
 
+print STDERR "exist host: $param{'exist_host'}\n";
+print STDERR "exist port: $param{'exist_port'}\n";
+
 $param{'softCommit'} = 'true';
 $param{'commit'}     = 'true';
 
@@ -88,11 +91,11 @@ if($list) {
 	my $content = &get_it($file);
 	&send_it($file,$content);
 	if ($count % 50 == 0) {
-#	    &commit_it();
-#	    sleep(5) # give solr some rest
+	    &commit_it();
+	    sleep(1) # give solr some rest
 	}
     }
-#    &commit_it();
+    &commit_it(); # commit at the end
 }
 
 sub get_it() {
@@ -115,7 +118,7 @@ sub get_it() {
     $param{'doc'}=$f;
     $param{'c'}=$c;
     my $exist_uri = $solrizer_template->process(%param);
-    print "$exist_uri\n";
+    print "exist_uri $exist_uri\n";
     my $get_req = HTTP::Request->new(GET => $exist_uri);
     my $response = $ua->request($get_req);
     print $response->status_line . "\n";
