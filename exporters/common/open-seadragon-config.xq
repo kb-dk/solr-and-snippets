@@ -32,7 +32,9 @@ declare variable  $content  := util:base64-decode(request:get-data());
 
 declare variable  $coll     := concat('/db/adl/',$c,'/');
 
-declare variable  $missing  := "http://kb-images.kb.dk/public/sks/other/copyright/info.json";
+declare variable  $uri_scheme := "https";
+
+declare variable  $missing  := "https://kb-images.kb.dk/public/sks/other/copyright/info.json";
 
 declare option output:method "json";
 declare option output:media-type "application/json";
@@ -43,7 +45,7 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
 	else if(contains($path,"tfs")) then  concat("public/trykkefrihed/",$pid)
         else concat("public/",$pid)
-   return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+   return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
 
 declare function local:get-section-navigation(
@@ -75,13 +77,13 @@ declare function local:get-section-pages(
 	    let $pid := $p/@facs/string()
 	    return
 	       let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
-               return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+               return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 	else
 	  for $p in $doc//t:pb[@facs]
 	  let $pid := $p/@facs/string()
 	  return  
              let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
-             return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+             return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 
 };
 
@@ -95,13 +97,13 @@ declare function local:get-pages(
 	    let $pid := $p/@facs/string()
 	    return
 	      let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
-              return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+              return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
   	else
 	  for $p in $doc//t:pb[@facs]
 	  let $pid := $p/@facs/string()
 	  return 
  	    let $uri_path := if($p/@rend = 'missing') then $missing else local:get-graphic-uri($pid,$doc)
-            return  string-join(("http://kb-images.kb.dk",$uri_path,"info.json"),'/')
+            return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 
 };
 
