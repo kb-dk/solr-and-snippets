@@ -35,6 +35,13 @@ declare function paths:document($path as xs:string)  as xs:string {
         request:get-parameter("doc","")
 };
 
+declare function paths:directory($path as xs:string)  as xs:string {
+	let $filepath := paths:document($path)
+        return
+        replace($filepath,"(^.+/)([^/]+)$","$1","mi")
+};
+
+
 declare function paths:inferred_path($path as xs:string)  as xs:string {
 	let $document := paths:document($path)
 	let $c    := paths:c($path)
