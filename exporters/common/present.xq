@@ -71,12 +71,19 @@ let $params :=
    <param name="au_url"    value="{$au_url}"/>
    <param name="perioid"   value="{$period_id}"/>
    <param name="targetOp"  value="{$targetOp}"/>
+   <param name="o"         value="{$o}"/>
+   <param name="op"        value="{$op}"/>
    <param name="style"     value="{concat($coll,'/', $o, '.xsl')}"/>
    <param name="crearel"   value="{concat($coll,'/','creator-relations.xml')}"/>
    <param name="capabilities" value="{$capabilities}"/>
 </parameters>
 
-let $hdoc := transform:transform($doc,$op,$params)
+let $hdoc := 
+   if(request:get-parameter("params","")) then
+      ()
+   else
+      transform:transform($doc,$op,$params)
+
 return 
   if(request:get-parameter("debug","")) then
      <d>{$params,concat("./",$c,"/",$document),$hdoc}</d>  
