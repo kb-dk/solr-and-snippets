@@ -61,16 +61,6 @@ declare function local:determine_type($file as xs:string) as xs:string
 	return $type
 };
 
-let $result := 
-map {
-	"file":$file,
-	"readable":$readable,
-	"collection":$c,
-        "frag":$frag,
-        "directory":$directory,
-        "is_my_dir":$is_my_dir,
-	"author":doc($file)//t:titleStmt/t:author[1]/string(),
-        "dir":$list
-}
-
-return  local:caps($list)
+let $new_doc := local:caps($list)
+let $result  := xmldb:store($directory,"capabilities.xml", $new_doc)
+return $new_doc
