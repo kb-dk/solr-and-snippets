@@ -19,7 +19,7 @@ An *edition* is a set of content from a similar origin.
 There may or may not be more than one work per document. If there are
 exactly one work per volume, we refer to it as being a *monograph*.
 
-[A *repository* is a defined as in](https://github.com/Det-Kongelige-Bibliotek/repository-mirror/blob/master/ARCHITECTURE.md#tools-for-the-mirroring-of-repositories)
+[A *repository* is a defined as in the repository mirror architecture.](https://github.com/Det-Kongelige-Bibliotek/repository-mirror/blob/master/ARCHITECTURE.md#tools-for-the-mirroring-of-repositories)
 
 ## Correlations
 

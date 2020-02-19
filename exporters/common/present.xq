@@ -78,11 +78,7 @@ let $params :=
    <param name="capabilities" value="{$capabilities}"/>
 </parameters>
 
-let $hdoc := 
-   if(request:get-parameter("params","")) then
-      ()
-   else
-      transform:transform($doc,$op,$params)
+let $hdoc := transform:transform($doc,$op,$params)
 
 return 
   if(request:get-parameter("debug","")) then
