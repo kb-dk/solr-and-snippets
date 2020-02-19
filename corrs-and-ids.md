@@ -95,7 +95,7 @@ user interface problem for that.)
 
 There are one capability.xml per work file.
 
-### Between work and persions and periods
+### Between work and persons and periods
 
 Arkiv før Dansk Literatur, ADL, contains its material in
 three directories
