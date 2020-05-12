@@ -43,7 +43,7 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 {
    let $uri_path := 
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
-	else if(contains($path,"tfs")) then  concat("public/trykkefrihed/",$pid)
+	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs/",$pid)
         else concat("public/",$pid)
    return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
