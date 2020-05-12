@@ -111,12 +111,12 @@ declare function local:get-pages(
 declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
 {
 	let $pth := 
-	if(contains($path,"tfs")) then  "public/tekstportal/trykkefrihed/"
+	if(contains($path,"tfs")) then "public/tekstportal/tfs/"
 	else "public/"
 
 	return
-        if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
-	    let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
+			if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
+				let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
 	    return 
 	       if(contains($graphic,"geService/")) then
 	          fn:replace($graphic,"(^.*geService/)(.*)(.jpg)","$2")
