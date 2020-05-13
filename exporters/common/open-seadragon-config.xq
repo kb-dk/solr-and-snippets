@@ -43,7 +43,7 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 {
    let $uri_path := 
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
-	else if(contains($path,"tfs")) then  concat("public/trykkefrihed/",$pid)
+	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs/",$pid)
         else concat("public/",$pid)
    return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
@@ -111,12 +111,12 @@ declare function local:get-pages(
 declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
 {
 	let $pth := 
-	if(contains($path,"tfs")) then  "public/tekstportal/trykkefrihed/"
+	if(contains($path,"tfs")) then "public/tekstportal/tfs/"
 	else "public/"
 
 	return
-        if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
-	    let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
+			if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
+				let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
 	    return 
 	       if(contains($graphic,"geService/")) then
 	          fn:replace($graphic,"(^.*geService/)(.*)(.jpg)","$2")
