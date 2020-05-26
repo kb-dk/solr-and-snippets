@@ -11,10 +11,12 @@
 
    <xsl:template name="inferred_path">
      <xsl:param name="d" select="$doc"/>
+     
      <xsl:variable name="document">
-       <xsl:value-of select="fn:replace($d,'^(.*\.?\.?/)(.+)(\.xml).*$','\2')"/>
+       <xsl:value-of select="$d"/>
      </xsl:variable>
-       
+     
+     <!-- xsl:value-of select="fn:replace($d,'^(.*\.?\.?/)(.+)(\.xml).*$','\2')"/-->       
      <xsl:variable name="frag">
        <xsl:choose>
 	 <xsl:when test="contains($document,'#')">
