@@ -10,17 +10,17 @@
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
 
    <xsl:template name="inferred_path">
-     <xsl:param name="d" select="$doc"/>
+     <xsl:param name="document" select="$doc"/>
      
-     <xsl:variable name="document">
-       <xsl:value-of select="$d"/>
+     <xsl:variable name="d">
+       <xsl:value-of select="fn:replace(substring-after($document,'../'),'(\.xml).*$','')"/>       
      </xsl:variable>
      
-     <!-- xsl:value-of select="fn:replace($d,'^(.*\.?\.?/)(.+)(\.xml).*$','\2')"/-->       
+
      <xsl:variable name="frag">
        <xsl:choose>
 	 <xsl:when test="contains($document,'#')">
-	   <xsl:value-of select="fn:replace(substring-after($d,'#'),':.*$','')"/>
+	   <xsl:value-of select="substring-after($document,'#')"/>
 	 </xsl:when>
 	 <xsl:otherwise>root</xsl:otherwise>
        </xsl:choose>
@@ -32,7 +32,7 @@
        </xsl:choose>
      </xsl:variable>
      <xsl:text>/text/</xsl:text><xsl:value-of
-     select="fn:replace(concat($c,'-',fn:lower-case(fn:replace($document,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
+     select="fn:replace(concat($c,'-',fn:lower-case(fn:replace($d,'(\.xml)|(\.page).*$','')),$f,$frag),'/','-')"/>
    </xsl:template>
 
   <xsl:template name="make-href">
