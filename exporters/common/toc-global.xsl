@@ -88,7 +88,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
 	<xsl:when test="t:head[text()]">
-	    <xsl:value-of select="t:head"/>
+	    <xsl:apply-templates select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
