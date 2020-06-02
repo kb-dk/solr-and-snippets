@@ -24,13 +24,10 @@ declare variable  $document := paths:document($path);
 declare variable  $inferred_path := paths:inferred_path($path);
 
 declare variable  $work_id  := request:get-parameter("work_id","");
-declare variable  $o        := request:get-parameter("op","solrize");
 declare variable  $status   := request:get-parameter("status","");
 
 (: The posted content should actually live in a param with the same name :)
 declare variable  $content  := util:base64-decode(request:get-data());
-
-declare variable  $coll     := concat('/db/adl/',$c,'/');
 
 declare variable  $uri_scheme := "https";
 
@@ -39,13 +36,16 @@ declare variable  $missing  := "https://kb-images.kb.dk/public/sks/other/copyrig
 declare option output:method "json";
 declare option output:media-type "application/json";
 
+
+
 declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string*
 {
    let $uri_path := 
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
 	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs/",$pid)
-        else concat("public/",$pid)
-   return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
+	else if(contains($path,"gv") ) then  concat("/public/tekstportal/gv/", $pid)
+  else concat("public/",$pid)
+  return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
 
 declare function local:get-section-navigation(
@@ -54,16 +54,16 @@ declare function local:get-section-navigation(
 {
    for $div in $doc//node()[@decls and (not($frag) or @xml:id=$frag)]
      let $page := if($frag) then 1
-	else count($div/preceding::t:pb)
+	 else count($div/preceding::t:pb)
      let $bib_id := substring-after($div/@decls/string(),'#')
      return 
-	for $bibl in //t:bibl[@xml:id=$bib_id]
-	let $tit := $bibl/t:title/text()
+	 for $bibl in //t:bibl[@xml:id=$bib_id]
+	 let $tit := $bibl/t:title/text()
         return 
-	map {
-	   "title":$tit,
-	   "page":$page
-        }
+	 map {
+	    "title":$tit,
+	    "page":$page
+			}
 };
 
 declare function local:get-section-pages(
@@ -112,18 +112,28 @@ declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:s
 {
 	let $pth := 
 	if(contains($path,"tfs")) then "public/tekstportal/tfs/"
+	else if(contains($path,"gv")) then "public/tekstportal/gv/"
 	else "public/"
 
+	let $cleaner := fn:replace ($pid,".jpg","")
+	let $year    := substring-before($cleaner,"_")
+	
+	let $gvpid   := concat($pth,$year,"/",$year,"GV/",fn:replace ($pid,"_fax.*$",""),"/", fn:replace ($cleaner,"_fax.*$","_tif_side/"),$cleaner)
+(:
+https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_tif_side/info.json
+https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_tif_side/1810_148A_fax200/info.json 
+:)
 	return
-			if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
+	  if(contains($path,"gv")) then $gvpid
+		else if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
 				let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
-	    return 
-	       if(contains($graphic,"geService/")) then
+				return 
+	        if(contains($graphic,"geService/")) then
 	          fn:replace($graphic,"(^.*geService/)(.*)(.jpg)","$2")
-	       else
+					else
 	          fn:replace($graphic,"(^.*src=)(.*)(.tif.*$)","$2")
-        else 
-	    concat($pth,fn:replace($pid,"#",""))
+      else 
+	      concat($pth,fn:replace($pid,"#",""))
 };
 
 let $doc := doc(concat("./",$c,"/",$document))
@@ -140,10 +150,10 @@ map {
 	}, 
 	"tileSources":array{
 	if($mode='text') then
-          local:get-pages($frag,$doc)
+    local:get-pages($frag,$doc)
 	else
 	  local:get-section-pages($frag,$doc)
-        }
+  }
 }
 
 return $osd
