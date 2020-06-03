@@ -788,7 +788,7 @@
 
             <xsl:choose>
               <xsl:when test="t:date[@type]">
-                <xsl:for-each select="t:date">
+                <xsl:for-each select="t:date[@type]">
 	          <xsl:element name="field">
 	            <xsl:attribute name="name">
                       <xsl:call-template name="date_semantics">
@@ -800,12 +800,14 @@
 	        </xsl:for-each>
               </xsl:when>
               <xsl:otherwise>
-	        <xsl:element name="field">
-	          <xsl:attribute name="name">date_published_ssi</xsl:attribute>
-	          <xsl:for-each select="t:date">
-		    <xsl:value-of select="."/>
-	          </xsl:for-each>
-	        </xsl:element>
+                <xsl:if test="t:date">
+	          <xsl:element name="field">
+	            <xsl:attribute name="name">date_published_ssi</xsl:attribute>
+	            <xsl:for-each select="t:date">
+		      <xsl:value-of select="."/>
+	            </xsl:for-each>
+	          </xsl:element>
+                </xsl:if>
               </xsl:otherwise>
             </xsl:choose>
 	  </xsl:for-each>
