@@ -785,31 +785,34 @@
 		<xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	      </xsl:for-each>
 	    </xsl:element>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">date_published_ssi</xsl:attribute>
-	      <xsl:for-each select="t:date">
-		<xsl:value-of select="."/>
-	      </xsl:for-each>
-	    </xsl:element>
+
+            <xsl:choose>
+              <xsl:when test="t:date[@type]">
+                <xsl:for-each select="t:date">
+	          <xsl:element name="field">
+	            <xsl:attribute name="name">
+                      <xsl:call-template name="date_semantics">
+                        <xsl:with-param name="type" select="@type"/>
+                      </xsl:call-template>
+                    </xsl:attribute>
+		    <xsl:value-of select="."/>
+                  </xsl:element>
+	        </xsl:for-each>
+              </xsl:when>
+              <xsl:otherwise>
+	        <xsl:element name="field">
+	          <xsl:attribute name="name">date_published_ssi</xsl:attribute>
+	          <xsl:for-each select="t:date">
+		    <xsl:value-of select="."/>
+	          </xsl:for-each>
+	        </xsl:element>
+              </xsl:otherwise>
+            </xsl:choose>
 	  </xsl:for-each>
 	</xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
-	  <!-- seems redundant, but weel see -->
-	  <!-- xsl:if test="string-length(t:title)">
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	      <xsl:call-template name="str_massage">
-		<xsl:with-param name="str">
-		  <xsl:for-each select="t:title">
-		    <xsl:apply-templates mode="ssi" select="."/><xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
-		  </xsl:for-each>
-		</xsl:with-param>
-	      </xsl:call-template>
-	    </xsl:element>
-	  </xsl:if -->
-
 	  <xsl:if test="t:title">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
@@ -848,6 +851,44 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="date_semantics">
+    <xsl:param name="type" select="'published'"/>
+
+    <!--
+
+Date elements from mods
+
+dateIssued
+dateCreated
+dateCaptured
+dateValid
+dateModified
+copyrightDate
+dateOther
+
+Date types/codes for marc21
+
+Publication
+Distribution
+Production
+Publication,
+Distribution
+Manufacture
+Copyright Notice
+Dates of Publication and/or Sequential Designation
+
+    -->
+    
+    <xsl:choose>
+      <xsl:when test="contains($type,'published')">date_published_ssi</xsl:when>
+      <xsl:when test="contains($type,'publica')">date_published_ssi</xsl:when>
+      <xsl:when test="contains($type,'released')">date_published_ssi</xsl:when>
+      <xsl:when test="contains($type,'announced')">date_announced_ssi</xsl:when>
+      <xsl:otherwise>date_published_ssi</xsl:otherwise>
+    </xsl:choose>
+    
+  </xsl:template>
+  
   <xsl:template name="me_looks_like">
     <xsl:variable name="what">
       <xsl:if test="$capabilities">
