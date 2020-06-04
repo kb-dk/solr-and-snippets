@@ -172,12 +172,31 @@
       </xsl:if>
 
       <xsl:if test="$bibl/t:date">
-
-	<xsl:element name="field">
-	  <xsl:attribute name="name">date_published_ssi</xsl:attribute>
-	    <xsl:value-of select="$bibl/t:date"/>
-	</xsl:element>
-
+        <xsl:message> found extract template </xsl:message>
+        <xsl:choose>
+          <xsl:when test="$bibl/t:date[@type]">
+            <xsl:for-each select="$bibl/t:date[@type]">
+	      <xsl:element name="field">
+	        <xsl:attribute name="name">
+                  <xsl:call-template name="date_semantics">
+                    <xsl:with-param name="type" select="@type"/>
+                  </xsl:call-template>
+                </xsl:attribute>
+		<xsl:value-of select="."/>
+              </xsl:element>
+	    </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:if test="$bibl/t:date[not(@type)]">
+	      <xsl:element name="field">
+	        <xsl:attribute name="name">date_published_ssi</xsl:attribute>
+	        <xsl:for-each select="$bibl/t:date">
+		  <xsl:value-of select="."/>
+	        </xsl:for-each>
+	      </xsl:element>
+            </xsl:if>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:if>
 
     </xsl:if>
