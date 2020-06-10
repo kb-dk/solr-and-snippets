@@ -733,7 +733,8 @@
       </xsl:if>
 
       <xsl:call-template name="doc_relations"/>
-      <xsl:text>&#160;</xsl:text>
+      <xsl:text>
+      </xsl:text>
     </xsl:element>
   </xsl:template>
 
