@@ -532,7 +532,13 @@
     <xsl:variable name="first">
       <xsl:value-of select="count(preceding::t:pb)"/>
     </xsl:variable>
+    <xsl:if test="local-name(preceding::element()[1])='pb'">
+      <p>
+        <pre>
 
+        </pre>
+      </p>
+    </xsl:if>
     <xsl:if test="@facs and $first &gt; 0">
       <xsl:element name="span">
 	<xsl:attribute name="title">Side <xsl:value-of select="@n"/></xsl:attribute>
