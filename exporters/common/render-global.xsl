@@ -530,9 +530,9 @@
   
   <xsl:template match="t:pb">
     <xsl:variable name="first">
-      <xsl:value-of select="count(preceding::t:pb)"/>
+      <xsl:value-of select="count(preceding::t:pb[@facs])"/>
     </xsl:variable>
-    <xsl:if test="local-name(preceding::element()[1])='pb'">
+    <xsl:if test="local-name(preceding::element()[1])='pb' and preceding::element()[1][@facs and not(@type='periText')]">
       <p><pre>
         <xsl:text>
         </xsl:text>
