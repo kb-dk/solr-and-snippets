@@ -11,6 +11,10 @@ my $ua = LWP::UserAgent->new;
 my $file_list    = "";
 my $delete_all   = "";
 my $delete_query = "";
+my $timeout      = 360;
+
+$ua->timeout($timeout);
+
 my %param;
 
 my $solrizer_template    = URI::Template->new("http://{exist_host}:{exist_port}/exist/rest/db/{service}/present.xq{?op,doc,c}");
@@ -120,6 +124,7 @@ sub get_it() {
     my $exist_uri = $solrizer_template->process(%param);
     print "exist_uri $exist_uri\n";
     my $get_req = HTTP::Request->new(GET => $exist_uri);
+
     my $response = $ua->request($get_req);
     print $response->status_line . "\n";
 
