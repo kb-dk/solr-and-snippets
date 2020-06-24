@@ -10,13 +10,8 @@
   <xsl:import href="../apparatus-global.xsl"/>
   <xsl:import href="../graphics-global.xsl"/>
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
-
   <xsl:import href="./ornament.xsl"/>
 
-  <!--xsl:variable name="gv_persons" select="document('/db/text-retriever/gv/registre/pers.xml')"/>
-  <xsl:variable name="gv_places"  select="document('/db/text-retriever/gv/registre/place.xml')"/ -->
-
-  
   <xsl:template name="page_specimen">
   </xsl:template>
 
@@ -48,10 +43,16 @@
   </xsl:template>
 
 
-  <!-- xsl:template match="t:persName|t:placeName">
+  <xsl:template match="t:persName|t:placeName">
     <xsl:variable name="entity">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
+	<xsl:otherwise>place</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="authority">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">pers</xsl:when>
 	<xsl:otherwise>place</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -69,26 +70,22 @@
     </xsl:variable>
     <span class="{$entity}">
       <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
-      <xsl:choose>
-        <xsl:when test="$gv_persons//t:row[@xml:id=$key]">
-          <xsl:apply-templates select="$gv_persons//t:row[@xml:id=$key]"/>
-        </xsl:when>
-        <xsl:when test="$gv_places//t:row[@xml:id=$key]">
-          <xsl:apply-templates select="$gv_places//t:row[@xml:id=$key]"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:attribute name="title">
-	    <xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
-          </xsl:attribute>
-          <xsl:call-template name="add_id"/>
-          <span class="symbol {$entity}">
-	    <xsl:value-of select="$symbol"/>
-          </span>
-          <xsl:apply-templates/>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:variable name="uri">
+        <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key)"/>
+      </xsl:variable>
+      <xsl:attribute name="title">
+	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
+      </xsl:attribute>
+      <xsl:call-template name="add_id"/>
+      
+      <a class="{$entity}" title="{$title}" href="{$uri}" data-toggle="modal" data-target="#comment_modal">
+        <span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span>
+      </a>      
+
+      <xsl:apply-templates/>
+      
     </span>
-  </xsl:template -->
+  </xsl:template>
   
 
 </xsl:transform>
