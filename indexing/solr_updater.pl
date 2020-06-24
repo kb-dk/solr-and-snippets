@@ -11,6 +11,11 @@ my $ua = LWP::UserAgent->new;
 my $file_list    = "";
 my $delete_all   = "";
 my $delete_query = "";
+
+#
+# The commit to solr takes a looong time
+#
+
 my $timeout      = 360;
 
 $ua->timeout($timeout);
