@@ -4,6 +4,8 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       exclude-result-prefixes="t">
+
+  <xsl:param name="gv_persons" select="document($capabilities)"/>
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
@@ -42,5 +44,37 @@
 
   </xsl:template>
 
+
+  <xsl:template match="t:persName|t:placeName">
+    <xsl:variable name="entity">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
+	<xsl:otherwise>place</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="symbol">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">&#128100;</xsl:when>
+	<xsl:otherwise>&#128204;</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="title">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
+	<xsl:otherwise>Plads</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <span class="{$entity}">
+      <xsl:attribute name="title">
+	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
+      </xsl:attribute>
+      <xsl:call-template name="add_id"/>
+      <span class="symbol {$entity}">
+	<xsl:value-of select="$symbol"/>
+      </span>
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+  
 
 </xsl:transform>

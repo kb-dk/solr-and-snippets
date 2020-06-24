@@ -34,7 +34,7 @@ if( open(my $gv, "(cd $where_is_grundtvig ; find shared/registre -name '*.xml' -
 	    my $uri = $where_should_it_go . "/gv/registre/" . $1 .".xml";
 	    my $path = $uri;
 	    $path =~ s/[^\/]+$//;
-	    my $transform = "xsltproc   utilities/add-id.xsl $where_is_grundtvig$file > $uri.xml";
+	    my $transform = "xsltproc   utilities/add-id.xsl $where_is_grundtvig$file > $uri";
 	    print "mkdir -p  $path ; $transform\n";
 	}
     }
