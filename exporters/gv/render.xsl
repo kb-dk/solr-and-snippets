@@ -71,14 +71,14 @@
     <span class="{$entity}">
       <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
       <xsl:variable name="uri">
-        <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key)"/>
+        <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
       </xsl:variable>
       <xsl:attribute name="title">
 	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
       
-      <a class="{$entity}" title="{$title}" href="{$uri}" data-toggle="modal" data-target="#comment_modal">
+      <a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal">
         <span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span>
       </a>      
 
@@ -86,6 +86,23 @@
       
     </span>
   </xsl:template>
-  
 
+
+  <xsl:template match="t:row[@role]">
+    <div>
+      <xsl:call-template name="add_id"/>
+      <xsl:for-each select="t:cell">
+        <xsl:apply-templates/><xsl:text>
+</xsl:text></xsl:for-each>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="t:cell[@rend='name']/t:note">
+    <xsl:apply-templates/>
+  </xsl:template>
+
+  <xsl:template match="t:cell[@rend='year']/text()">
+    (<xsl:value-of select="."/>)
+  </xsl:template>
+  
 </xsl:transform>
