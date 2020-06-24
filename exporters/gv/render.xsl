@@ -5,7 +5,6 @@
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       exclude-result-prefixes="t">
 
-  <xsl:param name="gv_persons" select="document($capabilities)"/>
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
@@ -13,6 +12,10 @@
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
 
   <xsl:import href="./ornament.xsl"/>
+
+  <!--xsl:variable name="gv_persons" select="document('/db/text-retriever/gv/registre/pers.xml')"/>
+  <xsl:variable name="gv_places"  select="document('/db/text-retriever/gv/registre/place.xml')"/ -->
+
   
   <xsl:template name="page_specimen">
   </xsl:template>
@@ -45,7 +48,7 @@
   </xsl:template>
 
 
-  <xsl:template match="t:persName|t:placeName">
+  <!-- xsl:template match="t:persName|t:placeName">
     <xsl:variable name="entity">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
@@ -65,16 +68,27 @@
       </xsl:choose>
     </xsl:variable>
     <span class="{$entity}">
-      <xsl:attribute name="title">
-	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
-      </xsl:attribute>
-      <xsl:call-template name="add_id"/>
-      <span class="symbol {$entity}">
-	<xsl:value-of select="$symbol"/>
-      </span>
-      <xsl:apply-templates/>
+      <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
+      <xsl:choose>
+        <xsl:when test="$gv_persons//t:row[@xml:id=$key]">
+          <xsl:apply-templates select="$gv_persons//t:row[@xml:id=$key]"/>
+        </xsl:when>
+        <xsl:when test="$gv_places//t:row[@xml:id=$key]">
+          <xsl:apply-templates select="$gv_places//t:row[@xml:id=$key]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="title">
+	    <xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
+          </xsl:attribute>
+          <xsl:call-template name="add_id"/>
+          <span class="symbol {$entity}">
+	    <xsl:value-of select="$symbol"/>
+          </span>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
     </span>
-  </xsl:template>
+  </xsl:template -->
   
 
 </xsl:transform>
