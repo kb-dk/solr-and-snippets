@@ -21,7 +21,11 @@ Author Sigfrid Lundberg slu@kb.dk
 	      omit-xml-declaration="yes"/>
 
   <xsl:template match="/">
-    <div>
+    <xsl:call-template name="do_root"/>
+  </xsl:template>
+
+  <xsl:template name="do_root">
+  <div>
       <xsl:comment>
 	<xsl:value-of select="$path"/>
       </xsl:comment>
@@ -39,7 +43,7 @@ Author Sigfrid Lundberg slu@kb.dk
       </ul>
     </div>
   </xsl:template>
-
+  
   <xsl:template match="t:teiHeader"/>
 
   <xsl:template match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
