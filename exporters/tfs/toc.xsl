@@ -4,7 +4,7 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
   
-  <xsl:include href="../toc-global.xsl"/>
+  <xsl:import href="../toc-global.xsl"/>
 
   
   <xsl:template name="do_root">
@@ -16,7 +16,7 @@
 	<xsl:choose>
 	  <xsl:when test="//node()[@decls]">
 	    <xsl:for-each  select="//node()[@decls]">
-	      <xsl:apply-templates select=".//node()[@decls]"/>
+	      <xsl:apply-templates select="."/>
 	    </xsl:for-each>
 	  </xsl:when>
 	  <xsl:otherwise>
