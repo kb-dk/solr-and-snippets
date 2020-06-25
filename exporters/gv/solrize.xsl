@@ -93,6 +93,31 @@
 
   </xsl:template>
 
+  <xsl:template match="t:row[@role]">
+
+    <xsl:param name="worktitle" select="''"/>
+
+    <doc>
+
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
+
+      <xsl:call-template name="add_globals"/>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">genre_ssi</xsl:attribute>
+        <xsl:text>prose</xsl:text>
+      </xsl:element>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">text_tesim</xsl:attribute>
+        <xsl:apply-templates mode="gettext" 
+			     select="./text()|descendant::node()/text()"/>
+      </xsl:element>
+    </doc>
+  </xsl:template>
+
+
+  
   <xsl:template name="extract_titles_authors_etc">
     <xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Grundtvig, N. F. S.</xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Grundtvig, N. F. S.</xsl:element>

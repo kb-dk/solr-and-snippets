@@ -3,7 +3,16 @@
 use strict;
 my $gv = "build/text-retriever/gv";
 my $find_cmd = "find $gv -name 'txt.xml' -print";
+my $empty_doc = "<bibl xmlns='http://www.tei-c.org/ns/1.0'/>\n";
 
+if(-d "$gv/registre/") {
+    if(open(my $doc,">$gv/registre/capabilities.xml")) {
+	print $doc $empty_doc;
+	close $doc;
+    } else {
+	die "$gv/registre/capabilities.xml" , " $@\n";
+    }
+}
 
 if(open(FIND,"$find_cmd |") ) {
     while(my $object = <FIND>) {
