@@ -65,7 +65,7 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:head">
-    <xsl:apply-templates/>
+    <xsl:call-template name="some_text"/>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -143,7 +143,14 @@ Author Sigfrid Lundberg slu@kb.dk
 
   
   <xsl:template name="some_text">
-    <xsl:apply-templates mode="collect_text" select="."/> garbage
+    <xsl:choose>
+      <xsl:when test=".//t:head">
+        <xsl:apply-templates mode="collect_text" select=".//t:head"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates mode="collect_text" select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template mode="collect_text" match="t:app">
