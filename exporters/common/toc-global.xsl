@@ -52,7 +52,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test="(.//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back)[1]">
+      <xsl:if test="(count(.//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back)) &gt; 1">
 	<ul>
 	  <xsl:apply-templates select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
 	</ul>
