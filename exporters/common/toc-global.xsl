@@ -52,7 +52,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
+      <xsl:if test="(.//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back)[1]">
 	<ul>
 	  <xsl:apply-templates select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
 	</ul>
@@ -96,7 +96,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:apply-templates select=".//text()" />
+	    <xsl:call-template name="some_text"/>
 	  </xsl:variable>
 	  <xsl:value-of
 	      select="substring(normalize-space($some_text/string()),1,30)"/>
@@ -141,5 +141,14 @@ Author Sigfrid Lundberg slu@kb.dk
     </xsl:if>
   </xsl:template>
 
+  
+  <xsl:template name="some_text">
+    <xsl:apply-templates mode="collect_text" select="./"/>
+  </xsl:template>
+
+  <xsl:template mode="collect_text" match="t:app"/>
+
+
+  
 </xsl:transform>
 
