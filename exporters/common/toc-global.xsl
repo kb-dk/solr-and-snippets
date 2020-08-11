@@ -92,7 +92,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
 	<xsl:when test="t:head[text()]">
-	    <xsl:apply-templates select="t:head"/>
+	    <xsl:apply-templates select="t:head[text()]"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
@@ -143,12 +143,15 @@ Author Sigfrid Lundberg slu@kb.dk
 
   
   <xsl:template name="some_text">
+    <xsl:variable name="head_text">
+      <xsl:apply-templates select=".//t:head"/>
+    </xsl:variable>
     <xsl:choose>
-      <xsl:when test=".//t:head">
-        <xsl:apply-templates mode="collect_text" select=".//t:head"/>
+      <xsl:when test="string-length($head_text) &gt; 5">
+        <xsl:value-of select="$head_text"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates mode="collect_text" select="."/>
+        <xsl:value-of select=".//text()"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
