@@ -143,11 +143,12 @@ Author Sigfrid Lundberg slu@kb.dk
 
   
   <xsl:template name="some_text">
-    <xsl:apply-templates mode="collect_text" select="./"/>
+    <xsl:apply-templates mode="collect_text" select="."/> garbage
   </xsl:template>
 
-  <xsl:template mode="collect_text" match="t:app"/>
-
+  <xsl:template mode="collect_text" match="t:app">
+    <xsl:apply-templates  mode="collect_text" select="t:lem/text()"/> 
+  </xsl:template>
 
   
 </xsl:transform>
