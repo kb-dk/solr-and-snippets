@@ -52,7 +52,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
+      <xsl:if test="(count(.//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back)) &gt; 1">
 	<ul>
 	  <xsl:apply-templates select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
 	</ul>
@@ -65,7 +65,7 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:head">
-    <xsl:apply-templates/>
+    <xsl:call-template name="some_text"/>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -92,11 +92,11 @@ Author Sigfrid Lundberg slu@kb.dk
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
 	<xsl:when test="t:head[text()]">
-	    <xsl:apply-templates select="t:head"/>
+	    <xsl:apply-templates select="t:head[text()]"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
-	    <xsl:apply-templates select=".//text()" />
+	    <xsl:call-template name="some_text"/>
 	  </xsl:variable>
 	  <xsl:value-of
 	      select="substring(normalize-space($some_text/string()),1,30)"/>
@@ -141,5 +141,25 @@ Author Sigfrid Lundberg slu@kb.dk
     </xsl:if>
   </xsl:template>
 
+  
+  <xsl:template name="some_text">
+    <xsl:variable name="head_text">
+      <xsl:apply-templates select=".//t:head"/>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="string-length($head_text) &gt; 5">
+        <xsl:value-of select="$head_text"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select=".//text()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template mode="collect_text" match="t:app">
+    <xsl:apply-templates  mode="collect_text" select="t:lem/text()"/> 
+  </xsl:template>
+
+  
 </xsl:transform>
 
