@@ -331,7 +331,7 @@
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates mode="apparatus" select="t:lem"/>
       <xsl:for-each select="t:rdg|t:rdgGrp|t:corr|t:note">
-	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()"><xsl:comment> ; </xsl:comment></xsl:if>
+	<xsl:apply-templates mode="apparatus"  select="."/><!-- xsl:if test="position() &lt; last()" -->;<xsl:comment> ; </xsl:comment><!-- /xsl:if -->
       </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
     </span>
 
@@ -404,6 +404,7 @@
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
       <xsl:element name="span">
+        <xsl:apply-templates  mode="apparatus" />
 	<xsl:if test="@wit">
 	  <xsl:call-template name="witness"/>
 	</xsl:if>
@@ -412,7 +413,6 @@
 	    <xsl:with-param name="wit" select="@resp"/>
 	  </xsl:call-template>
 	</xsl:if>
-	<xsl:apply-templates  mode="apparatus" />
 	<xsl:if test="@evidence">
 	  [<xsl:value-of select="@evidence"/>]
 	</xsl:if>
