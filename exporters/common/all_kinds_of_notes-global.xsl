@@ -61,10 +61,10 @@
   <xsl:template name="show_note">
     <xsl:param name="display" select="'none'"/>
     <xsl:param name="bgcolor" select="'yellow'"/>
-    <span style="background-color:{$bgcolor};display:{$display};">
+    <div style="background-color:{$bgcolor};display:{$display};">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
-    </span>
+    </div>
   </xsl:template>
 
   <xsl:template name="general_note_code">
