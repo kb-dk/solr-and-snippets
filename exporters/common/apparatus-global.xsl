@@ -97,7 +97,7 @@
   </xsl:template>
 
   <xsl:template match="t:choice[t:abbr and t:expan]">
-    <xsl:element name="a">
+    <xsl:element name="span"> <!-- used to be a -->
       <xsl:attribute name="title">
 	<xsl:for-each select="t:expan">
 	<xsl:value-of select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
@@ -119,8 +119,12 @@
 	</xsl:attribute>
       </xsl:if>
       <span class="symbol comment">&#9658;</span> 
-      <xsl:apply-templates/>
+      <xsl:comment> moved the content till after the anchor </xsl:comment>
     </xsl:element>
+    <span>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
+      <xsl:apply-templates/>
+    </span>
   </xsl:template>
 
   <xsl:template match="t:seg[@type='com']">
@@ -138,9 +142,16 @@
 	<xsl:call-template name="add_id"/>
       </xsl:otherwise>
       </xsl:choose>
-      <span class="symbol comment">&#9658;</span> 
-      <xsl:apply-templates/>
+      <span class="symbol comment">&#9658;</span>
+      <xsl:comment> moved the content till after the anchor </xsl:comment>
+
     </xsl:element>
+
+    <span>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
+      <xsl:apply-templates/>
+    </span>
+    
   </xsl:template>
 
   <xsl:template match="t:note">
