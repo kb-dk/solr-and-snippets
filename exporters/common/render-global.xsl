@@ -732,8 +732,8 @@
 	  <xsl:element name="span">
 	    <xsl:attribute name="class">symbol <xsl:value-of select="$class"/></xsl:attribute>
 	    <xsl:attribute name="title"><xsl:value-of select="$text"/></xsl:attribute>
+            <xsl:value-of select="$symbol"/>
 	  </xsl:element>
-	  <xsl:value-of select="$symbol"/>
 	</xsl:element>
       </xsl:if>
 
