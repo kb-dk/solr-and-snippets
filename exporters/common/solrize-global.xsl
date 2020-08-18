@@ -110,11 +110,13 @@
 	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
-    <xsl:apply-templates>
-      <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
-      <xsl:with-param name="worktitle" select="t:head"/>
-    </xsl:apply-templates>
+      <xsl:apply-templates>
+        <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
+        <xsl:with-param name="worktitle" select="t:head"/>
+      </xsl:apply-templates>
 
+
+      
   </xsl:template>
 
 
@@ -366,6 +368,7 @@
 
     <doc>
       <xsl:comment> generate_volume_doc </xsl:comment>
+      
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
@@ -430,6 +433,7 @@
 	</xsl:element>
       </xsl:if>
 
+      <xsl:comment> about to call add_globals </xsl:comment>
       <xsl:call-template name="add_globals" />
 
     </doc>
@@ -501,6 +505,8 @@
 
     <xsl:call-template name="what_i_can"/>
 
+    <xsl:call-template name="get_terms"/>
+    
     <xsl:if test="$auid">
       <xsl:element name="field">
 	<xsl:attribute name="name">author_id_ssi</xsl:attribute>
@@ -946,5 +952,48 @@ Dates of Publication and/or Sequential Designation
     <xsl:param name="document"/>
     <xsl:value-of select="$document"/>
   </xsl:template>
-   
+
+  <xsl:template name="get_terms">
+
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:profileDesc">
+      <xsl:comment> start GV terminology </xsl:comment>
+      <xsl:call-template name="get_genres"/>
+      <xsl:call-template name="get_keywords"/>
+      <xsl:comment> end GV terminology </xsl:comment>
+    </xsl:for-each>
+
+  </xsl:template>
+
+
+  <xsl:template name="get_genres">
+    <xsl:for-each select="t:textClass/t:classCode">
+      <xsl:for-each select="t:term">
+        <xsl:call-template name="mkfield">
+          <xsl:with-param name="field">textclass_genre_tesim</xsl:with-param>
+          <xsl:with-param name="value"><xsl:value-of select="."/></xsl:with-param>
+        </xsl:call-template>
+        <xsl:call-template name="mkfield">
+          <xsl:with-param name="field">textclass_genre_ssim</xsl:with-param>
+          <xsl:with-param name="value"><xsl:value-of select="."/></xsl:with-param>
+        </xsl:call-template>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template name="get_keywords"> 
+    <xsl:for-each select="t:textClass/t:keywords">
+      <xsl:for-each select="t:term">
+        <xsl:call-template name="mkfield">
+          <xsl:with-param name="field">textclass_keywords_tesim</xsl:with-param>
+          <xsl:with-param name="value"><xsl:value-of select="."/></xsl:with-param>
+        </xsl:call-template>
+        <xsl:call-template name="mkfield">
+          <xsl:with-param name="field">textclass_keywords_ssim</xsl:with-param>
+          <xsl:with-param name="value"><xsl:value-of select="."/></xsl:with-param>
+        </xsl:call-template>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:template>
+
+  
 </xsl:transform>
