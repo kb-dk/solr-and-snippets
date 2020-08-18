@@ -6,7 +6,7 @@
 	       exclude-result-prefixes="t fn">
   
   <xsl:import href="../solrize-global.xsl"/>
-  <xsl:param name="subcollection" select="'holberg'"/>
+  <xsl:param name="subcollection" select="'lhv'"/>
   <xsl:param name="category" select="'work'"/>
 
   <xsl:param name="i_am_a">
