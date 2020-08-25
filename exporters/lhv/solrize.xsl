@@ -36,7 +36,7 @@
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
       <xsl:with-param name="category">
-	<xsl:if test="$i_am_a = 'Tekst'">work</xsl:if>
+	<xsl:if test="$i_am_a = 'Hovedtekst'">work</xsl:if>
       </xsl:with-param>
     </xsl:call-template>
 

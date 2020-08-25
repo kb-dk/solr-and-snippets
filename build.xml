@@ -58,8 +58,8 @@
 
     <target name="other_services" depends="service">
       <mkdir dir="${build}"/>
-      <copy todir="${service}/holberg">
-	<fileset dir="${service.src}/holberg"/>
+      <copy todir="${service}/lhv">
+	<fileset dir="${service.src}/lhv"/>
       </copy>
       <copy todir="${service}/pmm">
 	<fileset dir="${service.src}/pmm"/>
@@ -126,7 +126,7 @@
     </target>
 
     <target name="add_other_data" depends="other_services">
-      <copy  todir="${service}/holberg">
+      <copy  todir="${service}/lhv">
 	<fileset dir="../other_tei_projects/holberg"/>
       </copy>
       <copy  todir="${service}/pmm/texts">
