@@ -65,7 +65,7 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:head">
-    <xsl:call-template name="some_text"/>
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -144,7 +144,7 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template name="some_text">
     <xsl:variable name="head_text">
-      <xsl:apply-templates select=".//t:head"/>
+      <xsl:apply-templates  mode="collect_text" select=".//t:head"/>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="string-length($head_text) &gt; 5">
