@@ -59,24 +59,19 @@
   </xsl:template>
 
   <xsl:template match="t:text">
+    <xsl:comment> text </xsl:comment>
     <div>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
-
-      <xsl:comment> text </xsl:comment>
-
       <xsl:apply-templates/>
     </div>
   </xsl:template>
 
   <xsl:template match="t:front">
+    <xsl:comment> front </xsl:comment>
     <div>
       <xsl:call-template name="add_id"/>
-
-      <xsl:comment> front </xsl:comment>
-
-
       <xsl:apply-templates/>
     </div>
   </xsl:template>
@@ -112,9 +107,9 @@
   </xsl:template>
 
   <xsl:template match="t:body">
+    <xsl:comment> body </xsl:comment>
     <div>
       <xsl:call-template name="add_id"/>
-      <xsl:comment> body </xsl:comment>
       <xsl:apply-templates/>
     </div>
   </xsl:template>
@@ -430,7 +425,6 @@
 
   <!-- hide figures that don't contain graphics -->
   <xsl:template match="t:figure">
-    <xsl:comment> Here is a figure </xsl:comment>
     <xsl:if test="t:graphic/@url or @type">
       <xsl:element name="div">
 	<xsl:call-template name="add_id"/>
@@ -559,9 +553,7 @@
       <xsl:attribute name="class">text snippetRoot</xsl:attribute>      
     </xsl:if>
     <xsl:choose>
-      <xsl:when test="not(descendant::node())">
-	<xsl:comment>Instead of content</xsl:comment>
-      </xsl:when>
+      <xsl:when test="not(descendant::node())"><xsl:comment>Instead of content</xsl:comment></xsl:when>
       <xsl:otherwise>
 	<xsl:if test="$expose = 'true'">
 	  <xsl:call-template name="expose_link"/>
@@ -571,7 +563,6 @@
     <xsl:if test="@decls">
       <xsl:call-template name="add_prev_next"/>
     </xsl:if>
-
   </xsl:template>
 
   <xsl:template name="add_prev_next">
