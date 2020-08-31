@@ -8,18 +8,34 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 -->
 <xsl:transform version="2.0"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
-	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-	       exclude-result-prefixes="t">
+	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	       exclude-result-prefixes="t fn">
 
-  <xsl:param name="id" select="''"/>
-  <xsl:param name="doc" select="''"/>
+  <xsl:param name="id"   select="''"/>
+  <xsl:param name="path" select="''"/>
+  <xsl:param name="c"    select="''"/>
+  <xsl:param name="doc"  select="''"/>
   <xsl:param name="hostname" select="''"/>
 
   <!-- this is for image URIs that are not absolute 
        (not starting with http -->
 
   <xsl:param name="prefix" select="'http://kb-images.kb.dk/public/'"/>
-
+  
+  <xsl:param name="processed_prefix">
+    <choose>
+      <xsl:choose>
+        <xsl:when test="contains($c,'tfs')">
+          <xsl:value-of select="concat($prefix,'tekstportal/tfs3/')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$prefix"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </choose>
+  </xsl:param>
+  
   <xsl:output encoding="UTF-8"
 	      indent="yes"
 	      method="xml"
@@ -110,7 +126,7 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
         <xsl:element name="img">
 	  <xsl:attribute name="height">750</xsl:attribute>
           <xsl:attribute name="src">
-            <xsl:value-of select="concat($prefix,@facs,'/full/,750/0/native.jpg')"/>
+            <xsl:value-of select="concat($processed_prefix,@facs,'/full/,750/0/native.jpg')"/>
           </xsl:attribute>
         </xsl:element>
       </xsl:when>
