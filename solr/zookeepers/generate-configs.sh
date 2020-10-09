@@ -17,7 +17,7 @@ do
        -DDOMAIN=.kb.dk zoo-make-config.m4 > "zoo$instance.cfg"
 
     m4 -DINSTANCE=$instance \
-       -DJAVA_DIR=$ZJAVA zookeeper_systemd_service.m4 > "zookeeper$instance.service"
+       -DJAVA_DIR=$ZJAVA zookeeper-systemd-service.m4 > "zookeeper$instance.service"
 done
 
 		
