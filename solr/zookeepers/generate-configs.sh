@@ -11,6 +11,9 @@ do
        -DHOME=/home/zookeeper \
        -DHOST=index-test-0  \
        -DDOMAIN=.kb.dk zoo-make-config.m4 > "zoo$instance.cfg"
+
+    m4 -DINSTANCE=$instance \
+       -DJAVA_DIR=/etc/alternatives/jre_1.8.0  zookeeper_systemd_service.m4 > "zookeeper$instance.service"
 done
 
 		
