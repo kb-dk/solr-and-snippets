@@ -1,0 +1,14 @@
+[Unit]
+Description=Apache zookeeper 2
+After=syslog.target network.target remote-fs.target nss-lookup.target systemd-journald-dev-log.socket
+[Service]
+Type=forking
+Environment=JAVA_HOME=/etc/alternatives/jre_1.8.0
+WorkingDirectory=/home/zookeeper
+PIDFile=/home/zookeeper2/current/data/2/zookeeper_server.pid
+ExecStart=/home/zookeeper2/current/bin/zkServer.sh start zoo2.cfg
+ExecStop=/home/zookeeper2/current/bin/zkServer.sh stop zoo2.cfg
+User=zookeeper
+Group=zookeeper
+[Install]
+WantedBy=multi-user.target
