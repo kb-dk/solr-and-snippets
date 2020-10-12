@@ -4,7 +4,7 @@ After=syslog.target network.target remote-fs.target nss-lookup.target systemd-jo
 [Service]
 Type=forking
 Environment=JAVA_HOME=/etc/alternatives/jre_1.8.0
-WorkingDirectory=/home/zookeeper
+WorkingDirectory=/home/zookeeper1
 PIDFile=/home/zookeeper1/current/data/1/zookeeper_server.pid
 ExecStart=/home/zookeeper1/current/bin/zkServer.sh start zoo1.cfg
 ExecStop=/home/zookeeper1/current/bin/zkServer.sh stop zoo1.cfg

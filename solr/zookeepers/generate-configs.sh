@@ -6,7 +6,8 @@
 
 ZHOME=/home/zookeeper
 ZHOST=index-test-0
-ZJAVA=/etc/alternatives/jre_1.8.0  
+# ZJAVA=/usr/local/java/latest
+ZJAVA=/etc/alternatives/jre_1.8.0 
 
 for instance in {1..3}
 do
