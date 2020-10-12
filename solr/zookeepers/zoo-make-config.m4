@@ -6,7 +6,7 @@ dnl m4 -DHOME="/home/slu/projects/zookeeper" -DOMAIN=.kb.dk -DINSTANCE=2 -DNUMBE
 #
 ifelse(eval(INSTANCE <= NUMBER),1,
 tickTime=2000
-dataDir=format(`%s%s',HOME,INSTANCE)/data/INSTANCE
+dataDir=format(`%s%s',HOME,INSTANCE)/current/data/INSTANCE
 clientPort=eval(2180+INSTANCE)
 initLimit=5
 syncLimit=2
