@@ -26,7 +26,6 @@ ARGS="--host hostname --domain domain name --java JAVA_HOME --home directory --o
 if [ $? != 0 ] ; then echo "Please give $ARGS ..." >&2 ; exit 1 ; fi
 
 while true; do
-    echo $1
     case "$1" in
 	-h | --host ) ZHOST="$2"; shift 2 ;;
 	-d | --domain ) ZDOMAIN="$2"; shift 2 ;;
@@ -37,9 +36,12 @@ while true; do
     esac
 done
 
-echo "host = $ZHOST ; domain = $ZDOMAIN ; java livs in = $ZJAVA ; zookeeper = $ZHOME ; writing in = $OUT"
-
-#exit 1
+echo "Parameters given
+host               = $ZHOST
+domain             = $ZDOMAIN 
+java livs in       = $ZJAVA 
+zookeeper lives in = $ZHOME 
+writing config in  = $OUT"
 
 for instance in {1..3}
 do
