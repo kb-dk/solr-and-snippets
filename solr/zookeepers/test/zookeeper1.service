@@ -3,7 +3,7 @@ Description=Apache zookeeper 1
 After=syslog.target network.target remote-fs.target nss-lookup.target systemd-journald-dev-log.socket
 [Service]
 Type=forking
-Environment=JAVA_HOME=/etc/alternatives/jre_1.8.0
+Environment=JAVA_HOME=/usr/local/java/latest
 WorkingDirectory=/home/zookeeper1
 PIDFile=/home/zookeeper1/current/data/1/zookeeper_server.pid
 ExecStart=/home/zookeeper1/current/bin/zkServer.sh start zoo1.cfg
