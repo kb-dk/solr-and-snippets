@@ -32,6 +32,7 @@ while true; do
 	-j | --java ) ZJAVA="$2"; shift 2 ;;
 	-t | --home ) ZHOME="$2"; shift 2 ;;
 	-o | --out  ) OUT="$2"; shift 2 ;;
+	-f | --first  ) FIRST="$2"; shift 2 ;;
 	* ) break ;;
     esac
 done
@@ -41,11 +42,13 @@ host               = $ZHOST
 domain             = $ZDOMAIN 
 java livs in       = $ZJAVA 
 zookeeper lives in = $ZHOME 
-writing config in  = $OUT"
+writing config in  = $OUT
+first server no    = $FIRST"
 
 for instance in {1..3}
 do
-    m4 -DINSTANCE=$instance \
+    m4 -DFIRST=$FIRST \
+       -DINSTANCE=$instance \
        -DNUMBER=3 \
        -DHOME=$ZHOME \
        -DHOST=$ZHOST  \
