@@ -187,7 +187,7 @@
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
-      <xsl:if test="$worktitle">
+      <xsl:if test="string-length($worktitle) &gt; 0">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
 	  <xsl:value-of select="$worktitle"/>
@@ -213,7 +213,12 @@
 	</xsl:element>
       </xsl:if>
 
-      <xsl:call-template name="add_globals"/>
+      <xsl:comment> about to call add_globals from trunc_doc </xsl:comment>
+      
+      <xsl:call-template name="add_globals">
+        <xsl:with-param name="worktitle" select="''"/>
+        <xsl:with-param name="category"  select="''"/>
+      </xsl:call-template>
 
       <xsl:element name="field">
 	<xsl:attribute name="name">text_tesim</xsl:attribute>
@@ -239,10 +244,11 @@
   <xsl:template name="text_type"/>
 
   <xsl:template match="t:castList">
-
+  
     <xsl:param name="worktitle" select="''"/>
 
     <doc>
+      <xsl:comment> castList </xsl:comment>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
       <xsl:call-template name="add_globals"/>
       <xsl:element name="field">
@@ -433,14 +439,17 @@
 	</xsl:element>
       </xsl:if>
 
-      <xsl:comment> about to call add_globals </xsl:comment>
+      <xsl:comment> about to call add_globals from generate_volume_doc </xsl:comment>
       <xsl:call-template name="add_globals" />
 
     </doc>
   </xsl:template>
 
   <xsl:template name="add_globals">
-
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:param name="category"  select="''"/>
+    
+    <xsl:comment> add_globals called </xsl:comment>
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
@@ -501,7 +510,13 @@
       <xsl:value-of select="normalize-space(fn:string-join(' ',(t:head|../t:head[1])))"/></xsl:element>
     </xsl:if>
 
-    <xsl:call-template name="extract_titles_authors_etc"/>
+    <xsl:choose>
+      <xsl:when test="contains($path,'authors')">
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="extract_titles_authors_etc"/>
+      </xsl:otherwise>
+    </xsl:choose>
 
     <xsl:call-template name="what_i_can"/>
 

@@ -33,7 +33,7 @@ declare variable  $content  := util:base64-decode(request:get-data());
 
 declare variable  $coll     := concat('/db/',$c,'/');
 
-declare variable  $missing  := "http://kb-images.kb.dk/public/sks/other/copyright/info.json";
+declare variable  $missing  := "https://kb-images.kb.dk/public/sks/other/copyright/info.json";
 
 declare option output:method "json";
 declare option output:media-type "application/json";

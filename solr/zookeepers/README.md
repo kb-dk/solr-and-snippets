@@ -1,12 +1,13 @@
 
 # zoo.cfg and zookeeper.service
 
-"just" edit 
+"just" edit if necessary
 
 * the config in the zoo-make-config.m4 macro 
 * the settings in zookeeper-systemd-service.m4
+* generate-configs.sh
 
-and run the generate-configs.sh
+and otherwise run the generate-configs.sh with parameters like these
 
 ```
 ./generate-configs.sh -j /etc/alternatives/jre_1.8.0 -f 3 -h index-prod-0  -d .kb.dk  -o ./prod
