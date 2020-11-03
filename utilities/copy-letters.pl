@@ -15,16 +15,16 @@ if( open(my $dta, '(cd ' . $where_is_it . ' ; find . -regextype posix-egrep  -re
     while(my $file = <$dta>) {
 
 	chomp $file;
-	
-	print "\n# $file\n";
 
-	if($file =~ m|.*\/(\d+)\/(\d+)_(\d\d\d).xml|) {
+	if($file =~ m|.*\/(\d+)\/(\d+)_(.\d\d).xml|) {
 	    my $barcode1 = $1;
 	    my $barcode2 = $2;
 	    my $vol = $3;
 	    print "mkdir -p " . $where_should_it_go . $barcode1 . "\n";
 	    my $destination = $where_should_it_go . $barcode1 . "/" . $vol . ".xml";
 	    print "cp " . $where_is_it . $file . " " . $destination . "\n";
+	} else {
+	    print "\n# $file\n";
 	}
     }
 }
