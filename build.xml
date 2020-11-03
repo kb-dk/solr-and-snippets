@@ -82,6 +82,21 @@
       <copy file="exporters/letters/collection.xconf" todir="${xconfig_source}"/>
     </target>
 
+    <target name="add_letters_ng">
+      <property name="target"         value="text-retriever/letters"/>
+      <property name="service"        value="${build}/${target}"/>
+      
+      <copy todir="${service}">
+	<fileset dir="${service.src}/letters-ng"/>
+      </copy>
+
+      <exec executable="/bin/bash">
+	<arg line="-c"/>
+	<arg line='"./utilities/copy-letters.pl | /bin/bash"'/>
+      </exec>
+      
+    </target>
+
     <target name="add_letter_data">
       <property name="xconfig"        value="system/config/db/letter_books"/>
       <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
