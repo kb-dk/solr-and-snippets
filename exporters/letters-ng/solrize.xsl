@@ -2,22 +2,33 @@
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:t="http://www.tei-c.org/ns/1.0"
                exclude-result-prefixes="t"
-               version="1.0">
+               version="2.0">
 
   <!-- not a poisonous adder -->
 
+  <xsl:import href="../solrize-global.xsl"/>
+  
   <xsl:output indent="yes"
 	      omit-xml-declaration="no"
               encoding="UTF-8"
               method="xml"/>
 
-  <xsl:param name="category" select="'letter'"/>
+  <xsl:param name="cat" select="'letter'"/>
+  <xsl:param name="category" select="'work'"/>
   <xsl:param name="root_category" select="'letterbook'"/>
   <xsl:param name="file" select="'a_very_unique_id'"/>
   <!-- seems utterly wrong
   <xsl:param name="id">/<xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:idno"><xsl:value-of select="."/></xsl:for-each></xsl:param>
   -->
   <xsl:param name="id" select="''"/>
+
+  <xsl:param name="basename" select="substring-before($doc,'.xml')"/>
+  <xsl:param name="coll" select="''"/>
+  <xsl:param name="path" select="''"/>
+
+
+
+  
   <xsl:param name="prev" select="''"/>
   <xsl:param name="next" select="''"/>
   <xsl:param name="work_id" select="''"/>
@@ -62,12 +73,12 @@
   <!-- the name of the application, used by bifrost solr -->
 
 
-  <xsl:template match="/">
+  <!-- xsl:template match="/">
     <xsl:element name="add">
       <xsl:call-template name="generate_volume_doc"/>   
       <xsl:apply-templates/>
     </xsl:element>
-  </xsl:template>
+  </xsl:template -->
 
   <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
   <xsl:template match="t:div">
@@ -102,6 +113,7 @@
       </xsl:element>
 
       <xsl:call-template name="add_globals">
+        <xsl:with-param name="worktitle" select="''"/>
 	<xsl:with-param name="category">
 	  <xsl:choose>
 	    <xsl:when test="@decls">letter</xsl:when>
@@ -244,7 +256,7 @@
   </xsl:template>
 
 
-  <xsl:template name="generate_volume_doc">
+  <!-- xsl:template name="generate_volume_doc">
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
       <xsl:element name="field">
@@ -255,9 +267,9 @@
 	<xsl:with-param name="category"><xsl:value-of select="$root_category"/></xsl:with-param>
       </xsl:call-template>
     </doc>
-  </xsl:template>
+  </xsl:template -->
 
-  <xsl:template name="add_globals">
+  <!-- xsl:template name="add_globals">
     <xsl:param name="category">text</xsl:param>
 
     <xsl:element name="field">
@@ -411,7 +423,7 @@
 
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
 
-  </xsl:template>
+  </xsl:template -->
 
   <xsl:template match="*">
     <xsl:param name="worktitle" select="''"/>
