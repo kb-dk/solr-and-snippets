@@ -41,29 +41,40 @@
   </xsl:template>
 
 
-  <xsl:template match="t:persName|t:placeName">
+
+
+  <!-- we leave the references to bible stuff, because addressing is far too complicated |t:rs[@type='bible'] -->
+  <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']">
     <xsl:variable name="entity">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
-	<xsl:otherwise>place</xsl:otherwise>
+        <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
+	<xsl:otherwise>comment</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="authority">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">pers</xsl:when>
-	<xsl:otherwise>place</xsl:otherwise>
+        <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
+        <xsl:when test="@type='myth'">myth</xsl:when>
+        <xsl:when test="@type='bible'">bible</xsl:when>
+	<xsl:otherwise>title</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="symbol">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">&#128100;</xsl:when>
-	<xsl:otherwise>&#128204;</xsl:otherwise>
+	<xsl:when test="contains(local-name(.),'place')">&#128204;</xsl:when>
+        <xsl:otherwise>&#9658;</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="title">
-      <xsl:choose>
+        <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
-	<xsl:otherwise>Plads</xsl:otherwise>
+        <xsl:when test="contains(local-name(.),'place')">Plads</xsl:when>
+        <xsl:when test="@type='myth'">Mytologi</xsl:when>
+        <xsl:when test="@type='bible'">Bibel</xsl:when>
+	<xsl:otherwise>Titel</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <span class="{$entity}">
