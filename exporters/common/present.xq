@@ -78,6 +78,7 @@ let $params :=
 </parameters>
 
 let $hdoc := transform:transform($doc,$op,$params)
+(: let $hdoc := <empty/> :)
 
 return 
   if(request:get-parameter("debug","")) then

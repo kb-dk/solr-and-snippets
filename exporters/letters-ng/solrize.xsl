@@ -72,7 +72,8 @@
   <xsl:param name="app" select="''"/>
   <!-- the name of the application, used by bifrost solr -->
 
-
+  <xsl:template name="what_i_can"/>
+  
   <!-- xsl:template match="/">
     <xsl:element name="add">
       <xsl:call-template name="generate_volume_doc"/>   
@@ -654,7 +655,7 @@
   </xsl:template>
 
 
-  <xsl:template name="page_info">
+  <!-- xsl:template name="page_info">
     <xsl:if test="preceding::t:pb[1]/@n|descendant::t:pb">
       <xsl:element name="field">
         <xsl:attribute name="name">page_ssi</xsl:attribute>
@@ -667,7 +668,7 @@
                 select="preceding::t:pb[1]/@xml:id|descendant::t:pb/@xml:id[1]"/>
       </xsl:element>
     </xsl:if>
-  </xsl:template>
+  </xsl:template -->
 
   <xsl:template mode="backtrack" match="node()">
     <xsl:element name="field">
