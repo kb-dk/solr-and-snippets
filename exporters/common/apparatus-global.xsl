@@ -338,9 +338,11 @@
 
     <span style="background-color:Aquamarine;display:none;">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="apparatus" select="t:lem"/>
+      <xsl:apply-templates mode="apparatus" select="t:lem"/><xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
+    </xsl:if>
       <xsl:for-each select="t:rdg|t:rdgGrp|t:corr|t:note">
-	<xsl:apply-templates mode="apparatus"  select="."/><!-- xsl:if test="position() &lt; last()" -->;<xsl:comment> ; </xsl:comment><!-- /xsl:if -->
+	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()">;
+        </xsl:if><xsl:comment> ; </xsl:comment><!-- /xsl:if -->
       </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
     </span>
 
