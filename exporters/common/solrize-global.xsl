@@ -511,11 +511,15 @@
     </xsl:if>
 
     <xsl:choose>
-      <xsl:when test="contains($path,'authors')">
-        <xsl:call-template name="extract_titles_authors_etc"/>
+      <xsl:when test="contains($path,'adl-authors')">
+        <xsl:call-template name="extract_titles_authors_etc">
+          <xsl:with-param name="worktitle" select="$worktitle"/>
+        </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:call-template name="extract_titles_authors_etc"/>
+        <xsl:call-template name="extract_titles_authors_etc">
+          <xsl:with-param name="worktitle" select="$worktitle"/>
+        </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -567,7 +571,7 @@
       <xsl:value-of select="$subcollection"/>
     </field>
 
-  <xsl:call-template name="facs_and_text"/>
+    <xsl:call-template name="facs_and_text"/>
 
   </xsl:template>
 
@@ -729,10 +733,14 @@
   </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
-    <xsl:call-template name="common_extract_titles_authors_etc"/>
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:call-template name="common_extract_titles_authors_etc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="common_extract_titles_authors_etc">
+    <xsl:param name="worktitle" select="''"/>
 
     <xsl:choose>
       <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
@@ -838,14 +846,16 @@
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
 	  <xsl:if test="t:title">
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	      <xsl:value-of select="t:title"/>
-	    </xsl:element>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_ssim</xsl:attribute>
-	      <xsl:value-of select="t:title"/>
-	    </xsl:element>
+            <xsl:if test="$worktitle">
+	      <xsl:element name="field">
+	        <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	        <xsl:value-of select="t:title"/>
+	      </xsl:element>
+	      <xsl:element name="field">
+	        <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+	        <xsl:value-of select="t:title"/>
+	      </xsl:element>
+            </xsl:if>
 	  </xsl:if>
 
 	  <xsl:element name="field">
