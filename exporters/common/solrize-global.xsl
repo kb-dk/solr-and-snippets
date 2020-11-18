@@ -512,6 +512,7 @@
 
     <xsl:choose>
       <xsl:when test="contains($path,'authors')">
+        <xsl:call-template name="extract_titles_authors_etc"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:call-template name="extract_titles_authors_etc"/>
