@@ -640,9 +640,9 @@
     <xsl:value-of select="$str3"/>
   </xsl:template>
 
-  <xsl:template name="author_ssim">
+  <!-- xsl:template name="author_ssim">
     <xsl:value-of select="normalize-space(.)"/>
-  </xsl:template>
+  </xsl:template -->
 
   <xsl:template mode="backtrack" match="node()[@xml:id]">
     <xsl:choose>
@@ -758,11 +758,12 @@
 	    <xsl:for-each select="t:author">
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_ssim</xsl:attribute>
-		<xsl:call-template name="author_ssim"/>
+		<!-- xsl:call-template name="author_ssim"/ -->
+                <xsl:value-of select="normalize-space(.)"/>
 	      </xsl:element>
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_tesim</xsl:attribute>
-		<xsl:choose>
+		<xsl:choose> <!-- Looks like we are handling Saxo et al. -->
 		  <xsl:when test="t:name/t:forename">
 		    <xsl:value-of select="t:name/t:forename"/>
 		    <xsl:if test="t:name/t:surname">

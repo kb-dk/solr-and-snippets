@@ -77,7 +77,7 @@
 	<xsl:otherwise>Titel</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <span class="{$entity}">
+    <span class="{$entity}" style="font-style: italic;">
       <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
       <xsl:variable name="uri">
         <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
