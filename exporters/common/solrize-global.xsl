@@ -67,8 +67,13 @@
         <xsl:value-of
             select="count(distinct-values(//t:sourceDesc/t:listBibl/t:bibl/t:author/string()))"/>
       </xsl:when>
-      <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author[string()]">1</xsl:when>
-      <xsl:otherwise>0</xsl:otherwise>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author">1</xsl:when>
+          <xsl:when test="//t:fileDesc/t:titleStmt/t:author">1</xsl:when>
+          <xsl:otherwise>0</xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:param>
   
