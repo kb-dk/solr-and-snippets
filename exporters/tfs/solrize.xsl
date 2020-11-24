@@ -112,7 +112,8 @@
   </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
-
+    <xsl:param name="worktitle" select="''"/>
+    
     <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
       <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
       <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>

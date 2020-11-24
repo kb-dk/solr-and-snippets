@@ -61,6 +61,9 @@
     </xsl:choose>
   </xsl:param>
 
+  <xsl:param name="num_authors">1</xsl:param>
+    <!-- xsl:value-of select="count(//t:bibl/t:author[string()])"/ -->
+  
   <xsl:param name="worktitle">
     <xsl:if test="contains($is_monograph,'yes')">
       <xsl:value-of select="$volume_title"/>
@@ -216,8 +219,8 @@
       <xsl:comment> about to call add_globals from trunc_doc </xsl:comment>
       
       <xsl:call-template name="add_globals">
-        <xsl:with-param name="worktitle" select="''"/>
-        <xsl:with-param name="category"  select="''"/>
+        <xsl:with-param name="worktitle" select="$worktitle"/>
+        <xsl:with-param name="category"  select="$worktitle"/>
       </xsl:call-template>
 
       <xsl:element name="field">
@@ -561,6 +564,11 @@
       <xsl:value-of  select="count(preceding::node())"/>
     </xsl:element>
 
+    <xsl:element name="field">
+      <xsl:attribute name="name">num_authors_isi</xsl:attribute>
+      <xsl:value-of  select="$num_authors"/>
+    </xsl:element>
+    
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
 
     <field name="application_ssim">

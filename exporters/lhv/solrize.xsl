@@ -84,6 +84,7 @@
 
 
   <xsl:template name="extract_titles_authors_etc">
+    <xsl:param name="worktitle" select="''"/>
 
     <xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Holberg, Ludvig</xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Holberg, Ludvig</xsl:element>
