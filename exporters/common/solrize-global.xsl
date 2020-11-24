@@ -61,8 +61,16 @@
     </xsl:choose>
   </xsl:param>
 
-  <xsl:param name="num_authors">1</xsl:param>
-    <!-- xsl:value-of select="count(//t:bibl/t:author[string()])"/ -->
+  <xsl:param name="num_authors">
+    <xsl:choose>
+      <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author">
+        <xsl:value-of
+            select="count(distinct-values(//t:sourceDesc/t:listBibl/t:bibl/t:author/string()))"/>
+      </xsl:when>
+      <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author[string()]">1</xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
   
   <xsl:param name="worktitle">
     <xsl:if test="contains($is_monograph,'yes')">

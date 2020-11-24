@@ -173,7 +173,7 @@
       </xsl:if>
 
       <xsl:if test="$bibl/t:date">
-        <xsl:message> found extract template </xsl:message>
+
         <xsl:choose>
           <xsl:when test="$bibl/t:date[@type]">
             <xsl:for-each select="$bibl/t:date[@type]">
