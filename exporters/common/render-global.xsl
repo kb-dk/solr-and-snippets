@@ -719,6 +719,7 @@
 
 	<xsl:element name="a">
 	  <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
+          <xsl:attribute name="rel">nofollow</xsl:attribute>
 	  <xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute>
 	  <xsl:element name="span">
 	    <xsl:attribute name="class">symbol <xsl:value-of select="$class"/></xsl:attribute>
