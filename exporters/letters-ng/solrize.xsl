@@ -172,82 +172,6 @@
 
   </xsl:template>
 
-  <xsl:template match="t:sp">
-    <xsl:param name="worktitle" select="''"/>
-
-    <doc>
-
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
-
-      <xsl:call-template name="add_globals"/>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">genre_ssi</xsl:attribute>
-        <xsl:text>play</xsl:text>
-      </xsl:element>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">speaker_name_ssi</xsl:attribute>
-        <xsl:value-of select="t:speaker"/>
-      </xsl:element>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">text_tesim</xsl:attribute>
-        <xsl:apply-templates mode="gettext" 
-			     select="./text()|descendant::node()/text()"/>
-      </xsl:element>
-
-    </doc>
-  </xsl:template>
-
-
-  <xsl:template match="t:lg">
-    <xsl:param name="worktitle" select="''"/>
-
-    <doc>
-
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
-
-      <xsl:call-template name="add_globals"/>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">genre_ssi</xsl:attribute>
-        <xsl:text>poetry</xsl:text>
-      </xsl:element>
-
-      <xsl:for-each select="t:l">
-        <xsl:element name="field">
-          <xsl:attribute name="name">text_tesim</xsl:attribute>
-          <xsl:apply-templates mode="gettext" 
-			       select="./text()|descendant::node()/text()"/>
-        </xsl:element>
-      </xsl:for-each>
-    </doc>
-  </xsl:template>
-
-  <xsl:template match="t:div/t:p">
-
-    <xsl:param name="worktitle" select="''"/>
-
-    <doc>
-
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
-
-      <xsl:call-template name="add_globals"/>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">genre_ssi</xsl:attribute>
-        <xsl:text>prose</xsl:text>
-      </xsl:element>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">text_tesim</xsl:attribute>
-        <xsl:apply-templates mode="gettext" 
-			     select="./text()|descendant::node()/text()"/>
-      </xsl:element>
-    </doc>
-  </xsl:template>
-
   <xsl:template mode="gettext" match="text()">
     <xsl:value-of select="normalize-space(.)"/>
     <xsl:text> </xsl:text>
@@ -257,7 +181,11 @@
   </xsl:template>
 
 
-  <!-- xsl:template name="generate_volume_doc">
+  <xsl:template name="generate_volume_doc">
+    <xsl:param name="type" select="'trunk'"/>
+    <xsl:param name="cat" select="'volume'"/>
+    <xsl:param name="is_monograph" select="$is_monograph"/>
+
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
       <xsl:element name="field">
@@ -266,13 +194,17 @@
       </xsl:element>
       <xsl:call-template name="add_globals">
 	<xsl:with-param name="category"><xsl:value-of select="$root_category"/></xsl:with-param>
+        <xsl:with-param name="worktitle" select="''"/>
       </xsl:call-template>
     </doc>
-  </xsl:template -->
+  </xsl:template>
 
-  <!-- xsl:template name="add_globals">
+  <xsl:template name="add_globals">
     <xsl:param name="category">text</xsl:param>
+    <xsl:param name="worktitle" select="''"/>
 
+
+    
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
@@ -424,7 +356,7 @@
 
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
 
-  </xsl:template -->
+  </xsl:template>
 
   <xsl:template match="*">
     <xsl:param name="worktitle" select="''"/>
