@@ -25,9 +25,6 @@
   <xsl:param name="basename" select="substring-before($doc,'.xml')"/>
   <xsl:param name="coll" select="''"/>
   <xsl:param name="path" select="''"/>
-
-
-
   
   <xsl:param name="prev" select="''"/>
   <xsl:param name="next" select="''"/>
@@ -586,21 +583,6 @@
 	select="following::node()[@decls and @xml:id][1]/@xml:id"/>
   </xsl:template>
 
-
-  <!-- xsl:template name="page_info">
-    <xsl:if test="preceding::t:pb[1]/@n|descendant::t:pb">
-      <xsl:element name="field">
-        <xsl:attribute name="name">page_ssi</xsl:attribute>
-        <xsl:value-of
-                select="preceding::t:pb[1]/@n|descendant::t:pb/@n[1]"/>
-      </xsl:element>
-      <xsl:element name="field">
-        <xsl:attribute name="name">page_id_ssi</xsl:attribute>
-        <xsl:value-of
-                select="preceding::t:pb[1]/@xml:id|descendant::t:pb/@xml:id[1]"/>
-      </xsl:element>
-    </xsl:if>
-  </xsl:template -->
 
   <xsl:template mode="backtrack" match="node()">
     <xsl:element name="field">
