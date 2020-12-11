@@ -201,14 +201,15 @@
     <xsl:param name="worktitle" select="''"/>
 
 
-    
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@xml:id">
-          <xsl:value-of select="concat('/',/t:TEI/t:teiHeader/t:fileDesc/t:idno,'-',@xml:id)"/>
+          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
         </xsl:when>
-        <xsl:otherwise>/<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/></xsl:otherwise>
+        <xsl:otherwise>
+          <xsl:value-of select="$path"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:element>
 
