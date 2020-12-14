@@ -44,7 +44,7 @@
     </xsl:for-each>
   </xsl:param>
 
-  <xsl:param name="volume_id" select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/>
+  <xsl:param name="volume_id" select="$path"/>
 
   <xsl:param name="publisher">
     <xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt">
@@ -250,11 +250,9 @@
       <xsl:attribute
 	  name="name">active_fedora_model_ssi</xsl:attribute>Letter</xsl:element>
 
-      <xsl:element name="field">
-	<xsl:attribute
-	  name="name">has_model_ssim</xsl:attribute>Letter</xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">has_model_ssim</xsl:attribute>Letter</xsl:element>
 
-    <xsl:element name="field"><xsl:attribute name="name">volume_id_ssi</xsl:attribute>/<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">volume_id_ssi</xsl:attribute><xsl:value-of select="$path"/></xsl:element>
 
     <xsl:element name="field">
       <xsl:attribute name="name">url_ssi</xsl:attribute>
