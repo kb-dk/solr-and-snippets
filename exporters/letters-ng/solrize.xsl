@@ -15,7 +15,7 @@
 
   <xsl:param name="cat" select="'letter'"/>
   <xsl:param name="category" select="'work'"/>
-  <xsl:param name="root_category" select="'letterbook'"/>
+  <xsl:param name="root_category" select="'volume'"/>
   <xsl:param name="file" select="'a_very_unique_id'"/>
   <!-- seems utterly wrong
   <xsl:param name="id">/<xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:idno"><xsl:value-of select="."/></xsl:for-each></xsl:param>
@@ -114,7 +114,7 @@
         <xsl:with-param name="worktitle" select="''"/>
 	<xsl:with-param name="category">
 	  <xsl:choose>
-	    <xsl:when test="@decls">letter</xsl:when>
+	    <xsl:when test="@decls">work</xsl:when>
 	    <xsl:otherwise>text</xsl:otherwise>
 	  </xsl:choose>
 	</xsl:with-param>
@@ -288,6 +288,11 @@
       <xsl:value-of select="$author"/>
     </xsl:element>
 
+     <xsl:element name="field">
+      <xsl:attribute name="name">author_nasim</xsl:attribute>
+      <xsl:value-of select="$author"/>
+    </xsl:element>
+    
     <xsl:element name="field">
       <xsl:attribute name="name">author_id_ssim</xsl:attribute>
       <xsl:value-of select="$author_id"/>
@@ -313,6 +318,11 @@
     </xsl:element>
 
     <xsl:element name="field">
+      <xsl:attribute name="name">editor_nasim</xsl:attribute>
+      <xsl:value-of select="$editor"/>
+    </xsl:element>
+    
+    <xsl:element name="field">
       <xsl:attribute name="name">editor_id_ssim</xsl:attribute>
       <xsl:value-of select="$editor_id"/>
     </xsl:element>
@@ -327,6 +337,10 @@
     <xsl:if test="$publisher">
       <xsl:element name="field">
         <xsl:attribute name="name">publisher_tesim</xsl:attribute>
+        <xsl:value-of select="$publisher"/>
+      </xsl:element>
+      <xsl:element name="field">
+        <xsl:attribute name="name">publisher_nasim</xsl:attribute>
         <xsl:value-of select="$publisher"/>
       </xsl:element>
     </xsl:if>
