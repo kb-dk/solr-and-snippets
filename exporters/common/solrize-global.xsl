@@ -878,6 +878,16 @@
     <xsl:param name="type" select="'published'"/>
 
     <!--
+ 	-
+dc:date
+
+Created
+Valid
+Available
+Issued
+Modified
+Date Accepted Date Copyrighted
+Date Submitted
 
 Date elements from mods
 
