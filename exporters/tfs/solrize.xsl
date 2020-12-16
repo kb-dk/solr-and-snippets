@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t fn">
+               xmlns:me="urn:my-things"
+	       exclude-result-prefixes="t fn me">
   
   <xsl:import href="../solrize-global.xsl"/>
 
@@ -172,33 +173,33 @@
       </xsl:if>
 
       <xsl:if test="$bibl/t:date">
-        <xsl:message> found extract template </xsl:message>
-        <xsl:choose>
-          <xsl:when test="$bibl/t:date[@type]">
-            <xsl:for-each select="$bibl/t:date[@type]">
-	      <xsl:element name="field">
-	        <xsl:attribute name="name">
-                  <xsl:call-template name="date_semantics">
-                    <xsl:with-param name="type" select="@type"/>
-                  </xsl:call-template>
-                </xsl:attribute>
-		<xsl:value-of select="."/>
-              </xsl:element>
+        <xsl:for-each select="$bibl/t:date[@type]">
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">
+              <xsl:call-template name="date_semantics">
+                <xsl:with-param name="type" select="@type"/>
+              </xsl:call-template>
+            </xsl:attribute>
+	    <xsl:value-of select="."/>
+          </xsl:element>
+	</xsl:for-each>
+        
+        <xsl:if test="$bibl/t:date[@type='release']">
+          <xsl:element name="field">
+	    <xsl:attribute name="name">year_itsi</xsl:attribute>
+	    <xsl:for-each select="$bibl/t:date[@type='release'][1]">
+              <xsl:choose>
+                <xsl:when test="@when">
+                  <xsl:value-of select="me:year-extractor(@when/string())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="me:year-extractor(./string())"/>
+                </xsl:otherwise>
+              </xsl:choose>
 	    </xsl:for-each>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:if test="$bibl/t:date[not(@type)]">
-	      <xsl:element name="field">
-	        <xsl:attribute name="name">date_published_ssi</xsl:attribute>
-	        <xsl:for-each select="$bibl/t:date">
-		  <xsl:value-of select="."/>
-	        </xsl:for-each>
-	      </xsl:element>
-            </xsl:if>
-          </xsl:otherwise>
-        </xsl:choose>
+	  </xsl:element>
+        </xsl:if>
       </xsl:if>
-
     </xsl:if>
 
   </xsl:template>

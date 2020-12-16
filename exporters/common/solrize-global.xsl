@@ -879,13 +879,6 @@
     <xsl:param name="date_content"/>
     <xsl:value-of select="fn:replace($date_content,'^.*(1\d\d\d).*$','$1')"/>
   </xsl:function>
-
-  <!-- I don't need this one, for the time being -->
-  <!-- xsl:function name="me:date-extractor" as="string()">
-    <xsl:param name="date_content" select="''"/>
-    <xsl:value-of select="fn:replace($date_content,'^.*(1\d\d\d)-([01]\d)-([0123]\d).*$','$1-$2-$3'"/>
-  </xsl:function -->
-
   
   <xsl:template name="date_semantics">
     <xsl:param name="type" select="'published'"/>
@@ -899,7 +892,8 @@ Valid
 Available
 Issued
 Modified
-Date Accepted Date Copyrighted
+Date Accepted
+Date Copyrighted
 Date Submitted
 
 Date elements from mods
@@ -928,7 +922,7 @@ Dates of Publication and/or Sequential Designation
     <xsl:choose>
       <xsl:when test="contains($type,'published')">date_published_ssi</xsl:when>
       <xsl:when test="contains($type,'publica')">date_published_ssi</xsl:when>
-      <xsl:when test="contains($type,'released')">date_published_ssi</xsl:when>
+      <xsl:when test="contains($type,'release')">date_published_ssi</xsl:when>
       <xsl:when test="contains($type,'announced')">date_announced_ssi</xsl:when>
       <xsl:otherwise>date_published_ssi</xsl:otherwise>
     </xsl:choose>
