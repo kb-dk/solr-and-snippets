@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                xmlns:t="http://www.tei-c.org/ns/1.0"
-               exclude-result-prefixes="t"
+               xmlns:me="urn:my-things"
+               xmlns:fn="http://www.w3.org/2005/xpath-functions"
+               exclude-result-prefixes="t fn me"
                version="2.0">
 
   <!-- not a poisonous adder -->
@@ -475,7 +477,8 @@
 	    <xsl:value-of select="."/>
 	  </xsl:element>
 	  <xsl:variable name="ditsi">
-	    <xsl:value-of select="number(substring(.,1,4))"/>
+	    <!-- xsl:value-of select="number(substring(.,1,4))"/ -->
+            <xsl:value-of select="me:year-extractor(./string())"/>
 	  </xsl:variable>
 
 	  <xsl:if test="not(contains($ditsi,'NaN'))">

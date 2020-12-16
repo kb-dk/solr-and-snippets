@@ -807,7 +807,7 @@
 	      </xsl:for-each>
 	    </xsl:element>
 
-            <xsl:choose>
+            <xsl:choose> <!-- this is broken in general but as date_semantics is written, it works -->
               <xsl:when test="t:date[@type]">
                 <xsl:for-each select="t:date[@type]">
 	          <xsl:element name="field">
@@ -875,16 +875,16 @@
   </xsl:template>
 
   <!-- good enough if this is tei @when -->
-  <xsl:function name="me:year-extractor" as="string()">
-    <xsl:param name="date_content" select="''"/>
-    <xsl:value-of select="fn:replace($date_content,'^.*(1\d\d\d).*$','$1'"/>
+  <xsl:function name="me:year-extractor">
+    <xsl:param name="date_content"/>
+    <xsl:value-of select="fn:replace($date_content,'^.*(1\d\d\d).*$','$1')"/>
   </xsl:function>
 
   <!-- I don't need this one, for the time being -->
-  <xsl:function name="me:date-extractor" as="string()">
+  <!-- xsl:function name="me:date-extractor" as="string()">
     <xsl:param name="date_content" select="''"/>
     <xsl:value-of select="fn:replace($date_content,'^.*(1\d\d\d)-([01]\d)-([0123]\d).*$','$1-$2-$3'"/>
-  </xsl:function>
+  </xsl:function -->
 
   
   <xsl:template name="date_semantics">
