@@ -6,8 +6,6 @@
 	       exclude-result-prefixes="t fn me"
                version="2.0">
 
-  <!-- not a poisonous adder -->
-
   <xsl:output indent="yes"
               encoding="UTF-8"
               method="xml"/>

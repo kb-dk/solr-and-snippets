@@ -249,13 +249,11 @@
       </xsl:element>
     </xsl:if>
 
-    <xsl:element name="field">
-      <xsl:attribute
-	  name="name">active_fedora_model_ssi</xsl:attribute>Letter</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">contains_ssi</xsl:attribute>letter</xsl:element>
+      
+    <xsl:element name="field"><xsl:attribute name="name">has_model_ssim</xsl:attribute>Letter</xsl:element>
 
-      <xsl:element name="field"><xsl:attribute name="name">has_model_ssim</xsl:attribute>Letter</xsl:element>
-
-      <xsl:element name="field"><xsl:attribute name="name">volume_id_ssi</xsl:attribute><xsl:value-of select="$path"/></xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">volume_id_ssi</xsl:attribute><xsl:value-of select="$path"/></xsl:element>
 
     <xsl:element name="field">
       <xsl:attribute name="name">url_ssi</xsl:attribute>
@@ -367,7 +365,7 @@
       <xsl:value-of  select="count(preceding::node())"/>
     </xsl:element>
 
-    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
+    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
 
   </xsl:template>
 
@@ -600,24 +598,11 @@
 	select="following::node()[@decls and @xml:id][1]/@xml:id"/>
   </xsl:template>
 
-
   <xsl:template mode="backtrack" match="node()">
     <xsl:element name="field">
       <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat(substring-before($file,'.xml'),'-',@xml:id)"/>
+      <xsl:value-of select="$path"/>
     </xsl:element>
-    <xsl:choose>
-      <xsl:when test="ancestor::node()[@decls]">
-	<xsl:apply-templates mode="backtrack"
-			     select="ancestor::node()[@decls][1]"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:element name="field">
-	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$file"/>
-	</xsl:element>
-      </xsl:otherwise>
-    </xsl:choose>
   </xsl:template>
 
 </xsl:transform>
