@@ -149,17 +149,18 @@
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:variable>
-
+      
       <xsl:if test="string-length($lprev) &gt; 0">
 	<xsl:element name="field">
-	  <xsl:attribute name="name">previous_id_ssi</xsl:attribute>/<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/>-<xsl:value-of select="$lprev"/>
+	  <xsl:attribute name="name">previous_id_ssi</xsl:attribute>
+          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',$lprev)"/>
 	</xsl:element>
       </xsl:if>
 
       <xsl:if test="string-length($lnext) &gt; 0">
 	<xsl:element name="field">
-	  <xsl:attribute name="name">next_id_ssi</xsl:attribute>/<xsl:value-of select="/t:TEI/t:teiHeader/t:fileDesc/t:idno"/>-<xsl:value-of 
-	      select="$lnext"/>
+	  <xsl:attribute name="name">next_id_ssi</xsl:attribute>
+          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',$lnext)"/>
 	</xsl:element>
       </xsl:if>
 
