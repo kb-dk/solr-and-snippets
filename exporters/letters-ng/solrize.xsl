@@ -117,7 +117,7 @@
 	<xsl:with-param name="category">
 	  <xsl:choose>
 	    <xsl:when test="@decls">work</xsl:when>
-	    <xsl:otherwise>text</xsl:otherwise>
+	    <xsl:otherwise>leaf</xsl:otherwise>
 	  </xsl:choose>
 	</xsl:with-param>
       </xsl:call-template>
