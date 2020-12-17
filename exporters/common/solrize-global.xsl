@@ -462,6 +462,13 @@
       </xsl:choose>
     </xsl:element>
 
+    <xsl:if test="contains($path,'gv-')">
+      <xsl:element name="field">
+	<xsl:attribute name="name">year_itsi</xsl:attribute>
+        <xsl:value-of select="me:year-extractor($path)"/>
+      </xsl:element>
+    </xsl:if>
+
     <xsl:if test="@xml:id">
       <xsl:element name="field">
 	<xsl:attribute name="name">xmlid_ssi</xsl:attribute>
@@ -566,7 +573,7 @@
       <xsl:value-of select="$subcollection"/>
     </field>
 
-  <xsl:call-template name="facs_and_text"/>
+    <xsl:call-template name="facs_and_text"/>
 
   </xsl:template>
 
