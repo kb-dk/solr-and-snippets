@@ -44,6 +44,9 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
 	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs3/",$pid) (: because of caching problem :)
 	else if(contains($path,"gv") ) then  concat("/public/tekstportal/gv/", $pid)
+
+	else if(contains($path,"letters") ) then  concat("/public/dk_breve/", $pid)
+
   else concat("public/",$pid)
   return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
@@ -112,12 +115,14 @@ declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:s
 {
 	let $pth := 
 	if(contains($path,"tfs")) then "public/tekstportal/tfs3/"
+	else if(contains($path,"letters")) then "public/dk_breve/"
 	else if(contains($path,"gv")) then "public/tekstportal/gv/"
 	else "public/"
 
 	let $cleaner := fn:replace ($pid,".jpg","")
 	let $year    := substring-before($cleaner,"_")
-	
+
+	let $letterpid := concat($pth,fn:replace ($cleaner,"images/",""))
 	let $gvpid   := concat($pth,$year,"/",$year,"GV/",fn:replace ($pid,"_fax.*$",""),"/", fn:replace ($cleaner,"_fax.*$","_tif_side/"),$cleaner)
 (:
 https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_tif_side/info.json
@@ -125,6 +130,7 @@ https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_ti
 :)
 	return
 	  if(contains($path,"gv")) then $gvpid
+		else if(contains($path,"letters")) then $letterpid
 		else if($doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()) then
 				let $graphic := $doc//t:graphic[@xml:id=fn:replace($pid,"#","")]/@url/string()
 				return 
