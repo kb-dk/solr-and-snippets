@@ -65,8 +65,10 @@
   <xsl:param name="url" select="concat($uri_base,$file)"/>
   <xsl:param name="submixion" select="''"/>
 
+  <xsl:param name="subcollection">letters</xsl:param>
+  
   <xsl:param name="status" select="''"/>
-  <!-- Status: created|waiting|working|completed -->
+  <!-- Status: created|waiting|working|completed | (added later: published -->
 
   <xsl:param name="app" select="''"/>
   <!-- the name of the application, used by bifrost solr -->
@@ -216,6 +218,11 @@
       </xsl:choose>
     </xsl:element>
 
+    <xsl:element name="field">
+      <xsl:attribute name="name">subcollection_ssi</xsl:attribute>
+      <xsl:value-of select="$subcollection"/>
+    </xsl:element>
+    
     <xsl:if test="@n">
     <xsl:element name="field">
       <xsl:attribute name="name">letter_number_isi</xsl:attribute>
@@ -365,6 +372,8 @@
       <xsl:value-of  select="count(preceding::node())"/>
     </xsl:element>
 
+    <xsl:call-template name="facs_and_text"/>
+    
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
 
   </xsl:template>
@@ -470,7 +479,7 @@
 
     <xsl:for-each select="/t:TEI">
       <xsl:for-each select="descendant::node()[@xml:id=$bibl]">
-	<xsl:for-each select="t:date">
+	<xsl:for-each select="t:date[string()]">
 	  <xsl:element name="field">
 	    <xsl:attribute name="name">date_ssim</xsl:attribute>
 	    <xsl:value-of select="."/>

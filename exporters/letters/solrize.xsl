@@ -55,6 +55,8 @@
   <xsl:param name="url" select="concat($uri_base,$file)"/>
   <xsl:param name="submixion" select="''"/>
 
+  <xsl:param name="subcollection" select="'letters'"/>
+
   <xsl:param name="status" select="''"/>
   <!-- Status: created|waiting|working|completed -->
 
@@ -69,6 +71,7 @@
     </xsl:element>
   </xsl:template>
 
+ 
   <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
   <xsl:template match="t:div">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
@@ -270,11 +273,13 @@
       </xsl:choose>
     </xsl:element>
 
+    <xsl:element name="field"><xsl:attribute name="name">subcollection_ssi</xsl:attribute>letters</xsl:element>
+    
     <xsl:if test="@n">
-    <xsl:element name="field">
-      <xsl:attribute name="name">letter_number_isi</xsl:attribute>
-      <xsl:value-of select="1 + count(preceding::node()[@decls])"/>
-    </xsl:element>
+      <xsl:element name="field">
+        <xsl:attribute name="name">letter_number_isi</xsl:attribute>
+        <xsl:value-of select="1 + count(preceding::node()[@decls])"/>
+      </xsl:element>
     </xsl:if>
 
     <xsl:if test="$work_id">
