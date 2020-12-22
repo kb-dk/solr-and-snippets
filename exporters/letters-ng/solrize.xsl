@@ -256,6 +256,7 @@
       </xsl:element>
     </xsl:if>
 
+    <xsl:element name="field"><xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>breve</xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">contains_ssi</xsl:attribute>prose</xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">has_model_ssim</xsl:attribute>Letter</xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">volume_id_ssi</xsl:attribute><xsl:value-of select="$path"/></xsl:element>
