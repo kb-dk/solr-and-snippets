@@ -108,10 +108,12 @@
 
   </xsl:template>
 
+
+  <!-- xsl:attribute name="name">text_type_ssi</xsl:attribute -->
   <xsl:template name="text_type">
     <xsl:if test="@subtype">
       <xsl:element name="field">
-	<xsl:attribute name="name">text_type_ssi</xsl:attribute>
+	<xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>
 	<xsl:choose>
 	  <xsl:when test="@subtype='journalsAndPapers'">Journaler og papirer</xsl:when>
 	  <xsl:when test="@subtype='publishedWritings'">Trykte skrifter</xsl:when>
