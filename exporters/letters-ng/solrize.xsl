@@ -202,7 +202,7 @@
   </xsl:template>
 
   <xsl:template name="add_globals">
-    <xsl:param name="category">text</xsl:param>
+    <xsl:param name="category">work</xsl:param>
     <xsl:param name="worktitle" select="''"/>
 
 
@@ -285,30 +285,33 @@
       </xsl:element>
     </xsl:if>
 
-    <xsl:element name="field">
-      <xsl:attribute name="name">author_name_ssim</xsl:attribute>
-      <xsl:value-of select="$author"/>
-    </xsl:element>
+    <xsl:choose>
+      <xsl:when test="@decls">
+        <xsl:call-template name="letter_info"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="field">
+          <xsl:attribute name="name">author_name_ssim</xsl:attribute>
+          <xsl:value-of select="$author"/>
+        </xsl:element>
 
-    <xsl:element name="field">
-      <xsl:attribute name="name">author_name_tesim</xsl:attribute>
-      <xsl:value-of select="$author"/>
-    </xsl:element>
+        <xsl:element name="field">
+          <xsl:attribute name="name">author_name_tesim</xsl:attribute>
+          <xsl:value-of select="$author"/>
+        </xsl:element>
 
-     <xsl:element name="field">
-      <xsl:attribute name="name">author_nasim</xsl:attribute>
-      <xsl:value-of select="$author"/>
-    </xsl:element>
+        <xsl:element name="field">
+          <xsl:attribute name="name">author_nasim</xsl:attribute>
+          <xsl:value-of select="$author"/>
+        </xsl:element>
+        
+        <xsl:element name="field">
+          <xsl:attribute name="name">author_id_ssim</xsl:attribute>
+          <xsl:value-of select="$author_id"/>
+        </xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
     
-    <xsl:element name="field">
-      <xsl:attribute name="name">author_id_ssim</xsl:attribute>
-      <xsl:value-of select="$author_id"/>
-    </xsl:element>
-
-    <xsl:if test="@decls">
-      <xsl:call-template name="letter_info"/>
-    </xsl:if>
-
     <xsl:element name="field">
       <xsl:attribute name="name">copyright_ssi</xsl:attribute>
       <xsl:value-of select="$copyright"/>
@@ -543,7 +546,10 @@
 
 	<xsl:for-each select="t:respStmt[t:resp/node() and t:name//text()]">
 	  <xsl:variable name="field">
-	    <xsl:value-of select="t:resp"/>
+            <xsl:choose>
+              <xsl:when test="contains(t:resp,'sender')">author</xsl:when>
+              <xsl:otherwise>person</xsl:otherwise>
+            </xsl:choose>
 	  </xsl:variable>
 	  <xsl:for-each select="t:name">
 	    <xsl:element name="field">
