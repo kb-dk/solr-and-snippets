@@ -552,25 +552,35 @@
             </xsl:choose>
 	  </xsl:variable>
 	  <xsl:for-each select="t:name">
+            
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">
-		<xsl:value-of select="concat($field,'_ssim')"/>
+		<xsl:value-of select="concat($field,'_name_ssim')"/>
 	      </xsl:attribute>
 	      <xsl:if test="t:surname[text()]"><xsl:value-of select="t:surname"/><xsl:text>, </xsl:text></xsl:if><xsl:value-of select="t:forename"/>
 	    </xsl:element>
-	      <xsl:element name="field">
-		<xsl:attribute name="name">
-		  <xsl:value-of select="concat($field,'_tesim')"/>
-		</xsl:attribute>
-		<xsl:value-of select="t:forename"/><xsl:if test="t:surname[text()]"><xsl:text> </xsl:text></xsl:if><xsl:value-of select="t:surname"/>
-	      </xsl:element>
+            
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">
+		<xsl:value-of select="concat($field,'_name_tesim')"/>
+	      </xsl:attribute>
+	      <xsl:value-of select="t:forename"/><xsl:if test="t:surname[text()]"><xsl:text> </xsl:text></xsl:if><xsl:value-of select="t:surname"/>
+	    </xsl:element>
+            
+            <xsl:element name="field">
+	      <xsl:attribute name="name">
+		<xsl:value-of select="concat($field,'_nasim')"/>
+	      </xsl:attribute>
+	      <xsl:value-of select="t:forename"/><xsl:if test="t:surname[text()]"><xsl:text> </xsl:text></xsl:if><xsl:value-of select="t:surname"/>
+	    </xsl:element>
 
-	      <xsl:element name="field">
-		<xsl:attribute name="name">
-		  <xsl:value-of select="concat($field,'_id_ssim')"/>
-		</xsl:attribute>
-		<xsl:value-of select="@ref"/>
-	      </xsl:element>
+            
+	    <xsl:element name="field">
+	      <xsl:attribute name="name">
+		<xsl:value-of select="concat($field,'_id_ssim')"/>
+	      </xsl:attribute>
+	      <xsl:value-of select="@ref"/>
+	    </xsl:element>
 
 	  </xsl:for-each>
 	</xsl:for-each>
