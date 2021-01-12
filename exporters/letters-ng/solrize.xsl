@@ -114,6 +114,11 @@
         <xsl:value-of select="$worktitle"/>
       </xsl:element>
 
+      <xsl:element name="field">
+        <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+        <xsl:value-of select="$worktitle"/>
+      </xsl:element>
+      
       <xsl:call-template name="add_globals">
         <xsl:with-param name="worktitle" select="''"/>
 	<xsl:with-param name="category">
