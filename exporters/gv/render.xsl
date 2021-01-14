@@ -43,12 +43,12 @@
 
 
 
-  <!-- we leave the references to bible stuff, because addressing is far too complicated |t:rs[@type='bible'] -->
-  <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']">
+  <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']">
     <xsl:variable name="entity">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
         <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
+        <xsl:when test="@type='bible'">Bibel</xsl:when>
 	<xsl:otherwise>comment</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -85,7 +85,9 @@
       <xsl:attribute name="title">
 	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
       </xsl:attribute>
-      <xsl:call-template name="add_id"/><a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a><xsl:apply-templates/></span>
+      <xsl:call-template name="add_id"/><xsl:choose><xsl:when test="@type='bible'"><a class="{$entity}" title="Kommentar"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a><xsl:apply-templates/></xsl:when><xsl:otherwise>
+<a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a></xsl:otherwise></xsl:choose>
+    </span>
   </xsl:template>
 
 
