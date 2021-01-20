@@ -553,7 +553,9 @@
       <xsl:attribute name="class">text snippetRoot</xsl:attribute>      
     </xsl:if>
     <xsl:choose>
-      <xsl:when test="not(descendant::node())"><xsl:comment>Instead of content</xsl:comment></xsl:when>
+      <xsl:when test="not(descendant::node())"><xsl:text>
+</xsl:text></xsl:when>
+      <!-- xsl:when test="not(descendant::node())"><xsl:comment>Instead of content</xsl:comment></xsl:when -->
       <xsl:otherwise>
 	<xsl:if test="$expose = 'true'">
 	  <xsl:call-template name="expose_link"/>
