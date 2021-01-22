@@ -57,7 +57,7 @@ sub caps {
     my $data = shift;
     my $doc = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
     $doc .= "<bibl xmlns='http://www.tei-c.org/ns/1.0'>\n";
-    $doc .= "<ref type='Verk' target='txt.xml'/>\n";
+    $doc .= "<ref type='Værk' target='txt.xml'/>\n";
     while( my ($key,$val) = each %$data) {
 	next unless $key =~ m/xml$/;
 	$doc .=  '<relatedItem type="' . $val . '" target="' . $key . '"/>'."\n";
