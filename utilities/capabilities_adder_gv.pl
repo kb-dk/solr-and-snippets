@@ -30,11 +30,11 @@ if(open(FIND,"$find_cmd |") ) {
 	    if($file =~ m/intro.xml/) {
 		$type = "Indledning";
 	    } elsif($file =~ m/com.xml/) {
-		$type = "Tekstkommentarer";
+		$type = "Kommentarer";
 	    } elsif($file =~ m/txr.xml/) {
-		$type = "Tekstredegørelse";
+		$type = "Tekstredegørelser";
 	    } elsif($file =~ m/v0.xml/) {
-		$type = "Variant";
+		$type = "Varianter";
 	    }
 
 	    my $rel = $file;
@@ -57,7 +57,7 @@ sub caps {
     my $data = shift;
     my $doc = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
     $doc .= "<bibl xmlns='http://www.tei-c.org/ns/1.0'>\n";
-    $doc .= "<ref type='Hovedtekst' target='txt.xml'/>\n";
+    $doc .= "<ref type='Verk' target='txt.xml'/>\n";
     while( my ($key,$val) = each %$data) {
 	next unless $key =~ m/xml$/;
 	$doc .=  '<relatedItem type="' . $val . '" target="' . $key . '"/>'."\n";

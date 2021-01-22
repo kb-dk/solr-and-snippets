@@ -86,7 +86,7 @@
 	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
       </xsl:attribute>
       <xsl:call-template name="add_id"/><xsl:choose><xsl:when test="@type='bible'"><a class="{$entity}" title="Kommentar"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a><xsl:apply-templates/></xsl:when><xsl:otherwise>
-<a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a></xsl:otherwise></xsl:choose>
+<a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span> </a></xsl:otherwise></xsl:choose> <xsl:value-of select="."/>
     </span>
   </xsl:template>
 
