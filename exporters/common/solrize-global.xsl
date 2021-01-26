@@ -448,6 +448,9 @@
     <xsl:param name="category"  select="''"/>
     
     <xsl:comment> add_globals called </xsl:comment>
+
+    <xsl:call-template name="extract_enities"/>
+    
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
@@ -669,6 +672,44 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="extract_enities">
+
+    <xsl:for-each select="descendant-or-self::t:persName">
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">person_ssim</xsl:with-param>
+      </xsl:call-template>
+       <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">person_tesim</xsl:with-param>
+      </xsl:call-template>
+    </xsl:for-each>
+    
+    <xsl:for-each select="descendant-or-self::t:placeName">
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">location_ssim</xsl:with-param>
+      </xsl:call-template>
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">location_tesim</xsl:with-param>
+      </xsl:call-template>
+    </xsl:for-each>
+    
+  </xsl:template>
+
+  <xsl:template name="mkentity">
+    <xsl:param name="entity_field"/>
+    <xsl:call-template name="mkfield">
+      <xsl:with-param name="field"><xsl:value-of select="$entity_field"/></xsl:with-param>
+      <xsl:with-param name="value">
+        <xsl:choose>
+          <xsl:when test="@key">
+            <xsl:value-of select="@key"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="."/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
   
   <xsl:template name="text_extracts">
 
