@@ -674,21 +674,21 @@
 
   <xsl:template name="extract_enities">
 
-    <xsl:for-each select="descendant-or-self::t:persName">
+    <xsl:for-each select="fn:distinct-values(descendant-or-self::t:persName)">
       <xsl:call-template name="mkentity">
-        <xsl:with-param name="entity_field">person_ssim</xsl:with-param>
+        <xsl:with-param name="entity_field">person_name_ssim</xsl:with-param>
       </xsl:call-template>
        <xsl:call-template name="mkentity">
-        <xsl:with-param name="entity_field">person_tesim</xsl:with-param>
+        <xsl:with-param name="entity_field">person_name_tesim</xsl:with-param>
       </xsl:call-template>
     </xsl:for-each>
     
-    <xsl:for-each select="descendant-or-self::t:placeName">
+    <xsl:for-each select="fn:distinct-values(descendant-or-self::t:placeName)">
       <xsl:call-template name="mkentity">
-        <xsl:with-param name="entity_field">location_ssim</xsl:with-param>
+        <xsl:with-param name="entity_field">other_location_ssim</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="mkentity">
-        <xsl:with-param name="entity_field">location_tesim</xsl:with-param>
+        <xsl:with-param name="entity_field">other_location_tesim</xsl:with-param>
       </xsl:call-template>
     </xsl:for-each>
     
@@ -699,14 +699,7 @@
     <xsl:call-template name="mkfield">
       <xsl:with-param name="field"><xsl:value-of select="$entity_field"/></xsl:with-param>
       <xsl:with-param name="value">
-        <xsl:choose>
-          <xsl:when test="@key">
-            <xsl:value-of select="@key"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="."/>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:value-of select="."/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
