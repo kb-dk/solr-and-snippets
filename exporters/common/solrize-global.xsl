@@ -59,6 +59,22 @@
     </xsl:choose>
   </xsl:param>
 
+  <xsl:param name="num_authors">
+    <xsl:choose>
+      <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author">
+        <xsl:value-of
+            select="count(distinct-values(//t:sourceDesc/t:listBibl/t:bibl/t:author/string()))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author">1</xsl:when>
+          <xsl:when test="//t:fileDesc/t:titleStmt/t:author">1</xsl:when>
+          <xsl:otherwise>0</xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
+  
   <xsl:param name="worktitle">
     <xsl:if test="contains($is_monograph,'yes')">
       <xsl:value-of select="$volume_title"/>
@@ -214,8 +230,8 @@
       <xsl:comment> about to call add_globals from trunc_doc </xsl:comment>
       
       <xsl:call-template name="add_globals">
-        <xsl:with-param name="worktitle" select="''"/>
-        <xsl:with-param name="category"  select="''"/>
+        <xsl:with-param name="worktitle" select="$worktitle"/>
+        <xsl:with-param name="category"  select="$worktitle"/>
       </xsl:call-template>
 
       <xsl:element name="field">
@@ -519,10 +535,15 @@
     </xsl:if>
 
     <xsl:choose>
-      <xsl:when test="contains($path,'authors')">
+      <xsl:when test="contains($path,'adl-authors')">
+        <xsl:call-template name="extract_titles_authors_etc">
+          <xsl:with-param name="worktitle" select="$worktitle"/>
+        </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:call-template name="extract_titles_authors_etc"/>
+        <xsl:call-template name="extract_titles_authors_etc">
+          <xsl:with-param name="worktitle" select="$worktitle"/>
+        </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -564,6 +585,11 @@
       <xsl:value-of  select="count(preceding::node())"/>
     </xsl:element>
 
+    <xsl:element name="field">
+      <xsl:attribute name="name">num_authors_isi</xsl:attribute>
+      <xsl:value-of  select="$num_authors"/>
+    </xsl:element>
+    
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
 
     <field name="application_ssim">
@@ -643,9 +669,9 @@
     <xsl:value-of select="$str3"/>
   </xsl:template>
 
-  <xsl:template name="author_ssim">
+  <!-- xsl:template name="author_ssim">
     <xsl:value-of select="normalize-space(.)"/>
-  </xsl:template>
+  </xsl:template -->
 
   <xsl:template mode="backtrack" match="node()[@xml:id]">
     <xsl:choose>
@@ -767,10 +793,14 @@
   </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
-    <xsl:call-template name="common_extract_titles_authors_etc"/>
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:call-template name="common_extract_titles_authors_etc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="common_extract_titles_authors_etc">
+    <xsl:param name="worktitle" select="''"/>
 
     <xsl:choose>
       <xsl:when test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/node()">
@@ -788,11 +818,12 @@
 	    <xsl:for-each select="t:author">
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_ssim</xsl:attribute>
-		<xsl:call-template name="author_ssim"/>
+		<!-- xsl:call-template name="author_ssim"/ -->
+                <xsl:value-of select="normalize-space(.)"/>
 	      </xsl:element>
 	      <xsl:element name="field">
 		<xsl:attribute name="name">author_name_tesim</xsl:attribute>
-		<xsl:choose>
+		<xsl:choose> <!-- Looks like we are handling Saxo et al. -->
 		  <xsl:when test="t:name/t:forename">
 		    <xsl:value-of select="t:name/t:forename"/>
 		    <xsl:if test="t:name/t:surname">
@@ -876,14 +907,16 @@
       <xsl:otherwise>
 	<xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
 	  <xsl:if test="t:title">
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	      <xsl:value-of select="t:title"/>
-	    </xsl:element>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_ssim</xsl:attribute>
-	      <xsl:value-of select="t:title"/>
-	    </xsl:element>
+            <xsl:if test="$worktitle">
+	      <xsl:element name="field">
+	        <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	        <xsl:value-of select="t:title"/>
+	      </xsl:element>
+	      <xsl:element name="field">
+	        <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+	        <xsl:value-of select="t:title"/>
+	      </xsl:element>
+            </xsl:if>
 	  </xsl:if>
 
 	  <xsl:element name="field">

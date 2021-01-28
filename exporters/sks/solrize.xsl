@@ -146,6 +146,7 @@
   </xsl:template>
 
   <xsl:template name="extract_titles_authors_etc">
+    <xsl:param name="worktitle" select="''"/>
     <xsl:choose>
       <xsl:when test="contains($path,'-txt')">
 	<xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Kierkegaard, Søren</xsl:element>

@@ -31,6 +31,10 @@
   <xsl:param name="capabilities" select="''"/>
   <xsl:param name="cap" select="document($capabilities)"/>
 
+  <xsl:param name="sup_style">vertical-align: baseline; position: relative; bottom: .33em;</xsl:param>
+  <xsl:param name="sub_style">vertical-align: baseline; position: relative; bottom: -.33em;</xsl:param>
+  
+
   <xsl:output method="xml"
 	      encoding="UTF-8"
 	      indent="yes"/>
@@ -52,8 +56,7 @@
   <xsl:template name="inline_note">
     <xsl:call-template name="general_note_code">
       <xsl:with-param name="display" select="'none'"/>
-    </xsl:call-template>
-    <xsl:call-template name="show_note">
+    </xsl:call-template><xsl:call-template name="show_note">
       <xsl:with-param name="display" select="'none'"/>
     </xsl:call-template>
   </xsl:template>
@@ -61,22 +64,15 @@
   <xsl:template name="show_note">
     <xsl:param name="display" select="'none'"/>
     <xsl:param name="bgcolor" select="'yellow'"/>
-    <div style="background-color:{$bgcolor};display:{$display};">
-      <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
-    </div>
+    <span style="background-color:{$bgcolor};display:{$display};"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
   </xsl:template>
 
   <xsl:template name="general_note_code">
     <xsl:param name="display" select="'none'"/>
     <xsl:param name="lbl" select="'*'"/>
-    <xsl:variable name="idstring">
-      <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
-    </xsl:variable>
-    <xsl:variable name="note">
-      <xsl:value-of select="concat('note',$idstring)"/>
-    </xsl:variable>
-    <xsl:element name="sup">
+    <xsl:variable name="idstring"><xsl:value-of select="translate(@xml:id,'-;.','___')"/></xsl:variable>
+    <xsl:variable name="note"><xsl:value-of select="concat('note',$idstring)"/></xsl:variable>
+
       <script>
 	var <xsl:value-of select="concat('disp',$idstring)"/>="none";
 	function <xsl:value-of select="$note"/>() {
@@ -93,6 +89,7 @@
 
       <xsl:element name="a">
 	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
+        <xsl:attribute name="style"><xsl:value-of select="$sup_style"/></xsl:attribute>
 	<xsl:if test="@type='author'">
 	  <xsl:attribute name="title">Forfatterens note.</xsl:attribute>
 	</xsl:if>
@@ -101,7 +98,7 @@
 	  <xsl:otherwise><xsl:value-of select="$lbl"/></xsl:otherwise>
 	</xsl:choose>
       </xsl:element>
-    </xsl:element>
+
 
   </xsl:template>
 

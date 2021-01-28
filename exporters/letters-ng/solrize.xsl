@@ -450,6 +450,15 @@
 	      <xsl:value-of select="."/>
 	    </xsl:element>
 
+            <xsl:element name="field">
+	      <xsl:attribute name="name">other_location_ssim</xsl:attribute>
+	      <xsl:value-of select="."/>
+            </xsl:element>
+            <xsl:element name="field">
+              <xsl:attribute name="name">other_location_tesim</xsl:attribute>
+	      <xsl:value-of select="."/>
+            </xsl:element>
+
 	  </xsl:for-each>
 	</xsl:for-each>
       </xsl:for-each>
@@ -477,15 +486,7 @@
 	</xsl:attribute>
 	<xsl:value-of select="."/>
       </xsl:element>
-      
-       <xsl:element name="field">
-	<xsl:attribute name="name">other_location_text_ssim</xsl:attribute>
-	<xsl:value-of select="."/>
-      </xsl:element>
-      <xsl:element name="field">
-        <xsl:attribute name="name">other_location_text_tesim</xsl:attribute>
-	<xsl:value-of select="."/>
-      </xsl:element>
+  
       
     </xsl:for-each>
 
