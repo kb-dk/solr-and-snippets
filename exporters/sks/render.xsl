@@ -32,9 +32,9 @@
 
   -->
   <xsl:template match="t:pb">
-      <xsl:if test="@facs">
+      <!-- xsl:if test="@facs">
 	<xsl:call-template name="sks_page_specimen"/>
-      </xsl:if>
+      </xsl:if -->
 
       <xsl:variable name="witness">
 	<xsl:value-of select="replace(@edRef,'#','')"/>

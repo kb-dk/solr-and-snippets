@@ -167,7 +167,7 @@
 	  </xsl:element>
 
 	  <xsl:element name="field">
-	    <xsl:attribute name="name">author_name_ssi</xsl:attribute>
+	    <xsl:attribute name="name">author_name_ssim</xsl:attribute>
 	    <xsl:value-of select="$bibl/t:author"/>
 	  </xsl:element>
 
@@ -185,21 +185,20 @@
           </xsl:element>
 	</xsl:for-each>
         
-        <xsl:if test="$bibl/t:date[@type='release']">
+	<xsl:for-each select="$bibl/t:date[contains(@when,'17')][1]">
           <xsl:element name="field">
 	    <xsl:attribute name="name">year_itsi</xsl:attribute>
-	    <xsl:for-each select="$bibl/t:date[@type='release'][1]">
-              <xsl:choose>
-                <xsl:when test="@when">
-                  <xsl:value-of select="me:year-extractor(@when/string())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="me:year-extractor(./string())"/>
-                </xsl:otherwise>
-              </xsl:choose>
-	    </xsl:for-each>
-	  </xsl:element>
-        </xsl:if>
+            <xsl:choose>
+              <xsl:when test="@when">
+                <xsl:value-of select="me:year-extractor(@when/string())"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="me:year-extractor(./string())"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:element>
+	</xsl:for-each>
+
       </xsl:if>
     </xsl:if>
 

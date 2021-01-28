@@ -36,16 +36,20 @@
 	      indent="yes"/>
 
   <xsl:template match="/">
-    <xsl:choose>
-      <xsl:when test="$id">
-	<xsl:for-each select="//node()[$id=@xml:id]">
-	  <xsl:apply-templates select="."/>
-	</xsl:for-each>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:element name="div">
+      <xsl:attribute name="class"><xsl:value-of select="concat('collection-',$c)"/></xsl:attribute>
+      <xsl:attribute name="id">root</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="$id">
+	  <xsl:for-each select="//node()[$id=@xml:id]">
+	    <xsl:apply-templates select="."/>
+	  </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+	  <xsl:apply-templates/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="t:TEI">
