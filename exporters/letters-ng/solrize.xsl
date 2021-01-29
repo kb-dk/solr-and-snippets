@@ -564,15 +564,15 @@
       <xsl:for-each select="descendant::node()[@xml:id=$bibl]">
 
         <xsl:variable name="supplied_title">
-          <xsl:text>BREV TIL: </xsl:text>
+          <xsl:text>BREV</xsl:text>
           
-          <xsl:for-each select="t:respStmt[contains(t:resp,'recipient') and t:name//text()]">
+          <xsl:for-each select="t:respStmt[contains(t:resp,'recipient') and t:name//text()][1]">
+            <xsl:text> TIL: </xsl:text>
             <xsl:value-of select="t:name"/>
           </xsl:for-each>
 
-          <xsl:text> FRA: </xsl:text>
-          
-          <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
+            <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
+            <xsl:text> FRA: </xsl:text>
             <xsl:value-of select="t:name"/>
           </xsl:for-each>
 
@@ -588,6 +588,11 @@
 
         <xsl:element name="field">
           <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+          <xsl:value-of select="$supplied_title"/>
+        </xsl:element>
+
+        <xsl:element name="field">
+          <xsl:attribute name="name">work_title_ssi</xsl:attribute>
           <xsl:value-of select="$supplied_title"/>
         </xsl:element>
         
