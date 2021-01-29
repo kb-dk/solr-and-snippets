@@ -545,6 +545,34 @@
 
   </xsl:template>
 
+  <!-- We need to generate the titles when indexing, because now we
+       want to be able to sort the result set -->
+
+  <xsl:template name="generate_title">
+    <xsl:param name="bibl" select="''"/>
+    
+    <xsl:for-each select="/t:TEI">
+      <xsl:for-each select="descendant::node()[@xml:id=$bibl]">
+
+        <xsl:text>BREV TIL: </xsl:text>
+        <xsl:for-each select="t:respStmt[contains(t:resp,'recipient') and t:name//text()]">
+          <xsl:value-of select="t:name"/>
+        </xsl:for-each>
+
+        <xsl:text> FRA: </xsl:text>
+        <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
+          <xsl:value-of select="t:name"/>
+        </xsl:for-each>
+
+	<xsl:for-each select="t:date[string()]">
+	  <xsl:text> (</xsl:text><xsl:value-of select="."/><xsl:text>)</xsl:text>
+	</xsl:for-each>
+
+      </xsl:for-each>
+      
+    </xsl:for-each>
+    
+  </xsl:template>
 
   <xsl:template name="extract_agents">
     <xsl:param name="bibl" select="''"/>
