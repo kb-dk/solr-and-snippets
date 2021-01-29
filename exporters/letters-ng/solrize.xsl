@@ -98,6 +98,7 @@
 			       select="t:head"/>
 	</xsl:when>
 	<xsl:otherwise>
+          <xsl:value-of select="substring(.,0,50)"/>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -109,15 +110,17 @@
 	<xsl:text>trunk</xsl:text>
       </xsl:element>
 
-      <xsl:element name="field">
-        <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-        <xsl:value-of select="$worktitle"/>
-      </xsl:element>
+      <xsl:if test="not(@decls) and $worktitle">
+        <xsl:element name="field">
+          <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+          <xsl:value-of select="$worktitle"/>
+        </xsl:element>
 
-      <xsl:element name="field">
-        <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-        <xsl:value-of select="$worktitle"/>
-      </xsl:element>
+        <xsl:element name="field">
+          <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+          <xsl:value-of select="$worktitle"/>
+        </xsl:element>
+      </xsl:if>
       
       <xsl:call-template name="add_globals">
         <xsl:with-param name="worktitle" select="''"/>
@@ -409,16 +412,22 @@
 
     <!-- we should only look for letter info stuff if we're in a LLO (letter
 	 like object) -->
-  
-      <xsl:call-template name="extract_places">  
-	<xsl:with-param name="bibl" select="$bibl"/>
-      </xsl:call-template>
-      <xsl:call-template name="extract_agents">  
-	<xsl:with-param name="bibl" select="$bibl"/>
-      </xsl:call-template>
-      <xsl:call-template name="extract_dates">
-	<xsl:with-param name="bibl" select="$bibl"/>
-      </xsl:call-template>
+
+    <xsl:call-template name="generate_title">
+      <xsl:with-param name="bibl" select="$bibl"/>
+    </xsl:call-template>
+      
+    <xsl:call-template name="extract_places">  
+      <xsl:with-param name="bibl" select="$bibl"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="extract_agents">  
+      <xsl:with-param name="bibl" select="$bibl"/>
+    </xsl:call-template>
+      
+    <xsl:call-template name="extract_dates">
+      <xsl:with-param name="bibl" select="$bibl"/>
+    </xsl:call-template>
 
   </xsl:template>
 
@@ -495,7 +504,6 @@
   <xsl:template name="extract_dates">
     <xsl:param name="bibl" select="''"/>
 
-
     <xsl:for-each select="/t:TEI">
       <xsl:for-each select="descendant::node()[@xml:id=$bibl]">
 	<xsl:for-each select="t:date[string()]">
@@ -546,7 +554,8 @@
   </xsl:template>
 
   <!-- We need to generate the titles when indexing, because now we
-       want to be able to sort the result set -->
+       want to be able to sort the result set. In the original dkbreve
+       the titles were generated in the rails frontend -->
 
   <xsl:template name="generate_title">
     <xsl:param name="bibl" select="''"/>
@@ -554,20 +563,34 @@
     <xsl:for-each select="/t:TEI">
       <xsl:for-each select="descendant::node()[@xml:id=$bibl]">
 
-        <xsl:text>BREV TIL: </xsl:text>
-        <xsl:for-each select="t:respStmt[contains(t:resp,'recipient') and t:name//text()]">
-          <xsl:value-of select="t:name"/>
-        </xsl:for-each>
+        <xsl:variable name="supplied_title">
+          <xsl:text>BREV TIL: </xsl:text>
+          
+          <xsl:for-each select="t:respStmt[contains(t:resp,'recipient') and t:name//text()]">
+            <xsl:value-of select="t:name"/>
+          </xsl:for-each>
 
-        <xsl:text> FRA: </xsl:text>
-        <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
-          <xsl:value-of select="t:name"/>
-        </xsl:for-each>
+          <xsl:text> FRA: </xsl:text>
+          
+          <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
+            <xsl:value-of select="t:name"/>
+          </xsl:for-each>
 
-	<xsl:for-each select="t:date[string()]">
-	  <xsl:text> (</xsl:text><xsl:value-of select="."/><xsl:text>)</xsl:text>
-	</xsl:for-each>
+	  <xsl:for-each select="t:date[string()]">
+	    <xsl:text> (</xsl:text><xsl:value-of select="."/><xsl:text>)</xsl:text>
+	  </xsl:for-each>
+        </xsl:variable>
 
+        <xsl:element name="field">
+          <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+          <xsl:value-of select="$supplied_title"/>
+        </xsl:element>
+
+        <xsl:element name="field">
+          <xsl:attribute name="name">work_title_ssim</xsl:attribute>
+          <xsl:value-of select="$supplied_title"/>
+        </xsl:element>
+        
       </xsl:for-each>
       
     </xsl:for-each>
