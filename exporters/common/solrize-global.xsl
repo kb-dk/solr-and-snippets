@@ -128,19 +128,11 @@
         <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
         <xsl:with-param name="worktitle" select="t:head"/>
       </xsl:apply-templates>
-
-
       
   </xsl:template>
 
-
   <xsl:template name="get_category">
     <xsl:param name="category"/>
-    <xsl:choose>
-      <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
-      <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
-      <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
-    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
@@ -189,6 +181,10 @@
 
   </xsl:template>
 
+  <xsl:template name="is_editorial">
+    <xsl:param name="category"  select="''"/>
+    <xsl:choose><xsl:when test="contains($category,'editorial')">yes</xsl:when><xsl:otherwise>no</xsl:otherwise></xsl:choose>
+  </xsl:template>
 
   <xsl:template name="trunk_doc">
     <xsl:param name="worktitle" select="''"/>
@@ -198,8 +194,15 @@
       <xsl:comment> trunk_doc </xsl:comment>
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
+
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
-      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
+
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial">
+      <xsl:with-param name="category"  select="$category"/>
+      </xsl:call-template>
+     </xsl:element>
+
+     <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
       <xsl:if test="string-length($worktitle) &gt; 0">
 	<xsl:element name="field">
@@ -391,6 +394,12 @@
       
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
+
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial">
+      <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
+      </xsl:call-template>
+     </xsl:element>
+      
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
       <xsl:if test="string-length($volume_title)">

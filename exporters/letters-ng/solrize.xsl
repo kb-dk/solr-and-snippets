@@ -80,7 +80,15 @@
       <xsl:call-template name="generate_volume_doc"/>   
       <xsl:apply-templates/>
     </xsl:element>
-  </xsl:template -->
+    </xsl:template -->
+
+
+  <xsl:template name="is_editorial">
+    <xsl:choose>
+      <xsl:when test="ancestor-or-self::node()[@decls][1]">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
   <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
   <xsl:template match="t:div">

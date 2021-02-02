@@ -48,6 +48,27 @@
     </xsl:choose>
   </xsl:param>
 
+  <xsl:template name="is_editorial">
+    <xsl:choose>
+      <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+      <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="ancestor-or-self::node()[@decls][1]">no</xsl:when>
+          <xsl:otherwise>yes</xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="get_category">
+    <xsl:param name="category"/>
+    <xsl:choose>
+      <xsl:when test="contains($path,'adl-texts')"><xsl:value-of select="$category"/></xsl:when>
+      <xsl:when test="contains($path,'adl-authors')">author</xsl:when>
+      <xsl:when test="contains($path,'adl-periods')">period</xsl:when>
+    </xsl:choose>
+  </xsl:template>
 
   <xsl:template name="what_i_can"/>
 

@@ -73,21 +73,36 @@
 	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
         <xsl:when test="contains(local-name(.),'place')">Plads</xsl:when>
         <xsl:when test="@type='myth'">Mytologi</xsl:when>
-        <xsl:when test="@type='bible'">Bibel</xsl:when>
+        <xsl:when test="@type='bible'"><xsl:value-of select="@key"/></xsl:when>
 	<xsl:otherwise>Titel</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <span class="{$entity}" style="font-style: italic;">
-      <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
-      <xsl:variable name="uri">
-        <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
-      </xsl:variable>
+
+    <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
+    <xsl:variable name="uri">
+      <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
+    </xsl:variable>
+
+    <xsl:element name="a">
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="class">
+        <xsl:value-of select="$entity"/>
+      </xsl:attribute>
+
       <xsl:attribute name="title">
 	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
       </xsl:attribute>
-      <xsl:call-template name="add_id"/><xsl:choose><xsl:when test="@type='bible'"><a class="{$entity}" title="Kommentar"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a><xsl:apply-templates/></xsl:when><xsl:otherwise>
-<a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span> </a></xsl:otherwise></xsl:choose> <xsl:value-of select="."/>
-    </span>
+        
+      <xsl:attribute name="data-toggle">modal</xsl:attribute>
+      <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+      <xsl:if test="not(contains(@type,'bible'))">
+        <xsl:attribute name="href">
+          <xsl:value-of select="$uri"/>
+        </xsl:attribute>
+      </xsl:if>
+      <span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span> <xsl:apply-templates/>
+    </xsl:element>
+
   </xsl:template>
 
 
