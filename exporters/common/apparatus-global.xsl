@@ -331,7 +331,7 @@
   </xsl:template>
 
   <xsl:template match="t:app">
-    <xsl:apply-templates mode="text" select="t:lem"/> 
+
     <xsl:element name="span">
       <xsl:call-template name="apparatus-marker"><xsl:with-param name="marker">&#128712; </xsl:with-param></xsl:call-template>
     </xsl:element>
@@ -346,6 +346,8 @@
       </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
     </span>
 
+    <xsl:apply-templates mode="text" select="t:lem"/> 
+    
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:note">
