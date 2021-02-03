@@ -73,7 +73,7 @@
 	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
         <xsl:when test="contains(local-name(.),'place')">Plads</xsl:when>
         <xsl:when test="@type='myth'">Mytologi</xsl:when>
-        <xsl:when test="@type='bible'"><xsl:value-of select="@key"/></xsl:when>
+        <xsl:when test="@type='bible'">Bibel</xsl:when>
 	<xsl:otherwise>Titel</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
