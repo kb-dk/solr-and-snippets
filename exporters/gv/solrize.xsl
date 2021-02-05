@@ -41,6 +41,14 @@
     <xsl:value-of select="$worktitle"/>
   </xsl:param>
 
+  <xsl:template name="is_editorial">
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    <xsl:choose>
+      <xsl:when test="contains($category,'work')">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template name="get_category">
     <xsl:choose>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>

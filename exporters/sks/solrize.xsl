@@ -58,6 +58,14 @@
     <field name="has_text_ssi">yes</field>
   </xsl:template>
 
+  <xsl:template name="is_editorial">
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    <xsl:choose>
+      <xsl:when test="contains($category,'work')">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <xsl:template name="get_category">
     <xsl:choose>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
@@ -66,7 +74,7 @@
       <xsl:when test="local-name(.) = 'text' and contains($path,'-ekom-')">editorial</xsl:when>
       <xsl:when test="local-name(.) = 'text' and contains($path,'-int_')">editorial</xsl:when>
     </xsl:choose>
-    </xsl:template>
+  </xsl:template>
 
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
 
@@ -76,9 +84,6 @@
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">
-	<xsl:call-template name="get_category"/>
-      </xsl:with-param>
     </xsl:call-template>
 
     <xsl:apply-templates>
@@ -95,9 +100,6 @@
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">
-	<xsl:if test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:if>
-      </xsl:with-param>
     </xsl:call-template>
 
     <xsl:comment> you want to go deeper </xsl:comment>

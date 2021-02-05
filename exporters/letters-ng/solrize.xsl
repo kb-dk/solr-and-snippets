@@ -90,6 +90,15 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="ancestor-or-self::node()[@decls][1]">work</xsl:when>
+      <xsl:otherwise>editorial</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
+  
   <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
   <xsl:template match="t:div">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
@@ -132,12 +141,6 @@
       
       <xsl:call-template name="add_globals">
         <xsl:with-param name="worktitle" select="''"/>
-	<xsl:with-param name="category">
-	  <xsl:choose>
-	    <xsl:when test="@decls">work</xsl:when>
-	    <xsl:otherwise>leaf</xsl:otherwise>
-	  </xsl:choose>
-	</xsl:with-param>
       </xsl:call-template>
 
       <xsl:element name="field">
@@ -211,16 +214,15 @@
         <xsl:value-of select="$volume_title"/>
       </xsl:element>
       <xsl:call-template name="add_globals">
-	<xsl:with-param name="category"><xsl:value-of select="$root_category"/></xsl:with-param>
         <xsl:with-param name="worktitle" select="''"/>
       </xsl:call-template>
     </doc>
   </xsl:template>
 
   <xsl:template name="add_globals">
-    <xsl:param name="category">work</xsl:param>
     <xsl:param name="worktitle" select="''"/>
 
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
 
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>

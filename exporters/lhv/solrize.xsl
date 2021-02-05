@@ -35,9 +35,6 @@
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">
-	<xsl:if test="$i_am_a = 'Hovedtekst'">work</xsl:if>
-      </xsl:with-param>
     </xsl:call-template>
 
     <xsl:apply-templates>
@@ -96,6 +93,23 @@
 
   </xsl:template>
 
+
+  <xsl:template name="is_editorial">
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    <xsl:choose>
+      <xsl:when test="contains($category,'work')">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="$i_am_a = 'Hovedtekst'">work</xsl:when>
+      <xsl:otherwise>editorial</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  
 
 
 </xsl:transform>

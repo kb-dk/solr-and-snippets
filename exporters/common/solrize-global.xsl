@@ -11,7 +11,7 @@
               method="xml"/>
 
   <xsl:param name="app" select="'ADL'"/>
-  <xsl:param name="category" select="'work'"/>
+
   <xsl:param name="doc" select="'a_very_unique_id'"/>
   <xsl:param name="basename" select="substring-before($doc,'.xml')"/>
   <xsl:param name="coll" select="''"/>
@@ -85,26 +85,8 @@
 
   <xsl:template match="/">
     <xsl:element name="add">
-      <xsl:choose>
-	<xsl:when test="contains($path,'adl-authors')">
-	  <xsl:call-template name="generate_volume_doc" >
-	    <xsl:with-param name="cat" select="'author'"/>
-	    <xsl:with-param name="type" select="'work'"/>
-	  </xsl:call-template>
-	  <xsl:apply-templates/>
-	</xsl:when>
-	<xsl:when test="contains($path,'adl-periods')">
-	  <xsl:call-template name="generate_volume_doc" >
-	    <xsl:with-param name="cat" select="'period'"/>
-	    <xsl:with-param name="type" select="'work'"/>
-	  </xsl:call-template>
-	  <xsl:apply-templates/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:call-template name="generate_volume_doc" />
-	  <xsl:apply-templates/>
-	</xsl:otherwise>
-      </xsl:choose>
+      <xsl:call-template name="generate_volume_doc" />
+      <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
@@ -121,33 +103,23 @@
 	  </xsl:otherwise>
 	  </xsl:choose>
 	</xsl:with-param>
-	<xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
       </xsl:call-template>
 
       <xsl:apply-templates>
-        <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
         <xsl:with-param name="worktitle" select="t:head"/>
       </xsl:apply-templates>
       
   </xsl:template>
 
-  <xsl:template name="get_category">
-    <xsl:param name="category"/>
-  </xsl:template>
+  <xsl:template name="get_category">work</xsl:template>
 
   <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
     
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">
-	<xsl:call-template name="get_category"/>
-      </xsl:with-param>
     </xsl:call-template>
 
     <xsl:apply-templates>
-      <xsl:with-param name="category">
-	<xsl:call-template name="get_category"/>
-      </xsl:with-param>
       <xsl:with-param name="worktitle" select="t:head"/>
     </xsl:apply-templates>
 
@@ -172,7 +144,6 @@
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category"  select="'work'"/>
     </xsl:call-template>
 
     <xsl:apply-templates>
@@ -182,24 +153,24 @@
   </xsl:template>
 
   <xsl:template name="is_editorial">
-    <xsl:param name="category"  select="''"/>
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
     <xsl:choose><xsl:when test="contains($category,'editorial')">yes</xsl:when><xsl:otherwise>no</xsl:otherwise></xsl:choose>
   </xsl:template>
 
   <xsl:template name="trunk_doc">
     <xsl:param name="worktitle" select="''"/>
-    <xsl:param name="category"  select="''"/>
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+
     <doc>
 
       <xsl:comment> trunk_doc </xsl:comment>
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
 
-      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:call-template name="get_category"/></xsl:element>
 
-      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial">
-      <xsl:with-param name="category"  select="$category"/>
-      </xsl:call-template>
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/>
+
      </xsl:element>
 
      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
@@ -234,7 +205,6 @@
       
       <xsl:call-template name="add_globals">
         <xsl:with-param name="worktitle" select="$worktitle"/>
-        <xsl:with-param name="category"  select="$worktitle"/>
       </xsl:call-template>
 
       <xsl:element name="field">
@@ -263,6 +233,8 @@
   <xsl:template match="t:castList">
   
     <xsl:param name="worktitle" select="''"/>
+
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
 
     <doc>
       <xsl:comment> castList </xsl:comment>
@@ -385,19 +357,27 @@
 
 
   <xsl:template name="generate_volume_doc">
-    <xsl:param name="type" select="'trunk'"/>
-    <xsl:param name="cat" select="'volume'"/>
     <xsl:param name="is_monograph" select="$is_monograph"/>
+
+    <xsl:variable name="is_editorial">
+      <xsl:call-template name="is_editorial"/>
+    </xsl:variable>
+
+    <!-- this must be wrong, but it is the way it works -->
+    <xsl:variable name="type" select="'trunk'">
+      <xsl:choose>
+        <xsl:when test="$is_editorial = 'yes'">work</xsl:when>
+        <xsl:otherwise>trunk</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
 
     <doc>
       <xsl:comment> generate_volume_doc </xsl:comment>
       
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
-      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$cat"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:call-template name="get_category"/></xsl:element>
 
-      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial">
-      <xsl:with-param name="category"><xsl:call-template name="get_category"/></xsl:with-param>
-      </xsl:call-template>
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/>
      </xsl:element>
       
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
@@ -470,7 +450,6 @@
 
   <xsl:template name="add_globals">
     <xsl:param name="worktitle" select="''"/>
-    <xsl:param name="category"  select="''"/>
     
     <xsl:comment> add_globals called </xsl:comment>
 
