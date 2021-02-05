@@ -364,7 +364,7 @@
     </xsl:variable>
 
     <!-- this must be wrong, but it is the way it works -->
-    <xsl:variable name="type" select="'trunk'">
+    <xsl:variable name="type">
       <xsl:choose>
         <xsl:when test="$is_editorial = 'yes'">work</xsl:when>
         <xsl:otherwise>trunk</xsl:otherwise>
