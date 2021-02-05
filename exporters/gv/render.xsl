@@ -40,9 +40,7 @@
 
   </xsl:template>
 
-
-
-
+  
   <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']">
     <xsl:variable name="entity">
       <xsl:choose>
@@ -85,9 +83,9 @@
 
     <xsl:element name="a">
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
-      <xsl:attribute name="class">
+      <!-- xsl:attribute name="class">
         <xsl:value-of select="$entity"/>
-      </xsl:attribute>
+      </xsl:attribute -->
 
       <xsl:attribute name="title">
 	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
