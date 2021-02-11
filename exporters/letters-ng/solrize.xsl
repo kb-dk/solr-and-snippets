@@ -96,8 +96,6 @@
       <xsl:otherwise>editorial</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-
   
   <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
   <xsl:template match="t:div">

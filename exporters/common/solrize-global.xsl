@@ -90,40 +90,32 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
-    
-      <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle">
-	  <xsl:choose>
-	    <xsl:when test="string-length(worktitle)">
-	      <xsl:value-of select="$worktitle"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:value-of select="t:head[1]"/>
-	  </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:with-param>
-      </xsl:call-template>
+  <xsl:template match="t:div[ not(@decls) and not(ancestor::node()[@decls])] |
+                       t:text[not(@decls) and not(ancestor::node()[@decls])]">
 
-      <xsl:apply-templates>
-        <xsl:with-param name="worktitle" select="t:head"/>
-      </xsl:apply-templates>
+    <xsl:variable name="tit">
+      <xsl:choose>
+	<xsl:when test="string-length($worktitle)">
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:when>
+	<xsl:otherwise>
+          
+	  <xsl:value-of select="t:head[1]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:call-template name="trunk_doc">
+	<xsl:with-param name="worktitle" select="$tit"/>
+    </xsl:call-template>
+
+    <xsl:apply-templates>
+      <xsl:with-param name="worktitle" select="$tit"/>
+    </xsl:apply-templates>
       
   </xsl:template>
 
   <xsl:template name="get_category">work</xsl:template>
-
-  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
-    
-    <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:call-template>
-
-    <xsl:apply-templates>
-      <xsl:with-param name="worktitle" select="t:head"/>
-    </xsl:apply-templates>
-
-  </xsl:template>
 
   <xsl:template match="node()[@decls]">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
@@ -159,7 +151,13 @@
 
   <xsl:template name="trunk_doc">
     <xsl:param name="worktitle" select="''"/>
-    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    
+    <xsl:variable name="category">
+      <xsl:choose>
+        <xsl:when test="@decls">work</xsl:when>
+        <xsl:otherwise><xsl:call-template name="get_category"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
 
     <doc>
 
@@ -167,11 +165,9 @@
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
 
-      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:call-template name="get_category"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
-      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/>
-
-     </xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
 
      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
@@ -363,18 +359,10 @@
       <xsl:call-template name="is_editorial"/>
     </xsl:variable>
 
-    <!-- this must be wrong, but it is the way it works -->
-    <xsl:variable name="type">
-      <xsl:choose>
-        <xsl:when test="$is_editorial = 'yes'">work</xsl:when>
-        <xsl:otherwise>trunk</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
     <doc>
       <xsl:comment> generate_volume_doc </xsl:comment>
       
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:value-of select="$type"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>volume</xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:call-template name="get_category"/></xsl:element>
 
       <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/>
