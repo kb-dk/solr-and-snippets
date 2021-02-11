@@ -85,7 +85,12 @@
       </xsl:attribute -->
 
       <xsl:attribute name="title">
-	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
+        <xsl:choose>
+          <xsl:when test="contains($title,'Bibel')"><xsl:value-of select="@key"/></xsl:when>
+          <xsl:otherwise>
+	    <xsl:value-of select="$title"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
         
       <xsl:attribute name="data-toggle">modal</xsl:attribute>
@@ -96,6 +101,9 @@
         </xsl:attribute>
       </xsl:if>
       <span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span> <xsl:apply-templates/>
+
+      <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
+      
     </xsl:element>
 
   </xsl:template>

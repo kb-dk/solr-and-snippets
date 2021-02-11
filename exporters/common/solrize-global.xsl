@@ -163,7 +163,13 @@
 
       <xsl:comment> trunk_doc </xsl:comment>
 
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute><xsl:text>trunk</xsl:text></xsl:element>
+      <xsl:element name="field">
+        <xsl:attribute name="name">type_ssi</xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="@decls">work</xsl:when>
+          <xsl:otherwise>trunk</xsl:otherwise>
+        </xsl:choose>
+      </xsl:element>      
 
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
@@ -205,16 +211,10 @@
 
       <xsl:element name="field">
 	<xsl:attribute name="name">text_tesim</xsl:attribute>
-	<xsl:choose>
-	  <xsl:when test="$category = 'editorial'">
-	    <xsl:apply-templates mode="gettext" 
-				 select="./text()|descendant::node()[not(@decls)]/text()"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates mode="gettext" 
-				 select="./text()|descendant::node()/text()"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+
+	<xsl:apply-templates mode="gettext" 
+			     select="./text()|descendant::node()/text()"/>
+	
       </xsl:element>
 
       <xsl:call-template name="text_extracts"/>
@@ -242,14 +242,10 @@
       </xsl:element>
       <xsl:element name="field">
 	<xsl:attribute name="name">text_tesim</xsl:attribute>
-	<xsl:choose>
-	  <xsl:when test="$category = 'editorial'">
-	  </xsl:when>
-	  <xsl:otherwise>
+
 	    <xsl:apply-templates mode="gettext" 
 				 select="./text()|descendant::node()/text()"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+	
       </xsl:element>
     </doc>
   </xsl:template>
@@ -362,11 +358,17 @@
     <doc>
       <xsl:comment> generate_volume_doc </xsl:comment>
       
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>volume</xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:call-template name="get_category"/></xsl:element>
+      <xsl:choose>
+        <xsl:when test="contains($is_monograph,'yes')">
+          <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>work</xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>volume</xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
 
-      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/>
-     </xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
       
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
 
