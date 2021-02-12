@@ -80,9 +80,9 @@
 
     <xsl:element name="a">
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
-      <!-- xsl:attribute name="class">
+      <xsl:attribute name="class">
         <xsl:value-of select="$entity"/>
-      </xsl:attribute -->
+      </xsl:attribute>
 
       <xsl:attribute name="title">
         <xsl:choose>
