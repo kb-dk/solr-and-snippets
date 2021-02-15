@@ -52,13 +52,6 @@
   <xsl:param name="auid" select="''"/>
   <xsl:param name="perioid" select="''"/>
 
-  <xsl:param name="is_monograph">
-    <xsl:choose>
-      <xsl:when test="count(//node()[@decls])&lt;2">yes</xsl:when>
-      <xsl:otherwise>no</xsl:otherwise>
-    </xsl:choose>
-  </xsl:param>
-
   <xsl:param name="num_authors">
     <xsl:choose>
       <xsl:when test="//t:sourceDesc/t:listBibl/t:bibl/t:author">
@@ -74,14 +67,23 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:param>
-  
+
+  <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
+
   <xsl:param name="worktitle">
+    <xsl:variable name="is_monograph"><xsl:call-template name="is_a_monograph"/></xsl:variable>
     <xsl:if test="contains($is_monograph,'yes')">
       <xsl:value-of select="$volume_title"/>
     </xsl:if>
   </xsl:param>
-
-  <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
+  
+  <xsl:template name="is_a_monograph">
+    <xsl:choose>
+      <xsl:when test="count(/t:TEI//node()[@decls])&lt;2">yes</xsl:when>
+      <xsl:otherwise>no</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 
   <xsl:template match="/">
     <xsl:element name="add">
@@ -146,15 +148,35 @@
 
   <xsl:template name="is_editorial">
     <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
-    <xsl:choose><xsl:when test="contains($category,'editorial')">yes</xsl:when><xsl:otherwise>no</xsl:otherwise></xsl:choose>
+    <xsl:choose>
+      <xsl:when test="contains($category,'editorial')">yes</xsl:when>
+      <xsl:when test="contains($category,'author')">yes</xsl:when>
+      <xsl:when test="contains($category,'period')">yes</xsl:when>
+      <xsl:otherwise>no</xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="is_literary">
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    <xsl:choose>
+      <xsl:when test="contains($category,'editorial')">no</xsl:when>
+      <xsl:when test="contains($category,'author')">no</xsl:when>
+      <xsl:when test="contains($category,'period')">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <xsl:template name="trunk_doc">
     <xsl:param name="worktitle" select="''"/>
+
+    <xsl:variable name="is_monograph">
+      <xsl:call-template name="is_a_monograph"/>
+    </xsl:variable>
     
     <xsl:variable name="category">
       <xsl:choose>
-        <xsl:when test="@decls">work</xsl:when>
+        <!-- xsl:when test="@decls">work</xsl:when -->
+        <xsl:when test="ancestor-or-self::node()[@decls]">work</xsl:when>
         <xsl:otherwise><xsl:call-template name="get_category"/></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -175,7 +197,7 @@
 
       <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
 
-     <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
+     <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:call-template name="is_a_monograph"/></xsl:element>
 
       <xsl:if test="string-length($worktitle) &gt; 0">
 	<xsl:element name="field">
@@ -217,6 +239,24 @@
 	
       </xsl:element>
 
+      <!-- I removed this. I put it here as a comment since I am not
+           really sure it was very clever to cut it away -->
+      
+      <!-- xsl:element name="field">
+	<xsl:attribute name="name">text_tesim</xsl:attribute>
+	<xsl:choose>
+	  <xsl:when test="$category = 'editorial'">
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()[not(@decls)]/text()"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()/text()"/>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:element -->
+
+      
       <xsl:call-template name="text_extracts"/>
       <xsl:call-template name="text_type"/>
 
@@ -349,7 +389,7 @@
 
 
   <xsl:template name="generate_volume_doc">
-    <xsl:param name="is_monograph" select="$is_monograph"/>
+    <xsl:param name="is_monograph"><xsl:call-template name="is_a_monograph"/></xsl:param>
 
     <xsl:variable name="is_editorial">
       <xsl:call-template name="is_editorial"/>
@@ -370,7 +410,7 @@
 
       <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
       
-      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:value-of select="$is_monograph"/></xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:call-template name="is_a_monograph"/></xsl:element>
 
       <xsl:if test="string-length($volume_title)">
 	<xsl:choose>
