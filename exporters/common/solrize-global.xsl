@@ -199,50 +199,50 @@
 
      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:call-template name="is_a_monograph"/></xsl:element>
 
-      <xsl:if test="string-length($worktitle) &gt; 0">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	  <xsl:value-of select="$worktitle"/>
-	</xsl:element>
+     <xsl:if test="string-length($worktitle) &gt; 0">
+       <xsl:element name="field">
+	 <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	 <xsl:value-of select="$worktitle"/>
+       </xsl:element>
 
-	<xsl:element name="field">
-	  <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
-	  <xsl:call-template name="str_massage">
-	    <xsl:with-param name="str" select="$worktitle"/>
-	  </xsl:call-template>
-	</xsl:element>
+       <xsl:element name="field">
+	 <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	 <xsl:call-template name="str_massage">
+	   <xsl:with-param name="str" select="$worktitle"/>
+	 </xsl:call-template>
+       </xsl:element>
 
-	<xsl:element name="field">
-	  <xsl:attribute name="name">volume_sort_title_ssi</xsl:attribute>
-	  <xsl:call-template name="str_massage">
-	    <xsl:with-param name="str" select="$volume_sort_title"/>
-	  </xsl:call-template>
-	</xsl:element>
+       <xsl:element name="field">
+	 <xsl:attribute name="name">volume_sort_title_ssi</xsl:attribute>
+	 <xsl:call-template name="str_massage">
+	   <xsl:with-param name="str" select="$volume_sort_title"/>
+	 </xsl:call-template>
+       </xsl:element>
 
-	<xsl:element name="field">
-	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	  <xsl:value-of select="$worktitle"/>
-	</xsl:element>
-      </xsl:if>
+       <xsl:element name="field">
+	 <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	 <xsl:value-of select="$worktitle"/>
+       </xsl:element>
+     </xsl:if>
 
-      <xsl:comment> about to call add_globals from trunc_doc </xsl:comment>
+     <xsl:comment> about to call add_globals from trunc_doc </xsl:comment>
       
-      <xsl:call-template name="add_globals">
-        <xsl:with-param name="worktitle" select="$worktitle"/>
-      </xsl:call-template>
+     <xsl:call-template name="add_globals">
+       <xsl:with-param name="worktitle" select="$worktitle"/>
+     </xsl:call-template>
 
-      <xsl:element name="field">
-	<xsl:attribute name="name">text_tesim</xsl:attribute>
+     <xsl:element name="field">
+       <xsl:attribute name="name">text_tesim</xsl:attribute>
 
-	<xsl:apply-templates mode="gettext" 
-			     select="./text()|descendant::node()/text()"/>
+       <xsl:apply-templates mode="gettext" 
+			    select="./text()|descendant::node()/text()"/>
 	
-      </xsl:element>
+     </xsl:element>
 
-      <!-- I removed this. I put it here as a comment since I am not
-           really sure it was very clever to cut it away -->
+     <!-- I removed this. I put it here as a comment since I am not
+          really sure it was very clever to cut it away -->
       
-      <!-- xsl:element name="field">
+     <!-- xsl:element name="field">
 	<xsl:attribute name="name">text_tesim</xsl:attribute>
 	<xsl:choose>
 	  <xsl:when test="$category = 'editorial'">
@@ -257,8 +257,8 @@
       </xsl:element -->
 
       
-      <xsl:call-template name="text_extracts"/>
-      <xsl:call-template name="text_type"/>
+     <xsl:call-template name="text_extracts"/>
+     <xsl:call-template name="text_type"/>
 
 
     </doc>
