@@ -51,11 +51,11 @@
 
   <xsl:template name="get_category">
     <xsl:choose>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-v0-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-com-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-intro-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-txt-')">work</xsl:when>
+      <xsl:when test="contains($path,'-v0-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-txr-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-com-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-intro-')">editorial</xsl:when>
     </xsl:choose>
   </xsl:template>
 

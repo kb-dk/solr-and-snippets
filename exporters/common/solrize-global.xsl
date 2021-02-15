@@ -395,6 +395,9 @@
       <xsl:call-template name="is_editorial"/>
     </xsl:variable>
 
+
+    <xsl:comment> <xsl:call-template name="get_category"/> </xsl:comment>
+    
     <doc>
       <xsl:comment> generate_volume_doc </xsl:comment>
       
