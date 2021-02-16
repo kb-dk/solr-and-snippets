@@ -231,32 +231,6 @@
        <xsl:with-param name="worktitle" select="$worktitle"/>
      </xsl:call-template>
 
-     <xsl:element name="field">
-       <xsl:attribute name="name">text_tesim</xsl:attribute>
-
-       <xsl:apply-templates mode="gettext" 
-			    select="./text()|descendant::node()/text()"/>
-	
-     </xsl:element>
-
-     <!-- I removed this. I put it here as a comment since I am not
-          really sure it was very clever to cut it away -->
-      
-     <!-- xsl:element name="field">
-	<xsl:attribute name="name">text_tesim</xsl:attribute>
-	<xsl:choose>
-	  <xsl:when test="$category = 'editorial'">
-	    <xsl:apply-templates mode="gettext" 
-				 select="./text()|descendant::node()[not(@decls)]/text()"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates mode="gettext" 
-				 select="./text()|descendant::node()/text()"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </xsl:element -->
-
-      
      <xsl:call-template name="text_extracts"/>
      <xsl:call-template name="text_type"/>
 
@@ -395,7 +369,6 @@
       <xsl:call-template name="is_editorial"/>
     </xsl:variable>
 
-
     <xsl:comment> <xsl:call-template name="get_category"/> </xsl:comment>
     
     <doc>
@@ -478,6 +451,10 @@
       <xsl:comment> about to call add_globals from generate_volume_doc </xsl:comment>
       <xsl:call-template name="add_globals" />
 
+      <xsl:if test="contains($is_monograph,'yes')">
+        <xsl:call-template name="text_extracts"/>
+      </xsl:if>
+      
     </doc>
   </xsl:template>
 
@@ -785,7 +762,32 @@
 	</xsl:call-template>
       </xsl:when>
     </xsl:choose>
-   
+
+    <xsl:element name="field">
+       <xsl:attribute name="name">text_tesim</xsl:attribute>
+
+       <xsl:apply-templates mode="gettext" 
+			    select="./text()|descendant::node()/text()"/>
+	
+    </xsl:element>
+
+     <!-- I removed this. I put it here as a comment since I am not
+          really sure it was very clever to cut it away -->
+      
+     <!-- xsl:element name="field">
+	<xsl:attribute name="name">text_tesim</xsl:attribute>
+	<xsl:choose>
+	  <xsl:when test="$category = 'editorial'">
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()[not(@decls)]/text()"/>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()/text()"/>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:element -->
+    
 
     <xsl:element name="field">
       <xsl:attribute name="name">performance_extract_tesim</xsl:attribute>

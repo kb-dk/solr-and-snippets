@@ -45,8 +45,6 @@
   <xsl:template match="/">
     <xsl:element name="add">
       <xsl:call-template name="generate_volume_doc" >
-	<xsl:with-param name="cat">volume</xsl:with-param>
-	<xsl:with-param name="type" select="'trunk'"/>
 	<xsl:with-param name="is_monograph" select="'yes'"/>
       </xsl:call-template>
       <xsl:apply-templates/>
@@ -68,15 +66,15 @@
   
   <xsl:template name="get_category">
     <xsl:choose>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-kom-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-ekom-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-int_')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-txt-')">work</xsl:when>
+      <xsl:when test="contains($path,'-txr-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-kom-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-ekom-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-int_')">editorial</xsl:when>
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
+  <!-- xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
 
     <xsl:comment> work: <xsl:value-of select="$worktitle"/></xsl:comment>
     <xsl:comment> volume/series: <xsl:value-of select="$volume_title"/></xsl:comment>
@@ -108,7 +106,7 @@
       <xsl:with-param name="worktitle" select="$worktitle"/>
     </xsl:apply-templates>
 
-  </xsl:template>
+  </xsl:template -->
 
 
   <!-- xsl:attribute name="name">text_type_ssi</xsl:attribute -->
