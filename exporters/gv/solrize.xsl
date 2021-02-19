@@ -79,7 +79,7 @@
     select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
   </xsl:template>
 
-  <xsl:template mode="backtrack" match="node()[@xml:id]">
+  <!-- xsl:template mode="backtrack" match="node()[@xml:id]">
     <xsl:element name="field">
       <xsl:attribute name="name">part_of_ssim</xsl:attribute>
       <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
@@ -95,7 +95,7 @@
 	</xsl:element>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
+  </xsl:template -->
 
   <xsl:template name="me_looks_like">
 

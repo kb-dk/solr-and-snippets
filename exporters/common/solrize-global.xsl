@@ -702,7 +702,17 @@
 	</xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
+        <xsl:choose>
+          <xsl:when test="ancestor::node()[@decls]">
+	    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:element name="field">
+	      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
+	      <xsl:value-of select="$path"/>
+	    </xsl:element>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

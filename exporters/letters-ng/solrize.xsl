@@ -65,6 +65,8 @@
   <xsl:param name="url" select="concat($uri_base,$file)"/>
   <xsl:param name="submixion" select="''"/>
 
+  <xsl:param name="is_monograph" select="'no'"/>
+  
   <xsl:param name="subcollection">letters</xsl:param>
   
   <xsl:param name="status" select="''"/>
@@ -120,10 +122,34 @@
 
     <doc>
 
+      <xsl:choose>
+        <xsl:when test="@decls">
+          <xsl:element name="field">
+	    <xsl:attribute name="name">cat_ssi</xsl:attribute>
+	    <xsl:text>work</xsl:text>
+          </xsl:element>
+          <xsl:element name="field">
+	    <xsl:attribute name="name">is_editorial_ssi</xsl:attribute>
+	    <xsl:text>no</xsl:text>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="field">
+	    <xsl:attribute name="name">cat_ssi</xsl:attribute>
+	    <xsl:text>editorial</xsl:text>
+          </xsl:element>
+          <xsl:element name="field">
+	    <xsl:attribute name="name">is_editorial_ssi</xsl:attribute>
+	    <xsl:text>yes</xsl:text>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+
       <xsl:element name="field">
 	<xsl:attribute name="name">type_ssi</xsl:attribute>
-	<xsl:text>trunk</xsl:text>
+	<xsl:text>work</xsl:text>
       </xsl:element>
+
 
       <xsl:if test="not(@decls) and $worktitle">
         <xsl:element name="field">
@@ -260,10 +286,10 @@
       </xsl:element>
     </xsl:if>
 
-    <xsl:element name="field">
+    <!-- xsl:element name="field">
       <xsl:attribute name="name">cat_ssi</xsl:attribute>
       <xsl:value-of select="$category"/>
-    </xsl:element>
+    </xsl:element -->
 
     <xsl:if test="$app">
       <xsl:element name="field">
@@ -524,7 +550,7 @@
             <xsl:value-of select="me:year-extractor(./string())"/>
 	  </xsl:variable>
 
-	  <xsl:if test="$ditsi">
+	  <xsl:if test="number($ditsi) = $ditsi">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute>
 	      <xsl:value-of select="$ditsi"/>
