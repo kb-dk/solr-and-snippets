@@ -261,6 +261,13 @@
 				 select="./text()|descendant::node()/text()"/>
 	
       </xsl:element>
+      <xsl:element name="field">
+	<xsl:attribute name="name">text_tsim</xsl:attribute>
+
+	<xsl:apply-templates mode="gettext" 
+				 select="./text()|descendant::node()/text()"/>
+	
+      </xsl:element>
     </doc>
   </xsl:template>
 
@@ -273,6 +280,8 @@
 
       <xsl:call-template name="add_globals"/>
 
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
+      
       <xsl:element name="field">
         <xsl:attribute name="name">genre_ssi</xsl:attribute>
         <xsl:text>play</xsl:text>
@@ -315,6 +324,8 @@
 
       <xsl:call-template name="add_globals"/>
 
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
+      
       <xsl:element name="field">
         <xsl:attribute name="name">genre_ssi</xsl:attribute>
         <xsl:text>poetry</xsl:text>
@@ -337,7 +348,7 @@
     <doc>
 
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
-
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
       <xsl:call-template name="add_globals"/>
 
       <xsl:element name="field">
