@@ -489,10 +489,16 @@
     </xsl:element>
 
     <xsl:if test="contains($path,'gv-')">
-      <xsl:element name="field">
-	<xsl:attribute name="name">year_itsi</xsl:attribute>
-        <xsl:value-of select="me:year-extractor($path)"/>
-      </xsl:element>
+      <xsl:variable name="ditsi">
+        <xsl:value-of select="number(me:year-extractor($path))"/>
+      </xsl:variable>
+
+      <xsl:if test="not(contains($ditsi,'NaN'))">
+        <xsl:element name="field">
+	  <xsl:attribute name="name">year_itsi</xsl:attribute>X
+          <xsl:value-of select="$ditsi"/>
+        </xsl:element>
+      </xsl:if>
     </xsl:if>
 
     <xsl:if test="@xml:id">

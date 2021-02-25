@@ -79,29 +79,11 @@
     select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
   </xsl:template>
 
-  <!-- xsl:template mode="backtrack" match="node()[@xml:id]">
-    <xsl:element name="field">
-      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
-    </xsl:element>
-    <xsl:choose>
-      <xsl:when test="ancestor::node()">
-	<xsl:apply-templates mode="backtrack" select="ancestor::t:div[1]|ancestor::t:text[1]"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:element name="field">
-	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$path"/>
-	</xsl:element>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template -->
-
   <xsl:template name="me_looks_like">
 
   </xsl:template>
 
-  <xsl:template match="t:row[@role]">
+  <xsl:template match="t:row">
 
     <xsl:param name="worktitle" select="''"/>
 
