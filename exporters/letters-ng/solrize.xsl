@@ -547,10 +547,10 @@
 	  </xsl:element>
 	  <xsl:variable name="ditsi">
 	    <!-- xsl:value-of select="number(substring(.,1,4))"/ -->
-            <xsl:value-of select="me:year-extractor(./string())"/>
+            <xsl:value-of select="number(me:year-extractor(./string()))"/>
 	  </xsl:variable>
-
-	  <xsl:if test="number($ditsi) = $ditsi">
+          <xsl:if test="not(contains($ditsi,'NaN'))">
+	  <!-- xsl:if test="number($ditsi) = $ditsi" -->
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute>
 	      <xsl:value-of select="$ditsi"/>

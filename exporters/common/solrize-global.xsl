@@ -999,7 +999,7 @@
   <!-- good enough if this is tei @when -->
   <xsl:function name="me:year-extractor">
     <xsl:param name="date_content"/>
-    <xsl:value-of select="fn:replace($date_content,'^.*(1\d\d\d).*$','$1')"/>
+    <xsl:value-of select="fn:replace($date_content,'^.*(1\d{3}).*$','$1')"/>
   </xsl:function>
   
   <xsl:template name="date_semantics">
