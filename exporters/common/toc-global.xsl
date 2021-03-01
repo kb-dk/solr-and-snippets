@@ -21,41 +21,30 @@ Author Sigfrid Lundberg slu@kb.dk
 	      omit-xml-declaration="yes"/>
 
   <xsl:template match="/">
-    <xsl:call-template name="do_root"/>
-  </xsl:template>
-
-  <xsl:template name="do_root">
-  <div>
-      <xsl:comment>
-	<xsl:value-of select="$path"/>
-      </xsl:comment>
-      <ul>
-	<xsl:choose>
-	  <xsl:when test="//node()[@decls]">
-	    <xsl:for-each  select="//node()[not(@decls)]//node()[@decls]">
-	      <xsl:apply-templates select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
-	    </xsl:for-each>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates select="//t:body"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </ul>
+    <div>
+      <xsl:apply-templates mode="get_lists" select="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
     </div>
   </xsl:template>
-  
-  <xsl:template match="t:teiHeader"/>
 
-  <xsl:template match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
+  <xsl:template match="t:teiHeader"/>
+  
+  <xsl:template mode="get_lists" match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
+    <xsl:comment>
+      <xsl:value-of select="$path"/>
+    </xsl:comment>
+    <ul>
+      <xsl:apply-templates mode="get_items" select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
+    </ul>
+  </xsl:template>
+
+  <xsl:template mode="get_items" match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
     <xsl:element name="li">
       <xsl:attribute name="id">
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
       <xsl:if test="(count(.//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back)) &gt; 1">
-	<ul>
-	  <xsl:apply-templates select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
-	</ul>
+	<xsl:apply-templates mode="get_lists" select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
       </xsl:if>
     </xsl:element>
   </xsl:template>
