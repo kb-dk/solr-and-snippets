@@ -22,29 +22,31 @@ Author Sigfrid Lundberg slu@kb.dk
 
   <xsl:template match="/">
     <div>
-      <xsl:apply-templates mode="get_lists" select="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
+      <xsl:apply-templates mode="get_lists" select="//t:text"/>
     </div>
   </xsl:template>
 
   <xsl:template match="t:teiHeader"/>
   
-  <xsl:template mode="get_lists" match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
-    <xsl:comment>
-      <xsl:value-of select="$path"/>
-    </xsl:comment>
-    <ul>
-      <xsl:apply-templates mode="get_items" select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
-    </ul>
+  <xsl:template mode="get_lists" match="t:group|t:body|t:text|t:div|t:front|t:back">
+    <xsl:if test="t:group|t:body|t:text|t:div|t:front|t:back">
+      <xsl:comment>
+        <xsl:value-of select="$path"/> shit
+      </xsl:comment>
+      <ul>
+        <xsl:apply-templates mode="get_items" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
+      </ul>
+    </xsl:if>
   </xsl:template>
 
-  <xsl:template mode="get_items" match="node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back">
+  <xsl:template mode="get_items" match="t:group|t:body|t:text|t:div|t:front|t:back">
     <xsl:element name="li">
       <xsl:attribute name="id">
 	<xsl:value-of select="concat('toc',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test="(count(.//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back)) &gt; 1">
-	<xsl:apply-templates mode="get_lists" select=".//node()[@decls]|t:group|t:body|t:text|t:div|t:front|t:back"/>
+      <xsl:if test="(count(t:group|t:body|t:text|t:div|t:front|t:back)) &gt; 1">
+	<xsl:apply-templates mode="get_lists" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
       </xsl:if>
     </xsl:element>
   </xsl:template>
@@ -133,7 +135,7 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template name="some_text">
     <xsl:variable name="head_text">
-      <xsl:apply-templates  mode="collect_text" select=".//t:head"/>
+      <xsl:apply-templates  mode="collect_text" select=".//t:head[1]"/>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="string-length($head_text) &gt; 5">
