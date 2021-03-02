@@ -36,8 +36,9 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:if test="@decls|./t:head|.//t:group|.//t:body|.//t:text|.//t:div|.//t:front|.//t:back">
       <ul>
         <xsl:attribute name="id">
-	  <xsl:value-of select="concat('list',@xml:id)"/>
+	  <xsl:value-of select="concat('list-',@xml:id)"/>
         </xsl:attribute>
+        <xsl:comment> first time </xsl:comment>
         <xsl:for-each select=".|t:group|t:body|t:text|t:div|t:front|t:back">
           <xsl:call-template name="get_item"/>
         </xsl:for-each>
@@ -48,8 +49,9 @@ Author Sigfrid Lundberg slu@kb.dk
   <xsl:template name="get_item">
     <xsl:element name="li">
       <xsl:attribute name="id">
-	<xsl:value-of select="concat('item',@xml:id)"/>
+	<xsl:value-of select="concat('item-',@xml:id)"/>
       </xsl:attribute>
+      <xsl:comment> second time </xsl:comment>
       <xsl:call-template name="add_anchor"/>
       <xsl:apply-templates mode="get_lists" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
     </xsl:element>
@@ -128,7 +130,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?.*','root#'),@xml:id)"/>
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','root#'),@xml:id)"/>
 	    </xsl:otherwise>
 	  </xsl:choose>
         </xsl:otherwise>
