@@ -120,15 +120,15 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:if test="@xml:id">
       <xsl:choose>
         <xsl:when test="@decls">
-	  <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?','shoot-'),@xml:id)"/>
+	  <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','root#'),@xml:id)"/>
         </xsl:when>
         <xsl:otherwise>
 	  <xsl:choose>
 	    <xsl:when test="./ancestor::node()[@decls]">
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?','root#'),@xml:id)"/>
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?.*','root#'),@xml:id)"/>
 	    </xsl:otherwise>
 	  </xsl:choose>
         </xsl:otherwise>
