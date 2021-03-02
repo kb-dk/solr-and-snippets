@@ -20,34 +20,38 @@ Author Sigfrid Lundberg slu@kb.dk
 	      method="xml"
 	      omit-xml-declaration="yes"/>
 
-  <xsl:template match="/">
+  <xsl:template match="/t:TEI">
     <div>
-      <xsl:apply-templates mode="get_lists" select="//t:text"/>
+      <xsl:apply-templates mode="get_lists" select="./t:text"/>
     </div>
   </xsl:template>
 
   <xsl:template match="t:teiHeader"/>
-  
-  <xsl:template mode="get_lists" match="t:group|t:body|t:text|t:div|t:front|t:back">
-    <xsl:if test="t:group|t:body|t:text|t:div|t:front|t:back">
-      <xsl:comment>
-        <xsl:value-of select="$path"/> shit
-      </xsl:comment>
+
+  <xsl:template  mode="get_lists" match="t:group|t:body|t:text|t:div|t:front|t:back">
+    <xsl:comment>
+      <xsl:value-of select="$path"/>
+      <xsl:value-of select="t:head"/>
+    </xsl:comment>
+    <xsl:if test="@decls|./t:head|.//t:group|.//t:body|.//t:text|.//t:div|.//t:front|.//t:back">
       <ul>
-        <xsl:apply-templates mode="get_items" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
+        <xsl:attribute name="id">
+	  <xsl:value-of select="concat('list',@xml:id)"/>
+        </xsl:attribute>
+        <xsl:for-each select=".|t:group|t:body|t:text|t:div|t:front|t:back">
+          <xsl:call-template name="get_item"/>
+        </xsl:for-each>
       </ul>
     </xsl:if>
   </xsl:template>
-
-  <xsl:template mode="get_items" match="t:group|t:body|t:text|t:div|t:front|t:back">
+                                       
+  <xsl:template name="get_item">
     <xsl:element name="li">
       <xsl:attribute name="id">
-	<xsl:value-of select="concat('toc',@xml:id)"/>
+	<xsl:value-of select="concat('item',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:if test="(count(t:group|t:body|t:text|t:div|t:front|t:back)) &gt; 1">
-	<xsl:apply-templates mode="get_lists" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
-      </xsl:if>
+      <xsl:apply-templates mode="get_lists" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
     </xsl:element>
   </xsl:template>
 
@@ -83,7 +87,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
 	<xsl:when test="t:head[text()]">
-	    <xsl:apply-templates select="t:head[text()]"/>
+	  <xsl:apply-templates select="t:head[text()]"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
@@ -116,15 +120,15 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:if test="@xml:id">
       <xsl:choose>
         <xsl:when test="@decls">
-	  <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot','shoot-'),@xml:id)"/>
+	  <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?','shoot-'),@xml:id)"/>
         </xsl:when>
         <xsl:otherwise>
 	  <xsl:choose>
 	    <xsl:when test="./ancestor::node()[@decls]">
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot','root#'),@xml:id)"/>
+	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot-?','root#'),@xml:id)"/>
 	    </xsl:otherwise>
 	  </xsl:choose>
         </xsl:otherwise>
