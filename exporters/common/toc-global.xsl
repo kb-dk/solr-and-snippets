@@ -6,7 +6,8 @@ Author Sigfrid Lundberg slu@kb.dk
 -->
 <xsl:transform version="2.0"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
-	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       exclude-result-prefixes="t">
 
   <xsl:param name="id" select="''"/>
@@ -39,7 +40,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	  <xsl:value-of select="concat('list-',@xml:id)"/>
         </xsl:attribute>
         <xsl:comment> first time </xsl:comment>
-        <xsl:for-each select=".|t:group|t:body|t:text|t:div|t:front|t:back">
+        <xsl:for-each select=".|./t:group|./t:body|./t:text|./t:div|./t:front|./t:back">
           <xsl:call-template name="get_item"/>
         </xsl:for-each>
       </ul>
@@ -53,7 +54,7 @@ Author Sigfrid Lundberg slu@kb.dk
       </xsl:attribute>
       <xsl:comment> second time </xsl:comment>
       <xsl:call-template name="add_anchor"/>
-      <xsl:apply-templates mode="get_lists" select="t:group|t:body|t:text|t:div|t:front|t:back"/>
+      <xsl:apply-templates mode="get_lists" select="./t:group|./t:body|./t:text|./t:div|./t:front|./t:back"/>
     </xsl:element>
   </xsl:template>
 
@@ -104,14 +105,7 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:if test="string-length(normalize-space($title)) &gt; 0">
       <xsl:element name="a">
 	<xsl:attribute name="href">
-	  <xsl:choose>
-	    <xsl:when test="$targetOp">
-	      <xsl:value-of select="concat('?path=',$path,'&amp;op=',$targetOp,'#',@xml:id)"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:call-template name="make_href"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
+	  <xsl:call-template name="make_href"/>
 	</xsl:attribute>
 	<xsl:value-of select="$title"/>
       </xsl:element>
@@ -121,17 +115,11 @@ Author Sigfrid Lundberg slu@kb.dk
   <xsl:template name="make_href">
     <xsl:if test="@xml:id">
       <xsl:choose>
-        <xsl:when test="@decls">
-	  <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','root#'),@xml:id)"/>
-        </xsl:when>
+        <xsl:when test="@decls"><xsl:value-of select="concat('/text/',fn:replace($path,'(^.*)((sh)|(r))oot.*$','$1shoot-'),@xml:id)"/></xsl:when>
         <xsl:otherwise>
 	  <xsl:choose>
-	    <xsl:when test="./ancestor::node()[@decls]">
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:value-of select="concat('/text/',replace($path,'(sh)|(r)oot.*$','root#'),@xml:id)"/>
-	    </xsl:otherwise>
+	    <xsl:when test="./ancestor::node()[@decls]"><xsl:value-of select="concat('/text/',fn:replace($path,'(^.*)((sh)|(r))oot.*$','$1shoot-'),./ancestor::node()[@decls][1]/@xml:id,'#',@xml:id)"/></xsl:when>
+	    <xsl:otherwise><xsl:value-of select="concat('/text/',fn:replace($path,'(^.*)((sh)|(r))oot.*$','$1root#'),@xml:id)"/></xsl:otherwise>
 	  </xsl:choose>
         </xsl:otherwise>
       </xsl:choose>
