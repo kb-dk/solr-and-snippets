@@ -29,32 +29,32 @@ Author Sigfrid Lundberg slu@kb.dk
 
   <xsl:template match="t:teiHeader"/>
 
-  <xsl:template  mode="get_lists" match="t:group|t:body|t:text|t:div|t:front|t:back">
+  <xsl:template  mode="get_lists" match="*"></xsl:template>
+  
+  <xsl:template  mode="get_lists" match="t:group|t:body|t:text|t:div|t:lg|t:front|t:back">
+    <xsl:comment> get lists </xsl:comment>
     <xsl:comment>
-      <xsl:value-of select="$path"/>
-      <xsl:value-of select="t:head"/>
+      <xsl:value-of select="$path"/><xsl:text>
+</xsl:text>      <xsl:value-of select="t:head"/>
     </xsl:comment>
     <xsl:if test="@decls|./t:head|.//t:group|.//t:body|.//t:text|.//t:div|.//t:front|.//t:back">
       <ul>
         <xsl:attribute name="id">
 	  <xsl:value-of select="concat('list-',@xml:id)"/>
         </xsl:attribute>
-        <xsl:comment> first time </xsl:comment>
-        <xsl:for-each select=".|./t:group|./t:body|./t:text|./t:div|./t:front|./t:back">
-          <xsl:call-template name="get_item"/>
-        </xsl:for-each>
+        <xsl:call-template name="get_item"/>
       </ul>
     </xsl:if>
   </xsl:template>
                                        
   <xsl:template name="get_item">
+    <xsl:comment> get_item </xsl:comment>
     <xsl:element name="li">
       <xsl:attribute name="id">
 	<xsl:value-of select="concat('item-',@xml:id)"/>
       </xsl:attribute>
-      <xsl:comment> second time </xsl:comment>
       <xsl:call-template name="add_anchor"/>
-      <xsl:apply-templates mode="get_lists" select="./t:group|./t:body|./t:text|./t:div|./t:front|./t:back"/>
+      <xsl:apply-templates mode="get_lists"/> <!-- select="./t:group|./t:body|./t:text|./t:div|./t:front|./t:back"/ -->
     </xsl:element>
   </xsl:template>
 
