@@ -341,6 +341,31 @@
     </doc>
   </xsl:template>
 
+
+  <xsl:template name="make_comment">
+
+    <xsl:param name="worktitle" select="''"/>
+
+    <doc>
+
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
+
+      <xsl:call-template name="add_globals"/>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">genre_ssi</xsl:attribute>
+        <xsl:text>prose</xsl:text>
+      </xsl:element>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">text_tesim</xsl:attribute>
+        <xsl:apply-templates mode="gettext" 
+			     select="./text()|descendant::node()/text()"/>
+      </xsl:element>
+    </doc>
+  </xsl:template>
+
   <xsl:template match="t:div/t:p|t:body/t:p|t:text/t:p">
 
     <xsl:param name="worktitle" select="''"/>
@@ -495,8 +520,7 @@
 
       <xsl:if test="not(contains($ditsi,'NaN'))">
         <xsl:element name="field">
-	  <xsl:attribute name="name">year_itsi</xsl:attribute>X
-          <xsl:value-of select="$ditsi"/>
+	  <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$ditsi"/>
         </xsl:element>
       </xsl:if>
     </xsl:if>
@@ -999,7 +1023,7 @@
   <!-- good enough if this is tei @when -->
   <xsl:function name="me:year-extractor">
     <xsl:param name="date_content"/>
-    <xsl:value-of select="fn:replace($date_content,'^.*(1\d{3}).*$','$1')"/>
+    <xsl:value-of select="fn:replace($date_content,'^.*?(1\d{3}).*$','$1','m')"/>
   </xsl:function>
   
   <xsl:template name="date_semantics">

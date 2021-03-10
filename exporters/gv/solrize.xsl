@@ -79,31 +79,18 @@
     select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
   </xsl:template>
 
-  <xsl:template name="me_looks_like">
-
+  <xsl:template name="make_comment">
   </xsl:template>
 
-  <xsl:template match="t:row">
+  
+  <xsl:template name="me_looks_like">
+  </xsl:template>
+
+  <xsl:template match="t:row|t:note">
 
     <xsl:param name="worktitle" select="''"/>
-
-    <doc>
-
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
-
-      <xsl:call-template name="add_globals"/>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">genre_ssi</xsl:attribute>
-        <xsl:text>prose</xsl:text>
-      </xsl:element>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">text_tesim</xsl:attribute>
-        <xsl:apply-templates mode="gettext" 
-			     select="./text()|descendant::node()/text()"/>
-      </xsl:element>
-    </doc>
+    <xsl:call-template name="make_comment"/>
+    
   </xsl:template>
 
 
