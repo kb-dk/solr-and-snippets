@@ -119,12 +119,12 @@
 	</xsl:attribute>
       </xsl:if>
       <span class="symbol comment">&#9658;</span> 
+      <span>
+        <xsl:attribute name="title">Kommentar</xsl:attribute>
+        <xsl:apply-templates/>
+      </span>
       <xsl:comment> moved the content till after the anchor </xsl:comment>
     </xsl:element>
-    <span>
-      <xsl:attribute name="title">Kommentar</xsl:attribute>
-      <xsl:apply-templates/>
-    </span>
   </xsl:template>
 
   <xsl:template match="t:seg[@type='com']">
@@ -132,20 +132,20 @@
       <xsl:attribute name="title">Kommentar</xsl:attribute>
       <xsl:attribute name="class">comment</xsl:attribute>
       <xsl:choose>
-      <xsl:when test="@n">
-	<xsl:attribute name="href">
-	  <xsl:call-template name="make-href"/>
-	</xsl:attribute>
-	<xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:call-template name="add_id"/>
-      </xsl:otherwise>
-      </xsl:choose><span class="symbol comment">&#9658;</span></xsl:element><span>
-      <xsl:attribute name="title">Kommentar</xsl:attribute>
-      <xsl:apply-templates/>
-    </span>
-    
+        <xsl:when test="@n">
+	  <xsl:attribute name="href">
+	    <xsl:call-template name="make-href"/>
+	  </xsl:attribute>
+	  <xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+	  <xsl:call-template name="add_id"/>
+        </xsl:otherwise>
+        </xsl:choose><span class="symbol comment">&#9658;</span><span>
+        <xsl:attribute name="title">Kommentar</xsl:attribute>
+        <xsl:apply-templates/> hum hum
+      </span>
+    </xsl:element>    
   </xsl:template>
 
   <xsl:template match="t:note">
@@ -331,7 +331,9 @@
   </xsl:template>
 
   <xsl:template match="t:app">
+
     <xsl:apply-templates mode="text" select="t:lem"/> 
+    
     <xsl:element name="span">
       <xsl:call-template name="apparatus-marker"><xsl:with-param name="marker">&#128712; </xsl:with-param></xsl:call-template>
     </xsl:element>
@@ -345,7 +347,7 @@
         </xsl:if><xsl:comment> ; </xsl:comment><!-- /xsl:if -->
       </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
     </span>
-
+    
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:note">

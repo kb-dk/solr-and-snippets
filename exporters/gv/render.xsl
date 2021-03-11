@@ -17,7 +17,7 @@
 
   <xsl:template match="t:seg[@type='com']"><xsl:variable name="href">
       <xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/>
-    </xsl:variable><a class="comment" title="Kommentar" id="{@n}" href="{$href}"><span class="symbol comment">&#9658;</span></a><span class="comment"><xsl:apply-templates/></span></xsl:template>
+    </xsl:variable><a class="comment" title="Kommentar" id="{@n}" href="{$href}"><span class="symbol comment">&#9658;</span><span class="comment"><xsl:apply-templates/></span></a></xsl:template>
 
   <xsl:template name="make-href">
 
