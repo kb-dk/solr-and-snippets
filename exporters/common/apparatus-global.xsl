@@ -331,13 +331,13 @@
   </xsl:template>
 
   <xsl:template match="t:app">
-
-    <xsl:apply-templates mode="text" select="t:lem"/> 
     
     <xsl:element name="span">
       <xsl:call-template name="apparatus-marker"><xsl:with-param name="marker">&#128712; </xsl:with-param></xsl:call-template>
     </xsl:element>
 
+    <xsl:apply-templates mode="text" select="t:lem"/> 
+    
     <span style="background-color:Aquamarine;display:none;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates mode="apparatus" select="t:lem"/><xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
