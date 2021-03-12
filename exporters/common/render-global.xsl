@@ -543,6 +543,11 @@
 	<xsl:attribute name="class">pageBreak</xsl:attribute>
 	<xsl:if test="@n">
 	  <xsl:element name="a">
+            <xsl:if test="@xml:id">
+              <xsl:attribute name="href">
+	        <xsl:value-of select="concat('#',@xml:id)"/>
+              </xsl:attribute>
+            </xsl:if>
 	    <small><xsl:value-of select="@n"/></small>
 	  </xsl:element>
 	</xsl:if>
