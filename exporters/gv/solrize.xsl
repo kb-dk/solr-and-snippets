@@ -82,10 +82,9 @@
   <xsl:template name="me_looks_like">
   </xsl:template>
 
-
-  <xsl:template match="t:text[@type='com']">
+    <xsl:template match="t:text[@type='com' or @type='commentary']">
     <xsl:comment> the text element for comments </xsl:comment>
-     <xsl:variable name="tit">
+    <xsl:variable name="tit">
       <xsl:choose>
 	<xsl:when test="string-length($worktitle)">
 	  <xsl:value-of select="$worktitle"/>
@@ -97,14 +96,16 @@
     </xsl:variable>
     
     <xsl:call-template name="trunk_doc">
-	<xsl:with-param name="worktitle" select="$tit"/>
+      <xsl:with-param name="worktitle" select="$tit"/>
     </xsl:call-template>
 
     <xsl:apply-templates select="t:body/t:note">
       <xsl:with-param name="worktitle" select="$tit"/>
     </xsl:apply-templates>
+
   </xsl:template>
-  
+
+
   <xsl:template match="t:row|t:note[t:p]">
     <xsl:param name="worktitle" select="''"/>
 

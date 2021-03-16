@@ -92,6 +92,7 @@
     </xsl:element>
   </xsl:template>
 
+
   <xsl:template match="t:div[ not(@decls) and not(ancestor::node()[@decls])] |
                        t:body[not(@decls) and not(ancestor::node()[@decls])] |
                        t:text[not(@decls) and not(ancestor::node()[@decls])]">

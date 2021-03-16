@@ -108,6 +108,39 @@
 
   </xsl:template -->
 
+  <xsl:template match="t:text[@type='com' or @type='commentary']">
+    <xsl:comment> the text element for comments </xsl:comment>
+    <xsl:variable name="tit">
+      <xsl:choose>
+	<xsl:when test="string-length($worktitle)">
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="t:head[1]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$tit"/>
+    </xsl:call-template>
+
+    <xsl:apply-templates select="t:body/t:div/t:note">
+      <xsl:with-param name="worktitle" select="$tit"/>
+    </xsl:apply-templates>
+
+  </xsl:template>
+
+
+  <xsl:template match="t:row|t:note[t:p]">
+    <xsl:param name="worktitle" select="''"/>
+
+    <xsl:comment> the right com doc note </xsl:comment>
+    
+    <xsl:call-template name="make_comment"/>
+    
+  </xsl:template>
+
 
   <!-- xsl:attribute name="name">text_type_ssi</xsl:attribute -->
   <xsl:template name="text_type">
