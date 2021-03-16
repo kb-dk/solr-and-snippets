@@ -93,6 +93,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[ not(@decls) and not(ancestor::node()[@decls])] |
+                       t:body[not(@decls) and not(ancestor::node()[@decls])] |
                        t:text[not(@decls) and not(ancestor::node()[@decls])]">
 
     <xsl:variable name="tit">
@@ -101,7 +102,6 @@
 	  <xsl:value-of select="$worktitle"/>
 	</xsl:when>
 	<xsl:otherwise>
-          
 	  <xsl:value-of select="t:head[1]"/>
 	</xsl:otherwise>
       </xsl:choose>
