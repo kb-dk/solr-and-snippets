@@ -118,8 +118,7 @@
 	  <xsl:call-template name="make-href"/>
 	</xsl:attribute>
       </xsl:if>
-      <span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span> 
-      <span>
+      <span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span> <xsl:text>&#160;</xsl:text> <span>
         <xsl:attribute name="title">Kommentar</xsl:attribute>
         <xsl:apply-templates/>
       </span>
@@ -141,9 +140,9 @@
         <xsl:otherwise>
 	  <xsl:call-template name="add_id"/>
         </xsl:otherwise>
-        </xsl:choose><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><span>
-        <xsl:attribute name="title">Kommentar</xsl:attribute>
-        <xsl:apply-templates/> hum hum
+        </xsl:choose><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><xsl:text>&#160;</xsl:text><span>
+        <xsl:attribute name="title">Kommentar</xsl:attribute><xsl:comment> where are we? </xsl:comment>
+        <xsl:apply-templates/>
       </span>
     </xsl:element>    
   </xsl:template>
