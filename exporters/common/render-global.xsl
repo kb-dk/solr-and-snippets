@@ -32,8 +32,7 @@
   <xsl:param name="cap" select="document($capabilities)"/>
 
   <xsl:output method="xml"
-	      encoding="UTF-8"
-	      indent="yes"/>
+	      encoding="UTF-8" />
 
   <xsl:template match="/">
     <xsl:element name="div">
