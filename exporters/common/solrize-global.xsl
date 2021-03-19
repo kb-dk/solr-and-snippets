@@ -793,28 +793,30 @@
     <xsl:variable name="lg_text">
       <xsl:apply-templates mode="gettext" select="descendant::t:lg/t:l"/> 
     </xsl:variable>
-   
-    <xsl:choose>
-      <xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">
-	<xsl:call-template name="mkfield">
-	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
-	  <xsl:with-param name="value">play</xsl:with-param>
-	</xsl:call-template>
-      </xsl:when>
-      <xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">
-	<xsl:call-template name="mkfield">
-	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
-	  <xsl:with-param name="value">poetry</xsl:with-param>
-	</xsl:call-template>
-      </xsl:when>
-      <xsl:when test="string-length($p_text) &gt; string-length($sp_text) and string-length($p_text) &gt; string-length($lg_text)">
-	<xsl:call-template name="mkfield">
-	  <xsl:with-param name="field">contains_ssi</xsl:with-param>
-	  <xsl:with-param name="value">prose</xsl:with-param>
-	</xsl:call-template>
-      </xsl:when>
-    </xsl:choose>
 
+    <xsl:if test="not(contains($path,'gv-'))">
+      <xsl:choose>
+        <xsl:when test="string-length($sp_text) &gt; string-length($p_text) and string-length($sp_text) &gt; string-length($lg_text)">
+	  <xsl:call-template name="mkfield">
+	    <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	    <xsl:with-param name="value">play</xsl:with-param>
+	  </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="string-length($lg_text) &gt; string-length($p_text) and string-length($lg_text) &gt; string-length($sp_text)">
+	  <xsl:call-template name="mkfield">
+	    <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	    <xsl:with-param name="value">poetry</xsl:with-param>
+	  </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="string-length($p_text) &gt; string-length($sp_text) and string-length($p_text) &gt; string-length($lg_text)">
+	  <xsl:call-template name="mkfield">
+	    <xsl:with-param name="field">contains_ssi</xsl:with-param>
+	    <xsl:with-param name="value">prose</xsl:with-param>
+	  </xsl:call-template>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:if>
+    
     <xsl:element name="field">
        <xsl:attribute name="name">text_tesim</xsl:attribute>
 
