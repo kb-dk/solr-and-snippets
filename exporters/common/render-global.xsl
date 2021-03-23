@@ -258,6 +258,9 @@
   </xsl:template>
 
   <xsl:template match="t:lg">
+    <xsl:if test="@n">
+      <p title="Strofenumre" style="margin-left:-3%; width:3%;font-size:80%;float:left;"><xsl:value-of select="@n"/></p>
+    </xsl:if>
     <p class="lineGroup">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
@@ -402,6 +405,11 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="t:hi[@rend='initial']">
+    <strong style="font-size: 120%"><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
+  </xsl:template>
+
+  
   <xsl:template match="t:hi[@rend='bold']|t:hi[@rend='bold']|t:emph[@rend='bold']">
     <strong><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
   </xsl:template>
