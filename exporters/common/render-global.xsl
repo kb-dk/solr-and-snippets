@@ -259,10 +259,11 @@
 
   <xsl:template match="t:lg">
     <xsl:if test="@n">
-      <p title="Strofenumre" style="margin-left:+15%; text-align: right; width:3%;font-size:80%;float:left;">
+      <p style="margin-left:+15%; text-align: right; width:3%;font-size:80%;float:left;">
         <xsl:choose>
           <xsl:when test="@xml:id">
             <xsl:element name="a">
+              <xsl:attribute name="title">Strofenumre <xsl:value-of select="@n"/></xsl:attribute>
               <xsl:attribute name="style">text-decoration: none;</xsl:attribute>
               <xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
               <xsl:value-of select="@n"/>

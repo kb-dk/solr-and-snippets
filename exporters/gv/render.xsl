@@ -127,7 +127,8 @@
         </xsl:attribute>
       </xsl:if>
       <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span><xsl:comment> blæ blæ blæ </xsl:comment>
-<xsl:apply-templates/>
+
+      <span class="{$authority}"><xsl:apply-templates/></span>
 
       <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
       
