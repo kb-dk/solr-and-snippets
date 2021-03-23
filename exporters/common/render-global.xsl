@@ -122,7 +122,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@decls]/t:head">
-    <h1 class="head-in-work"><xsl:call-template name="add_id"/><xsl:apply-templates/></h1>
+    <h1 style="text-align:center;" class="head-in-work"><xsl:call-template name="add_id"/><xsl:apply-templates/></h1>
   </xsl:template>
 
   <xsl:template match="t:div">
@@ -211,7 +211,7 @@
 
   <xsl:template match="t:head">
     <xsl:if test="./node()">
-      <h2 class="head-in-text">
+      <h2 style="text-align:center;"  class="head-in-text">
 	<xsl:call-template name="add_id"/>
 	<xsl:apply-templates/>
       </h2>
@@ -259,9 +259,20 @@
 
   <xsl:template match="t:lg">
     <xsl:if test="@n">
-      <p title="Strofenumre" style="margin-left:-3%; width:3%;font-size:80%;float:left;"><xsl:value-of select="@n"/></p>
+      <p title="Strofenumre" style="margin-left:+15%; text-align: right; width:3%;font-size:80%;float:left;">
+        <xsl:choose>
+          <xsl:when test="@xml:id">
+            <xsl:element name="a">
+              <xsl:attribute name="style">text-decoration: none;</xsl:attribute>
+              <xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
+              <xsl:value-of select="@n"/>
+            </xsl:element>
+          </xsl:when>
+          <xsl:otherwise><xsl:value-of select="@n"/></xsl:otherwise>
+        </xsl:choose>
+      </p>
     </xsl:if>
-    <p class="lineGroup">
+    <p class="lineGroup" style="margin-left:+20%;">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
@@ -539,10 +550,6 @@
       <xsl:value-of select="count(preceding::t:pb[@facs])"/>
     </xsl:variable>
     <xsl:if test="local-name(preceding::element()[1])='pb' and preceding::element()[1][@facs and not(@type='periText')]">
-      <p><pre>
-        <xsl:text>
-        </xsl:text>
-      </pre></p>
     </xsl:if>
     <xsl:if test="@facs and $first &gt; 0">
       <xsl:element name="span">

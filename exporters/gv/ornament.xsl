@@ -36,7 +36,7 @@ t:graphic elements
   
   <xsl:template match="t:figure[@type='longLine']|t:graphic[@style='longLine']">
     <xsl:element name="hr">
-      <xsl:attribute name="style">text-align:center; border-top: 1px solid black; width: 60%</xsl:attribute>
+      <xsl:attribute name="style">text-align:center; border-top: 1px solid black; width: 25%</xsl:attribute>
     </xsl:element> <xsl:comment> t:graphic[@style='longLine'] </xsl:comment>
   </xsl:template>
 
