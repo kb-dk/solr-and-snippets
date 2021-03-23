@@ -24,8 +24,7 @@ t:graphic elements
 
   <xsl:template match="t:figure[@type='shortLine']|t:graphic[@style='shortLine']">
     <xsl:element name="hr">
-      <xsl:attribute name="align">center</xsl:attribute>
-      <xsl:attribute name="width">8%</xsl:attribute>
+      <xsl:attribute name="style">text-align:center; border-top: 1px solid black; width: 8%</xsl:attribute>
     </xsl:element> <xsl:comment> t:graphic[@style='shortLine' </xsl:comment>
   </xsl:template>
   
@@ -37,8 +36,7 @@ t:graphic elements
   
   <xsl:template match="t:figure[@type='longLine']|t:graphic[@style='longLine']">
     <xsl:element name="hr">
-      <xsl:attribute name="align">center</xsl:attribute>
-      <xsl:attribute name="width">60%</xsl:attribute>
+      <xsl:attribute name="style">text-align:center; border-top: 1px solid black; width: 60%</xsl:attribute>
     </xsl:element> <xsl:comment> t:graphic[@style='longLine'] </xsl:comment>
   </xsl:template>
 

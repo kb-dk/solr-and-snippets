@@ -208,6 +208,7 @@
   </xsl:template>
 
   <xsl:template match="t:head/t:lb"><xsl:text> </xsl:text></xsl:template>
+
   <xsl:template match="t:head">
     <xsl:if test="./node()">
       <h2 class="head-in-text">

@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t">
+               xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+	       exclude-result-prefixes="t fn math xsl">
 
   
   <xsl:import href="../render-global.xsl"/>
@@ -17,14 +18,32 @@
 
   <xsl:template match="t:seg[@type='com']"><xsl:variable name="href"><xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/></xsl:variable><xsl:element name="a"><xsl:attribute name="class">comment</xsl:attribute><xsl:attribute name="title">Kommentar</xsl:attribute><xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><xsl:comment> bla bla bla </xsl:comment><span class="comment"><xsl:apply-templates/></span></xsl:element></xsl:template>
 
-   <xsl:template name="inline_note">
+  <xsl:template name="inline_note">
     <xsl:call-template name="general_note_code">
       <xsl:with-param name="display" select="'inline'"/>
-    </xsl:call-template><xsl:call-template name="show_note">
+      </xsl:call-template><xsl:call-template name="show_note">
       <xsl:with-param name="display" select="'inline'"/>
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="t:head">
+    <xsl:if test="./node()">
+      <h2 class="head-in-text">
+	<xsl:call-template name="add_id"/>
+          <xsl:attribute name="style">
+            <xsl:if test="number(@rend)">            
+              font-size: <xsl:value-of select="100*math:pow(1.2,@rend)"/> %;
+            </xsl:if>
+            text-align: center;
+          </xsl:attribute>
+	<xsl:apply-templates/>
+      </h2>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="t:hi[@rend='romanType']">
+    <span style="font-family:serif;"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
+  </xsl:template>
   
   <xsl:template name="make-href">
 
@@ -44,7 +63,6 @@
 
   </xsl:template>
 
-  
   <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']">
     <xsl:variable name="entity">
       <xsl:choose>
