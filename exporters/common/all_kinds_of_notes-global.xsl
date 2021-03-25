@@ -63,7 +63,7 @@
 
   <xsl:template name="show_note">
     <xsl:param name="display" select="'none'"/>
-    <xsl:param name="bgcolor" select="'yellow'"/>
+    <xsl:param name="bgcolor" select="'#F2F4F8'"/>
     <span style="background-color:{$bgcolor};display:{$display};"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
   </xsl:template>
 

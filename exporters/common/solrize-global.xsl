@@ -750,6 +750,9 @@
 
   <xsl:template name="extract_enities">
 
+    <!-- t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']" -->
+
+    
     <xsl:for-each select="fn:distinct-values(descendant-or-self::t:persName)">
       <xsl:call-template name="mkentity">
         <xsl:with-param name="entity_field">person_name_ssim</xsl:with-param>
