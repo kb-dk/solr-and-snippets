@@ -26,6 +26,14 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="t:row[t:cell[@rend='popUp']]">
+    <tr>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:cell[@rend='popUp']"/>
+    </tr>
+  </xsl:template>
+
+  
   <xsl:template match="t:head">
     <xsl:if test="./node()">
       <h2 class="head-in-text">
@@ -128,7 +136,9 @@
       </xsl:if>
       <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span><xsl:comment> blæ blæ blæ </xsl:comment>
 
-      <span class="{$authority}"><xsl:apply-templates/></span>
+      <span class="{$authority}">
+        <xsl:apply-templates/>
+      </span>
 
       <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
       
