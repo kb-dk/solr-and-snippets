@@ -770,6 +770,15 @@
         <xsl:with-param name="entity_field">other_location_tesim</xsl:with-param>
       </xsl:call-template>
     </xsl:for-each>
+
+     <xsl:for-each select="fn:distinct-values(descendant-or-self::t:rs[@type='bible']/@key)">
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">bible_ref_ssim</xsl:with-param>
+       </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">bible_ref_tesim</xsl:with-param>
+       </xsl:call-template>
+     </xsl:for-each>
     
   </xsl:template>
 
