@@ -778,6 +778,9 @@
        <xsl:call-template name="mkentity">
          <xsl:with-param name="entity_field">bible_ref_tesim</xsl:with-param>
        </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">text_tsim</xsl:with-param>
+       </xsl:call-template>
      </xsl:for-each>
     
   </xsl:template>
