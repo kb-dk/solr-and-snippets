@@ -260,6 +260,15 @@
     <xsl:apply-templates/>
   </xsl:template>
 
+  <xsl:template match="t:epigraph">
+    <xsl:element name="div">
+      <xsl:attribute name="class">epigraph</xsl:attribute>
+      <xsl:attribute name="style">text-align:center;</xsl:attribute>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="t:lg">
     <xsl:if test="@n">
       <p style="margin-left:+15%; text-align: right; width:3%;font-size:80%;float:left;">
@@ -276,7 +285,15 @@
         </xsl:choose>
       </p>
     </xsl:if>
-    <p class="lineGroup" style="margin-left:+20%;">
+    <p class="lineGroup">
+      <xsl:choose>
+        <xsl:when test="contains(local-name(ancestor::node()[1]),'epigraph')">
+          <xsl:attribute name="style">font-size:80%;"</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="style">margin-left:+20%;"</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
