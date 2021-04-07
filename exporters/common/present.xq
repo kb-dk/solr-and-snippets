@@ -30,7 +30,7 @@ declare variable  $q        := request:get-parameter('q','');
 declare variable  $targetOp := request:get-parameter('targetOp','');
 declare variable  $hostport := request:get-parameter('hostport','');
 
-declare option exist:serialize "method=xml encoding=UTF-8 media-type=text/html";
+declare option exist:serialize "method=xhtml encoding=UTF-8 media-type=text/html";
 
 let $adoc := doc(concat($coll,"/","creator-relations.xml"))
 

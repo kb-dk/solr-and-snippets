@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t">
+               xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+	       exclude-result-prefixes="t fn math xsl">
 
   
   <xsl:import href="../render-global.xsl"/>
@@ -15,13 +16,43 @@
   <xsl:template name="page_specimen">
   </xsl:template>
 
-  <xsl:template match="t:seg[@type='com']">
-    <xsl:variable name="href">
-      <xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/>
-    </xsl:variable>
-    <a class="comment" title="Kommentar" id="{@n}" href="{$href}"><span class="symbol comment">&#9658;</span></a><span class="comment"><xsl:apply-templates/></span>
+  <xsl:template match="t:seg[@type='com']|t:seg[@type='comStart']|t:seg[@type='comEnd']"><xsl:variable name="href"><xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/></xsl:variable><xsl:element name="a"><xsl:attribute name="class">comment</xsl:attribute><xsl:attribute name="title">Kommentar</xsl:attribute><xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><xsl:comment> bla bla bla </xsl:comment><span class="comment"><xsl:apply-templates/></span></xsl:element></xsl:template>
+
+  <xsl:template name="inline_note">
+    <xsl:call-template name="general_note_code">
+      <xsl:with-param name="display" select="'inline'"/>
+      </xsl:call-template><xsl:call-template name="show_note">
+      <xsl:with-param name="display" select="'inline'"/>
+    </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="t:row[t:cell[@rend='popUp']]">
+    <tr>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:cell[@rend='popUp']"/>
+    </tr>
+  </xsl:template>
+
+  
+  <xsl:template match="t:head">
+    <xsl:if test="./node()">
+      <h2 class="head-in-text">
+	<xsl:call-template name="add_id"/>
+          <xsl:attribute name="style">
+            <xsl:if test="number(@rend)">            
+              font-size: <xsl:value-of select="100*math:pow(1.2,@rend)"/> %;
+            </xsl:if>
+            text-align: center;
+          </xsl:attribute>
+	<xsl:apply-templates/>
+      </h2>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="t:hi[@rend='romanType']">
+    <span style="font-family:serif;"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
+  </xsl:template>
+  
   <xsl:template name="make-href">
 
     <xsl:variable name="target">
@@ -40,14 +71,12 @@
 
   </xsl:template>
 
-
-
-
   <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']">
     <xsl:variable name="entity">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
         <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
+        <xsl:when test="@type='myth'">mytologi</xsl:when>
         <xsl:when test="@type='bible'">Bibel</xsl:when>
 	<xsl:otherwise>comment</xsl:otherwise>
       </xsl:choose>
@@ -77,17 +106,44 @@
 	<xsl:otherwise>Titel</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <span class="{$entity}" style="font-style: italic;">
-      <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
-      <xsl:variable name="uri">
-        <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
-      </xsl:variable>
-      <xsl:attribute name="title">
-	<xsl:value-of select="$title"/><xsl:if test="@key">: <xsl:value-of select="@key"/></xsl:if>
+
+    <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
+    <xsl:variable name="uri">
+      <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
+    </xsl:variable>
+
+    <xsl:element name="a">
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="class">
+        <xsl:value-of select="$entity"/>
       </xsl:attribute>
-      <xsl:call-template name="add_id"/><xsl:choose><xsl:when test="@type='bible'"><a class="{$entity}" title="Kommentar"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span></a><xsl:apply-templates/></xsl:when><xsl:otherwise>
-<a class="{$entity}" title="Kommentar" href="{$uri}" data-toggle="modal" data-target="#comment_modal"><span class="symbol {$entity}"><xsl:value-of select="$symbol"/></span> </a></xsl:otherwise></xsl:choose> <xsl:value-of select="."/>
-    </span>
+
+      <xsl:attribute name="title">
+        <xsl:choose>
+          <xsl:when test="contains($title,'Bibel')"><xsl:value-of select="@key"/></xsl:when>
+          <xsl:otherwise>
+	    <xsl:value-of select="$title"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+        
+      <xsl:attribute name="data-toggle">modal</xsl:attribute>
+      <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+      <xsl:if test="not(contains(@type,'bible'))">
+        <xsl:attribute name="href">
+          <xsl:value-of select="$uri"/>
+        </xsl:attribute>
+      </xsl:if>
+      <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span><xsl:comment> blæ blæ blæ </xsl:comment>
+
+      <span class="{$authority}">
+        <xsl:apply-templates/>
+      </span>
+
+      <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
+      
+    </xsl:element>
+
   </xsl:template>
 
 

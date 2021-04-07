@@ -41,13 +41,21 @@
     <xsl:value-of select="$worktitle"/>
   </xsl:param>
 
+  <xsl:template name="is_editorial">
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    <xsl:choose>
+      <xsl:when test="contains($category,'work')">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template name="get_category">
     <xsl:choose>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-txt-')">work</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-v0-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-txr-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-com-')">editorial</xsl:when>
-      <xsl:when test="local-name(.) = 'text' and contains($path,'-intro-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-txt-')">work</xsl:when>
+      <xsl:when test="contains($path,'-v0-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-txr-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-com-')">editorial</xsl:when>
+      <xsl:when test="contains($path,'-intro-')">editorial</xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -71,49 +79,40 @@
     select="translate(concat($c,'-',substring-before($doc,'/'),'/',substring-before($document,'.xml'),$f,$frag),'/','-')"/>
   </xsl:template>
 
-  <xsl:template mode="backtrack" match="node()[@xml:id]">
-    <xsl:element name="field">
-      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
-    </xsl:element>
-    <xsl:choose>
-      <xsl:when test="ancestor::node()">
-	<xsl:apply-templates mode="backtrack" select="ancestor::t:div[1]|ancestor::t:text[1]"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:element name="field">
-	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="$path"/>
-	</xsl:element>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
   <xsl:template name="me_looks_like">
+  </xsl:template>
+
+    <xsl:template match="t:text[@type='com' or @type='commentary']">
+    <xsl:comment> the text element for comments </xsl:comment>
+    <xsl:variable name="tit">
+      <xsl:choose>
+	<xsl:when test="string-length($worktitle)">
+	  <xsl:value-of select="$worktitle"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="t:head[1]"/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:call-template name="trunk_doc">
+      <xsl:with-param name="worktitle" select="$tit"/>
+    </xsl:call-template>
+
+    <xsl:apply-templates select="t:body/t:note">
+      <xsl:with-param name="worktitle" select="$tit"/>
+    </xsl:apply-templates>
 
   </xsl:template>
 
-  <xsl:template match="t:row[@role]">
 
+  <xsl:template match="t:row|t:note[t:p]">
     <xsl:param name="worktitle" select="''"/>
 
-    <doc>
-
-      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
-
-      <xsl:call-template name="add_globals"/>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">genre_ssi</xsl:attribute>
-        <xsl:text>prose</xsl:text>
-      </xsl:element>
-
-      <xsl:element name="field">
-        <xsl:attribute name="name">text_tesim</xsl:attribute>
-        <xsl:apply-templates mode="gettext" 
-			     select="./text()|descendant::node()/text()"/>
-      </xsl:element>
-    </doc>
+    <xsl:comment> the right com doc note </xsl:comment>
+    
+    <xsl:call-template name="make_comment"/>
+    
   </xsl:template>
 
 

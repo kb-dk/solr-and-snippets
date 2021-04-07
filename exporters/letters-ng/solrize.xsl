@@ -65,6 +65,8 @@
   <xsl:param name="url" select="concat($uri_base,$file)"/>
   <xsl:param name="submixion" select="''"/>
 
+  <xsl:param name="is_monograph" select="'no'"/>
+  
   <xsl:param name="subcollection">letters</xsl:param>
   
   <xsl:param name="status" select="''"/>
@@ -80,8 +82,23 @@
       <xsl:call-template name="generate_volume_doc"/>   
       <xsl:apply-templates/>
     </xsl:element>
-  </xsl:template -->
+    </xsl:template -->
 
+
+  <xsl:template name="is_editorial">
+    <xsl:choose>
+      <xsl:when test="ancestor-or-self::node()[@decls][1]">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="ancestor-or-self::node()[@decls][1]">work</xsl:when>
+      <xsl:otherwise>editorial</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
   <xsl:template match="t:div">
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
@@ -105,10 +122,34 @@
 
     <doc>
 
+      <xsl:choose>
+        <xsl:when test="@decls">
+          <xsl:element name="field">
+	    <xsl:attribute name="name">cat_ssi</xsl:attribute>
+	    <xsl:text>work</xsl:text>
+          </xsl:element>
+          <xsl:element name="field">
+	    <xsl:attribute name="name">is_editorial_ssi</xsl:attribute>
+	    <xsl:text>no</xsl:text>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="field">
+	    <xsl:attribute name="name">cat_ssi</xsl:attribute>
+	    <xsl:text>editorial</xsl:text>
+          </xsl:element>
+          <xsl:element name="field">
+	    <xsl:attribute name="name">is_editorial_ssi</xsl:attribute>
+	    <xsl:text>yes</xsl:text>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+
       <xsl:element name="field">
 	<xsl:attribute name="name">type_ssi</xsl:attribute>
-	<xsl:text>trunk</xsl:text>
+	<xsl:text>work</xsl:text>
       </xsl:element>
+
 
       <xsl:if test="not(@decls) and $worktitle">
         <xsl:element name="field">
@@ -124,12 +165,6 @@
       
       <xsl:call-template name="add_globals">
         <xsl:with-param name="worktitle" select="''"/>
-	<xsl:with-param name="category">
-	  <xsl:choose>
-	    <xsl:when test="@decls">work</xsl:when>
-	    <xsl:otherwise>leaf</xsl:otherwise>
-	  </xsl:choose>
-	</xsl:with-param>
       </xsl:call-template>
 
       <xsl:element name="field">
@@ -203,16 +238,15 @@
         <xsl:value-of select="$volume_title"/>
       </xsl:element>
       <xsl:call-template name="add_globals">
-	<xsl:with-param name="category"><xsl:value-of select="$root_category"/></xsl:with-param>
         <xsl:with-param name="worktitle" select="''"/>
       </xsl:call-template>
     </doc>
   </xsl:template>
 
   <xsl:template name="add_globals">
-    <xsl:param name="category">work</xsl:param>
     <xsl:param name="worktitle" select="''"/>
 
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
 
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
@@ -252,10 +286,10 @@
       </xsl:element>
     </xsl:if>
 
-    <xsl:element name="field">
+    <!-- xsl:element name="field">
       <xsl:attribute name="name">cat_ssi</xsl:attribute>
       <xsl:value-of select="$category"/>
-    </xsl:element>
+    </xsl:element -->
 
     <xsl:if test="$app">
       <xsl:element name="field">
@@ -513,10 +547,10 @@
 	  </xsl:element>
 	  <xsl:variable name="ditsi">
 	    <!-- xsl:value-of select="number(substring(.,1,4))"/ -->
-            <xsl:value-of select="me:year-extractor(./string())"/>
+            <xsl:value-of select="number(me:year-extractor(./string()))"/>
 	  </xsl:variable>
-
-	  <xsl:if test="$ditsi">
+          <xsl:if test="not(contains($ditsi,'NaN'))">
+	  <!-- xsl:if test="number($ditsi) = $ditsi" -->
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute>
 	      <xsl:value-of select="$ditsi"/>

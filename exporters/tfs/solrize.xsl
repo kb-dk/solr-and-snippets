@@ -74,7 +74,6 @@
 
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="''"/>
-      <xsl:with-param name="category"  select="'work'"/>
     </xsl:call-template>
 
     <xsl:apply-templates>
@@ -90,7 +89,6 @@
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category"></xsl:with-param>
     </xsl:call-template>
     <xsl:apply-templates>
       <xsl:with-param name="worktitle" select="$worktitle"/>
