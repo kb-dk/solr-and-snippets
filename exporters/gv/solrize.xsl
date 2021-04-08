@@ -82,7 +82,7 @@
   <xsl:template name="me_looks_like">
   </xsl:template>
 
-    <xsl:template match="t:text[@type='com' or @type='commentary']">
+  <xsl:template match="t:text[@type='com' or @type='commentary']">
     <xsl:comment> the text element for comments </xsl:comment>
     <xsl:variable name="tit">
       <xsl:choose>
