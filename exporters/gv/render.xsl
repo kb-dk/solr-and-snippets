@@ -146,6 +146,30 @@
 
   </xsl:template>
 
+  <xsl:template match="t:pb[@type='edition']">
+
+    <xsl:variable name="witness">
+      <xsl:value-of select="@ed"/>
+    </xsl:variable>
+
+    <xsl:if test="@n">
+      <xsl:element name="a">
+	<xsl:attribute name="title">Side: <xsl:value-of select="@n"/> <xsl:if test="@ed">(<xsl:value-of select="@ed"/>)</xsl:if></xsl:attribute>
+	<xsl:attribute name="class">pagination</xsl:attribute>
+	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
+	<xsl:call-template name="add_id"/>
+
+	<xsl:variable name="class">symbol pagination other</xsl:variable>
+
+	<xsl:element name="small">
+	  <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
+	  <xsl:value-of select="@n"/>
+	</xsl:element>
+
+      </xsl:element>
+    </xsl:if>
+
+  </xsl:template>
 
   <xsl:template match="t:row[@role]">
     <div>
