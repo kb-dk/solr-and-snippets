@@ -165,8 +165,9 @@
 	  <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
 	  <xsl:value-of select="@n"/>
 	</xsl:element>
-
       </xsl:element>
+      <xsl:text> 
+      </xsl:text>
     </xsl:if>
 
   </xsl:template>
