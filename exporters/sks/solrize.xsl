@@ -74,40 +74,6 @@
     </xsl:choose>
   </xsl:template>
 
-  <!-- xsl:template match="t:text[not(@decls) and not(ancestor::node()[@decls])]">
-
-    <xsl:comment> work: <xsl:value-of select="$worktitle"/></xsl:comment>
-    <xsl:comment> volume/series: <xsl:value-of select="$volume_title"/></xsl:comment>
-    <xsl:comment> matching t:text without @decls </xsl:comment>
-
-    <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:call-template>
-
-    <xsl:apply-templates>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:apply-templates>
-
-  </xsl:template>
-
-  <xsl:template match="t:div[not(@decls) and  not(ancestor::node()[@decls])]">
-
-    <xsl:comment><xsl:value-of select="$worktitle"/></xsl:comment>
-    <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
-    <xsl:comment> matching t:div without @decls </xsl:comment>
-
-    <xsl:call-template name="trunk_doc">
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:call-template>
-
-    <xsl:comment> you want to go deeper </xsl:comment>
-
-    <xsl:apply-templates>
-      <xsl:with-param name="worktitle" select="$worktitle"/>
-    </xsl:apply-templates>
-
-  </xsl:template -->
-
   <xsl:template match="t:text[@type='com' or @type='commentary']">
     <xsl:comment> the text element for comments </xsl:comment>
     <xsl:variable name="tit">

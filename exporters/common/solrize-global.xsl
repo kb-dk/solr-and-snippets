@@ -435,7 +435,16 @@
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	      <xsl:call-template name="str_massage">
-		<xsl:with-param name="str" select="$volume_sort_title"/>
+                <xsl:with-param name="str">
+                  <xsl:choose>
+                    <xsl:when test="contains($subcollection,'sks')">
+                      <xsl:value-of select="$work_title"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+		      <xsl:value-of select="$volume_sort_title"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:with-param>
 	      </xsl:call-template>
 	    </xsl:element>
 

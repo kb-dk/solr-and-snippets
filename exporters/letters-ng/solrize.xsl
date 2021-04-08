@@ -629,6 +629,13 @@
           <xsl:attribute name="name">work_title_ssi</xsl:attribute>
           <xsl:value-of select="$supplied_title"/>
         </xsl:element>
+
+        <xsl:element name="field">
+          <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+          <xsl:call-template name="str_massage">
+            <xsl:with-param name="str" select="$supplied_title"/>
+          </xsl:call-template>
+        </xsl:element>
         
       </xsl:for-each>
       
