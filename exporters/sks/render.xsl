@@ -81,6 +81,81 @@
       </xsl:if>
   </xsl:template>
 
+  <xsl:template match="t:rs[@type='bible']">
+    <xsl:variable name="entity">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>
+        <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
+        <xsl:when test="@type='myth'">mytologi</xsl:when>
+        <xsl:when test="@type='bible'">Bibel</xsl:when>
+	<xsl:otherwise>comment</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="authority">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">pers</xsl:when>
+        <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
+        <xsl:when test="@type='myth'">myth</xsl:when>
+        <xsl:when test="@type='bible'">bible</xsl:when>
+	<xsl:otherwise>title</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="symbol">
+      <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">&#128100;</xsl:when>
+	<xsl:when test="contains(local-name(.),'place')">&#128204;</xsl:when>
+        <xsl:otherwise>&#9658;</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="title">
+        <xsl:choose>
+	<xsl:when test="contains(local-name(.),'pers')">Person</xsl:when>
+        <xsl:when test="contains(local-name(.),'place')">Plads</xsl:when>
+        <xsl:when test="@type='myth'">Mytologi</xsl:when>
+        <xsl:when test="@type='bible'">Bibel</xsl:when>
+	<xsl:otherwise>Titel</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:variable name="key"><xsl:value-of select="@key"/></xsl:variable>
+    <xsl:variable name="uri">
+      <xsl:value-of select="concat('gv-registre-',$authority,'-shoot-',$key,'#',$key)"/>
+    </xsl:variable>
+
+    <xsl:element name="a">
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="class">
+        <xsl:value-of select="$entity"/>
+      </xsl:attribute>
+
+      <xsl:attribute name="title">
+        <xsl:choose>
+          <xsl:when test="contains($title,'Bibel')"><xsl:value-of select="@key"/></xsl:when>
+          <xsl:otherwise>
+	    <xsl:value-of select="$title"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+        
+      <xsl:attribute name="data-toggle">modal</xsl:attribute>
+      <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+      <xsl:if test="not(contains(@type,'bible'))">
+        <xsl:attribute name="href">
+          <xsl:value-of select="$uri"/>
+        </xsl:attribute>
+      </xsl:if>
+      <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span><xsl:comment> blæ blæ blæ </xsl:comment>
+
+      <span class="{$authority}">
+        <xsl:apply-templates/>
+      </span>
+
+      <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
+      
+    </xsl:element>
+
+  </xsl:template>
+  
   <xsl:template name="print_date">
     <xsl:param name="date" select="''"/>
     <xsl:variable name="year">
