@@ -233,7 +233,7 @@
      </xsl:call-template>
 
      <xsl:call-template name="text_extracts"/>
-     <xsl:call-template name="text_type"/>
+     <!-- xsl:call-template name="text_type"/ -->
 
 
     </doc>
@@ -438,7 +438,7 @@
                 <xsl:with-param name="str">
                   <xsl:choose>
                     <xsl:when test="contains($subcollection,'sks')">
-                      <xsl:value-of select="$work_title"/>
+                      <xsl:value-of select="$worktitle"/>
                     </xsl:when>
                     <xsl:otherwise>
 		      <xsl:value-of select="$volume_sort_title"/>
@@ -559,6 +559,7 @@
       </xsl:choose>
     </xsl:element>
 
+    <xsl:call-template name="text_type"/>
     <xsl:call-template name="page_info"/>
 
     <xsl:if test="$volume_title">
