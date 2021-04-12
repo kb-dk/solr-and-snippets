@@ -357,19 +357,11 @@
       </xsl:if>
       <xsl:for-each select="t:rdg|t:rdgGrp|t:corr|t:note">
 	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()">;
-<<<<<<< HEAD
         </xsl:if><xsl:comment> <xsl:value-of select="local-name(.)"/> </xsl:comment>
         </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
       </span>
     </xsl:element>
-=======
-        </xsl:if><xsl:comment> ; </xsl:comment><!-- /xsl:if -->
-      </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
-    </span>
 
-    <xsl:apply-templates mode="text" select="t:lem"/> 
-    
->>>>>>> master
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:note">
