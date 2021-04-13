@@ -337,20 +337,23 @@
     <xsl:variable name="note">
       <xsl:value-of select="concat('apparatus',$idstring)"/>
     </xsl:variable>
-      
+    
     <xsl:element name="a">
       <xsl:attribute
           name="id"><xsl:value-of select="concat('appanchor',@xml:id)"/></xsl:attribute>
       <xsl:attribute name="class">info</xsl:attribute>
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-      <xsl:element name="span">
-        <xsl:call-template
-            name="apparatus-marker"><xsl:with-param name="marker">&#9432;</xsl:with-param></xsl:call-template>
-      </xsl:element>
+      <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+      
+      <span>
+        <xsl:call-template name="apparatus-marker">
+          <xsl:with-param name="marker">&#9432;</xsl:with-param>
+        </xsl:call-template>
+      </span>
 
       <xsl:apply-templates mode="text" select="t:lem"/> 
-    
+      
       <span style="background-color:Aquamarine;display:none;">
         <xsl:call-template name="add_id"/>
         <xsl:apply-templates mode="apparatus" select="t:lem"/><xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
@@ -365,17 +368,20 @@
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:note">
-    <xsl:call-template name="render_before_after">
-      <xsl:with-param name="scope">before</xsl:with-param>
-    </xsl:call-template>
-    <xsl:apply-templates/>
-    <xsl:call-template name="render_before_after">
-      <xsl:with-param name="scope">after</xsl:with-param>
-    </xsl:call-template>
+    <xsl:element name="span">
+      <xsl:call-template name="render_before_after">
+        <xsl:with-param name="scope">before</xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates/>
+      <xsl:call-template name="render_before_after">
+        <xsl:with-param name="scope">after</xsl:with-param>
+      </xsl:call-template>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template name="apparatus-marker">
     <xsl:param name="marker" select="'&#9432;'"/>
+
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
     </xsl:variable>
