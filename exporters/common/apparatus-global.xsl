@@ -346,7 +346,7 @@
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
       <xsl:element name="span">
         <xsl:call-template
-            name="apparatus-marker"><xsl:with-param name="marker">&#128712;</xsl:with-param></xsl:call-template>
+            name="apparatus-marker"><xsl:with-param name="marker">&#9432;</xsl:with-param></xsl:call-template>
       </xsl:element>
 
       <xsl:apply-templates mode="text" select="t:lem"/> 
@@ -383,6 +383,8 @@
       <xsl:value-of select="concat('apparatus',$idstring)"/>
     </xsl:variable>
     <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
+    <xsl:attribute name="class">symbol info</xsl:attribute>
+    <span class="debug info-stuff"><xsl:value-of select="$marker"/></span>
     <script>
       var <xsl:value-of select="concat('disp',$idstring)"/>="none";
       function <xsl:value-of select="$note"/>() {
