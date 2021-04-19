@@ -429,8 +429,14 @@
     </xsl:apply-templates>
   </xsl:template>
 
+  <xsl:template name="extract_titles_authors_etc">
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:call-template name="common_extract_titles_authors_etc">
+      <xsl:with-param name="worktitle" select="$worktitle"/>
+    </xsl:call-template>
+  </xsl:template>
 
- <xsl:template name="letter_info">
+  <xsl:template name="letter_info">
    
    <!-- we have been inconsistent as regards use of '#' in refs -->
     <xsl:variable name="bibl">
