@@ -344,7 +344,7 @@
       <xsl:attribute name="class">info</xsl:attribute>
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
-      <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+      <xsl:attribute name="data-target">#info_modal</xsl:attribute>
       
       <span>
         <xsl:call-template name="apparatus-marker">
@@ -354,7 +354,8 @@
 
       <xsl:apply-templates mode="text" select="t:lem"/> 
       
-      <span style="background-color:Aquamarine;display:none;">
+      <span class="apparatus-criticus"
+            style="background-color:Aquamarine;display:none;">
         <xsl:call-template name="add_id"/>
         <xsl:apply-templates mode="apparatus" select="t:lem"/><xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
       </xsl:if>
