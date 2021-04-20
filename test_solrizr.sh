@@ -1,22 +1,22 @@
 #!/bin/bash
 
-ant clean; ant service
+ant base_service
 
-SAXON=saxonb-xslt
+SAXON="java -jar  /home/slu/saxon/saxon9he.jar"
 
 declare -A specimen
 
 specimen[adl]="../public-adl-text-sources/texts/richardt03.xml"
 specimen[sks]="../SKS_tei/data/v1.9/ee1/txt.xml"
-specimen[grundtvig]="../other_tei_projects/grundtvig/1816_297/txt.xml"
-specimen[holberg]="../other_tei_projects/holberg/niels_klim/niels_klim.xml"
-specimen[pmm]="../other_tei_projects/pmm/txt006.xml"
-specimen[abbyy]="../OCR_TEI/abbyy/txt.xml"
+specimen[tfs]="../trykkefrihedsskrifter/tei_dir/1_013.xml"
+specimen[gv]="build/text-retriever/gv/1817_306_12/txt.xml"
+specimen[letters]="../letter-corpus/letter_books/001541111/001541111_000.xml"
+
 
 for t in "${!specimen[@]}"
 do
     echo "$t":
-    $SAXON -xsl:"build/text-retriever/$t/solrize.xsl" -s:"${specimen[$t]}" | xmllint - | tail -8
-    $SAXON -xsl:"build/text-retriever/$t/toc.xsl" -s:"${specimen[$t]}" | xmllint - | tail -8
+    $SAXON -xsl:"build/text-retriever/$t/solrize.xsl" -s:"${specimen[$t]}" | xmllint --format  - | tail -8
+
 done
 
