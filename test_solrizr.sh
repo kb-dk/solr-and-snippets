@@ -13,6 +13,9 @@ specimen[gv]="build/text-retriever/gv/1817_306_12/txt.xml"
 specimen[letters]="../letter-corpus/letter_books/001541111/001541111_000.xml"
 
 
+$SAXON -xsl:"build/text-retriever/gv/solrize.xsl" -s:"${specimen[gv]}" | xmllint --format  - 
+exit()
+
 for t in "${!specimen[@]}"
 do
     echo "$t":

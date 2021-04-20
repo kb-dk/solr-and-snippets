@@ -48,7 +48,14 @@
     </xsl:choose>
   </xsl:param>
 
- <xsl:template name="extract_titles_authors_etc">
+  <xsl:param name="worktitle">
+    <xsl:variable name="is_monograph"><xsl:call-template name="is_a_monograph"/></xsl:variable>
+    <xsl:if test="contains($is_monograph,'yes')">
+      <xsl:value-of select="$volume_title"/>
+    </xsl:if>
+  </xsl:param>
+  
+  <xsl:template name="extract_titles_authors_etc">
     <xsl:param name="worktitle" select="''"/>
     <xsl:call-template name="common_extract_titles_authors_etc">
       <xsl:with-param name="worktitle" select="$worktitle"/>

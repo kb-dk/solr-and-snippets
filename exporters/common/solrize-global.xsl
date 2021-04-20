@@ -70,20 +70,12 @@
 
   <xsl:param name="license">Attribution-NonCommercial-ShareAlike CC BY-NC-SA</xsl:param>
 
-  <xsl:param name="worktitle">
-    <xsl:variable name="is_monograph"><xsl:call-template name="is_a_monograph"/></xsl:variable>
-    <xsl:if test="contains($is_monograph,'yes')">
-      <xsl:value-of select="$volume_title"/>
-    </xsl:if>
-  </xsl:param>
-  
   <xsl:template name="is_a_monograph">
     <xsl:choose>
       <xsl:when test="count(/t:TEI//node()[@decls])&lt;2">yes</xsl:when>
       <xsl:otherwise>no</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
 
   <xsl:template match="/">
     <xsl:element name="add">
