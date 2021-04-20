@@ -16,17 +16,13 @@
   </xsl:param>
 
   <!-- sourceDesc in GV seems to contain Garbage -->
-  <xsl:param name="volume_title">
-    <!-- xsl:for-each select="(/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:title|/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title)[1]" -->
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[1]">
-      <xsl:apply-templates mode="gettext"  select="."/>
-    </xsl:for-each>
-  </xsl:param>
+  <xsl:param name="volume_title">Grundtvigs værker</xsl:param>
 
   <xsl:param name="worktitle">
-    <xsl:value-of select="$volume_title"/>
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
+      <xsl:apply-templates mode="gettext" select="t:title[@rend='part']"/>
+    </xsl:for-each>
   </xsl:param>
-
 
   <xsl:param name="editor" >
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
@@ -36,9 +32,16 @@
     </xsl:for-each>
   </xsl:param>
 
+  <xsl:param name="publisher">
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt">
+      <xsl:for-each select="t:publisher">
+        <xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
+      </xsl:for-each>
+    </xsl:for-each>
+  </xsl:param>
 
   <xsl:param name="volume_sort_title">
-    <xsl:value-of select="$worktitle"/>
+    <xsl:value-of select="$volume_title"/>
   </xsl:param>
 
   <xsl:template name="is_editorial">
@@ -125,6 +128,7 @@
     <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>N. F. S. Grundtvig</xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+    
   </xsl:template>
 
 </xsl:transform>
