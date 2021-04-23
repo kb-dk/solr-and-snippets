@@ -237,32 +237,23 @@
     <xsl:param name="cat" select="'volume'"/>
     <xsl:param name="is_monograph" select="$is_monograph"/>
 
-    <xsl:variable name="voltit">
-      <xsl:choose>
-        <xsl:when test="contains('gv',$subcollection) and contains($is_monograph,'yes'))">
-          <xsl:value-of select="$volume_title"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$worktitle"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+   
     
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
       <xsl:element name="field">
         <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-        <xsl:value-of select="$voltit"/>
+        <xsl:value-of select="$volume_title"/>
       </xsl:element>
 
       <xsl:element name="field">
         <xsl:attribute name="name">work_title_ssim</xsl:attribute>
-        <xsl:value-of select="$voltit"/>
+        <xsl:value-of select="$volume_title"/>
       </xsl:element>
 
       <xsl:element name="field">
         <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-        <xsl:value-of select="$voltit"/>
+        <xsl:value-of select="$volume_title"/>
       </xsl:element>
 
 
