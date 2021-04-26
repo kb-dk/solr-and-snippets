@@ -236,16 +236,15 @@
     <xsl:param name="type" select="'trunk'"/>
     <xsl:param name="cat" select="'volume'"/>
     <xsl:param name="is_monograph" select="$is_monograph"/>
-
-   
     
     <doc>
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>trunk</xsl:element>
-      <xsl:element name="field">
+   
+       <xsl:element name="field">
         <xsl:attribute name="name">work_title_tesim</xsl:attribute>
         <xsl:value-of select="$volume_title"/>
       </xsl:element>
-
+      
       <xsl:element name="field">
         <xsl:attribute name="name">work_title_ssim</xsl:attribute>
         <xsl:value-of select="$volume_title"/>
@@ -255,7 +254,6 @@
         <xsl:attribute name="name">work_title_ssi</xsl:attribute>
         <xsl:value-of select="$volume_title"/>
       </xsl:element>
-
 
       <xsl:call-template name="add_globals">
         <xsl:with-param name="worktitle" select="''"/>
