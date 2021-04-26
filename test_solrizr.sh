@@ -13,14 +13,16 @@ specimen[tfs]="../trykkefrihedsskrifter/tei_dir/1_013.xml"
 specimen[gv]="build/text-retriever/gv/1815_255/txt.xml"
 specimen[letters]="../letter-corpus/letter_books/001541111/001541111_000.xml"
 
-ed=gv
+#ed=letters
 
-$SAXON -xsl:"build/text-retriever/$ed/solrize.xsl" -s:"${specimen[$ed]}" | xmllint --format  - 
-exit()
+#$SAXON -xsl:"build/text-retriever/$ed/solrize.xsl" -s:"${specimen[$ed]}" | xmllint --format  - 
+#exit()
+
 
 for t in "${!specimen[@]}"
 do
     echo "$t":
+
     $SAXON -xsl:"build/text-retriever/$t/solrize.xsl" -s:"${specimen[$t]}" | xmllint --format  - | tail -8
 
 done
