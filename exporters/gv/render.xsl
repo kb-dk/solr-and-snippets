@@ -71,7 +71,29 @@
 
   </xsl:template>
 
-  <xsl:template match="t:persName|t:placeName|t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']">
+  <xsl:template match="t:app">
+    <xsl:choose>
+      <xsl:when test="@select">
+        <xsl:choose>
+          <xsl:when test="contains(@select,'yes')">
+            <xsl:call-template name="app-root"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates mode="text" select="t:lem"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="app-root"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template match="t:persName|
+                       t:placeName|
+                       t:rs[@type='myth']|
+                       t:rs[@type='title']|
+                       t:rs[@type='bible']">
     <xsl:variable name="entity">
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">person</xsl:when>

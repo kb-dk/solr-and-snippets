@@ -85,6 +85,10 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="t:titlePart">
+    <xsl:apply-templates/><br/>
+  </xsl:template>
+
   <xsl:template match="t:publisher">
     <span class="title-page-doc-publisher">
       <xsl:apply-templates/>
@@ -263,7 +267,14 @@
   <xsl:template match="t:epigraph">
     <xsl:element name="div">
       <xsl:attribute name="class">epigraph</xsl:attribute>
-      <xsl:attribute name="style">text-align:center;</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="@rend">
+          <xsl:attribute name="style">text-align:<xsl:value-of select="@rend"/>;</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="style">text-align:center;</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </xsl:element>

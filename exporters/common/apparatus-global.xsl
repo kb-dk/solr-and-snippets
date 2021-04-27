@@ -177,7 +177,7 @@
   <xsl:template name="gv-lemma">
     <xsl:param name="xid"/>
     <!-- one to many relation (sometimes one to too many) here -->
-    <!--
+    <!-- Obviously I started something here, but I have no idea what it was about...
     <xsl:text>: </xsl:text>
     <xsl:element name="a">
       <xsl:attribute name="href">
@@ -330,6 +330,10 @@
   </xsl:template>
 
   <xsl:template match="t:app">
+    <xsl:call-template name="app-root"/>
+  </xsl:template>
+  
+  <xsl:template name="app-root">
 
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
