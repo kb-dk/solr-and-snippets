@@ -89,9 +89,9 @@ Author Sigfrid Lundberg slu@kb.dk
 	  <xsl:value-of
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
-	<xsl:when test="t:head[text()]">
-          <xsl:for-each select="t:head[text()]">
-	    <xsl:apply-templates select="."/><xsl:text>  </xsl:text>
+	<xsl:when test="t:head">
+          <xsl:for-each select="t:head[1]">
+	    <xsl:apply-templates select="."/><xsl:text> </xsl:text>
           </xsl:for-each>
 	</xsl:when>
 	<xsl:otherwise>
@@ -131,13 +131,13 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template name="some_text">
     <xsl:variable name="head_text">
-      <xsl:for-each select=".//t:head[1]">
-        <xsl:apply-templates  mode="collect_text" select="."/><xsl:text> </xsl:text>
+      <xsl:for-each select=".//t:head">
+        <xsl:apply-templates/><xsl:text> </xsl:text>
       </xsl:for-each>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="string-length($head_text) &gt; 5">
-        <xsl:value-of select="$head_text"/>
+        <xsl:value-of select="$head_text"/> 
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select=".//text()"/>
@@ -145,8 +145,13 @@ Author Sigfrid Lundberg slu@kb.dk
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template mode="collect_text" match="t:app">
-    <xsl:apply-templates  mode="collect_text" select="t:lem/text()"/> 
+  <xsl:template match="t:rs">
+    <xsl:apply-templates/>
+  </xsl:template>
+
+  
+  <xsl:template match="t:app">
+    <xsl:apply-templates  select="t:lem/text()"/> 
   </xsl:template>
 
   

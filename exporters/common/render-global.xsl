@@ -235,9 +235,21 @@
 
   <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
     <p class="paragraph">
-      <xsl:if test="@rend = 'center'">
-        <xsl:attribute name="style">text-align:center;</xsl:attribute>
-      </xsl:if>
+      <xsl:attribute name="style">
+        <xsl:choose>
+          <xsl:when test="@rend = 'center'">text-align:center;</xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="../t:p[1]/@xml:id = @xml:id"></xsl:when>
+              <xsl:otherwise>text-indent:2em;</xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+         <xsl:choose>
+           <xsl:when test="../t:p[last()]/@xml:id = @xml:id"></xsl:when>
+           <xsl:otherwise>margin-bottom: 0px;</xsl:otherwise>
+         </xsl:choose>
+      </xsl:attribute>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
@@ -266,13 +278,12 @@
 
   <xsl:template match="t:epigraph">
     <xsl:element name="div">
-      <xsl:attribute name="class">epigraph</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@rend">
-          <xsl:attribute name="style">text-align:<xsl:value-of select="@rend"/>;</xsl:attribute>
+          <xsl:attribute name="class">epigraph <xsl:value-of select="@rend"/>;</xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:attribute name="style">text-align:center;</xsl:attribute>
+          <xsl:attribute name="style">text-align:left;</xsl:attribute>
         </xsl:otherwise>
       </xsl:choose>
       <xsl:call-template name="add_id"/>
