@@ -54,7 +54,7 @@ Author Sigfrid Lundberg slu@kb.dk
 	<xsl:value-of select="concat('item-',@xml:id)"/>
       </xsl:attribute>
       <xsl:call-template name="add_anchor"/>
-      <xsl:apply-templates mode="get_lists"/> <!-- select="./t:group|./t:body|./t:text|./t:div|./t:front|./t:back"/ -->
+      <xsl:apply-templates mode="get_lists"/> 
     </xsl:element>
   </xsl:template>
 
@@ -63,7 +63,7 @@ Author Sigfrid Lundberg slu@kb.dk
   </xsl:template>
 
   <xsl:template match="t:head">
-    <xsl:apply-templates/>
+    <xsl:apply-templates/><xsl:text> </xsl:text>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -90,7 +90,9 @@ Author Sigfrid Lundberg slu@kb.dk
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
 	<xsl:when test="t:head[text()]">
-	  <xsl:apply-templates select="t:head[text()]"/>
+          <xsl:for-each select="t:head[text()]">
+	    <xsl:apply-templates select="."/><xsl:text>  </xsl:text>
+          </xsl:for-each>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:variable name="some_text">
@@ -129,7 +131,9 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template name="some_text">
     <xsl:variable name="head_text">
-      <xsl:apply-templates  mode="collect_text" select=".//t:head[1]"/>
+      <xsl:for-each select=".//t:head[1]">
+        <xsl:apply-templates  mode="collect_text" select="."/><xsl:text> </xsl:text>
+      </xsl:for-each>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="string-length($head_text) &gt; 5">
