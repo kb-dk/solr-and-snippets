@@ -235,7 +235,7 @@
 
 
   <xsl:function name="me:paragraph-style">
-    <xsl:param name="style" select="''"/>
+    <xsl:param name="style"/>
     <xsl:choose>
       <xsl:when test="$style = 'center'">text-align: center;</xsl:when>
       <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
@@ -243,7 +243,10 @@
   </xsl:function>
   
   <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
-    <p class="paragraph">
+    <p>
+      <xsl:attribute name="class">
+        paragraph <xsl:if test="me:paragraph-style(@rend)"><xsl:value-of select="@rend"/></xsl:if>
+      </xsl:attribute>
       <xsl:attribute name="style">
         <xsl:choose>
           <xsl:when test="me:paragraph-style(@rend)"><xsl:value-of select="me:paragraph-style(@rend)"/></xsl:when>
