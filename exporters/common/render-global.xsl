@@ -233,11 +233,20 @@
     </span>
   </xsl:template>
 
+
+  <xsl:function name="me:paragraph-style">
+    <xsl:param name="style" select="''"/>
+    <xsl:choose>
+      <xsl:when test="$style = 'center'">text-align: center;</xsl:when>
+      <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
   <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
     <p class="paragraph">
       <xsl:attribute name="style">
         <xsl:choose>
-          <xsl:when test="@rend = 'center'">text-align:center;</xsl:when>
+          <xsl:when test="me:paragraph-style(@rend)"><xsl:value-of select="me:paragraph-style(@rend)"/></xsl:when>
           <xsl:otherwise>
             <xsl:choose>
               <xsl:when test="../t:p[1]/@xml:id = @xml:id"></xsl:when>
@@ -245,10 +254,10 @@
             </xsl:choose>
           </xsl:otherwise>
         </xsl:choose>
-         <xsl:choose>
-           <xsl:when test="../t:p[last()]/@xml:id = @xml:id"></xsl:when>
-           <xsl:otherwise>margin-bottom: 0px;</xsl:otherwise>
-         </xsl:choose>
+        <xsl:choose>
+          <xsl:when test="../t:p[last()]/@xml:id = @xml:id"></xsl:when>
+          <xsl:otherwise>margin-bottom: 0px;</xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
