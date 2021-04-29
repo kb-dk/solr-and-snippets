@@ -44,6 +44,7 @@
               font-size: <xsl:value-of select="100*math:pow(1.2,@rend)"/> %;
             </xsl:if>
             text-align: center;
+            margin-top: 2em; margin-bottom: 2em;
           </xsl:attribute>
 	<xsl:apply-templates/>
       </h2>

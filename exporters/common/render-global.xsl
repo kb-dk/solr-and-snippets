@@ -126,7 +126,9 @@
   </xsl:template>
 
   <xsl:template match="t:div[@decls]/t:head">
-    <h1 style="text-align:center;" class="head-in-work"><xsl:call-template name="add_id"/><xsl:apply-templates/></h1>
+    <h1 style="margin-top: 5em; margin-bottom: 5em;text-align:center;" class="head-in-work">
+      <xsl:call-template name="add_id"/><xsl:apply-templates/>
+    </h1>
   </xsl:template>
 
   <xsl:template match="t:div">
@@ -215,7 +217,7 @@
 
   <xsl:template match="t:head">
     <xsl:if test="./node()">
-      <h2 style="text-align:center;"  class="head-in-text">
+      <h2 style="margin-top: 3em; margin-bottom: 3em;text-align:center;"  class="head-in-text">
 	<xsl:call-template name="add_id"/>
 	<xsl:apply-templates/>
       </h2>
@@ -244,9 +246,9 @@
   
   <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
     <p>
-      <xsl:attribute name="class">
-        paragraph <xsl:if test="me:paragraph-style(@rend)"><xsl:value-of select="@rend"/></xsl:if>
-      </xsl:attribute>
+      <xsl:if test="me:paragraph-style(@rend)">
+        <xsl:attribute name="class">paragraph  <xsl:value-of select="@rend"/></xsl:attribute>
+      </xsl:if>
       <xsl:attribute name="style">
         <xsl:choose>
           <xsl:when test="me:paragraph-style(@rend)"><xsl:value-of select="me:paragraph-style(@rend)"/></xsl:when>
