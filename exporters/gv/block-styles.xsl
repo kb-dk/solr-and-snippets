@@ -9,7 +9,7 @@
 
 
   <xsl:function name="me:paragraph-style">
-    <xsl:param name="style" select="''"/>
+    <xsl:param name="style" />
     <xsl:choose>
       <xsl:when test="$style = 'noIndent'">text-indent: 0em;</xsl:when>
       <xsl:when test="$style = 'firstIndent'">text-indent: 2em;</xsl:when>
@@ -22,12 +22,12 @@
       <xsl:when test="$style = 'thirdIndentRight'">margin-right: 6em; text-align: right;</xsl:when>
       <xsl:when test="$style = 'hangingIndent'">text-indent: -1em; padding-left: 1em;</xsl:when>
       <xsl:when test="$style = 'hangingIndentPro'">line-height: 200%; text-align: justify; text-indent: -1em; padding-left: 2em;</xsl:when>
-      <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+      <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
   </xsl:function>
 
   <xsl:function name="me:line-style"> 
-    <xsl:param name="style" select="''"/>
+    <xsl:param name="style" />
     <xsl:choose>
      <xsl:when test="$style = 'blank'">margin: 2em 0em 2em 0em;</xsl:when>
      <xsl:when test="$style = 'center'">text-align: center;</xsl:when>

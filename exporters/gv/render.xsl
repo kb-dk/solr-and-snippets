@@ -12,6 +12,7 @@
   <xsl:import href="../graphics-global.xsl"/>
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
   <xsl:import href="./ornament.xsl"/>
+  <xsl:import href="./block-styles.xsl"/>
 
   <xsl:template name="page_specimen">
   </xsl:template>
