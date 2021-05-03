@@ -494,7 +494,7 @@
     
     <xsl:comment> add_globals called </xsl:comment>
 
-    <xsl:call-template name="extract_enities"/>
+    <xsl:call-template name="extract_entities"/>
     
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
@@ -743,26 +743,51 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template name="extract_enities">
+  <xsl:function name="me:find-normalized-entity">
+    <xsl:param name="this"  as="node()"/>
+    <xsl:choose>
+      <xsl:when test="$this/@key">
+        <xsl:value-of select="$this/@key"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$this/text()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
+  <xsl:template name="extract_entities">
 
     <!-- t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']" -->
-
     
-    <xsl:for-each select="fn:distinct-values(descendant-or-self::t:persName)">
+    <xsl:for-each select="descendant-or-self::t:persName">
+      <xsl:variable name="this_value" select="me:find-normalized-entity(.)"/>
       <xsl:call-template name="mkentity">
         <xsl:with-param name="entity_field">person_name_ssim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
       </xsl:call-template>
        <xsl:call-template name="mkentity">
-        <xsl:with-param name="entity_field">person_name_tesim</xsl:with-param>
-      </xsl:call-template>
+         <xsl:with-param name="entity_field">person_name_tesim</xsl:with-param>
+         <xsl:with-param name="node" select="$this_value"/>
+       </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">text_tsim</xsl:with-param>
+         <xsl:with-param name="node" select="$this_value"/>
+       </xsl:call-template>
     </xsl:for-each>
     
-    <xsl:for-each select="fn:distinct-values(descendant-or-self::t:placeName)">
+    <xsl:for-each select="descendant-or-self::t:placeName">
+      <xsl:variable name="this_value" select="me:find-normalized-entity(.)"/>
       <xsl:call-template name="mkentity">
         <xsl:with-param name="entity_field">other_location_ssim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
       </xsl:call-template>
       <xsl:call-template name="mkentity">
         <xsl:with-param name="entity_field">other_location_tesim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
+      </xsl:call-template>
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">text_tsim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
       </xsl:call-template>
     </xsl:for-each>
 
@@ -782,10 +807,11 @@
 
   <xsl:template name="mkentity">
     <xsl:param name="entity_field"/>
+    <xsl:param name="node" select="."/>
     <xsl:call-template name="mkfield">
       <xsl:with-param name="field"><xsl:value-of select="$entity_field"/></xsl:with-param>
       <xsl:with-param name="value">
-        <xsl:value-of select="."/>
+        <xsl:value-of select="$node"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
