@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t fn">
+               xmlns:me="urn:my-things"
+	       exclude-result-prefixes="t fn me">
   
   <xsl:import href="../solrize-global.xsl"/>
 
@@ -43,6 +44,12 @@
   <xsl:param name="volume_sort_title">
     <xsl:value-of select="$volume_title"/>
   </xsl:param>
+
+  <xsl:param name="person_registry"
+             select="document('registre/pers.xml')"/>
+
+  <xsl:param name="place_registry"
+             select="document('registre/place.xml')"/>
 
   <xsl:template name="is_editorial">
     <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
@@ -85,6 +92,47 @@
   <xsl:template name="me_looks_like">
   </xsl:template>
 
+  <xsl:function name="me:normalized-person">
+    <xsl:param name="key"/>
+    <xsl:for-each select="$person_registry//t:row[@xml:id = $key]">
+
+      <xsl:message>key <xsl:value-of select="$key"/> </xsl:message>
+      <xsl:choose>
+        <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
+          <xsl:for-each select="(t:cell[@rend='altName']|t:cell[@rend='name'])[1]">
+            <xsl:if test="t:note[@type='lastName']">
+              <xsl:value-of select="t:note[@type='lastName']"/>
+              <xsl:if test="t:note[@type='firstName']"><xsl:text>, </xsl:text></xsl:if>
+            </xsl:if>
+            <xsl:value-of select="t:note[@type='firstName']"/>
+          </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$key"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:function>
+  
+  <xsl:function name="me:find-normalized-entity">
+    <xsl:param name="this" as="node()"/>
+    <xsl:choose>
+      <xsl:when test="$this/@key">
+        <xsl:choose>
+          <xsl:when test="contains(local-name($this),'pers')">
+            <xsl:value-of select="me:normalized-person($this[1]/@key/string())"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$this/@key"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$this/text()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
   <xsl:template match="t:text[@type='com' or @type='commentary']">
     <xsl:comment> the text element for comments </xsl:comment>
     <xsl:variable name="tit">
