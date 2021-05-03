@@ -38,6 +38,7 @@
     <xsl:element name="div">
       <xsl:attribute name="class"><xsl:value-of select="concat('collection-',$c)"/></xsl:attribute>
       <xsl:attribute name="id">root</xsl:attribute>
+      <xsl:attribute name="style">margin-top: 1em;</xsl:attribute>
       <xsl:choose>
         <xsl:when test="$id">
 	  <xsl:for-each select="//node()[$id=@xml:id]">
@@ -126,7 +127,17 @@
   </xsl:template>
 
   <xsl:template match="t:div[@decls]/t:head">
-    <h1 style="margin-top: 5em; margin-bottom: 5em;text-align:center;" class="head-in-work">
+    <h1>
+      <xsl:attribute name="style">
+        <xsl:if test="generate-id(../t:head[1]) = generate-id(.)">
+          margin-top: 3em;
+        </xsl:if>
+        <xsl:if test="generate-id(../t:head[last()]) = generate-id(.)">
+          margin-bottom: 3em;
+        </xsl:if>
+        text-align:center;
+      </xsl:attribute>
+      <xsl:attribute name="class">head-in-work</xsl:attribute>
       <xsl:call-template name="add_id"/><xsl:apply-templates/>
     </h1>
   </xsl:template>
@@ -213,11 +224,22 @@
     <xsl:apply-templates/><br/>
   </xsl:template>
 
-  <xsl:template match="t:head/t:lb"><xsl:text> </xsl:text></xsl:template>
+  <xsl:template match="t:head/t:lb"><br/></xsl:template>
 
   <xsl:template match="t:head">
     <xsl:if test="./node()">
-      <h2 style="margin-top: 3em; margin-bottom: 3em;text-align:center;"  class="head-in-text">
+      <h2>
+        <xsl:attribute name="style">
+          margin-top: 3em; margin-bottom: 3em;text-align:center;"
+          <xsl:if test="generate-id(../t:head[1]) = generate-id(.)">
+            margin-top: 3em;
+          </xsl:if>
+          <xsl:if test="generate-id(../t:head[last()]) = generate-id(.)">
+            margin-bottom: 3em;
+          </xsl:if>
+          text-align:center;
+        </xsl:attribute>
+        <xsl:attribute name="class">head-in-work</xsl:attribute>        
 	<xsl:call-template name="add_id"/>
 	<xsl:apply-templates/>
       </h2>
