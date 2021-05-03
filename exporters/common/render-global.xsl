@@ -240,7 +240,7 @@
     <xsl:param name="style"/>
     <xsl:choose>
       <xsl:when test="$style = 'center'">text-align: center;</xsl:when>
-      <xsl:otherwise><xsl:value-of select="false()"/></xsl:otherwise>
+      <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
   </xsl:function>
   
