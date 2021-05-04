@@ -16,7 +16,7 @@ my $delete_query = "";
 # The commit to solr takes a looong time
 #
 
-my $timeout      = 360;
+my $timeout      = 720;
 
 $ua->timeout($timeout);
 
@@ -99,7 +99,7 @@ if($list) {
 	print localtime() . "\n";
 
 	my $response = &get_it($file);
-	if($response->code() =~ m/200/) {
+	if($response->is_success) {
 	    my $content = $response->content();
 
 	    &send_it($file,$content);
@@ -108,7 +108,7 @@ if($list) {
 		sleep(1) # give solr some rest
 	    }
 	} else {
-	    print "Failure. Don't send to index.\n";
+	    print "Failure. Don't send to index: " . $response->status_line . "\n";
 	}
     }
     &commit_it(); # commit at the end
