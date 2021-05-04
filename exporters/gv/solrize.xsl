@@ -99,8 +99,8 @@
       <xsl:message>key <xsl:value-of select="$key"/> </xsl:message>
       <xsl:choose>
         <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
-          <xsl:for-each select="(t:cell[@rend='altName']|t:cell[@rend='name'])[1]">
-            <xsl:if test="t:note[@type='lastName']">
+          <xsl:for-each select="(t:cell[@rend='altName' and not(t:addName)]|t:cell[@rend='name' and not(t:addName)  ])[1]">
+            <xsl:if test="boolean(t:note[@type='lastName'])">
               <xsl:value-of select="t:note[@type='lastName']"/>
               <xsl:if test="t:note[@type='firstName']"><xsl:text>, </xsl:text></xsl:if>
             </xsl:if>
@@ -113,6 +113,27 @@
       </xsl:choose>
     </xsl:for-each>
   </xsl:function>
+
+  <xsl:function name="me:normalized-location">
+    <xsl:param name="key"/>
+    <xsl:for-each select="$place_registry//t:row[@xml:id = $key]">
+
+      <xsl:message>key <xsl:value-of select="$key"/> </xsl:message>
+      <xsl:choose>
+        <xsl:when test="t:cell[@rend='name' ][1]">
+          <xsl:value-of select="t:cell[@rend='name' ]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$key"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:function>
+
+  <xsl:template match="t:note/t:addName">
+    <xsl:text> </xsl:text><xsl:apply-templates/>
+  </xsl:template>
+
   
   <xsl:function name="me:find-normalized-entity">
     <xsl:param name="this" as="node()"/>
@@ -121,6 +142,9 @@
         <xsl:choose>
           <xsl:when test="contains(local-name($this),'pers')">
             <xsl:value-of select="me:normalized-person($this[1]/@key/string())"/>
+          </xsl:when>
+          <xsl:when test="contains(local-name($this),'place')">
+            <xsl:value-of select="me:normalized-location($this[1]/@key/string())"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="$this/@key"/>

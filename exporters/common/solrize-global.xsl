@@ -743,6 +743,10 @@
     </xsl:choose>
   </xsl:template>
 
+  <!-- 
+       This is the default behaviour, used in SKS 
+       GV has its own instance of this function
+  -->
   <xsl:function name="me:find-normalized-entity">
     <xsl:param name="this"  as="node()"/>
     <xsl:choose>
