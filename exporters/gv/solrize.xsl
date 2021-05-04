@@ -46,10 +46,10 @@
   </xsl:param>
 
   <xsl:param name="person_registry"
-             select="document('registre/pers.xml')"/>
+             select="document('/db/text-retriever/gv/registre/pers.xml')"/>
 
   <xsl:param name="place_registry"
-             select="document('registre/place.xml')"/>
+             select="document('/db/text-retriever/gv/registre/place.xml')"/>
 
   <xsl:template name="is_editorial">
     <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
