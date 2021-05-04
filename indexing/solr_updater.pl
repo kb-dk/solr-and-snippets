@@ -97,11 +97,18 @@ if($list) {
 	$count++;
 
 	print localtime() . "\n";
-	my $content = &get_it($file);
-	&send_it($file,$content);
-	if ($count % 50 == 0) {
-	    &commit_it();
-	    sleep(1) # give solr some rest
+
+	my $response = &get_it($file);
+	if($response->code() =~ m/200/) {
+	    my $content = $response->content();
+
+	    &send_it($file,$content);
+	    if ($count % 50 == 0) {
+		&commit_it();
+		sleep(1) # give solr some rest
+	    }
+	} else {
+	    print "Failure. Don't send to index.\n";
 	}
     }
     &commit_it(); # commit at the end
@@ -133,7 +140,7 @@ sub get_it() {
     my $response = $ua->request($get_req);
     print $response->status_line . "\n";
 
-    $response->content();
+    $response;
 
 }
 
