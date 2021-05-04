@@ -11,12 +11,13 @@ specimen[sks]="../SKS_tei/data/v1.9/ee1/txt.xml"
 specimen[tfs]="../trykkefrihedsskrifter/tei_dir/1_013.xml"
 # specimen[gv]="build/text-retriever/gv/1817_306_12/txt.xml"
 specimen[gv]="build/text-retriever/gv/1815_255/txt.xml"
+#specimen[gv]="build/text-retriever/gv/1837_575/intro.xml"
 specimen[letters]="../letter-corpus/letter_books/001541111/001541111_000.xml"
 
-#ed=sks
+ed=gv
 
-#$SAXON -xsl:"build/text-retriever/$ed/solrize.xsl" -s:"${specimen[$ed]}" | xmllint --format  - 
-#exit()
+$SAXON -xsl:"build/text-retriever/$ed/solrize.xsl" -s:"${specimen[$ed]}" | xmllint --format  - 
+exit()
 
 
 for t in "${!specimen[@]}"

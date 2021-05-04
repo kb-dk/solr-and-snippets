@@ -133,27 +133,59 @@
   </xsl:template>
 
   
-  <xsl:function name="me:find-normalized-entity">
-    <xsl:param name="this" as="node()"/>
-    <xsl:choose>
-      <xsl:when test="$this/@key">
-        <xsl:choose>
-          <xsl:when test="contains(local-name($this),'pers')">
-            <xsl:value-of select="me:normalized-person($this[1]/@key/string())"/>
-          </xsl:when>
-          <xsl:when test="contains(local-name($this),'place')">
-            <xsl:value-of select="me:normalized-location($this[1]/@key/string())"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$this/@key"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$this/text()"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:function>
+ 
+
+  <xsl:template name="extract_entities">
+
+    <!-- t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']" -->
+
+    <xsl:for-each select="fn:distinct-values(descendant-or-self::t:persName/@key)">
+
+      <xsl:variable name="this_value" select="me:normalized-person(.)"/>
+      
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">person_name_ssim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
+      </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">person_name_tesim</xsl:with-param>
+         <xsl:with-param name="node" select="$this_value"/>
+       </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">text_tsim</xsl:with-param>
+         <xsl:with-param name="node" select="$this_value"/>
+       </xsl:call-template>
+    </xsl:for-each>
+    
+    <xsl:for-each select="fn:distinct-values(descendant-or-self::t:placeName/@key)">
+      <xsl:variable name="this_value" select="me:normalized-location(.)"/>
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">other_location_ssim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
+      </xsl:call-template>
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">other_location_tesim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
+      </xsl:call-template>
+      <xsl:call-template name="mkentity">
+        <xsl:with-param name="entity_field">text_tsim</xsl:with-param>
+        <xsl:with-param name="node" select="$this_value"/>
+      </xsl:call-template>
+    </xsl:for-each>
+
+     <xsl:for-each select="fn:distinct-values(descendant-or-self::t:rs[@type='bible']/@key)">
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">bible_ref_ssim</xsl:with-param>
+       </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">bible_ref_tesim</xsl:with-param>
+       </xsl:call-template>
+       <xsl:call-template name="mkentity">
+         <xsl:with-param name="entity_field">text_tsim</xsl:with-param>
+       </xsl:call-template>
+     </xsl:for-each>
+    
+  </xsl:template>
   
   <xsl:template match="t:text[@type='com' or @type='commentary']">
     <xsl:comment> the text element for comments </xsl:comment>
