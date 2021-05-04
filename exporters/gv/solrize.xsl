@@ -96,7 +96,6 @@
     <xsl:param name="key"/>
     <xsl:for-each select="$person_registry//t:row[@xml:id = $key]">
 
-      <xsl:message>key <xsl:value-of select="$key"/> </xsl:message>
       <xsl:choose>
         <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
           <xsl:for-each select="(t:cell[@rend='altName' and not(t:addName)]|t:cell[@rend='name' and not(t:addName)  ])[1]">
@@ -118,7 +117,6 @@
     <xsl:param name="key"/>
     <xsl:for-each select="$place_registry//t:row[@xml:id = $key]">
 
-      <xsl:message>key <xsl:value-of select="$key"/> </xsl:message>
       <xsl:choose>
         <xsl:when test="t:cell[@rend='name' ][1]">
           <xsl:value-of select="t:cell[@rend='name' ]"/>
