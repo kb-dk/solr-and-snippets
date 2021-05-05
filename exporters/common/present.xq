@@ -52,6 +52,15 @@ let $period_id :=
         return $id
     else ()
 
+
+let $person_registry := "http://localhost:8080/exist/rest/db/text-retriever/gv/registre/pers.xml"
+
+(: "/db/text-retriever/gv/registre/pers.xml" :)
+
+let $place_registry  := "http://localhost:8080/exist/rest/db/text-retriever/gv/registre/place.xml"
+
+
+
 let $doc := doc(concat("./",$c,"/",$document))
 
 let $capabilities := fn:replace(  concat($coll,"/",$document) , "([^/]+)$" , "capabilities.xml")
@@ -72,6 +81,8 @@ let $params :=
    <param name="perioid"   value="{$period_id}"/>
    <param name="targetOp"  value="{$targetOp}"/>
    <param name="o"         value="{$o}"/>
+	 <param name="per_reg"   value="{$person_registry}"/>
+	 <param name="pla_reg"   value="{$place_registry}"/>
    <param name="style"     value="{concat($coll,'/', $o, '.xsl')}"/>
    <param name="crearel"   value="{concat($coll,'/','creator-relations.xml')}"/>
    <param name="capabilities" value="{$capabilities}"/>

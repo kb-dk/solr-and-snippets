@@ -45,11 +45,11 @@
     <xsl:value-of select="$volume_title"/>
   </xsl:param>
 
-  <xsl:param name="person_registry"
-             select="document('/db/text-retriever/gv/registre/pers.xml')"/>
-
-  <xsl:param name="place_registry"
-             select="document('/db/text-retriever/gv/registre/place.xml')"/>
+  <xsl:param name="per_reg" />
+  
+  <xsl:param name="person_registry" select="document($per_reg)"/>
+  <xsl:param name="pla_reg"  />
+  <xsl:param name="place_registry" select="document($pla_reg)"/>
 
   <xsl:template name="is_editorial">
     <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
@@ -95,7 +95,7 @@
   <xsl:function name="me:normalized-person">
     <xsl:param name="key"/>
     <xsl:for-each select="$person_registry//t:row[@xml:id = $key]">
-
+      <xsl:comment> person person </xsl:comment>
       <xsl:choose>
         <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
           <xsl:for-each select="(t:cell[@rend='altName' and not(t:addName)]|t:cell[@rend='name' and not(t:addName)  ])[1]">
@@ -139,6 +139,12 @@
 
     <!-- t:rs[@type='myth']|t:rs[@type='title']|t:rs[@type='bible']" -->
 
+    <xsl:comment>
+      per_reg <xsl:value-of select="$per_reg"/>
+      pla_reg <xsl:value-of select="$pla_reg"/><xsl:text>
+    </xsl:text></xsl:comment>
+
+    
     <xsl:for-each select="fn:distinct-values(descendant-or-self::t:persName/@key)">
 
       <xsl:variable name="this_value" select="me:normalized-person(.)"/>
