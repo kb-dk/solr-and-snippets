@@ -95,7 +95,6 @@
   <xsl:function name="me:normalized-person">
     <xsl:param name="key"/>
     <xsl:for-each select="$person_registry//t:row[@xml:id = $key]">
-      <xsl:comment> person person </xsl:comment>
       <xsl:choose>
         <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
           <xsl:for-each select="(t:cell[@rend='altName' and not(t:addName)]|t:cell[@rend='name' and not(t:addName)  ])[1]">
