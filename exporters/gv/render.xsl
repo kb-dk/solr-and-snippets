@@ -17,7 +17,7 @@
   <xsl:template name="page_specimen">
   </xsl:template>
 
-  <xsl:template match="t:seg[@type='com']|t:seg[@type='comStart']|t:seg[@type='comEnd']"><xsl:variable name="href"><xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/></xsl:variable><xsl:element name="a"><xsl:attribute name="class">comment</xsl:attribute><xsl:attribute name="title">Kommentar</xsl:attribute><xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><xsl:comment> bla bla bla </xsl:comment><span class="comment"><xsl:apply-templates/></span></xsl:element></xsl:template>
+  <xsl:template match="t:seg[@type='com']|t:seg[@type='comStart']|t:seg[@type='comEnd']"><xsl:variable name="href"><xsl:value-of select="concat(fn:replace($path,'txt-((root)|(shoot).*$)','com-root#'),@n)"/></xsl:variable><xsl:element name="a"><xsl:attribute name="class">comment</xsl:attribute><xsl:attribute name="title">Punktkommentar</xsl:attribute><xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute><xsl:attribute name="href"><xsl:value-of select="$href"/></xsl:attribute><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><xsl:comment> bla bla bla </xsl:comment><span class="comment"><xsl:apply-templates/></span></xsl:element></xsl:template>
 
   <xsl:template name="inline_note">
     <xsl:call-template name="general_note_code">
