@@ -163,7 +163,9 @@
     </xsl:for-each>
     
     <xsl:for-each select="fn:distinct-values(descendant-or-self::t:placeName/@key)">
+      
       <xsl:variable name="this_value" select="me:normalized-location(.)"/>
+      
       <xsl:call-template name="mkentity">
         <xsl:with-param name="entity_field">other_location_ssim</xsl:with-param>
         <xsl:with-param name="node" select="$this_value"/>

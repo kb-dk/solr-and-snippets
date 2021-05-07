@@ -91,8 +91,8 @@
 
     <xsl:variable name="tit">
       <xsl:choose>
-	<xsl:when test="string-length($volume_title)">
-	  <xsl:value-of select="$volume_title"/>
+	<xsl:when test="string-length($worktitle)">
+	  <xsl:value-of select="$worktitle"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:value-of select="t:head[1]"/>
@@ -422,13 +422,13 @@
 	  <xsl:when test="$is_monograph = 'yes'">
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	      <xsl:value-of select="normalize-space($volume_title)"/>
+	      <xsl:value-of select="normalize-space($worktitle)"/>
 	    </xsl:element>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	      <xsl:call-template name="str_massage">
                 <xsl:with-param name="str">
-                  <xsl:value-of select="$volume_title"/>
+                  <xsl:value-of select="$worktitle"/>
                 </xsl:with-param>
 	      </xsl:call-template>
 	    </xsl:element>
@@ -443,12 +443,12 @@
 	  <xsl:otherwise>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	      <xsl:value-of select="normalize-space($volume_title)"/>
+	      <xsl:value-of select="normalize-space($worktitle)"/>
 	    </xsl:element>
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	      <xsl:call-template name="str_massage">
-		<xsl:with-param name="str" select="$volume_sort_title"/>
+		<xsl:with-param name="str" select="$worktitle"/>
 	      </xsl:call-template>
 	    </xsl:element>
 
@@ -815,7 +815,7 @@
     <xsl:call-template name="mkfield">
       <xsl:with-param name="field"><xsl:value-of select="$entity_field"/></xsl:with-param>
       <xsl:with-param name="value">
-        <xsl:value-of select="$node"/>
+        <xsl:value-of select="normalize-space($node)"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
