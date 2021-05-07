@@ -11,7 +11,16 @@ use strict;
 my $where_is_grundtvig = "../GV/";
 my $where_should_it_go = "./build/text-retriever/";
 
-if( open(my $gv, "(cd $where_is_grundtvig ; find shared/registre -name '*.xml' -print ;  find . -regextype sed -regex '^.*18[0-9][0-9]GV.*\$' -type f -print)|") ) {
+my $published_files = `perl -ne 's/\n/ /; print;' gv_filter/txtFilter.txt`;
+
+my $doc_cmd = 'ls ' . $published_files;
+
+# my $doc_cmd = "find . -regextype sed -regex '^.*18[0-9][0-9]GV.*\$' -type f -print";
+my $authority_cmd =  "find shared/registre -name '*.xml' -print";
+
+my $find_cmds = "(cd $where_is_grundtvig ; $authority_cmd ; $doc_cmd )|";
+
+if( open(my $gv, $find_cmds) ) {
     while(my $file = <$gv>) {
 	chomp $file;
 	my $uri = "";

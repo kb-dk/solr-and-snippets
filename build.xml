@@ -120,6 +120,7 @@
       </exec>
       <echo>NB you might need to update capabilities.</echo>
       <echo>note to self utilities/capabilities_adder_gv.pl?</echo>
+      <echo>(cd build/text-retriever; find gv -name '*xml' -print) > files_to_be_indexed/files-gv_to_be_indexed.text</echo>
     </target>
 
     <target name="add_base_data" depends="base_service">
