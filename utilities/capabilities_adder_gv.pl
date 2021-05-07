@@ -30,7 +30,7 @@ if(open(FIND,"$find_cmd |") ) {
 	    if($file =~ m/intro.xml/) {
 		$type = "Indledning";
 	    } elsif($file =~ m/com.xml/) {
-		$type = "Kommentarer";
+		$type = "Punktkommentarer";
 	    } elsif($file =~ m/txr.xml/) {
 		$type = "Tekstredegørelser";
 	    } elsif($file =~ m/v0.xml/) {
