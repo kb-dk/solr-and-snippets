@@ -94,22 +94,24 @@
 
   <xsl:function name="me:normalized-person">
     <xsl:param name="key"/>
-    <xsl:for-each select="$person_registry//t:row[@xml:id = $key]">
-      <xsl:choose>
-        <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
-          <xsl:for-each select="(t:cell[@rend='altName' and not(t:addName)]|t:cell[@rend='name' and not(t:addName)  ])[1]">
-            <xsl:if test="boolean(t:note[@type='lastName'])">
-              <xsl:value-of select="t:note[@type='lastName']"/>
-              <xsl:if test="t:note[@type='firstName']"><xsl:text>, </xsl:text></xsl:if>
-            </xsl:if>
-            <xsl:value-of select="t:note[@type='firstName']"/>
-          </xsl:for-each>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$key"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each>
+    <xsl:variable name="person">
+      <xsl:for-each select="$person_registry//t:row[@xml:id = $key]">
+        <xsl:choose>
+          <xsl:when test="t:cell[@rend='altName']|t:cell[@rend='name']">
+            <xsl:for-each select="(t:cell[@rend='altName' and not(t:addName)]|t:cell[@rend='name' and not(t:addName)  ])[1]">
+              <xsl:if test="t:note[@type='lastName']">
+                <xsl:value-of select="t:note[@type='lastName']"/><xsl:if test="t:note[@type='firstName']"><xsl:text>&#x2c; </xsl:text></xsl:if>
+              </xsl:if>
+              <xsl:value-of select="t:note[@type='firstName']"/>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$key"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:value-of select="normalize-space(string($person))"/>
   </xsl:function>
 
   <xsl:function name="me:normalized-location">
