@@ -363,6 +363,8 @@
         <xsl:call-template name="add_id"/>
         <xsl:apply-templates mode="apparatus" select="t:lem"/><xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
       </xsl:if>
+      <xsl:text>
+      </xsl:text>
       <xsl:for-each select="t:rdg|t:rdgGrp|t:corr|t:note">
 	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()">;
         </xsl:if><xsl:comment> <xsl:value-of select="local-name(.)"/> </xsl:comment>
