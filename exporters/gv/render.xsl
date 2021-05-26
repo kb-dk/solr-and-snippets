@@ -118,6 +118,7 @@
       <xsl:choose>
 	<xsl:when test="contains(local-name(.),'pers')">&#128100;</xsl:when>
 	<xsl:when test="contains(local-name(.),'place')">&#128204;</xsl:when>
+        <xsl:when test="contains(local-name(.),'title')">&#128214;</xsl:when>
         <xsl:otherwise>&#9658;</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
