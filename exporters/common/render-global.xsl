@@ -268,9 +268,14 @@
   
   <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
     <p>
-      <xsl:if test="me:paragraph-style(@rend)">
-        <xsl:attribute name="class">paragraph  <xsl:value-of select="@rend"/></xsl:attribute>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="me:paragraph-style(@rend)">
+          <xsl:attribute name="class">paragraph  <xsl:value-of select="@rend"/></xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="class">paragraph</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:attribute name="style">
         <xsl:choose>
           <xsl:when test="me:paragraph-style(@rend)"><xsl:value-of select="me:paragraph-style(@rend)"/></xsl:when>
