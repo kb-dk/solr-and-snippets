@@ -26,6 +26,9 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
   <xsl:param name="processed_prefix">
     <choose>
       <xsl:choose>
+        <xsl:when test="contains($c,'gv')">
+          <xsl:value-of select="concat($prefix,'tekstportal/gv/')"/>
+        </xsl:when>
         <xsl:when test="contains($c,'tfs')">
           <xsl:value-of select="concat($prefix,'tekstportal/tfs3/')"/>
         </xsl:when>
@@ -125,9 +128,30 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
 	  test="not(contains(@facs,'http')) and not(contains(@rend,'missing'))">
         <xsl:element name="img">
 	  <xsl:attribute name="height">750</xsl:attribute>
-          <xsl:attribute name="src">
-            <xsl:value-of select="concat($processed_prefix,@facs,'/full/,750/0/native.jpg')"/>
-          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when test="contains($c,'gv')">
+
+              <xsl:variable name="year" select="fn:replace(@facs,'^(18\d\d).*$','$1')"/>
+              <xsl:variable name="ipath" select="fn:replace(@facs,'^(.*)_fax.*jpg$','$1')"/>
+              <xsl:variable name="facs" select="fn:replace(@facs,'^(.*)\.jpg$','$1/')"/>
+              
+              <xsl:attribute name="src">
+                <xsl:value-of
+                    select="concat($processed_prefix,
+                            $year,'/',
+                            $year,'GV/',
+                            $ipath,'/',
+                            $ipath,'_tif_side/',
+                            $facs,'/full/,750/0/native.jpg')"/>
+                <!--         https://kb-images.kb.dk/public/tekstportal/gv/1839/1839GV/1839_615/1839_615_tif_side/1839_615_fax001/info.json -->
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="src">
+                <xsl:value-of select="concat($processed_prefix,@facs,'/full/,750/0/native.jpg')"/>
+              </xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:element>
       </xsl:when>
     </xsl:choose>
