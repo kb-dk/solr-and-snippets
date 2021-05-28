@@ -208,6 +208,16 @@
     </p>
   </xsl:template>
 
+  <xsl:template match="t:div/t:p|t:text/t:p|t:body/t:p">
+    <p class="paragraph">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </p>
+    <xsl:call-template name="make_author_note_list"/>
+  </xsl:template>
+
+
+  
  <xsl:template match="t:lb">
    <xsl:element name="br">
     <xsl:call-template name="add_id_empty_elem"/>
