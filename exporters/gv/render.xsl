@@ -145,7 +145,12 @@
 
       <xsl:attribute name="title">
         <xsl:choose>
-          <xsl:when test="contains($title,'Bibel')"><xsl:value-of select="@key"/></xsl:when>
+          <xsl:when test="contains($title,'Bibel')">
+            <xsl:call-template name="bible-reference">
+              <xsl:with-param name="rend" select="@rend"/>
+              <xsl:with-param name="key"  select="@key"/>
+            </xsl:call-template>
+          </xsl:when>
           <xsl:otherwise>
 	    <xsl:value-of select="$title"/>
           </xsl:otherwise>
@@ -188,13 +193,54 @@
 
 	<xsl:element name="small">
 	  <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
-	  <xsl:value-of select="@n"/>
+	  <xsl:value-of select="@n"/> <xsl:if test="@ed">
+            (<xsl:value-of select="@ed"/>)
+          </xsl:if>
 	</xsl:element>
       </xsl:element>
       <xsl:text> 
       </xsl:text>
     </xsl:if>
 
+  </xsl:template>
+
+  <xsl:template name="bible-reference">
+    <xsl:param name="rend" select="''"/>
+    <xsl:param name="key"  select="''"/>
+
+    <!--
+    "allusion"          "allusion til {@key}"               
+    "reference"         "jf. {@key}"              
+    "eg"                "jf. f.eks. {@key}"               
+    "normForm"          "{@key}"               
+    "quote"             "{@key}"               
+    "allusion1787"      "allusion til {@key} (1787)"               
+    "normForm1787"      "{@key} (1787)"               
+    "reference1787"     "jf. {@key} (1787)"              
+    "eg1787"            "jf. f.eks. {@key} (1787)"               
+    "quote1787"         "{@key} (1787)"
+    -->
+
+    <xsl:choose>
+      <xsl:when test="contains($rend,'allusion')">
+        allusion til <xsl:value-of select="$key"/> <xsl:if test="substring-after($rend,'allusion')"> (<xsl:value-of select="substring-after($rend,'allusion')"/>)</xsl:if>
+      </xsl:when>
+      <xsl:when test="contains($rend,'reference')">
+        jf. <xsl:value-of select="$key"/> <xsl:if test="substring-after($rend,'reference')"> (<xsl:value-of select="substring-after($rend,'reference')"/>)</xsl:if>
+      </xsl:when>
+      <xsl:when test="contains($rend,'eg')">
+        jf. f.eks. <xsl:value-of select="$key"/> <xsl:if test="substring-after($rend,'eg')"> (<xsl:value-of select="substring-after($rend,'eg')"/>)</xsl:if>
+      </xsl:when>
+      <xsl:when test="contains($rend,'normForm')">
+        <xsl:value-of select="$key"/> <xsl:if test="substring-after($rend,'normForm')"> (<xsl:value-of select="substring-after($rend,'normForm')"/>)</xsl:if>
+      </xsl:when>
+      <xsl:when test="contains($rend,'quote')">
+        <xsl:value-of select="$key"/> <xsl:if test="substring-after($rend,'quote')"> (<xsl:value-of select="substring-after($rend,'quote')"/>)</xsl:if>
+      </xsl:when>
+      <xsl:otherwise><xsl:value-of select="$key"/></xsl:otherwise>
+    </xsl:choose>
+
+    
   </xsl:template>
 
   <xsl:template match="t:row[@role]">
