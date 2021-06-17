@@ -98,9 +98,11 @@
       <xsl:otherwise>editorial</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
-  <!-- xsl:template match="t:text[@decls]|t:div[@decls]" -->
-  <xsl:template match="t:div">
+
+
+
+  <xsl:template match="t:text[@decls]|t:div[@decls]">
+
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
     <xsl:variable name="worktitle">
       <xsl:choose>
