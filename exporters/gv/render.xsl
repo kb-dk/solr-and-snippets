@@ -150,6 +150,12 @@
               <xsl:with-param name="rend" select="@rend"/>
               <xsl:with-param name="key"  select="@key"/>
             </xsl:call-template>
+          </xsl:when><!-- activate this code by replacing Place with Plads below -->
+          <xsl:when test="contains($title,'Place')">
+            <xsl:call-template name="place-reference">
+              <xsl:with-param name="rend" select="@rend"/>
+              <xsl:with-param name="key"  select="@key"/>
+            </xsl:call-template>
           </xsl:when>
           <xsl:otherwise>
 	    <xsl:value-of select="$title"/>
@@ -204,6 +210,20 @@
 
   </xsl:template>
 
+  <xsl:template name="place-reference">
+    <xsl:param name="rend" select="''"/>
+    <xsl:param name="key"  select="''"/>
+
+    <xsl:choose>
+      <xsl:when test="contains($key,'his')">Sted (hist.)</xsl:when>
+      <xsl:when test="contains($key,'poet')">Sted (poet.)</xsl:when>
+      <xsl:when test="contains($key,'fik')">Sted (fikt.)</xsl:when>
+      <xsl:otherwise>Sted</xsl:otherwise>
+    </xsl:choose>
+
+  </xsl:template>
+
+  
   <xsl:template name="bible-reference">
     <xsl:param name="rend" select="''"/>
     <xsl:param name="key"  select="''"/>

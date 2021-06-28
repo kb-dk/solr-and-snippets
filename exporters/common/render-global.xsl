@@ -503,13 +503,12 @@
   <xsl:template match="t:hi[@rend='initial']">
     <strong style="font-size: 120%"><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
   </xsl:template>
-
   
   <xsl:template match="t:hi[@rend='bold']|t:hi[@rend='bold']|t:emph[@rend='bold']">
     <strong><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
   </xsl:template>
 
-  <xsl:template match="t:hi[@rend='italics']|t:emph[@rend='italics']">
+  <xsl:template match="t:hi[@rend='italic']|t:hi[@rend='italics']|t:emph[@rend='italics']|t:emph[@rend='italic']">
     <em><xsl:call-template name="add_id"/><xsl:apply-templates/></em>
   </xsl:template>
 
