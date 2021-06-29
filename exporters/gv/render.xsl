@@ -151,7 +151,7 @@
               <xsl:with-param name="key"  select="@key"/>
             </xsl:call-template>
           </xsl:when><!-- activate this code by replacing Place with Plads below -->
-          <xsl:when test="contains($title,'Place')">
+          <xsl:when test="contains($title,'Plads')">
             <xsl:call-template name="place-reference">
               <xsl:with-param name="rend" select="@rend"/>
               <xsl:with-param name="key"  select="@key"/>
