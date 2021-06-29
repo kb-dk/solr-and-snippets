@@ -651,9 +651,9 @@
 	</xsl:if>
       </xsl:element>
       <xsl:if test="contains(local-name(following-sibling::element()[1]),'pb')">
-        <p>
+        <xsl:if test="following-sibling::t:pb[1]/@facs">
           <br/>
-        </p>
+        </xsl:if>
       </xsl:if>
 
     </xsl:if>
