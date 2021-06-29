@@ -508,7 +508,7 @@
     <strong><xsl:call-template name="add_id"/><xsl:apply-templates/></strong>
   </xsl:template>
 
-  <xsl:template match="t:hi[@rend='italic']|t:hi[@rend='italics']|t:emph[@rend='italics']|t:emph[@rend='italic']">
+  <xsl:template match="t:hi[@rend='spaced']|t:hi[@rend='italic']|t:hi[@rend='italics']|t:emph[@rend='italics']|t:emph[@rend='italic']">
     <em><xsl:call-template name="add_id"/><xsl:apply-templates/></em>
   </xsl:template>
 
