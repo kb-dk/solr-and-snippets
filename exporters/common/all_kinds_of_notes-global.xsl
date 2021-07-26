@@ -63,8 +63,8 @@
 
   <xsl:template name="show_note">
     <xsl:param name="display" select="'none'"/>
-    <xsl:param name="bgcolor" select="'#F2F4F8'"/>
-    <span style="background-color:{$bgcolor};display:{$display};"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
+    <xsl:param name="bgcolor" select="'#D6D6D6'"/>
+    <span title="Note" style="background-color:{$bgcolor};display:{$display};"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
   </xsl:template>
 
   <xsl:template name="general_note_code">
@@ -90,9 +90,12 @@
       <xsl:element name="a">
 	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
         <xsl:attribute name="style"><xsl:value-of select="$sup_style"/></xsl:attribute>
-	<xsl:if test="@type='author'">
-	  <xsl:attribute name="title">Forfatterens note.</xsl:attribute>
-	</xsl:if>
+        <xsl:attribute name="title">
+          <xsl:choose>
+	    <xsl:when test="@type='author'">Forfatterens note</xsl:when>
+            <xsl:otherwise>Note</xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
 	<xsl:choose>
 	  <xsl:when test="@n"><xsl:value-of select="@n"/></xsl:when>
 	  <xsl:otherwise><xsl:value-of select="$lbl"/></xsl:otherwise>
