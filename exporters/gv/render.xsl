@@ -304,10 +304,6 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="t:cell[@rend='name']/t:note">
-    <xsl:apply-templates/>
-  </xsl:template>
-
   <xsl:template match="t:cell[@rend='year']/text()">
     (<xsl:value-of select="."/>)
   </xsl:template>
