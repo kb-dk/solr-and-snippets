@@ -102,6 +102,7 @@
         <xsl:when test="contains(local-name(.),'place')">place</xsl:when>
         <xsl:when test="@type='myth'">mytologi</xsl:when>
         <xsl:when test="@type='bible'">Bibel</xsl:when>
+        <xsl:when test="@type='title'">title</xsl:when>
 	<xsl:otherwise>comment</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
