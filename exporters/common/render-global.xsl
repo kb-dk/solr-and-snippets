@@ -42,6 +42,11 @@
       <xsl:choose>
         <xsl:when test="$id">
 	  <xsl:for-each select="//node()[$id=@xml:id]">
+            <xsl:comment>
+              element: <xsl:value-of select="local-name(.)"/><xsl:text> </xsl:text>
+              id: <xsl:value-of select="@xml:id"/><xsl:text> </xsl:text>
+              type: <xsl:value-of select="@type"/>
+            </xsl:comment>
 	    <xsl:apply-templates select="."/>
 	  </xsl:for-each>
         </xsl:when>

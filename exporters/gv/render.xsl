@@ -264,6 +264,37 @@
     
   </xsl:template>
 
+  <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
+    <p class="bib_entry">
+    <xsl:if test="t:cell[@type='mainAuthor']">
+      <xsl:apply-templates select="t:cell[@type='mainAuthor']"/><xsl:text>. </xsl:text>
+    </xsl:if>
+    <xsl:apply-templates select="t:cell[@type='partTitle']"/>
+    <xsl:if test="t:cell[@type='editor']">
+      <xsl:apply-templates select="t:cell[@type='editor']/*"/><xsl:text>(ed.). </xsl:text>
+    </xsl:if>
+    <xsl:if test="t:cell[@type='mainTitle']">
+    <em><xsl:apply-templates select="t:cell[@type='mainTitle']"/></em></xsl:if><xsl:if test="t:cell[@type='translatedTitle']"> [<xsl:apply-templates select="t:cell[@type='translatedTitle']"/>]</xsl:if>.
+    <xsl:if test="t:cell[@type='volume']">Vol. <xsl:apply-templates select="t:cell[@type='volume']"/>.
+    </xsl:if>
+    <xsl:if test="t:cell[@type='pubPlace']">
+      <xsl:apply-templates select="t:cell[@type='pubPlace']"/><xsl:if test="t:cell[@type='pubYear']">, </xsl:if>
+      <xsl:apply-templates select="t:cell[@type='pubYear']"/>.</xsl:if>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="t:cell[@type='mainAuthor']">
+      <xsl:apply-templates select="t:note[@type='firstName']|t:note[@type='lastName']"/>
+  </xsl:template>
+  
+  <xsl:template match="t:note[@type='firstName']">
+    <xsl:apply-templates/><xsl:if test="../t:note[@type='lastName']"><xsl:text> </xsl:text></xsl:if>
+  </xsl:template>
+
+  <xsl:template match="t:note[@type='lastName']">
+    <xsl:apply-templates/>
+  </xsl:template>
+  
   <xsl:template match="t:row[@role]">
     <div>
       <xsl:call-template name="add_id"/>
