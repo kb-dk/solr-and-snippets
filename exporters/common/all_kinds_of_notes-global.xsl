@@ -64,7 +64,10 @@
   <xsl:template name="show_note">
     <xsl:param name="display" select="'none'"/>
     <xsl:param name="bgcolor" select="'#D6D6D6'"/>
-    <span title="Note" style="background-color:{$bgcolor};display:{$display};"><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
+    <span class="note_content" title="Note" style="background-color:{$bgcolor};display:{$display};">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates/>
+    </span>
   </xsl:template>
 
   <xsl:template name="general_note_code">
@@ -87,9 +90,22 @@
 	}
       </script>
 
-      <xsl:element name="a">
+      <xsl:call-template name="note_anchor">
+        <xsl:with-param name="sup_style" select="$sup_style"/>
+        <xsl:with-param name="note" select="$note"/>
+        <xsl:with-param name="lbl" select="$lbl"/>
+      </xsl:call-template>
+
+  </xsl:template>
+
+  <xsl:template name="note_anchor">
+    <xsl:param name="lbl" select="'*'"/>
+    <xsl:param name="note" select="''"/>
+    <xsl:param name="sup_style" select="''"/>
+    <xsl:element name="a">
 	<xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
         <xsl:attribute name="style"><xsl:value-of select="$sup_style"/></xsl:attribute>
+        <xsl:attribute name="class">note</xsl:attribute>
         <xsl:attribute name="title">
           <xsl:choose>
 	    <xsl:when test="@type='author'">Forfatterens note</xsl:when>
@@ -101,8 +117,6 @@
 	  <xsl:otherwise><xsl:value-of select="$lbl"/></xsl:otherwise>
 	</xsl:choose>
       </xsl:element>
-
-
   </xsl:template>
 
   <xsl:template match="t:note/t:p">
