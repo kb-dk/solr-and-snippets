@@ -439,10 +439,22 @@
   <xsl:template match="t:cell">
     <td>
       <xsl:call-template name="add_id"/>
+      <xsl:if test="@rows&gt;1">
+        <xsl:attribute name="rowspan"><xsl:value-of select="@rows"/></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@cols&gt;1">
+        <xsl:attribute name="colspan"><xsl:value-of select="@cols"/></xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates/>
     </td>
   </xsl:template>
 
+  <xsl:template match="t:span[@rend='2rows']">
+    <span style="font-size:400%;font-weight:lighter;vertical-align:middle;">
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+  
   <xsl:template match="t:castList">
     <div class="castList">
       <xsl:call-template name="add_id"/>
