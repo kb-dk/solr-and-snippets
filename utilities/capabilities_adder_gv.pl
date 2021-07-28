@@ -32,7 +32,7 @@ if(open(FIND,"$find_cmd |") ) {
 	    } elsif($file =~ m/com.xml/) {
 		$type = "Punktkommentarer";
 	    } elsif($file =~ m/txr.xml/) {
-		$type = "Tekstredegørelser";
+		$type = "Tekstredegørelse";
 	    } elsif($file =~ m/v0.xml/) {
 		$type = "Varianter";
 	    }
