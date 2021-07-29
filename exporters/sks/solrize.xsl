@@ -74,6 +74,10 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="use_for_title">
+    <xsl:value-of select="$worktitle"/>
+  </xsl:template>
+  
   <xsl:template match="t:text[@type='com' or @type='commentary']">
     <xsl:comment> the text element for comments </xsl:comment>
     <xsl:variable name="tit">
