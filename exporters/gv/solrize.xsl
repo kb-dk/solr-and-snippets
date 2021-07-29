@@ -21,7 +21,7 @@
 
   <xsl:param name="worktitle">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
-      <xsl:apply-templates mode="gettext" select="t:title[contains(@rend,'part') or contains(@rend,'main')]"/> XXXXXXXXX
+      <xsl:apply-templates mode="gettext" select="t:title[contains(@rend,'part') or contains(@rend,'main')]"/> 
     </xsl:for-each>
   </xsl:param>
 
