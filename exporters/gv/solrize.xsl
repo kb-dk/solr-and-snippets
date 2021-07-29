@@ -21,7 +21,7 @@
 
   <xsl:param name="worktitle">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt">
-      <xsl:apply-templates mode="gettext" select="t:title[contains(@rend,'part') or contains(@rend,'main')]"/>
+      <xsl:apply-templates mode="gettext" select="t:title[contains(@rend,'part') or contains(@rend,'main')]"/> XXXXXXXXX
     </xsl:for-each>
   </xsl:param>
 
@@ -51,6 +51,10 @@
   <xsl:param name="pla_reg"  />
   <xsl:param name="place_registry" select="document($pla_reg)"/>
 
+  <xsl:template name="use_for_title">
+    <xsl:value-of select="$worktitle"/>
+  </xsl:template>
+  
   <xsl:template name="is_editorial">
     <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
     <xsl:choose>

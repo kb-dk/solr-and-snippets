@@ -90,16 +90,8 @@
                        t:text[not(@decls) and not(ancestor::node()[@decls])]">
 
     <xsl:variable name="tit">
-      <xsl:choose>
-	<xsl:when test="string-length($volume_title)">
-	  <xsl:value-of select="$volume_title"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="t:head[1]"/>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    
+        <xsl:call-template name="use_for_title"/>
+    </xsl:variable>    
     <xsl:call-template name="trunk_doc">
 	<xsl:with-param name="worktitle" select="$tit"/>
     </xsl:call-template>
@@ -108,6 +100,18 @@
       <xsl:with-param name="worktitle" select="$tit"/>
     </xsl:apply-templates>
       
+  </xsl:template>
+
+
+  <xsl:template name="use_for_title">
+    <xsl:choose>
+      <xsl:when test="string-length($volume_title)">
+	<xsl:value-of select="$volume_title"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="t:head[1]"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="get_category">work</xsl:template>
@@ -206,15 +210,17 @@
        </xsl:element>
 
        <xsl:element name="field">
+	 <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	 <xsl:value-of select="$worktitle"/>
+       </xsl:element>
+     </xsl:if>
+
+     <xsl:if test="string-length($volume_sort_title) &gt; 0">
+       <xsl:element name="field">
 	 <xsl:attribute name="name">volume_sort_title_ssi</xsl:attribute>
 	 <xsl:call-template name="str_massage">
 	   <xsl:with-param name="str" select="$volume_sort_title"/>
 	 </xsl:call-template>
-       </xsl:element>
-
-       <xsl:element name="field">
-	 <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	 <xsl:value-of select="$worktitle"/>
        </xsl:element>
      </xsl:if>
 
@@ -417,50 +423,46 @@
       
       <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:call-template name="is_a_monograph"/></xsl:element>
 
-      <xsl:if test="string-length($volume_title)">
-	<xsl:choose>
-	  <xsl:when test="$is_monograph = 'yes'">
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	      <xsl:value-of select="normalize-space($volume_title)"/>
-	    </xsl:element>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
-	      <xsl:call-template name="str_massage">
-                <xsl:with-param name="str">
-                  <xsl:value-of select="$volume_title"/>
-                </xsl:with-param>
-	      </xsl:call-template>
-	    </xsl:element>
-
-	    <xsl:if test="contains($path,'adl-authors')">
-	      <xsl:element name="field">
-		<xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
-		<xsl:value-of select="$volume_sort_title"/>
-	      </xsl:element>
-	    </xsl:if>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	      <xsl:value-of select="normalize-space($volume_title)"/>
-	    </xsl:element>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
-	      <xsl:call-template name="str_massage">
-		<xsl:with-param name="str" select="$volume_title"/>
-	      </xsl:call-template>
-	    </xsl:element>
-
-	    <xsl:if test="contains($path,'adl-authors')">
-	      <xsl:element name="field">
-		<xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
-		<xsl:value-of select="$volume_sort_title"/>
-	      </xsl:element>
-	    </xsl:if>
-	  </xsl:otherwise>
-	</xsl:choose>
+      
+      <xsl:if test="contains($path,'adl-authors')">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">inverted_name_title_ssi</xsl:attribute>
+	  <xsl:value-of select="$volume_sort_title"/>
+	</xsl:element>
       </xsl:if>
+      
+      <xsl:variable name="tit">
+        <xsl:call-template name="use_for_title"/>
+      </xsl:variable>
+      
+      <xsl:choose>
+	<xsl:when test="$is_monograph = 'yes'">
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	    <xsl:value-of select="normalize-space($tit)"/>
+	  </xsl:element>
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	    <xsl:call-template name="str_massage">
+              <xsl:with-param name="str">
+                <xsl:value-of select="$tit"/>
+              </xsl:with-param>
+	    </xsl:call-template>
+	  </xsl:element>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	    <xsl:value-of select="normalize-space($volume_title)"/>
+	  </xsl:element>
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
+	    <xsl:call-template name="str_massage">
+	      <xsl:with-param name="str" select="$volume_title"/>
+	    </xsl:call-template>
+	  </xsl:element>
+	</xsl:otherwise>
+      </xsl:choose>
 
       <xsl:if test="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt/t:idno[not(@type='ISBN')]">
 	<xsl:variable name="idno">
