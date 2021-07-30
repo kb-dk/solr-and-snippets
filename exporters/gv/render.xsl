@@ -67,7 +67,8 @@
 	    select="concat(substring-before($path,'-txt'),'-com-shoot-',$target)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$target"/>
+        <!-- xsl:value-of select="fn:replace(@target,'18([^/]*?)((txt)|(txr)|(com)|(v0)|(intro)).xml','gv-18$1-shoot-$2')"/ -->
+        <xsl:value-of select="fn:replace(@target,'18(.*?)_((txt)|(txr)|(com)|(v0)|(intro)).xml','gv-18$1-$2-root')"/>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -271,8 +272,15 @@
         <xsl:apply-templates select="t:note"/>
       </xsl:for-each>
       <xsl:if test="t:cell[@rend='year']">, <xsl:value-of select="t:cell[@rend='year']"/>. </xsl:if>
+      <xsl:if test="t:cell[@rend='nation']">
+        <xsl:value-of select="t:cell[@rend='nation']"/><xsl:text>
+        </xsl:text>
+      </xsl:if>
       <xsl:if test="t:cell[@rend='encyc']">
         <xsl:value-of select="t:cell[@rend='encyc']"/>
+      </xsl:if>
+      <xsl:if test="t:cell[@rend='facts']">
+        
       </xsl:if>
     </p>
   </xsl:template>
