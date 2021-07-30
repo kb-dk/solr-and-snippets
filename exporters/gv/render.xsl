@@ -264,6 +264,22 @@
     
   </xsl:template>
 
+  <!-- this matches rows in pers.xml -->
+  <xsl:template match="t:row[@role]">
+    <p class="pers_entry">
+      <xsl:for-each select="t:cell[@rend='name']">
+        <xsl:apply-templates select="t:note"/>
+      </xsl:for-each>
+      <xsl:if test="t:cell[@rend='year']">, <xsl:value-of select="t:cell[@rend='year']"/>. </xsl:if>
+      <xsl:if test="t:cell[@rend='encyc']">
+        <xsl:value-of select="t:cell[@rend='encyc']"/>
+      </xsl:if>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="t:note/t:addName"><xsl:text> (</xsl:text><xsl:apply-templates/>)</xsl:template>
+  
+  <!-- this matches rows in title.xml -->
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
     <p class="bib_entry">
     <xsl:if test="t:cell[@type='mainAuthor']">
@@ -293,15 +309,6 @@
 
   <xsl:template match="t:note[@type='lastName']">
     <xsl:apply-templates/>
-  </xsl:template>
-  
-  <xsl:template match="t:row[@role]">
-    <div>
-      <xsl:call-template name="add_id"/>
-      <xsl:for-each select="t:cell">
-        <xsl:apply-templates/><xsl:text>
-</xsl:text></xsl:for-each>
-    </div>
   </xsl:template>
 
   <xsl:template match="t:cell[@rend='year']/text()">
