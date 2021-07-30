@@ -295,8 +295,8 @@
   <!-- this matches rows in title.xml -->
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
     <p class="bib_entry">
-    <xsl:if test="t:cell[@type='mainAuthor']">
-      <xsl:apply-templates select="t:cell[@type='mainAuthor']"/><xsl:text>. </xsl:text>
+      <xsl:if test="t:cell[@type='mainAuthor']">
+      <xsl:apply-templates select="t:cell[@type='mainAuthor']"/>
     </xsl:if>
     <xsl:apply-templates select="t:cell[@type='partTitle']"/>
     <xsl:if test="t:cell[@type='editor']">
