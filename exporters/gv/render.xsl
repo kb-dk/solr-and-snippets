@@ -279,9 +279,14 @@
       <xsl:if test="t:cell[@rend='encyc']">
         <xsl:value-of select="t:cell[@rend='encyc']"/>
       </xsl:if>
-      <xsl:if test="t:cell[@rend='facts']">
-        
-      </xsl:if>
+      <!-- xsl:if test="t:cell[@rend='facts']">
+        <xsl:element name="a">
+          <xsl:attribute name="href">
+            <xsl:value-of select="concat('gv-registre-pers-root#',t:cell[@rend='facts']/@xml:id)"/>
+          </xsl:attribute>
+          mere
+        </xsl:element>
+      </xsl:if -->
     </p>
   </xsl:template>
 
