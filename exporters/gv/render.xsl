@@ -269,9 +269,10 @@
   <xsl:template match="t:row[@role]">
     <p class="pers_entry">
       <xsl:for-each select="t:cell[@rend='name']">
-        <xsl:apply-templates select="t:note"/>
+        <!-- xsl:apply-templates select="."/ -->
+        <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:if test="t:note[@type='lastName']"><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/></xsl:if><xsl:if test="position()=last() and ../t:cell[@rend='year']">, </xsl:if>
       </xsl:for-each>
-      <xsl:if test="t:cell[@rend='year']">, <xsl:value-of select="t:cell[@rend='year']"/>. </xsl:if>
+      <xsl:if test="t:cell[@rend='year']"><xsl:value-of select="t:cell[@rend='year']"/>. </xsl:if>
       <xsl:if test="t:cell[@rend='nation']">
         <xsl:value-of select="t:cell[@rend='nation']"/><xsl:text>
         </xsl:text>
@@ -322,7 +323,7 @@
   </xsl:template>
 
   <xsl:template match="t:cell[@type='mainAuthor']">
-    <xsl:apply-templates select="t:note[@type='lastName']"/>, <xsl:apply-templates select="t:note[@type='firstName']"/>
+     <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
   </xsl:template>
 
   <xsl:template match="t:cell[@type='coAuthor']">
@@ -333,13 +334,9 @@
     <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
   </xsl:template>
   
-  <xsl:template match="t:note[@type='firstName']">
-    <xsl:apply-templates/>
-  </xsl:template>
+  <xsl:template match="t:note[@type='firstName']"><xsl:apply-templates/></xsl:template>
 
-  <xsl:template match="t:note[@type='lastName']">
-    <xsl:apply-templates/>
-  </xsl:template>
+  <xsl:template match="t:note[@type='lastName']"><xsl:apply-templates/></xsl:template>
 
   <xsl:template match="t:cell[@rend='year']/text()">
     (<xsl:value-of select="."/>)
