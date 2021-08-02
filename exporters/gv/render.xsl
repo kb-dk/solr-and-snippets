@@ -296,7 +296,7 @@
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
     <p class="bib_entry">
     <xsl:for-each select="t:cell[@type='mainAuthor']|t:cell[@type='coAuthor']">
-      <xsl:if test="position() &gt; 1 and position() = last()"> og </xsl:if><xsl:apply-templates select="."/><xsl:choose><xsl:when test="position() = last()"><xsl:text>. </xsl:text></xsl:when><xsl:otherwise><xsl:if test="position() &lt; last()">, </xsl:if></xsl:otherwise></xsl:choose>
+      <xsl:if test="position() &gt; 1"><xsl:choose><xsl:when test="position() = last()"> og </xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose></xsl:if><xsl:apply-templates select="."/><xsl:if test="position() = last()"><xsl:text>. </xsl:text></xsl:if>
     </xsl:for-each>
     <xsl:apply-templates select="t:cell[@type='partTitle']"/>
 
@@ -309,8 +309,8 @@
     </xsl:if>
 
     <xsl:if test="t:cell[@type='editor']">Red:
-      <xsl:for-each select="t:cell[@type='editor']">
-        <xsl:apply-templates select="."/><xsl:choose><xsl:when test="position()=last()"><xsl:text>. </xsl:text></xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose>
+    <xsl:for-each select="t:cell[@type='editor']">
+          <xsl:if test="position() &gt; 1"><xsl:choose><xsl:when test="position() = last()"> og </xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose></xsl:if><xsl:apply-templates select="."/><xsl:if test="position() = last()"><xsl:text>. </xsl:text></xsl:if>
       </xsl:for-each>
     </xsl:if>
     
@@ -326,6 +326,10 @@
   </xsl:template>
 
   <xsl:template match="t:cell[@type='coAuthor']">
+    <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
+  </xsl:template>
+
+  <xsl:template match="t:cell[@type='editor']">
     <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
   </xsl:template>
   
