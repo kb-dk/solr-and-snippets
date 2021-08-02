@@ -295,17 +295,26 @@
   <!-- this matches rows in title.xml -->
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
     <p class="bib_entry">
-    <xsl:if test="t:cell[@type='mainAuthor']">
-      <xsl:apply-templates select="t:cell[@type='mainAuthor']"/><xsl:text>. </xsl:text>
-    </xsl:if>
+    <xsl:for-each select="t:cell[@type='mainAuthor']|t:cell[@type='coAuthor']">
+      <xsl:if test="position() &gt; 1 and position() = last()"> og </xsl:if><xsl:apply-templates select="."/><xsl:choose><xsl:when test="position() = last()"><xsl:text>. </xsl:text></xsl:when><xsl:otherwise><xsl:if test="position() &lt; last()">, </xsl:if></xsl:otherwise></xsl:choose>
+    </xsl:for-each>
     <xsl:apply-templates select="t:cell[@type='partTitle']"/>
-    <xsl:if test="t:cell[@type='editor']">
-      <xsl:apply-templates select="t:cell[@type='editor']/*"/><xsl:text>(ed.). </xsl:text>
-    </xsl:if>
+
+ 
     <xsl:if test="t:cell[@type='mainTitle']">
-    <em><xsl:apply-templates select="t:cell[@type='mainTitle']"/></em></xsl:if><xsl:if test="t:cell[@type='translatedTitle']"> [<xsl:apply-templates select="t:cell[@type='translatedTitle']"/>]</xsl:if>.
+      <em><xsl:apply-templates select="t:cell[@type='mainTitle']"/></em></xsl:if><xsl:if test="t:cell[@type='translatedTitle']"> [<xsl:apply-templates select="t:cell[@type='translatedTitle']"/>]</xsl:if>.
+
+      
     <xsl:if test="t:cell[@type='volume']">Vol. <xsl:apply-templates select="t:cell[@type='volume']"/>.
     </xsl:if>
+
+    <xsl:if test="t:cell[@type='editor']">Red:
+      <xsl:for-each select="t:cell[@type='editor']">
+        <xsl:apply-templates select="."/><xsl:choose><xsl:when test="position()=last()"><xsl:text>. </xsl:text></xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose>
+      </xsl:for-each>
+    </xsl:if>
+    
+    
     <xsl:if test="t:cell[@type='pubPlace']">
       <xsl:apply-templates select="t:cell[@type='pubPlace']"/><xsl:if test="t:cell[@type='pubYear']">, </xsl:if>
       <xsl:apply-templates select="t:cell[@type='pubYear']"/>.</xsl:if>
@@ -313,11 +322,15 @@
   </xsl:template>
 
   <xsl:template match="t:cell[@type='mainAuthor']">
-      <xsl:apply-templates select="t:note[@type='firstName']|t:note[@type='lastName']"/>
+    <xsl:apply-templates select="t:note[@type='lastName']"/>, <xsl:apply-templates select="t:note[@type='firstName']"/>
+  </xsl:template>
+
+  <xsl:template match="t:cell[@type='coAuthor']">
+    <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
   </xsl:template>
   
   <xsl:template match="t:note[@type='firstName']">
-    <xsl:apply-templates/><xsl:if test="../t:note[@type='lastName']"><xsl:text> </xsl:text></xsl:if>
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:note[@type='lastName']">
