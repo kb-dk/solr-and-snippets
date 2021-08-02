@@ -397,6 +397,7 @@
     </xsl:variable>
     <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
     <xsl:attribute name="class">symbol info</xsl:attribute>
+    <xsl:attribute name="data-anchor"><xsl:value-of select="@xml:id"/></xsl:attribute>
     <span class="debug info-stuff"><xsl:value-of select="$marker"/></span>
     <script>
       var <xsl:value-of select="concat('disp',$idstring)"/>="none";
