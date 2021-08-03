@@ -28,10 +28,29 @@
   </xsl:template>
 
   <xsl:template match="t:row[t:cell[@rend='popUp']]">
-    <tr>
+    <div>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates select="t:cell[@rend='popUp']"/>
-    </tr>
+      <p>
+        <strong>
+          <xsl:apply-templates select="t:cell[@rend='normForm']"/>
+        </strong>
+        <xsl:for-each select="t:cell[@rend='orthography']">
+          <xsl:if test="position()=1"><xsl:text> (</xsl:text></xsl:if><xsl:apply-templates select="."/>
+          <xsl:choose><xsl:when test="position()=last()">)</xsl:when>
+          <xsl:otherwise><xsl:text>, </xsl:text></xsl:otherwise></xsl:choose>
+        </xsl:for-each>
+        </p>
+        <p><xsl:apply-templates select="t:cell[@rend='popUp']"/></p>
+        <xsl:if test="t:cell[@rend='encyc']">
+          <xsl:variable name="read_more_id"><xsl:value-of select="@xml:id"/></xsl:variable>
+          <a class="read-more-button" data-read-more="content{$read_more_id}" >Læs mere</a>
+          <div class="read-more" id="content{$read_more_id}">
+            <xsl:for-each select="t:cell[@rend='encyc']">
+              <p><xsl:apply-templates select="."/></p>
+            </xsl:for-each>
+          </div>
+        </xsl:if>
+    </div>
   </xsl:template>
 
   
@@ -172,10 +191,11 @@
           <xsl:value-of select="$uri"/>
         </xsl:attribute>
       </xsl:if>
-      <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span><xsl:comment> blæ blæ blæ </xsl:comment>
+      <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span>
+      <xsl:comment> blæ blæ blæ </xsl:comment>
 
       <span class="{$authority}">
-        <xsl:apply-templates/>
+        <xsl:apply-templates/> 
       </span>
 
       <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
@@ -278,7 +298,7 @@
         </xsl:text>
       </xsl:if>
       <xsl:if test="t:cell[@rend='encyc']">
-        <xsl:value-of select="t:cell[@rend='encyc']"/>
+        <p><xsl:value-of select="t:cell[@rend='encyc']"/></p>
       </xsl:if>
       <!-- xsl:if test="t:cell[@rend='facts']">
         <xsl:element name="a">
