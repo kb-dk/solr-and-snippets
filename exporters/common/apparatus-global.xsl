@@ -287,8 +287,12 @@
 
 
   <xsl:template mode="text" match="t:lem">
+    <xsl:param name="data_anchor" select="''"/>
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
+      <xsl:if test="$data_anchor">
+        <xsl:attribute name="data-anchor"><xsl:value-of select="$data_anchor"/></xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
@@ -349,6 +353,7 @@
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
       <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
       <xsl:attribute name="data-target">#info_modal</xsl:attribute>
+      <xsl:attribute name="data-anchor"><xsl:value-of select="@xml:id"/></xsl:attribute>
       
       <span>
         <xsl:call-template name="apparatus-marker">
@@ -356,7 +361,9 @@
         </xsl:call-template>
       </span>
 
-      <xsl:apply-templates mode="text" select="t:lem"/> 
+      <xsl:apply-templates mode="text" select="t:lem">
+        <xsl:with-param name="data_anchor"><xsl:value-of select="@xml:id"/></xsl:with-param>
+      </xsl:apply-templates>
       
       <span class="apparatus-criticus"
             style="background-color:Aquamarine;display:none;">
@@ -397,6 +404,7 @@
     </xsl:variable>
     <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
     <xsl:attribute name="class">symbol info</xsl:attribute>
+    <xsl:attribute name="data-anchor"><xsl:value-of select="@xml:id"/></xsl:attribute>
     <span class="debug info-stuff"><xsl:value-of select="$marker"/></span>
     <script>
       var <xsl:value-of select="concat('disp',$idstring)"/>="none";

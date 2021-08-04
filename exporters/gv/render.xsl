@@ -28,10 +28,29 @@
   </xsl:template>
 
   <xsl:template match="t:row[t:cell[@rend='popUp']]">
-    <tr>
+    <div>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates select="t:cell[@rend='popUp']"/>
-    </tr>
+      <p>
+        <strong>
+          <xsl:apply-templates select="t:cell[@rend='normForm']"/>
+        </strong>
+        <xsl:for-each select="t:cell[@rend='orthography']">
+          <xsl:if test="position()=1"><xsl:text> (</xsl:text></xsl:if><xsl:apply-templates select="."/>
+          <xsl:choose><xsl:when test="position()=last()">)</xsl:when>
+          <xsl:otherwise><xsl:text>, </xsl:text></xsl:otherwise></xsl:choose>
+        </xsl:for-each>
+        </p>
+        <p><xsl:apply-templates select="t:cell[@rend='popUp']"/></p>
+        <xsl:if test="t:cell[@rend='encyc']">
+          <xsl:variable name="read_more_id"><xsl:value-of select="@xml:id"/></xsl:variable>
+          <a class="read-more-button" data-read-more="content{$read_more_id}" >Læs mere</a>
+          <div class="read-more" id="content{$read_more_id}">
+            <xsl:for-each select="t:cell[@rend='encyc']">
+              <p><xsl:apply-templates select="."/></p>
+            </xsl:for-each>
+          </div>
+        </xsl:if>
+    </div>
   </xsl:template>
 
   
@@ -172,10 +191,11 @@
           <xsl:value-of select="$uri"/>
         </xsl:attribute>
       </xsl:if>
-      <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span><xsl:comment> blæ blæ blæ </xsl:comment>
+      <span class="symbol {$entity}"><span class="debug {$authority}-stuff"><xsl:value-of select="$symbol"/></span></span>
+      <xsl:comment> blæ blæ blæ </xsl:comment>
 
       <span class="{$authority}">
-        <xsl:apply-templates/>
+        <xsl:apply-templates/> 
       </span>
 
       <xsl:if test="@key"><xsl:comment> key = <xsl:value-of select="@key"/> </xsl:comment></xsl:if>
@@ -269,15 +289,16 @@
   <xsl:template match="t:row[@role]">
     <p class="pers_entry">
       <xsl:for-each select="t:cell[@rend='name']">
-        <xsl:apply-templates select="t:note"/>
+        <!-- xsl:apply-templates select="."/ -->
+        <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:if test="t:note[@type='lastName']"><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/></xsl:if><xsl:if test="position()=last() and ../t:cell[@rend='year']">, </xsl:if>
       </xsl:for-each>
-      <xsl:if test="t:cell[@rend='year']">, <xsl:value-of select="t:cell[@rend='year']"/>. </xsl:if>
+      <xsl:if test="t:cell[@rend='year']"><xsl:value-of select="t:cell[@rend='year']"/>. </xsl:if>
       <xsl:if test="t:cell[@rend='nation']">
         <xsl:value-of select="t:cell[@rend='nation']"/><xsl:text>
         </xsl:text>
       </xsl:if>
       <xsl:if test="t:cell[@rend='encyc']">
-        <xsl:value-of select="t:cell[@rend='encyc']"/>
+        <p><xsl:value-of select="t:cell[@rend='encyc']"/></p>
       </xsl:if>
       <!-- xsl:if test="t:cell[@rend='facts']">
         <xsl:element name="a">
@@ -295,17 +316,28 @@
   <!-- this matches rows in title.xml -->
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
     <p class="bib_entry">
-      <xsl:if test="t:cell[@type='mainAuthor']">
-      <xsl:apply-templates select="t:cell[@type='mainAuthor']"/>
-    </xsl:if>
+
+    <xsl:for-each select="t:cell[@type='mainAuthor']|t:cell[@type='coAuthor']">
+      <xsl:if test="position() &gt; 1"><xsl:choose><xsl:when test="position() = last()"> og </xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose></xsl:if><xsl:apply-templates select="."/><xsl:if test="position() = last()"><xsl:text>. </xsl:text></xsl:if>
+    </xsl:for-each>
+
     <xsl:apply-templates select="t:cell[@type='partTitle']"/>
-    <xsl:if test="t:cell[@type='editor']">
-      <xsl:apply-templates select="t:cell[@type='editor']/*"/><xsl:text>(ed.). </xsl:text>
-    </xsl:if>
+
+ 
     <xsl:if test="t:cell[@type='mainTitle']">
-    <em><xsl:apply-templates select="t:cell[@type='mainTitle']"/></em></xsl:if><xsl:if test="t:cell[@type='translatedTitle']"> [<xsl:apply-templates select="t:cell[@type='translatedTitle']"/>]</xsl:if>.
+      <em><xsl:apply-templates select="t:cell[@type='mainTitle']"/></em></xsl:if><xsl:if test="t:cell[@type='translatedTitle']"> [<xsl:apply-templates select="t:cell[@type='translatedTitle']"/>]</xsl:if>.
+
+      
     <xsl:if test="t:cell[@type='volume']">Vol. <xsl:apply-templates select="t:cell[@type='volume']"/>.
     </xsl:if>
+
+    <xsl:if test="t:cell[@type='editor']">Red:
+    <xsl:for-each select="t:cell[@type='editor']">
+          <xsl:if test="position() &gt; 1"><xsl:choose><xsl:when test="position() = last()"> og </xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose></xsl:if><xsl:apply-templates select="."/><xsl:if test="position() = last()"><xsl:text>. </xsl:text></xsl:if>
+      </xsl:for-each>
+    </xsl:if>
+    
+    
     <xsl:if test="t:cell[@type='pubPlace']">
       <xsl:apply-templates select="t:cell[@type='pubPlace']"/><xsl:if test="t:cell[@type='pubYear']">, </xsl:if>
       <xsl:apply-templates select="t:cell[@type='pubYear']"/>.</xsl:if>
@@ -313,16 +345,20 @@
   </xsl:template>
 
   <xsl:template match="t:cell[@type='mainAuthor']">
-      <xsl:apply-templates select="t:note[@type='firstName']|t:note[@type='lastName']"/>
-  </xsl:template>
-  
-  <xsl:template match="t:note[@type='firstName']">
-    <xsl:apply-templates/><xsl:if test="../t:note[@type='lastName']"><xsl:text> </xsl:text></xsl:if>
+     <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
   </xsl:template>
 
-  <xsl:template match="t:note[@type='lastName']">
-    <xsl:apply-templates/>
+  <xsl:template match="t:cell[@type='coAuthor']">
+    <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
   </xsl:template>
+
+  <xsl:template match="t:cell[@type='editor']">
+    <xsl:apply-templates select="t:note[@type='firstName']"/><xsl:text> </xsl:text><xsl:apply-templates select="t:note[@type='lastName']"/>
+  </xsl:template>
+  
+  <xsl:template match="t:note[@type='firstName']"><xsl:apply-templates/></xsl:template>
+
+  <xsl:template match="t:note[@type='lastName']"><xsl:apply-templates/></xsl:template>
 
   <xsl:template match="t:cell[@rend='year']/text()">
     (<xsl:value-of select="."/>)
