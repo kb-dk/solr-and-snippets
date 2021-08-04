@@ -331,6 +331,9 @@
     <xsl:if test="t:cell[@type='volume']">Vol. <xsl:apply-templates select="t:cell[@type='volume']"/>.
     </xsl:if>
 
+    <xsl:if test="t:cell[@type='numberOfVolumes']">Vol. <xsl:apply-templates select="t:cell[@type='numberOfVolumes']"/>.
+    </xsl:if>
+
     <xsl:if test="t:cell[@type='editor']">Red:
     <xsl:for-each select="t:cell[@type='editor']">
           <xsl:if test="position() &gt; 1"><xsl:choose><xsl:when test="position() = last()"> og </xsl:when><xsl:otherwise>, </xsl:otherwise></xsl:choose></xsl:if><xsl:apply-templates select="."/><xsl:if test="position() = last()"><xsl:text>. </xsl:text></xsl:if>
