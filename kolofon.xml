@@ -4,7 +4,7 @@
   <teiHeader xml:id="idm2">
     <fileDesc xml:id="idm3">
       <titleStmt xml:id="idm4">
-        <title xml:id="idm5">Kolofon</title>
+        <title rend="part" xml:id="idm5">Afbrudte Strøtanker</title>
       </titleStmt>
       <publicationStmt xml:id="idm6">
         <publisher xml:id="idm7">
@@ -40,12 +40,12 @@
         <p xml:id="idm28">Teksten er etableret af <persName xml:id="idm29" role="editor">Kim Steen
         Ravn</persName> Punktkommentarer er skrevet af Kim Steen Ravn,
         redigeret af dr.phil. Flemming Lundgreen-Nielsen, Steen
-        Tullberg og Kirsten Vad.<lb/>
+        Tullberg og Kirsten Vad.
 
         Indledning og tekstredegørelse er skrevet af Kim Steen
         Ravn, redigeret af Klaus Nielsen og Kirsten Vad Tilsyn ved
         indledning dr.phil. Flemming Lundgreen-Nielsen XML ved Kim
-        Steen Ravn.<lb/>
+        Steen Ravn.
 
         Copyright: Grundtvigs Værker</p>
       </div>
