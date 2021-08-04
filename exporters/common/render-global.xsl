@@ -425,18 +425,29 @@
   <xsl:template match="t:table">
     <table>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:apply-templates mode="table-formatting">
+        <xsl:with-param name="cols" select="@cols"/>
+      </xsl:apply-templates>
     </table>
   </xsl:template>
 
-  <xsl:template match="t:row">
+  <xsl:template mode="table-formatting" match="t:table/t:head">
+    <xsl:param name="cols" select="'1'"/>
+    <caption style="caption-side:top">
+      <xsl:call-template name="add_id"/>
+      <!-- xsl:attribute name="colspan"><xsl:value-of select="$cols"/></xsl:attribute -->
+      <strong><xsl:apply-templates/></strong>
+    </caption>
+  </xsl:template>
+
+  <xsl:template mode="table-formatting" match="t:row">
     <tr>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:apply-templates mode="table-formatting"/>
     </tr>
   </xsl:template>
 
-  <xsl:template match="t:cell">
+  <xsl:template mode="table-formatting" match="t:cell">
     <td>
       <xsl:if test="@rows&gt;1">
         <xsl:attribute name="rowspan"><xsl:value-of select="@rows"/></xsl:attribute>
@@ -445,7 +456,7 @@
         <xsl:attribute name="colspan"><xsl:value-of select="@cols"/></xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates/>
+      <xsl:apply-templates mode="table-formatting"/>
     </td>
   </xsl:template>
 

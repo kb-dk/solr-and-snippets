@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <!-- /text/gv-1816_297_5-txt-root -->
+  <teiHeader xml:id="idm2">
+    <fileDesc xml:id="idm3">
+      <titleStmt xml:id="idm4">
+        <title xml:id="idm5">Kolofon</title>
+      </titleStmt>
+      <publicationStmt xml:id="idm6">
+        <publisher xml:id="idm7">
+        </publisher>
+      </publicationStmt>
+      <sourceDesc xml:id="idm8">
+        <p xml:id="idm9"/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text xml:id="idm10">
+    <body xml:id="idm11">
+      <div xml:id="idm12">
+        <head xml:id="idm13"> N.F.S. Grundtvig “Afbrudte Strøtanker ved Brevet til Vali-Magni”</head>
+        <p xml:id="idm14">Offentliggjort i Grundtvigs Værker første gang i version 1.8, april 2016
+        Ændret i version 1.14, april 2019</p>
+        <table xml:id="idm15" cols="2">
+          <head xml:id="idm16">Tekstkilder</head>
+          <row xml:id="idm17">
+            <cell xml:id="idm18">A</cell><cell xml:id="idm19">Førstetrykket, 1816 (SJ: 297)</cell>
+          </row>
+          <row xml:id="idm20">
+            <cell xml:id="idm21">B</cell><cell xml:id="idm22">Anden udgave, 1838 (SJ: 601)</cell>
+          </row>
+          <row xml:id="idm23">
+            <cell xml:id="idm24" cols="2">Andre udgaver</cell>
+          </row>
+          <row xml:id="idm25">
+            <cell xml:id="idm26">PS</cell><cell xml:id="idm27">Poetiske Skrifter 4</cell>
+          </row>
+        </table>
+
+        <p xml:id="idm28">Teksten er etableret af <persName xml:id="idm29" role="editor">Kim Steen
+        Ravn</persName> Punktkommentarer er skrevet af Kim Steen Ravn,
+        redigeret af dr.phil. Flemming Lundgreen-Nielsen, Steen
+        Tullberg og Kirsten Vad.<lb/>
+
+        Indledning og tekstredegørelse er skrevet af Kim Steen
+        Ravn, redigeret af Klaus Nielsen og Kirsten Vad Tilsyn ved
+        indledning dr.phil. Flemming Lundgreen-Nielsen XML ved Kim
+        Steen Ravn.<lb/>
+
+        Copyright: Grundtvigs Værker</p>
+      </div>
+    </body>
+  </text>
+</TEI>
