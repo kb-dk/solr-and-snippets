@@ -315,6 +315,51 @@
   
   <!-- this matches rows in title.xml -->
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">
+
+    <!--
+
+        These are all the "fields" used in title.xml. Our implementation is only partial... ;)
+
+   5641  type="pubYear"
+   5536  type="pubPlace"
+   4791  type="mainAuthor"
+   4106  type="mainTitle"
+   1939  type="partTitle"
+   1614  type="owner"
+   1281  type="pages"
+   1240  type="shelf"
+   1011  type="numberOfVolumes"
+    976  type="volume"
+    957  type="editorOnly"
+    866  type="editor"
+    607  type="provenance"
+    483  type="number"
+    383  type="date"
+    300  type="firstEdition"
+    231  type="shortForm"
+    184  type="editionNumber"
+    181  type="volumeTitle"
+    173  type="volumeYear"
+    163  type="box"
+    155  type="issue"
+    127  type="translatedTitle"
+    125  type="translator"
+    110  type="webEdition"
+     95  type="firstLine"
+     94  type="traditionalTitle"
+     85  type="condition"
+     71  type="coAuthor"
+     64  type="manuscript"
+     51  type="translatorOnly"
+     32  type="fax"
+     19  type="volumeEditor"
+      2  type="engraver"
+      1  type="cartographer"
+      1  type="altName"
+
+    -->
+
+    
     <p class="bib_entry">
 
     <xsl:for-each select="t:cell[@type='mainAuthor']|t:cell[@type='coAuthor']">
