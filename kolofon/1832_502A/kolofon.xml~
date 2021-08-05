@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <!-- /text/gv-1816_297_5-txt-root -->
+  <teiHeader xml:id="idm2">
+    <fileDesc xml:id="idm3">
+      <titleStmt xml:id="idm4">
+        <title rend="part" xml:id="idm5">Afbrudte Strøtanker</title>
+      </titleStmt>
+      <publicationStmt xml:id="idm6">
+        <publisher xml:id="idm7">
+        </publisher>
+      </publicationStmt>
+      <sourceDesc xml:id="idm8">
+        <p xml:id="idm9"/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
