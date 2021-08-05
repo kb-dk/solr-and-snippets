@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
-  <!-- /text/gv-1832_502A-txt-root -->
+ <!-- /text/gv-1832_502A-txt-root -->  
   <teiHeader xml:id="idm2">
     <fileDesc xml:id="idm3">
       <titleStmt xml:id="idm4">
@@ -15,39 +15,39 @@
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>L.C. Hagen (udg.) Historiske Psalmer og Riim til Børne-Lærdom</head>
-        <p>Offentliggjort i Grundtvigs Værker første gang i version 1.7, november 2015</p>
-        <list>
-          <item>Tilføjet punktkommentarer i version 1.10, maj 2017</item>
-          <item>Tilføjet indledning i version 1.11, november 2017</item>
-          <item>Tilføjet tekstredegørelse i version 1.15</item>
-          <item>Ændret i version 1.17, juni 2021</item>
+  <text xml:id="idm10">
+    <body xml:id="idm11">
+      <div xml:id="idm12">
+        <head xml:id="idm13">L.C. Hagen (udg.) Historiske Psalmer og Riim til Børne-Lærdom</head>
+        <p xml:id="idm14">Offentliggjort i Grundtvigs Værker første gang i version 1.7, november 2015</p>
+        <list xml:id="idm15">
+          <item xml:id="idm16">Tilføjet punktkommentarer i version 1.10, maj 2017</item>
+          <item xml:id="idm17">Tilføjet indledning i version 1.11, november 2017</item>
+          <item xml:id="idm18">Tilføjet tekstredegørelse i version 1.15</item>
+          <item xml:id="idm19">Ændret i version 1.17, juni 2021</item>
         </list>
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell><cell>Førstetrykket, 1832 (SJ: 502A)</cell>
+        <table xml:id="idm20">
+          <head xml:id="idm21">Tekstkilder</head>
+          <row xml:id="idm22">
+            <cell xml:id="idm23">A</cell><cell xml:id="idm24">Førstetrykket, 1832 (SJ: 502A)</cell>
           </row>
-          <row>
-            <cell>B</cell><cell>Anden udgave, 1835 (SJ: 502B)</cell>
+          <row xml:id="idm25">
+            <cell xml:id="idm26">B</cell><cell xml:id="idm27">Anden udgave, 1835 (SJ: 502B)</cell>
           </row>
-          <row>
-            <cell cols="2">Andre udgaver</cell>
+          <row xml:id="idm28">
+            <cell xml:id="idm29" cols="2">Andre udgaver</cell>
           </row>
-          <row><cell>VU</cell><cell>Værker i Udvalg 9</cell></row>
-          <row><cell>GSV</cell><cell>Grundtvigs Sang-Værk</cell></row>
+          <row xml:id="idm30"><cell xml:id="idm31">VU</cell><cell xml:id="idm32">Værker i Udvalg 9</cell></row>
+          <row xml:id="idm33"><cell xml:id="idm34">GSV</cell><cell xml:id="idm35">Grundtvigs Sang-Værk</cell></row>
         </table>
-        <p>Teksten er etableret af Else Riisager Punktkommentarer og
+        <p xml:id="idm36">Teksten er etableret af Else Riisager Punktkommentarer og
         indledning er skrevet af Else Riisager, redigeret af Vibeke
         A. Pedersen og Steen Tullberg Tekstredegørelse er skrevet af
         Stine Guldahl Holst, redigeret af Else Riisager og Steen
         Tullberg Tilsyn ved punktkommentarer og indledning
         cand.theol., adj. professor (i dansk salme- og kirkehistorie)
         Jørgen Kjærgaard XML ved Kim Steen Ravn</p>
-        <p>Copyright: Grundtvigs Værker</p>
+        <p xml:id="idm37">Copyright: Grundtvigs Værker</p>
       </div>
     </body>
   </text>

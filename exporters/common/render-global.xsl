@@ -456,11 +456,11 @@
         <xsl:attribute name="colspan"><xsl:value-of select="@cols"/></xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="table-formatting"/>
+      <xsl:apply-templates/>
     </td>
   </xsl:template>
 
-  <xsl:template match="t:span[@rend='2rows']">
+  <xsl:template  match="t:span[@rend='2rows']">
     <span style="font-size:400%;font-weight:lighter;vertical-align:middle;">
       <xsl:apply-templates/>
     </span>
