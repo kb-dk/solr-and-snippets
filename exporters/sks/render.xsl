@@ -229,7 +229,7 @@
           <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>
         </xsl:variable>
         <span>
-          <a>
+          <a data-dismiss="modal">
             <xsl:attribute name="href">
               <xsl:value-of select="$href"/> 
             </xsl:attribute>
