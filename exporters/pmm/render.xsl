@@ -39,7 +39,7 @@
     <xsl:element name="a">
       <xsl:attribute name="href">
 	<xsl:call-template name="inferred_path">
-	  <xsl:with-param name="document" select="concat('texts/',@target)"/>
+	  <xsl:with-param name="document" select="@target"/>
 	</xsl:call-template>
       </xsl:attribute>
       <xsl:apply-templates/>
@@ -56,15 +56,11 @@
 	<xsl:otherwise>root</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="g"><xsl:value-of select="fn:replace(fn:lower-case($document),'.((xml)|(page)).*$','')"/></xsl:variable>
-    <xsl:variable name="f">
-      <xsl:choose>
-	<xsl:when test="$frag = 'root'">-</xsl:when>
-	<xsl:otherwise>-root#</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:text>/text/</xsl:text>
-    <xsl:value-of select="fn:replace(concat($c,'-',$g,$f,$frag),'/','-')"/>
+    <xsl:variable name="first"><xsl:value-of select="fn:replace($doc,'/.*$','')"/></xsl:variable>
+    <xsl:variable name="last"><xsl:value-of select="fn:replace($document,'^(.*?).xml#(.*)$','$1')"/></xsl:variable>
+   
+    <xsl:value-of select="concat($c,'-',$first,'-',$last,'-root','#',$frag)"/>
+
   </xsl:template>
 
   <xsl:template match="t:note[@type='commentary']">

@@ -38,7 +38,6 @@
     <xsl:comment><xsl:value-of select="$volume_title"/></xsl:comment>
     <xsl:call-template name="trunk_doc">
       <xsl:with-param name="worktitle" select="$worktitle"/>
-      <xsl:with-param name="category">work</xsl:with-param>
     </xsl:call-template>
 
     <xsl:apply-templates>
@@ -71,6 +70,21 @@
     <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
     
+  </xsl:template>
+
+    <xsl:template name="is_editorial">
+    <xsl:variable name="category"><xsl:call-template name="get_category"/></xsl:variable>
+    <xsl:choose>
+      <xsl:when test="contains($category,'work')">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="get_category">
+    <xsl:choose>
+      <xsl:when test="contains($path,'-txt-')">work</xsl:when>
+      <xsl:when test="contains($path,'-com-')">editorial</xsl:when>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:template name="what_i_can"/>

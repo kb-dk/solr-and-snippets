@@ -6,9 +6,9 @@ lhv/niels_klim/niels_klim_overs.xml
 lhv/niels_klim/niels_klim.xml
 lhv/niels_klim/niels_klim_innl.xml
 lhv/niels_klim/niels_klim_komm.xml
-pmm/texts/com006.xml
-pmm/texts/txt006.xml
-pmm/texts/txt063_1.xml
-pmm/texts/com063_1.xml
-pmm/texts/txt059_8.xml
-pmm/texts/txt063_2.xml
+pmm/006/com.xml
+pmm/006/txt.xml
+pmm/063_1/txt.xml
+pmm/063_1/txt.xml
+pmm/059_8/txt.xml
+pmm/063_2/txt.xml

@@ -145,7 +145,7 @@
       <copy  todir="${service}/lhv">
 	<fileset dir="../other_tei_projects/holberg"/>
       </copy>
-      <copy  todir="${service}/pmm/texts">
+      <copy  todir="${service}/pmm/">
 	<fileset dir="../other_tei_projects/pmm"/>
       </copy>
     </target>
