@@ -18,8 +18,9 @@ specimen[gv]="build_gv_added/text-retriever/gv/1840_668/txt.xml"
 #specimen[gv]="build_gv_added/text-retriever/gv/1815_255/txt.xml"
 #specimen[gv]="build_gv_added/text-retriever/gv/1837_575/intro.xml"
 specimen[letters]="../letter-corpus/letter_books/001541111/001541111_000.xml"
+speciment[lhv]="../other_tei_projects/holberg/jeppe/jeppe.xml"
 
-ed=sks
+ed=lhv
 echo $PARAMS
 $SAXON -xsl:"build/text-retriever/$ed/solrize.xsl" -s:"${specimen[$ed]}" $PARAMS | xmllint --format  - 
 exit()

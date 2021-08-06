@@ -62,6 +62,17 @@
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
   </xsl:template>
 
+  <xsl:template name="extract_titles_authors_etc">
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:element name="field"><xsl:attribute name="name">author_name_ssi</xsl:attribute>Møller, Poul Martin</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">author_name_ssim</xsl:attribute>Møller, Poul Martin</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">author_nasim</xsl:attribute>Møller, Poul Martin</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">author_name_tesim</xsl:attribute>Møller, Poul Martin</xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+    <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
+    
+  </xsl:template>
+  
   <xsl:template name="what_i_can"/>
 
 </xsl:transform>
