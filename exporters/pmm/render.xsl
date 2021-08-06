@@ -36,13 +36,21 @@
   </xsl:template>
 
   <xsl:template match="t:ref[@type='commentary']">
+
     <xsl:element name="a">
+      <xsl:attribute name="class">comment show_icons"</xsl:attribute>
+      <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="title">Kommentar</xsl:attribute>
       <xsl:attribute name="href">
 	<xsl:call-template name="inferred_path">
 	  <xsl:with-param name="document" select="@target"/>
 	</xsl:call-template>
       </xsl:attribute>
-      <xsl:apply-templates/>
+      <span class="symbol comment">
+        <span class="debug comment-stuff">&#9658;</span>
+      </span>
+      <span class="comment"><xsl:apply-templates/></span>
     </xsl:element>
   </xsl:template>
 
