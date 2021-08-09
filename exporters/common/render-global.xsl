@@ -43,6 +43,7 @@
         <xsl:when test="$id">
 	  <xsl:for-each select="//node()[$id=@xml:id]">
             <xsl:comment>
+              Doing shoot snippet
               element: <xsl:value-of select="local-name(.)"/><xsl:text> </xsl:text>
               id: <xsl:value-of select="@xml:id"/><xsl:text> </xsl:text>
               type: <xsl:value-of select="@type"/>
@@ -51,6 +52,9 @@
 	  </xsl:for-each>
         </xsl:when>
         <xsl:otherwise>
+          <xsl:comment>
+            Doing root snippet
+          </xsl:comment>
 	  <xsl:apply-templates/>
         </xsl:otherwise>
       </xsl:choose>
@@ -58,6 +62,7 @@
   </xsl:template>
 
   <xsl:template match="t:TEI">
+    <xsl:comment> root element </xsl:comment>
     <xsl:apply-templates/>
   </xsl:template>
 
