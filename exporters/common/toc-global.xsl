@@ -32,38 +32,37 @@ Author Sigfrid Lundberg slu@kb.dk
   <xsl:template  mode="get_lists" match="*"></xsl:template>
   
   <xsl:template  mode="get_lists" match="t:group|t:body|t:text|t:div|t:lg|t:front|t:back">
-    <xsl:comment> get lists </xsl:comment>
-    <xsl:comment>
-      <xsl:value-of select="$path"/><xsl:text>
-</xsl:text>      <xsl:value-of select="t:head"/>
-    </xsl:comment>
-    <xsl:if test="@decls|./t:head|.//t:group|.//t:body|.//t:text|.//t:div|.//t:front|.//t:back">
-      <ul>
-        <xsl:attribute name="id">
-	  <xsl:value-of select="concat('list-',@xml:id)"/>
-        </xsl:attribute>
-        <xsl:call-template name="get_item"/>
-      </ul>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="@decls|./t:head[node()]|./t:p">
+        <xsl:variable name="item">
+          <xsl:call-template name="add_anchor"/>
+        </xsl:variable>
+        <xsl:if test="string-length($item) &gt; 0">
+          <li>
+            <xsl:attribute name="id">
+	      <xsl:value-of select="concat('list-',@xml:id)"/>
+            </xsl:attribute>
+            <xsl:call-template name="add_anchor"/>
+            <xsl:if test=".//t:group|.//t:body|.//t:text|.//t:div">
+              <ul><xsl:apply-templates mode="get_lists"/></ul>
+            </xsl:if>
+          </li>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:if test=".//t:group|.//t:body|.//t:text|.//t:div">
+          <ul><xsl:apply-templates mode="get_lists"/></ul>
+        </xsl:if>     
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
                                        
-  <xsl:template name="get_item">
-    <xsl:comment> get_item </xsl:comment>
-    <xsl:element name="li">
-      <xsl:attribute name="id">
-	<xsl:value-of select="concat('item-',@xml:id)"/>
-      </xsl:attribute>
-      <xsl:call-template name="add_anchor"/>
-      <xsl:apply-templates mode="get_lists"/> 
-    </xsl:element>
-  </xsl:template>
-
   <xsl:template match="t:p">
     <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:head">
-    <xsl:apply-templates/><xsl:text> </xsl:text>
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="t:lb">
@@ -90,8 +89,8 @@ Author Sigfrid Lundberg slu@kb.dk
 	      select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:listBibl/t:bibl[@xml:id=$bibl]"/>
 	</xsl:when>
 	<xsl:when test="t:head">
-          <xsl:for-each select="t:head[1]">
-	    <xsl:apply-templates select="."/><xsl:text> </xsl:text>
+          <xsl:for-each select="t:head[node()][1]">
+	    <xsl:apply-templates select="."/>
           </xsl:for-each>
 	</xsl:when>
 	<xsl:otherwise>
@@ -104,14 +103,18 @@ Author Sigfrid Lundberg slu@kb.dk
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="string-length(normalize-space($title)) &gt; 0">
+
+    <xsl:variable name="href"><xsl:call-template name="make_href"/></xsl:variable>
+    <xsl:variable name="title"><xsl:value-of select="$title"/></xsl:variable>
+    <xsl:if test="string-length($title) &gt; 0">
       <xsl:element name="a">
-	<xsl:attribute name="href">
+        <xsl:attribute name="href">
 	  <xsl:call-template name="make_href"/>
-	</xsl:attribute>
-	<xsl:value-of select="$title"/>
+        </xsl:attribute>
+        <xsl:value-of select="$title"/>
       </xsl:element>
     </xsl:if>
+
   </xsl:template>
 
   <xsl:template name="make_href">
@@ -131,12 +134,12 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template name="some_text">
     <xsl:variable name="head_text">
-      <xsl:for-each select=".//t:head">
-        <xsl:apply-templates/><xsl:text> </xsl:text>
+      <xsl:for-each select=".//t:head[node()]">
+        <xsl:apply-templates/>
       </xsl:for-each>
     </xsl:variable>
     <xsl:choose>
-      <xsl:when test="string-length($head_text) &gt; 5">
+      <xsl:when test=".//t:head[node()]">
         <xsl:value-of select="$head_text"/> 
       </xsl:when>
       <xsl:otherwise>
