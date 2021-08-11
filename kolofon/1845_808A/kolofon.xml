@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns:TEI="http://www.tei-c.org/ns/1.0">
-   <div>
-      <span>N.F.S. Grundtvig</span> 
-      <i>Danske Ordsprog og Mundheld, samlede og ordnede af Nik. Fred. Sev. Grundtvig</i>
-   </div>
-   <div>Offentliggjort første gang i<i> Grundtvigs Værker</i> version 1.9, november 2016<div>Ændret i version 1.12, 1.14 og 1.17, juni 2021</div>
-   </div>
-   <div>
-      <div>Tilføjet indledning og punktkommentarer i version 1.11, november 2017</div>
-      <div>Tilføjet tekstredegørelse i version 1.12, april 2018</div>
-      <div>Ændret i version 1.12, 1.14 og 1.17, juni 2021</div>
-   </div>
-   <div>Tekstkilder<div>
-         <table>
-            <row>
-               <cell>A</cell>
-               <cell>
-                  <span>Førstetrykket, </span>
-                  <span>1845</span> (SJ: 808A)</cell>
-            </row>
-         </table>
-      </div>
-   </div>
-   <div>Teksten er etableret af Kim Steen Ravn.<div>Punktkommentarer, indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Stine Holst Petersen</div>
-   </div>
-   <div>
-      <div>Tilsyn ved punktkommentarer og indledning ph.d. Simon Skovgaard Boeck</div>
-   </div>
-   <div>
+<TEI  xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <teiHeader xml:id="idm2">
+    <fileDesc xml:id="idm3">
+      <titleStmt xml:id="idm4">
+        <title rend="part" xml:id="idm5"></title>
+      </titleStmt>
+      <publicationStmt xml:id="idm6">
+        <publisher xml:id="idm7">
+        </publisher>
+      </publicationStmt>
+      <sourceDesc xml:id="idm8">
+        <p xml:id="idm9"/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
       <div>
-         <div/>
+        <head>N.F.S. Grundtvig: <emph rend="italic">Danske Ordsprog og Mundheld, samlede og ordnede af Nik. Fred. Sev. Grundtvig</emph></head>
+
+        <p>Offentliggjort første gang i <emph rend="italic"> Grundtvigs Værker</emph> version 1.9, november 2016</p>
+        <p>Ændret i version 1.12, 1.14 og 1.17, juni 2021</p>
+
+        <p>Tilføjet indledning og punktkommentarer i version 1.11, november 2017</p>
+        <p>Tilføjet tekstredegørelse i version 1.12, april 2018</p>
+        <p>Ændret i version 1.12, 1.14 og 1.17, juni 2021</p>
+
+        <table>
+          <head>Tekstkilder</head>
+          <row>
+            <cell>A</cell>
+            <cell>
+              <span>Førstetrykket, </span>
+            <span>1845</span> (SJ: 808A)</cell>
+          </row>
+        </table>
+
+        <p>Teksten er etableret af Kim Steen Ravn.</p>
+        <p>Punktkommentarer, indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Stine Holst Petersen</p>
+        <p>Tilsyn ved punktkommentarer og indledning ph.d. Simon Skovgaard Boeck</p>
+
+        <p>TEI P5 ved Kim Steen Ravn</p>
+        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
       </div>
-   </div>
-   <div/>
-   <div>TEI P5 ved Kim Steen Ravn</div>
-   <div>Copyright: <i>Grundtvigs Værker</i>
-   </div>
-</div>
+    </body>
+  </text>
+</TEI>
