@@ -1,59 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns:TEI="http://www.tei-c.org/ns/1.0">
-   <div>
-      <span>N.F.S. Grundtvig</span> 
-      <i>Mands Minde 1788-1838. Foredrag over det sidste halve Aarhundredes Historie</i>
-   </div>
-   <div>Offentliggjort første gang i<i> Grundtvigs Værker</i> version 1.9, november 2016<div/>
-   </div>
-   <div>
-      <div/>
-   </div>
-   <div>Tekstkilder<div>
-         <table>
-            <row>
-               <cell>A</cell>
-               <cell>
-                  <span>Førstetrykket, </span>
-                  <span>1877</span> (SJ: 599)</cell>
-            </row>
-         </table>
-      </div>
+<TEI  xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader xml:id="idm2">
+    <fileDesc xml:id="idm3">
+      <titleStmt xml:id="idm4">
+        <title rend="part" xml:id="idm5">L.C. Hagen (udg.) Historiske Psalmer og Riim til Børne-Lærdom</title>
+      </titleStmt>
+      <publicationStmt xml:id="idm6">
+        <publisher xml:id="idm7">
+        </publisher>
+      </publicationStmt>
+      <sourceDesc xml:id="idm8">
+        <p xml:id="idm9"/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
       <div>
-         <table>
-            <row>
-               <cell>K</cell>
-               <cell>
-                  <span>Kladde, </span>
-                  <span/> (SJ: )</cell>
-            </row>
-         </table>
-      </div>Andre udgaver<div>
-         <table>
-            <row>
-               <cell>VU</cell>
-               <cell>
-                  <span>Værker i Udvalg </span>
-                  <span>4</span>
-               </cell>
-            </row>
-         </table>
+        <head>
+          <span>N.F.S. Grundtvig</span> 
+          <emph rend="italic">Mands Minde 1788-1838. Foredrag over det
+          sidste halve Aarhundredes Historie</emph>
+        </head>
+
+        <p>Offentliggjort første gang i <emph rend="italic">
+        Grundtvigs Værker</emph> version 1.9, november 2016</p>
+
+        <table>
+          <head>Tekstkilder</head>
+          <row>
+            <cell>A</cell>
+            <cell>
+              <span>Førstetrykket, </span>
+            <span>1877</span> (SJ: 599)</cell>
+          </row>
+          <row>
+            <cell>K</cell>
+            <cell>
+              <span>Kladde, </span>
+            <span/> (SJ: )</cell>
+          </row>
+        </table>
+
+        <table>
+          <head>Andre udgaver</head>
+          <row>
+            <cell>VU</cell>
+            <cell>
+              <span>Værker i Udvalg </span>
+              <span>4</span>
+            </cell>
+          </row>
+        </table>
+
+        <p>Teksten er etableret af Henrik Yde.</p>
+        <p>Punktkommentarer er skrevet af Henrik Yde, redigeret af Holger Berg, Klaus Nielsen og Else Riisager</p>
+        <p>Indledning er skrevet af Ole Vind, redigeret af Klaus Nielsen og Henrik Yde</p>
+        <p>Tekstredegørelse er skrevet af Henrik Yde, redigeret af Klaus Nielsen og Kirsten Vad</p>
+
+        <p>Tilsyn ved punktkommentarer dr.theol. K.E. Bugge og dr.phil. Johnny Kondrup</p>
+
+        <p>TEI P5 ved Kim Steen Ravn</p>
+        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
+        
       </div>
-   </div>
-   <div>Teksten er etableret af Henrik Yde.<div>Punktkommentarer er skrevet af Henrik Yde, redigeret af Holger Berg, Klaus Nielsen og Else Riisager</div>
-      <div>Indledning er skrevet af Ole Vind, redigeret af Klaus Nielsen og Henrik Yde</div>
-      <div>Tekstredegørelse er skrevet af Henrik Yde, redigeret af Klaus Nielsen og Kirsten Vad</div>
-   </div>
-   <div>
-      <div>Tilsyn ved punktkommentarer dr.theol. K.E. Bugge og dr.phil. Johnny Kondrup</div>
-   </div>
-   <div>
-      <div>
-         <div/>
-      </div>
-   </div>
-   <div/>
-   <div>TEI P5 ved Kim Steen Ravn</div>
-   <div>Copyright: <i>Grundtvigs Værker</i>
-   </div>
-</div>
+    </body>
+  </text>
+</TEI>
