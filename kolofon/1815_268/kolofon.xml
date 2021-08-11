@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns:TEI="http://www.tei-c.org/ns/1.0">
-   <div>
-      <span>N.F.S. Grundtvig</span> 
-                        “Om Baggesen og om mig”
-                    </div>
-   <div>Offentliggjort første gang i<i> Grundtvigs Værker</i> version 1.5, oktober 2014<div>Ændret i version 1.13 og 1.16, november 2020</div>
-   </div>
-   <div>
-      <div>Ændret i version 1.13 og 1.16, november 2020</div>
-   </div>
-   <div>Tekstkilder<div>
-         <table>
-            <row>
-               <cell>A</cell>
-               <cell>
-                  <span>Førstetrykket, </span>
-                  <span>1815</span> (SJ: 268)</cell>
-            </row>
-         </table>
-      </div>Andre udgaver<div>
-         <table>
-            <row>
-               <cell>US</cell>
-               <cell>
-                  <span>Udvalgte Skrifter </span>
-                  <span>3</span>
-               </cell>
-            </row>
-         </table>
-      </div>
-   </div>
-   <div>Teksten er etableret af Kim Steen Ravn.<div>Punktkommentarer er skrevet af Kim Steen Ravn, redigeret af Jon Tafdrup</div>
-      <div>Indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Jon Tafdrup</div>
-   </div>
-   <div>
-      <div>Tilsyn ved punktkommentarer Johnny Kondrup og dr.phil. Lis Møller</div>
-      <div>Tilsyn ved indledning dr.phil. Flemming Lundgreen-Nielsen</div>
-   </div>
-   <div>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>
+        </title>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>
+        </publisher>
+      </publicationStmt>
+      <sourceDesc>
+        <bibl/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
       <div>
-         <div/>
+        <head>N.F.S. Grundtvig: “Om Baggesen og om mig”</head>
+        <p>Offentliggjort første gang i <emph rend="italic">
+        Grundtvigs Værker</emph> version 1.5, oktober
+        2014</p>
+
+        <p>Ændret i version 1.13 og 1.16, november 2020</p>
+
+        <table>
+          <head>Tekstkilder</head>
+          <row>
+            <cell>A</cell>
+            <cell>
+              <span>Førstetrykket, </span>
+            <span>1815</span> (SJ: 268)</cell>
+          </row>
+        </table>
+      
+        <table>
+          <head>Andre udgaver</head>
+          <row>
+            <cell>US</cell>
+            <cell>
+              <span>Udvalgte Skrifter </span>
+              <span>3</span>
+            </cell>
+          </row>
+        </table>
+
+        <p>Teksten er etableret af Kim Steen Ravn.</p>
+        <p>Punktkommentarer er skrevet af Kim Steen Ravn, redigeret af Jon Tafdrup</p>
+        <p>Indledning og tekstredegørelse er skrevet af Kim Steen
+        Ravn, redigeret af Klaus Nielsen og Jon Tafdrup</p>
+        <p>Tilsyn ved punktkommentarer Johnny Kondrup og dr.phil. Lis Møller</p>
+        <p>Tilsyn ved indledning dr.phil. Flemming Lundgreen-Nielsen</p>
+
+        <p>TEI P5 ved Kim Steen Ravn</p>
+        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
       </div>
-   </div>
-   <div/>
-   <div>TEI P5 ved Kim Steen Ravn</div>
-   <div>Copyright: <i>Grundtvigs Værker</i>
-   </div>
-</div>
+    </body>
+  </text>
+</TEI>
+
