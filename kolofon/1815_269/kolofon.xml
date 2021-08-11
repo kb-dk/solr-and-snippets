@@ -1,77 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <teiHeader xml:id="d1e3">
+    <fileDesc xml:id="d1e5">
+      <titleStmt xml:id="d1e7">
+        <title xml:id="d1e9">
         </title>
       </titleStmt>
-      <publicationStmt>
-        <publisher>
+      <publicationStmt xml:id="d1e13">
+        <publisher xml:id="d1e15">
         </publisher>
       </publicationStmt>
-      <sourceDesc>
-        <bibl/>
+      <sourceDesc xml:id="d1e19">
+        <bibl xml:id="d1e21"/>
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>N.F.S. Grundtvig: <emph rend="italic">Heimdall. Dansk Nyaars-Gave for 1816</emph></head>
-
-        <p>Offentliggjort første gang i <emph rend="italic">
+  <text xml:id="d1e26">
+    <body xml:id="d1e28">
+      <div xml:id="d1e30">
+        <head xml:id="d1e32">N.F.S. Grundtvig: <emph xml:id="d1e34" rend="italic">Heimdall. Dansk Nyaars-Gave for 1816</emph></head>
+        <p xml:id="d1e37">Offentliggjort første gang i <emph xml:id="d1e39" rend="italic">
         Grundtvigs Værker</emph> version 1.11, november 2017</p>
-
-        <p>Ændret i version 1.17, juni 2021</p>
-
-        <p>Tilføjet indledning og punktkommentarer i version 1.13, november 2018</p>
-        <p>Tilføjet tekstredegørelse i version 1.14, april 2019</p>
-        <p>Ændret i version 1.17, juni 2021</p>
-
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell>
-            <cell>
+        <p xml:id="d1e43">Ændret i version 1.17, juni 2021</p>
+        <p xml:id="d1e46">Tilføjet indledning og punktkommentarer i version 1.13, november 2018</p>
+        <p xml:id="d1e49">Tilføjet tekstredegørelse i version 1.14, april 2019</p>
+        <p xml:id="d1e53">Ændret i version 1.17, juni 2021</p>
+        <table xml:id="d1e56">
+          <head xml:id="d1e58">Tekstkilder</head>
+          <row xml:id="d1e61">
+            <cell xml:id="d1e63">A</cell>
+            <cell xml:id="d1e66">
                Førstetrykket,  
                1815  (SJ: 269)
             </cell>
           </row>
         </table>
-        
-        <table>
-          <head>Andre udgaver</head>
-          <row>
-            <cell>PS</cell>
-            <cell>
+        <table xml:id="d1e71">
+          <head xml:id="d1e73">Andre udgaver</head>
+          <row xml:id="d1e76">
+            <cell xml:id="d1e78">PS</cell>
+            <cell xml:id="d1e81">
                Poetiske Skrifter  
                3 og 4 
             </cell>
           </row>
-          <row>
-            <cell>US</cell>
-            <cell>
+          <row xml:id="d1e85">
+            <cell xml:id="d1e87">US</cell>
+            <cell xml:id="d1e90">
                Udvalgte Skrifter  
                3 
             </cell>
           </row>
-          <row>
-            <cell>VU</cell>
-            <cell>
+          <row xml:id="d1e94">
+            <cell xml:id="d1e96">VU</cell>
+            <cell xml:id="d1e99">
                Værker i Udvalg  
                7 
             </cell>
           </row>
         </table>
-
-        <p>Teksten er etableret af Kim Steen Ravn.</p>
-        <p>Punktkommentarer, indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Stine Holst Petersen</p>
-
-        <p>Tilsyn ved punktkommentarer og indledning dr.phil. Flemming Lundgreen-Nielsen</p>
-
-        <p>TEI P5 ved Kim Steen Ravn</p>
-        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
+        <p xml:id="d1e104">Teksten er etableret af Kim Steen Ravn.</p>
+        <p xml:id="d1e107">Punktkommentarer, indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Stine Holst Petersen</p>
+        <p xml:id="d1e110">Tilsyn ved punktkommentarer og indledning dr.phil. Flemming Lundgreen-Nielsen</p>
+        <p xml:id="d1e114">TEI P5 ved Kim Steen Ravn</p>
+        <p xml:id="d1e117">Copyright: <emph xml:id="d1e119" rend="italic">Grundtvigs Værker</emph></p>
       </div>
     </body>
   </text>

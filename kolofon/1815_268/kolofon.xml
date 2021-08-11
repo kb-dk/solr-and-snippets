@@ -1,62 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <teiHeader xml:id="d1e3">
+    <fileDesc xml:id="d1e5">
+      <titleStmt xml:id="d1e7">
+        <title xml:id="d1e9">
         </title>
       </titleStmt>
-      <publicationStmt>
-        <publisher>
+      <publicationStmt xml:id="d1e13">
+        <publisher xml:id="d1e15">
         </publisher>
       </publicationStmt>
-      <sourceDesc>
-        <bibl/>
+      <sourceDesc xml:id="d1e19">
+        <bibl xml:id="d1e21"/>
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>N.F.S. Grundtvig: “Om Baggesen og om mig”</head>
-        <p>Offentliggjort første gang i <emph rend="italic">
+  <text xml:id="d1e26">
+    <body xml:id="d1e28">
+      <div xml:id="d1e30">
+        <head xml:id="d1e32">N.F.S. Grundtvig: “Om Baggesen og om mig”</head>
+        <p xml:id="d1e35">Offentliggjort første gang i <emph xml:id="d1e37" rend="italic">
         Grundtvigs Værker</emph> version 1.5, oktober
         2014</p>
-
-        <p>Ændret i version 1.13 og 1.16, november 2020</p>
-
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell>
-            <cell>
-              <span>Førstetrykket, </span>
-            <span>1815</span> (SJ: 268)</cell>
+        <p xml:id="d1e41">Ændret i version 1.13 og 1.16, november 2020</p>
+        <table xml:id="d1e44">
+          <head xml:id="d1e46">Tekstkilder</head>
+          <row xml:id="d1e49">
+            <cell xml:id="d1e51">A</cell>
+            <cell xml:id="d1e54"><span xml:id="d1e56">Førstetrykket, </span><span xml:id="d1e59">1815</span> (SJ: 268)</cell>
           </row>
         </table>
-      
-        <table>
-          <head>Andre udgaver</head>
-          <row>
-            <cell>US</cell>
-            <cell>
-              <span>Udvalgte Skrifter </span>
-              <span>3</span>
+        <table xml:id="d1e65">
+          <head xml:id="d1e67">Andre udgaver</head>
+          <row xml:id="d1e70">
+            <cell xml:id="d1e72">US</cell>
+            <cell xml:id="d1e75">
+              <span xml:id="d1e77">Udvalgte Skrifter </span>
+              <span xml:id="d1e80">3</span>
             </cell>
           </row>
         </table>
-
-        <p>Teksten er etableret af Kim Steen Ravn.</p>
-        <p>Punktkommentarer er skrevet af Kim Steen Ravn, redigeret af Jon Tafdrup</p>
-        <p>Indledning og tekstredegørelse er skrevet af Kim Steen
+        <p xml:id="d1e87">Teksten er etableret af Kim Steen Ravn.</p>
+        <p xml:id="d1e90">Punktkommentarer er skrevet af Kim Steen Ravn, redigeret af Jon Tafdrup</p>
+        <p xml:id="d1e93">Indledning og tekstredegørelse er skrevet af Kim Steen
         Ravn, redigeret af Klaus Nielsen og Jon Tafdrup</p>
-        <p>Tilsyn ved punktkommentarer Johnny Kondrup og dr.phil. Lis Møller</p>
-        <p>Tilsyn ved indledning dr.phil. Flemming Lundgreen-Nielsen</p>
-
-        <p>TEI P5 ved Kim Steen Ravn</p>
-        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
+        <p xml:id="d1e96">Tilsyn ved punktkommentarer Johnny Kondrup og dr.phil. Lis Møller</p>
+        <p xml:id="d1e99">Tilsyn ved indledning dr.phil. Flemming Lundgreen-Nielsen</p>
+        <p xml:id="d1e102">TEI P5 ved Kim Steen Ravn</p>
+        <p xml:id="d1e106">Copyright: <emph xml:id="d1e108" rend="italic">Grundtvigs Værker</emph></p>
       </div>
     </body>
   </text>
 </TEI>
-

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI  xmlns="http://www.tei-c.org/ns/1.0">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
   <teiHeader xml:id="idm2">
     <fileDesc xml:id="idm3">
       <titleStmt xml:id="idm4">
@@ -14,55 +14,44 @@
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>
-          <span>N.F.S. Grundtvig</span> 
-          <emph rend="italic">Mands Minde 1788-1838. Foredrag over det
+  <text xml:id="d1e26">
+    <body xml:id="d1e28">
+      <div xml:id="d1e30">
+        <head xml:id="d1e32">
+          <span xml:id="d1e34">N.F.S. Grundtvig</span>
+          <emph xml:id="d1e37" rend="italic">Mands Minde 1788-1838. Foredrag over det
           sidste halve Aarhundredes Historie</emph>
         </head>
-
-        <p>Offentliggjort første gang i <emph rend="italic">
+        <p xml:id="d1e41">Offentliggjort første gang i <emph xml:id="d1e43" rend="italic">
         Grundtvigs Værker</emph> version 1.9, november 2016</p>
-
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell>
-            <cell>
-              <span>Førstetrykket, </span>
-            <span>1877</span> (SJ: 599)</cell>
+        <table xml:id="d1e47">
+          <head xml:id="d1e49">Tekstkilder</head>
+          <row xml:id="d1e52">
+            <cell xml:id="d1e54">A</cell>
+            <cell xml:id="d1e57"><span xml:id="d1e59">Førstetrykket, </span><span xml:id="d1e62">1877</span> (SJ: 599)</cell>
           </row>
-          <row>
-            <cell>K</cell>
-            <cell>
-              <span>Kladde, </span>
-            <span/> (SJ: )</cell>
+          <row xml:id="d1e67">
+            <cell xml:id="d1e69">K</cell>
+            <cell xml:id="d1e72"><span xml:id="d1e74">Kladde, </span><span xml:id="d1e77"/> (SJ: )</cell>
           </row>
         </table>
-
-        <table>
-          <head>Andre udgaver</head>
-          <row>
-            <cell>VU</cell>
-            <cell>
-              <span>Værker i Udvalg </span>
-              <span>4</span>
+        <table xml:id="d1e82">
+          <head xml:id="d1e84">Andre udgaver</head>
+          <row xml:id="d1e87">
+            <cell xml:id="d1e89">VU</cell>
+            <cell xml:id="d1e92">
+              <span xml:id="d1e94">Værker i Udvalg </span>
+              <span xml:id="d1e97">4</span>
             </cell>
           </row>
         </table>
-
-        <p>Teksten er etableret af Henrik Yde.</p>
-        <p>Punktkommentarer er skrevet af Henrik Yde, redigeret af Holger Berg, Klaus Nielsen og Else Riisager</p>
-        <p>Indledning er skrevet af Ole Vind, redigeret af Klaus Nielsen og Henrik Yde</p>
-        <p>Tekstredegørelse er skrevet af Henrik Yde, redigeret af Klaus Nielsen og Kirsten Vad</p>
-
-        <p>Tilsyn ved punktkommentarer dr.theol. K.E. Bugge og dr.phil. Johnny Kondrup</p>
-
-        <p>TEI P5 ved Kim Steen Ravn</p>
-        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
-        
+        <p xml:id="d1e103">Teksten er etableret af Henrik Yde.</p>
+        <p xml:id="d1e107">Punktkommentarer er skrevet af Henrik Yde, redigeret af Holger Berg, Klaus Nielsen og Else Riisager</p>
+        <p xml:id="d1e110">Indledning er skrevet af Ole Vind, redigeret af Klaus Nielsen og Henrik Yde</p>
+        <p xml:id="d1e113">Tekstredegørelse er skrevet af Henrik Yde, redigeret af Klaus Nielsen og Kirsten Vad</p>
+        <p xml:id="d1e116">Tilsyn ved punktkommentarer dr.theol. K.E. Bugge og dr.phil. Johnny Kondrup</p>
+        <p xml:id="d1e119">TEI P5 ved Kim Steen Ravn</p>
+        <p xml:id="d1e122">Copyright: <emph xml:id="d1e124" rend="italic">Grundtvigs Værker</emph></p>
       </div>
     </body>
   </text>

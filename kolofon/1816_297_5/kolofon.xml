@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
-  <!-- /text/gv-1816_297_5-txt-root -->
   <teiHeader xml:id="idm2">
     <fileDesc xml:id="idm3">
       <titleStmt xml:id="idm4">
@@ -24,19 +23,21 @@
         <table xml:id="idm15" cols="2">
           <head xml:id="idm16">Tekstkilder</head>
           <row xml:id="idm17">
-            <cell xml:id="idm18">A</cell><cell xml:id="idm19">Førstetrykket, 1816 (SJ: 297)</cell>
+            <cell xml:id="idm18">A</cell>
+            <cell xml:id="idm19">Førstetrykket, 1816 (SJ: 297)</cell>
           </row>
           <row xml:id="idm20">
-            <cell xml:id="idm21">B</cell><cell xml:id="idm22">Anden udgave, 1838 (SJ: 601)</cell>
+            <cell xml:id="idm21">B</cell>
+            <cell xml:id="idm22">Anden udgave, 1838 (SJ: 601)</cell>
           </row>
           <row xml:id="idm23">
             <cell xml:id="idm24" cols="2">Andre udgaver</cell>
           </row>
           <row xml:id="idm25">
-            <cell xml:id="idm26">PS</cell><cell xml:id="idm27">Poetiske Skrifter 4</cell>
+            <cell xml:id="idm26">PS</cell>
+            <cell xml:id="idm27">Poetiske Skrifter 4</cell>
           </row>
         </table>
-
         <p xml:id="idm28">Teksten er etableret af <persName xml:id="idm29" role="editor">Kim Steen
         Ravn</persName> Punktkommentarer er skrevet af Kim Steen Ravn,
         redigeret af dr.phil. Flemming Lundgreen-Nielsen, Steen

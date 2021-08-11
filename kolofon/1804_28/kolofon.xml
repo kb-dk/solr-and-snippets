@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title/>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <teiHeader xml:id="d1e3">
+    <fileDesc xml:id="d1e5">
+      <titleStmt xml:id="d1e7">
+        <title xml:id="d1e9"/>
       </titleStmt>
-      <publicationStmt>
-        <publisher/>
+      <publicationStmt xml:id="d1e12">
+        <publisher xml:id="d1e14"/>
       </publicationStmt>
-      <sourceDesc>
-        <bibl>
+      <sourceDesc xml:id="d1e17">
+        <bibl xml:id="d1e19">
         </bibl>
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>N.F.S. Grundtvig: “Et Særsyn i det nittende Aarhundrede”</head>
-
-        <p>Offentliggjort første gang i <emph rend="italic">Grundtvigs Værker</emph> version 1.2, maj 2013</p>
-
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell>
-            <cell>Førstetrykket, 1804 (SJ: 28)</cell>
+  <text xml:id="d1e25">
+    <body xml:id="d1e27">
+      <div xml:id="d1e29">
+        <head xml:id="d1e31">N.F.S. Grundtvig: “Et Særsyn i det nittende Aarhundrede”</head>
+        <p xml:id="d1e34">Offentliggjort første gang i <emph xml:id="d1e36" rend="italic">Grundtvigs Værker</emph> version 1.2, maj 2013</p>
+        <table xml:id="d1e40">
+          <head xml:id="d1e42">Tekstkilder</head>
+          <row xml:id="d1e45">
+            <cell xml:id="d1e47">A</cell>
+            <cell xml:id="d1e50">Førstetrykket, 1804 (SJ: 28)</cell>
           </row>
-         </table>
-
-         <p>Teksten er etableret af Niels W. Bruun.</p>
-         <p>Punktkommentarer er skrevet af Niels W. Bruun, redigeret af Else Riisager</p>
-         <p>Indledning er skrevet af Niels W. Bruun, redigeret af Vibeke A. Pedersen</p>
-         <p>Tekstredegørelse er skrevet af Niels W. Bruun, redigeret af Johnny Kondrup og Henrik Yde</p>
-         <p>Tilsyn ved punktkommentarer og indledning Johnny Kondrup</p>
-         <p>TEI P5 ved Kim Steen Ravn</p>
-         <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
-         
+        </table>
+        <p xml:id="d1e55">Teksten er etableret af Niels W. Bruun.</p>
+        <p xml:id="d1e58">Punktkommentarer er skrevet af Niels W. Bruun, redigeret af Else Riisager</p>
+        <p xml:id="d1e62">Indledning er skrevet af Niels W. Bruun, redigeret af Vibeke A. Pedersen</p>
+        <p xml:id="d1e65">Tekstredegørelse er skrevet af Niels W. Bruun, redigeret af Johnny Kondrup og Henrik Yde</p>
+        <p xml:id="d1e68">Tilsyn ved punktkommentarer og indledning Johnny Kondrup</p>
+        <p xml:id="d1e71">TEI P5 ved Kim Steen Ravn</p>
+        <p xml:id="d1e74">Copyright: <emph xml:id="d1e76" rend="italic">Grundtvigs Værker</emph></p>
       </div>
     </body>
   </text>

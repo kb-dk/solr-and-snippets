@@ -1,53 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title/>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+  <teiHeader xml:id="d1e3">
+    <fileDesc xml:id="d1e5">
+      <titleStmt xml:id="d1e7">
+        <title xml:id="d1e9"/>
       </titleStmt>
-      <publicationStmt>
-        <publisher/>
+      <publicationStmt xml:id="d1e12">
+        <publisher xml:id="d1e14"/>
       </publicationStmt>
-      <sourceDesc>
-        <bibl>
+      <sourceDesc xml:id="d1e17">
+        <bibl xml:id="d1e19">
         </bibl>
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>N.F.S. Grundtvig: “Rimelige Strøe-Tanker ved Kalundborgs
+  <text xml:id="d1e25">
+    <body xml:id="d1e27">
+      <div xml:id="d1e29">
+        <head xml:id="d1e31">N.F.S. Grundtvig: “Rimelige Strøe-Tanker ved Kalundborgs
         i Livet vel meriterede Stads-Satyrikus Jens Baggesens
         Grav”</head>
-        <p>Offentliggjort første gang i <emph rend="italic">
+        <p xml:id="d1e34">Offentliggjort første gang i <emph xml:id="d1e36" rend="italic">
         Grundtvigs Værker</emph> version 1.5, oktober 2014 Ændret i
         version 1.16 og 1.17, juni 2021</p>
-        <p>Ændret i version 1.16 og 1.17, juni 2021</p>
-
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell>
-            <cell>
-              <span>Førstetrykket, </span>
-            <span>1815</span> (SJ: 263)</cell>
+        <p xml:id="d1e40">Ændret i version 1.16 og 1.17, juni 2021</p>
+        <table xml:id="d1e43">
+          <head xml:id="d1e45">Tekstkilder</head>
+          <row xml:id="d1e48">
+            <cell xml:id="d1e50">A</cell>
+            <cell xml:id="d1e53"><span xml:id="d1e55">Førstetrykket, </span><span xml:id="d1e58">1815</span> (SJ: 263)</cell>
           </row>
-          <row>
-            <cell>PS</cell>
-            <cell>
-              <span>Poetiske Skrifter, </span>
-            <span>4</span> (SJ: )</cell>
+          <row xml:id="d1e63">
+            <cell xml:id="d1e65">PS</cell>
+            <cell xml:id="d1e68"><span xml:id="d1e70">Poetiske Skrifter, </span><span xml:id="d1e73">4</span> (SJ: )</cell>
           </row>
         </table>
-        <p>Teksten er etableret af Kim Steen Ravn.</p>
-        <p>Punktkommentarer er skrevet af Kim Steen Ravn, redigeret af Johnny Kondrup og Jon Tafdrup</p>
-        <p>Indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Jon Tafdrup</p>
-        <p>Tilsyn ved punktkommentarer dr.phil. Lis Møller</p>
-        <p>Tilsyn ved indledning dr.phil. Flemming Lundgreen-Nielsen</p>
-
-        <p>TEI P5 ved Kim Steen Ravn</p>
-        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
+        <p xml:id="d1e79">Teksten er etableret af Kim Steen Ravn.</p>
+        <p xml:id="d1e83">Punktkommentarer er skrevet af Kim Steen Ravn, redigeret af Johnny Kondrup og Jon Tafdrup</p>
+        <p xml:id="d1e86">Indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Jon Tafdrup</p>
+        <p xml:id="d1e89">Tilsyn ved punktkommentarer dr.phil. Lis Møller</p>
+        <p xml:id="d1e92">Tilsyn ved indledning dr.phil. Flemming Lundgreen-Nielsen</p>
+        <p xml:id="d1e95">TEI P5 ved Kim Steen Ravn</p>
+        <p xml:id="d1e98">Copyright: <emph xml:id="d1e100" rend="italic">Grundtvigs Værker</emph></p>
       </div>
     </body>
   </text>

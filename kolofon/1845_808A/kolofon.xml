@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI  xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
   <teiHeader xml:id="idm2">
     <fileDesc xml:id="idm3">
       <titleStmt xml:id="idm4">
-        <title rend="part" xml:id="idm5"></title>
+        <title rend="part" xml:id="idm5"/>
       </titleStmt>
       <publicationStmt xml:id="idm6">
         <publisher xml:id="idm7">
@@ -14,34 +14,27 @@
       </sourceDesc>
     </fileDesc>
   </teiHeader>
-  <text>
-    <body>
-      <div>
-        <head>N.F.S. Grundtvig: <emph rend="italic">Danske Ordsprog og Mundheld, samlede og ordnede af Nik. Fred. Sev. Grundtvig</emph></head>
-
-        <p>Offentliggjort første gang i <emph rend="italic"> Grundtvigs Værker</emph> version 1.9, november 2016</p>
-        <p>Ændret i version 1.12, 1.14 og 1.17, juni 2021</p>
-
-        <p>Tilføjet indledning og punktkommentarer i version 1.11, november 2017</p>
-        <p>Tilføjet tekstredegørelse i version 1.12, april 2018</p>
-        <p>Ændret i version 1.12, 1.14 og 1.17, juni 2021</p>
-
-        <table>
-          <head>Tekstkilder</head>
-          <row>
-            <cell>A</cell>
-            <cell>
-              <span>Førstetrykket, </span>
-            <span>1845</span> (SJ: 808A)</cell>
+  <text xml:id="d1e25">
+    <body xml:id="d1e27">
+      <div xml:id="d1e29">
+        <head xml:id="d1e31">N.F.S. Grundtvig: <emph xml:id="d1e33" rend="italic">Danske Ordsprog og Mundheld, samlede og ordnede af Nik. Fred. Sev. Grundtvig</emph></head>
+        <p xml:id="d1e36">Offentliggjort første gang i <emph xml:id="d1e38" rend="italic"> Grundtvigs Værker</emph> version 1.9, november 2016</p>
+        <p xml:id="d1e42">Ændret i version 1.12, 1.14 og 1.17, juni 2021</p>
+        <p xml:id="d1e45">Tilføjet indledning og punktkommentarer i version 1.11, november 2017</p>
+        <p xml:id="d1e48">Tilføjet tekstredegørelse i version 1.12, april 2018</p>
+        <p xml:id="d1e52">Ændret i version 1.12, 1.14 og 1.17, juni 2021</p>
+        <table xml:id="d1e55">
+          <head xml:id="d1e57">Tekstkilder</head>
+          <row xml:id="d1e60">
+            <cell xml:id="d1e62">A</cell>
+            <cell xml:id="d1e65"><span xml:id="d1e67">Førstetrykket, </span><span xml:id="d1e70">1845</span> (SJ: 808A)</cell>
           </row>
         </table>
-
-        <p>Teksten er etableret af Kim Steen Ravn.</p>
-        <p>Punktkommentarer, indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Stine Holst Petersen</p>
-        <p>Tilsyn ved punktkommentarer og indledning ph.d. Simon Skovgaard Boeck</p>
-
-        <p>TEI P5 ved Kim Steen Ravn</p>
-        <p>Copyright: <emph rend="italic">Grundtvigs Værker</emph></p>
+        <p xml:id="d1e76">Teksten er etableret af Kim Steen Ravn.</p>
+        <p xml:id="d1e79">Punktkommentarer, indledning og tekstredegørelse er skrevet af Kim Steen Ravn, redigeret af Klaus Nielsen og Stine Holst Petersen</p>
+        <p xml:id="d1e82">Tilsyn ved punktkommentarer og indledning ph.d. Simon Skovgaard Boeck</p>
+        <p xml:id="d1e85">TEI P5 ved Kim Steen Ravn</p>
+        <p xml:id="d1e89">Copyright: <emph xml:id="d1e91" rend="italic">Grundtvigs Værker</emph></p>
       </div>
     </body>
   </text>

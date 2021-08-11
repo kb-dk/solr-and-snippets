@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="root">
- <!-- /text/gv-1832_502A-txt-root -->  
   <teiHeader xml:id="idm2">
     <fileDesc xml:id="idm3">
       <titleStmt xml:id="idm4">
@@ -29,16 +28,24 @@
         <table xml:id="idm20">
           <head xml:id="idm21">Tekstkilder</head>
           <row xml:id="idm22">
-            <cell xml:id="idm23">A</cell><cell xml:id="idm24">Førstetrykket, 1832 (SJ: 502A)</cell>
+            <cell xml:id="idm23">A</cell>
+            <cell xml:id="idm24">Førstetrykket, 1832 (SJ: 502A)</cell>
           </row>
           <row xml:id="idm25">
-            <cell xml:id="idm26">B</cell><cell xml:id="idm27">Anden udgave, 1835 (SJ: 502B)</cell>
+            <cell xml:id="idm26">B</cell>
+            <cell xml:id="idm27">Anden udgave, 1835 (SJ: 502B)</cell>
           </row>
           <row xml:id="idm28">
             <cell xml:id="idm29" cols="2">Andre udgaver</cell>
           </row>
-          <row xml:id="idm30"><cell xml:id="idm31">VU</cell><cell xml:id="idm32">Værker i Udvalg 9</cell></row>
-          <row xml:id="idm33"><cell xml:id="idm34">GSV</cell><cell xml:id="idm35">Grundtvigs Sang-Værk</cell></row>
+          <row xml:id="idm30">
+            <cell xml:id="idm31">VU</cell>
+            <cell xml:id="idm32">Værker i Udvalg 9</cell>
+          </row>
+          <row xml:id="idm33">
+            <cell xml:id="idm34">GSV</cell>
+            <cell xml:id="idm35">Grundtvigs Sang-Værk</cell>
+          </row>
         </table>
         <p xml:id="idm36">Teksten er etableret af Else Riisager Punktkommentarer og
         indledning er skrevet af Else Riisager, redigeret af Vibeke
