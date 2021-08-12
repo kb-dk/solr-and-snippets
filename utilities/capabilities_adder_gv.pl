@@ -35,12 +35,22 @@ if(open(FIND,"$find_cmd |") ) {
 		$type = "Tekstredegørelse";
 	    } elsif($file =~ m/v0.xml/) {
 		$type = "Varianter";
+	    } elsif($file =~ m/kolofon.xml/) {
+		$type = "Kolofon";
 	    }
 
 	    my $rel = $file;
 	    $rel =~ s|^(.*?)/([^/]+)$|$2|;
-#	    print "$rel $type\n";
-	    $data{$rel} = $type;
+	    #	    print "$rel $type\n";
+
+	    # I had already implemented the "relation" kolofon.xml
+	    # elsewhere when GV wanted it to be col.xml
+	    
+	    if($rel =~ m/col.xml/) {
+		$data{'kolofon.xml'} = $type;
+	    } else {
+		$data{$rel} = $type;
+	    }
 	}
 	my $document = &caps(\%data);
 	if(open(my $doc,">$directory/capabilities.xml")) {
