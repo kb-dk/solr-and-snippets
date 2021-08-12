@@ -24,13 +24,14 @@ if( open(my $gv, $find_cmds) ) {
     while(my $file = <$gv>) {
 	chomp $file;
 	my $uri = "";
-	if($file =~ m/(18\d\d)_(\d+[a-zA-Z]?)_?(\d+)?_(com|intro|txr|txt|v0).xml$/) {
+	if($file =~ m/(18\d\d)_(\d+[a-zA-Z]?)_?(\d+)?_(col|com|intro|txr|txt|v0).xml$/) {
 	    if($3) {
 		$uri = join '/',("gv",join("_",$1,$2,$3),$4);
 	    } else {
 		$uri = join '/',("gv",join("_",$1,$2),$4);
 	    }
 	    my $path = $uri;
+	    $uri =~ s/col.xml$/kolofon.xml/;
 	    $path =~ s/[^\/]+$//;
 	    $file =~ s/^\.\///;
 
