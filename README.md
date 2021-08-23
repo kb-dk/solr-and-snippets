@@ -54,7 +54,7 @@ _volume_ and the less text there is in each _work_, the higher the granularity.
 
 The _leaf_ is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives, for each _work_ in a result set a list of _leaf_ nodes that are relevant for the search. _leaf_ nodes are possible to quote but they do usually not appear in table of contents.
 
-The _trunk_ nodes are contained in _work_ nodes. They may contain other _trunk_, _work_ or _eaf_ nodes. It is possible to address a _trunk_ so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
+The _trunk_ nodes are contained in _work_ nodes. They may contain other _trunk_, _work_ or _leaf_ nodes. It is possible to address a _trunk_ so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
 
 A _volume_ is what comes close to a physical book. It contains one or more _work_ nodes. If a _volume_ contains only one and only one work, we refer to it as a _monograph_.
 
