@@ -48,11 +48,11 @@ content objects](http://cds.library.brown.edu/resources/stg/monographs/ohco.html
 ### On volumes, works, trunks and leafs
 
 An object in the content hierarchy is a _work_ if annotated with metadata.
-The work unit is the one returned by search engine returns in the result set.
+Work units are the ones returned by search engine returns in the result set.
 The granularity is an editorial issue. The higher density of metadata annotations the more _work_ nodes there are in a
 _volume_ and the less text there is in each _work_, the higher the granularity.
 
-The _leaf_ is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives, for each _work_ in a result set a list of _leaf_ nodes that are relevant for the search. _leaf_nodes are possible to quote but they do usually not appear in table of contents.
+The _leaf_ is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives, for each _work_ in a result set a list of _leaf_ nodes that are relevant for the search. _leaf_ nodes are possible to quote but they do usually not appear in table of contents.
 
 The _trunk_ nodes are contained in _work_ nodes. They may contain other _trunk_, _work_ or _eaf_ nodes. It is possible to address a _trunk_ so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
 
