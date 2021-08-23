@@ -43,7 +43,7 @@ in [Text Encoding Initiative, TEI for short, markup](http://www.tei-c.org/releas
 This means that they are basically [ordered hierarchies of overlapping
 content objects](http://cds.library.brown.edu/resources/stg/monographs/ohco.html)
 
-tree.jpg
+[tree](tree.jpg)
 
 ### On volumes, works, trunks and leafs
 
