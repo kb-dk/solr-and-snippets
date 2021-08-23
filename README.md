@@ -48,52 +48,27 @@ whatever commences. That is a fundamental property of text.
   * A <kbd>work</kbd> is an entity someone has decided to annotate using metadata. It is hence the unit the search engine returns in the result set. The granularity is an editorial issue. The more <kbd>work</kbd>s there are in a <kbd>volume</kbd> the less text there is in each <kbd>works</kbd>, the higher the granularity.
   * The <kbd>leaf</kbd> is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives for each <kbd>work</kbd> in a result set a list of <kbd>leaf</kbd>s that are relevant for the search. <kbd>leaf</kbd>s are possible to quote but they do usually not appear in table of contents.
   * The <kbd>trunk</kbd>s are contained in <kbd>work</kbd>s. They may contain other <kbd>trunk</kbd> nodes, or <kbd>work</kbd>s or <kbd>leaf</kbd>s. It is possible to address a <kbd>trunk</kbd> so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
-              
-              <li>A <kbd>volume</kbd> is what comes close to a physical
-              book. It contains one or more <kbd>work</kbd>s. If a
-              <kbd>volume</kbd> contains only one work, we refer to it
-              as a <kbd>monograph</kbd></li>
-              
-            </ul>
-          </li>
+  * A <kbd>volume</kbd> is what comes close to a physical book. It contains one or more <kbd>work</kbd>s. If a <kbd>volume</kbd> contains only one work, we refer to it as a <kbd>monograph</kbd>
 
-	  <li>
-	    All text is indexed down to <kbd>leaf</kbd>, basically
-	    <q>paragraph</q>, level, which implies
-	    <ul>
-	      <li>Paragraph in prose: <kbd>&lt;p&gt; ... &lt;/p&gt;</kbd></li>
-	      <li>Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd></li>
-	      <li>Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd></li>
-	    </ul>
-            The distinctions here between prose, drama and poetry is
-            not based on philological analysis, rather, it is
-            determined by what markup was used to represent the text.
-            There are other leaf nodes, like table rows, list items
-            etc.  <em>If the markup is made stringently, then this way of
-            indexing will be stringent.</em>
-	  </li>
+* All text is indexed down to <kbd>leaf</kbd>, basically <q>paragraph</q>, level, which implies
+  * Paragraph in prose: <kbd>&lt;p&gt; ... &lt;/p&gt;</kbd>
+  * Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd>
+  * Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd>
 
-	  <li>The same text may appear on multiple levels in the
-	  index, and hence be addressed as, for example, paragraph,
-	  chapter and volume. In particular, <kbd>work</kbd>s will
-	  contain all text from its <kbd>leaf</kbd> nodes.</li>
+  The distinctions here between prose, drama and poetry is not based on philological analysis, rather, it is determined by what markup was used to represent the text. There are other leaf nodes, like table rows, list items etc.  <em>If the markup is made stringently, then this way of indexing will be stringent.</em>
+
+* The same text may appear on multiple levels in the index, and hence be addressed as, for example, paragraph, chapter and volume. In particular, <kbd>work</kbd>s will contain all text from its <kbd>leaf</kbd> nodes.
           
-	  <li>The index granularity differs between literary
-	  genres. For instance can poems and individual short stories
-	  or essays be treated as individual works, and a single
-	  volume contain hundreds of such items, whereas there are usually
-	  only one novel in a volume.</li>
+* The index granularity differs between literary genres. For instance can poems and individual short stories or essays be treated as individual works, and a single volume contain hundreds of such items, whereas there are usually only one novel in a volume.
           
-	</ul>
+Note that this document does not define or describe all fields in the
+index. The index is far too rich for that, but I believe that it
+contains what it takes to use it. The thing I have left out is
+basically more of the same.
 
-        <p>Note that this document does not define or describe all
-        fields in the index. The index is far too rich for that, but I
-        believe that it contains what it takes to use
-        it. The thing I have left out is basically more of the same.</p>
-
-        <p>Finally, all fields are not available for all editions,
-        because the heterogeneity of the data, or wishes from the
-        projects contributing data.</p>
+Finally, all fields are not available for all editions, because the
+heterogeneity of the data, or wishes from the projects contributing
+data.
 
 
 ## How to install the Snippet Server and its Data
