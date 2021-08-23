@@ -45,23 +45,28 @@ ant -p
 
 show you the targets. The current ones are shown in the tables below.
 
+The data used are stored on github. For example, the Archive for Danish Literature corpus is on
+
+https://github.com/kb-dk/public-adl-text-sources
+
+Many of the corpora used are in private repositories.
+
 ### Build and data preparation targets
 
 | Ant command | Description | Depends |
 |:------------|:------------|:--------|
 | ant clean   | Delete ./build ||
-| ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for adl, gv and sks into the file system | clean |
-| ant base_service | Adds functions specific for  adl, gv, tfs and sks | service |
-| ant other_services | For installing pmm and holberg | service |
+| ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for adl, gv and sks into the file system (basically the content of exporters/common) | clean |
+| ant base_service | Adds functions specific for  adl, letters, tfs, gv, and sks | service |
+| ant other_services | For installing pmm and lhv | service |
 | ant add_letters | Adds scripts for Danmarks Breve | | 
 | ant add_letter_data | Adds data for Danmarks Breve | | 
-| ant&nbsp;add_grundtvig_data | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
+| ant add_grundtvig | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
 | ant add_base_data | Copies  adl, tfs and sks  | base_service |
 | ant add_other_data | Copies data for pmm and holberg |  other_services |
 | ant&nbsp;upload&nbsp;-Dhostport=just.an.example.org:8080 | Installs the text-service backend on http://just.an.example.org:8080. Requires password for the user "admin" on that server | |
 
-The upload function is implemented as a [perl
-script](#ingest-and-indexing-utilities) executed by ant. Requires perl
+The upload function is implemented as a [perl script](#ingest-and-indexing-utilities) executed by ant. Requires perl
 library libwww-perl, available as standard package for Linux or from CPAN.
 
 ### Example
@@ -73,12 +78,11 @@ following to build and install in the database:
  ant service
  ant base_service
  ant add_base_data
- ant add_grundtvig_data
  ant upload -Dhostport=just.an.example.org:8080
 
 ```
 
-Your new snippet server will contain adl, gv, tfs and sks. To set the permissions of all scripts in one go, "retrieve" the
+Your new snippet server will contain adl, tfs and sks. To set the permissions of all scripts in one go, "retrieve" the
 following URI
 
 ```
@@ -112,28 +116,31 @@ For letters we have in addition
 * save.xq (updates the TEI header in the letter project. Data recieved in JSON). Returns a SOLR document in XML
 * volume.xq (renders a table of content for a volume
 
+<!-- xstorage-test-01.kb.dk:8080/text-retriever/ is our test snippet server -->
+<!-- just.an.example.org doesn't exist -->
+
 Most Snippet Server scripts support the following arguments
 
 * doc -- the name of the document to be rendered or transformed
 * c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved. Default is 'texts' for ADL, other are 'periods' and 'authors'
 * op  -- is the operation to be performed upon the document doc. Possible op are
-  * 'render' which implies that doc is transformed into HTML. http://labs.kb.dk/storage/adl/present.xq?doc=aakjaer01val.xml&op=render
-  * 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR. C.f., http://labs.kb.dk/storage/adl/present.xq?doc=aakjaer01val.xml&op=solrize
-  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://labs.kb.dk/storage/adl/present.xq?doc=aakjaer01val.xml&op=facsimile
-  * 'toc' returns a HTML table of contents http://labs.kb.dk/storage/adl/present.xq?doc=aakjaer01val.xml&op=toc 
+  * 'render' which implies that doc is transformed into HTML. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=render
+  * 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR. C.f., http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=solrize
+  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=facsimile
+  * 'toc' returns a HTML table of contents http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=toc 
 * id  -- the id of a part inside the doc which is to be treated. 
 * q -- assuming that 'q' is the query, the present.xq is labelling the hits in the text
 
 Some more examples
 
-* Holberg, vol 3, HTML: http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render
-* Heiberg P.A., _Rigsdalers-Sedlens Hændelser_, Andet Kapitel. Detagged (pure text): http://labs.kb.dk/storage/adl/present-text.xq?doc=heibergpa01val.xml&id=idm140167182652400
+* Holberg, vol 3, HTML: http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=render
+* Heiberg P.A., _Rigsdalers-Sedlens Hændelser_, Andet Kapitel. Detagged (pure text): http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present-text.xq?doc=heibergpa01val.xml&id=idm140167182652400
 
-* Den politiske Kandstøber, Actus II http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render&id=idm140583366846000
+* Den politiske Kandstøber, Actus II http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=render&id=idm140583366846000
 * A single 'speak' in that play, 
-  * as HTML http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=render&id=idm140583366681648
-  * or as SOLR doc http://labs.kb.dk/storage/adl/present.xq?doc=holb03val.xml&op=solrize&id=idm140583366681648
-* A TOC for a small work http://labs.kb.dk/storage/adl/present.xq?doc=aakjaer01val.xml&op=toc&id=workid59384
+  * as HTML http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=render&id=idm140583366681648
+  * or as SOLR doc http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=solrize&id=idm140583366681648
+* A TOC for a small work http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=toc&id=workid59384
 
 
 ## Ingest and Indexing utilities
