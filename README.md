@@ -124,23 +124,23 @@ Most Snippet Server scripts support the following arguments
 * doc -- the name of the document to be rendered or transformed
 * c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved. Default is 'texts' for ADL, other are 'periods' and 'authors'
 * op  -- is the operation to be performed upon the document doc. Possible op are
-  * 'render' which implies that doc is transformed into HTML. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=render
-  * 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR. C.f., http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=solrize
-  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=facsimile
-  * 'toc' returns a HTML table of contents http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=toc 
+  * 'render' which implies that doc is transformed into HTML. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=render&c=adl
+  * 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR. C.f., http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=solrize&c=adl
+  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=facsimile&c=adl
+  * 'toc' returns a HTML table of contents http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=toc&c=adl 
 * id  -- the id of a part inside the doc which is to be treated. 
 * q -- assuming that 'q' is the query, the present.xq is labelling the hits in the text
 
 Some more examples
 
-* Holberg, vol 3, HTML: http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=render
-* Heiberg P.A., _Rigsdalers-Sedlens Hændelser_, Andet Kapitel. Detagged (pure text): http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present-text.xq?doc=heibergpa01val.xml&id=idm140167182652400
+* Holberg, vol 3, HTML: http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&c=adl
+* Heiberg P.A., _Rigsdalers-Sedlens Hændelser_, Andet Kapitel. Detagged (pure text): http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present-text.xq?doc=texts/heibergpa01val.xml&id=idm140167182652400&c=adl
 
-* Den politiske Kandstøber, Actus II http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=render&id=idm140583366846000
+* Den politiske Kandstøber, Actus II http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&id=idm140583366846000&c=adl
 * A single 'speak' in that play, 
-  * as HTML http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=render&id=idm140583366681648
-  * or as SOLR doc http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=holb03val.xml&op=solrize&id=idm140583366681648
-* A TOC for a small work http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=aakjaer01val.xml&op=toc&id=workid59384
+  * as HTML http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&id=idm140583366681648&c=adl
+  * or as SOLR doc http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=solrize&id=idm140583366681648&c=adl
+* A TOC for a small work http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=toc&id=workid59384&c=adl
 
 
 ## Ingest and Indexing utilities
