@@ -32,44 +32,41 @@ indexing is is currently SOLR and the snippet crud eXist
 
 ## Granularity, Identifiers and indices
 
+The data used are stored on github. For example, the Archive for Danish Literature corpus is on
 
-All the texts that can be searched in using the API are in [Text Encoding Initiative, TEI for short, markup](http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html).
+https://github.com/kb-dk/public-adl-text-sources
 
-* The text documents are basically [ordered hierarchies of overlapping
+Many of the corpora used are in private repositories. 
+
+All of them are
+in [Text Encoding Initiative, TEI for short, markup](http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html).
+This means that they are basically [ordered hierarchies of overlapping
 content objects](http://cds.library.brown.edu/resources/stg/monographs/ohco.html)
 
-* In particular we can not easily **simultaneously** 
-ascertain what content there is on a given page and see what
-content there is in a paragraph starting on that page. However,
-we can always know on what page a given chapter, paragraph or
-whatever commences. That is a fundamental property of text.
+tree.jpg
 
-* In text service the objects in the content hierarchy are 
-  * A <kbd>work</kbd> is an entity someone has decided to annotate using metadata. It is hence the unit the search engine returns in the result set. The granularity is an editorial issue. The more <kbd>work</kbd>s there are in a <kbd>volume</kbd> the less text there is in each <kbd>works</kbd>, the higher the granularity.
-  * The <kbd>leaf</kbd> is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives for each <kbd>work</kbd> in a result set a list of <kbd>leaf</kbd>s that are relevant for the search. <kbd>leaf</kbd>s are possible to quote but they do usually not appear in table of contents.
-  * The <kbd>trunk</kbd>s are contained in <kbd>work</kbd>s. They may contain other <kbd>trunk</kbd> nodes, or <kbd>work</kbd>s or <kbd>leaf</kbd>s. It is possible to address a <kbd>trunk</kbd> so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
-  * A <kbd>volume</kbd> is what comes close to a physical book. It contains one or more <kbd>work</kbd>s. If a <kbd>volume</kbd> contains only one work, we refer to it as a <kbd>monograph</kbd>
+### On volumes, works, trunks and leafs
 
-* All text is indexed down to <kbd>leaf</kbd>, basically <q>paragraph</q>, level, which implies
-  * Paragraph in prose: <kbd>&lt;p&gt; ... &lt;/p&gt;</kbd>
-  * Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd>
-  * Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd>
+An object in the content hierarchy are _work_s if annotated with metadata.
+The work unit is the one returned by search engine returns in the result set.
+The granularity is an editorial issue. The higher density of metadata annotations the more _work_s there are in a
+_volume_ and the less text there is in each _work_s, the higher the granularity.
 
-  The distinctions here between prose, drama and poetry is not based on philological analysis, rather, it is determined by what markup was used to represent the text. There are other leaf nodes, like table rows, list items etc.  <em>If the markup is made stringently, then this way of indexing will be stringent.</em>
+The _leaf_ is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives, for each _work_ in a result set a list of _leaf_s that are relevant for the search. _leaf_s are possible to quote but they do usually not appear in table of contents.
 
-* The same text may appear on multiple levels in the index, and hence be addressed as, for example, paragraph, chapter and volume. In particular, <kbd>work</kbd>s will contain all text from its <kbd>leaf</kbd> nodes.
-          
-* The index granularity differs between literary genres. For instance can poems and individual short stories or essays be treated as individual works, and a single volume contain hundreds of such items, whereas there are usually only one novel in a volume.
-          
-Note that this document does not define or describe all fields in the
-index. The index is far too rich for that, but I believe that it
-contains what it takes to use it. The thing I have left out is
-basically more of the same.
+The _trunk_s are contained in _work_s. They may contain other _trunk_, _work_ or _eaf_ nodes. It is possible to address a _trunk_ so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
 
-Finally, all fields are not available for all editions, because the
-heterogeneity of the data, or wishes from the projects contributing
-data.
+A _volume_ is what comes close to a physical book. It contains one or more _work_s. If a _volume_ contains only one and only one work, we refer to it as a _monograph_.
 
+All text is indexed down to _leaf_ nodes, basically <q>paragraph</q>, level, which implies
+
+* Paragraph in prose: <kbd>&lt;p&gt; ... &lt;/p&gt;</kbd>
+* Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd>
+* Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd>
+
+### Identifying a node
+
+Documents are indexed in SOLR search engine. That means that when the software traverses a TEI document tree, it creates SOLR documents as it goes. In doing that it uses the <kbd>xml:id</kbd> of the element it passes. Any thing that should be possible to show the user in the frontend must have a SOLR document.
 
 ## How to install the Snippet Server and its Data
 
@@ -85,12 +82,6 @@ ant -p
 ```
 
 show you the targets. The current ones are shown in the tables below.
-
-The data used are stored on github. For example, the Archive for Danish Literature corpus is on
-
-https://github.com/kb-dk/public-adl-text-sources
-
-Many of the corpora used are in private repositories.
 
 ### Build and data preparation targets
 
