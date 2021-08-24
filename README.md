@@ -240,7 +240,6 @@ Some more examples
 * Den politiske Kandstøber, Actus II http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&id=idm140583366846000&c=adl
 * A single 'speak' in that play, 
   * as HTML http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&id=idm140583366681648&c=adl
-  * or as SOLR doc http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=solrize&id=idm140583366681648&c=adl
 * A TOC for a small work http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=toc&id=workid59384&c=adl
 
 
