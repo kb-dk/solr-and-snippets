@@ -47,24 +47,40 @@ content objects](http://cds.library.brown.edu/resources/stg/monographs/ohco.html
 
 ### On volumes, works, trunks and leafs
 
-An object in the content hierarchy is a _work_ if annotated with metadata.
-Work units are the ones returned by search engine returns in the result set.
-The granularity is an editorial issue. The higher density of metadata annotations the more _work_ nodes there are in a
-_volume_ and the less text there is in each _work_, the higher the granularity.
+An object in the content hierarchy is a _work_ if annotated with
+metadata.  Work units are the ones returned by search engine returns
+in the result set.  The granularity is an editorial issue. The higher
+density of metadata annotations the more _work_ nodes there are in a
+_volume_ and the less text there is in each _work_, the higher the
+granularity.
 
-The _leaf_ is the smallest unit of the tree which can be identified and therefore retrievable and possible to index. The user interface gives, for each _work_ in a result set a list of _leaf_ nodes that are relevant for the search. _leaf_ nodes are possible to quote but they do usually not appear in table of contents.
+The _leaf_ is the smallest unit of the tree which can be identified
+and therefore retrievable and possible to index. The user interface
+gives, for each _work_ in a result set a list of _leaf_ nodes that are
+relevant for the search. _leaf_ nodes are possible to quote but they
+do usually not appear in table of contents.
 
-The _trunk_ nodes are contained in _work_ nodes. They may contain other _trunk_, _work_ or _leaf_ nodes. It is possible to address a _trunk_ so it is possible to send a URI to someone and say: <q>Read chapter 5, it is so good!</q> They are indexed and searchable in principle. However, the user interface only support them in table of contents and quotation services.
+The _trunk_ nodes are contained in _work_ nodes. They may contain
+other _trunk_, _work_ or _leaf_ nodes. It is possible to address a
+_trunk_ so it is possible to send a URI to someone and say: <q>Read
+chapter 5, it is so good!</q> The _trunk_ is indexed and searchable in
+principle. However, the user interface only support them in table of
+contents and quotation services.
 
-A _volume_ is what comes close to a physical book. It contains one or more _work_ nodes. If a _volume_ contains only one and only one work, we refer to it as a _monograph_.
+A _volume_ is what comes close to a physical book. It contains one or
+more _work_ nodes. If a _volume_ contains only one and only one work,
+we refer to it as a _monograph_.
 
-All text is indexed down to _leaf_ nodes, basically <q>paragraph</q>, level, which implies
+All text is indexed down to _leaf_ nodes, basically <q>paragraph</q>,
+level, which implies
 
 * Paragraph in prose: <kbd>&lt;p&gt; ... &lt;/p&gt;</kbd>
 * Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd>
 * Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd>
 
-Hence if a _work_ is five hundred pages we can find pargraphs, speech or strophes relevant to a users search, and provide a means to address them.
+Hence if a _work_ is five hundred pages we can find pargraphs, speech
+or strophes relevant to a users search, and provide a means to address
+them.
 
 ### Identifying a node
 
@@ -103,7 +119,7 @@ will have its user interface on
 https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid57881
 
 (1) adl represents the collection, (2) texts-munp1 is short for the
-file-path, that is directory and and file name. (3) Finally
+file-path, that is directory and and file name. I.e., the file is <kbd>adl/texts/munp1.xml</kbd> (3) Finally
 shoot-workid57881 identifies (contains the node ID) the part of the
 document containing Gustaf Munch-Petersen's poem _søvnen_ which
 annotated as being a _work_.
@@ -207,10 +223,11 @@ Most Snippet Server scripts support the following arguments
 
 * doc -- the name of the document to be rendered or transformed
 * c   -- if there are more sub-collections inside the data set, c is the name of the dirctory where doc is to be retrieved. Default is 'texts' for ADL, other are 'periods' and 'authors'
+* path -- the collection, file-path and node ID in the notation described above.
 * op  -- is the operation to be performed upon the document doc. Possible op are
-  * 'render' which implies that doc is transformed into HTML. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=render&c=adl
+  * 'render' which implies that doc is transformed into HTML. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=render&c=adl (synonymously using path instead of doc and collection(c))  http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?path=adl-texts-aakjaer01val-root&op=render)
   * 'solrize' which returns a solr <add> ... </add> which is ready to be sent to SOLR. C.f., http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=solrize&c=adl
-  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=facsimile&c=adl
+  * 'facsimile' which returns a HTML document with images of the pages. Since we introduced OSD, it is only used for PDF generation. http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=facsimile&c=adl (or synonymously http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?path=adl-texts-aakjaer01val-root&op=facsimile)
   * 'toc' returns a HTML table of contents http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=toc&c=adl 
 * id  -- the id of a part inside the doc which is to be treated. 
 * q -- assuming that 'q' is the query, the present.xq is labelling the hits in the text
@@ -218,7 +235,7 @@ Most Snippet Server scripts support the following arguments
 Some more examples
 
 * Holberg, vol 3, HTML: http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&c=adl
-* Heiberg P.A., _Rigsdalers-Sedlens Hændelser_, Andet Kapitel. Detagged (pure text): http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present-text.xq?doc=texts/heibergpa01val.xml&id=idm140167182652400&c=adl
+* Heiberg P.A., _Rigsdalers-Sedlens Hændelser_, Andet Kapitel. Detagged (plain text): http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present-text.xq?doc=texts/heibergpa01val.xml&id=idm140167182652400&c=adl
 
 * Den politiske Kandstøber, Actus II http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&id=idm140583366846000&c=adl
 * A single 'speak' in that play, 
