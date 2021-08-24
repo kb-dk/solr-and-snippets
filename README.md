@@ -30,7 +30,7 @@ Currently
 The Snippet Server has to support CRUD basic functionalities. The
 indexing is is currently SOLR and the snippet crud eXist
 
-## Granularity, Identifiers and indices
+## Granularity, Identifiers and Indexers
 
 The data used are stored on github. For example, the Archive for Danish Literature corpus is on
 
@@ -64,9 +64,61 @@ All text is indexed down to _leaf_ nodes, basically <q>paragraph</q>, level, whi
 * Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd>
 * Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd>
 
+Hence if a _work_ is five hundred pages we can find pargraphs, speech or strophes relevant to a users search, and provide a means to address them.
+
 ### Identifying a node
 
-Documents are indexed in SOLR search engine. That means that when the software traverses a TEI document tree, it creates SOLR documents as it goes. In doing that it uses the <kbd>xml:id</kbd> of the element it passes. Any thing that should be possible to show the user in the frontend must have a SOLR document.
+We have to have a method to identify text segments and reference and
+quote them. Both we and our users need that. Here is how we achieve
+that:
+
+Documents are indexed in a SOLR search engine. The Indexer, our
+software for loading the search eninge,  traverses each TEI document tree creating SOLR documents as
+it goes.
+
+Before we do that, though, we make sure that every node is
+identifiable using an ID. I.e., we ensure that each element has an
+<kbd>xml:id</kbd>. The Indexer must check whether a node has metadata
+annotations, i.e., if it is a _work_, in which case it has to pick up
+those. Those data are stored in the TEI header. The convention is that
+each _work_ [carries a reference to its metadata](https://github.com/kb-dk/public-adl-text-sources/blob/master/work-metadata.md).
+
+Hence, we have a three dimensional space
+
+* document ID
+* node ID
+* metadata ID
+
+Any thing that should be possible to find for user in the frontend
+must have a SOLR document; everything that should be possible to
+reference must have an ID. However, for most practical tasks you only
+need to take into account the first two.
+
+The document with the following URI as source
+
+https://github.com/kb-dk/public-adl-text-sources/blob/master/texts/munp1.xml
+
+will have its user interface on
+
+https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid57881
+
+(1) adl represents the collection, (2) texts-munp1 is short for the
+file-path, that is directory and and file name. (3) Finally
+shoot-workid57881 identifies (contains the node ID) the part of the
+document containing Gustaf Munch-Petersen's poem _søvnen_ which
+annotated as being a _work_.
+
+Since file-paths can be long and hyphens are permitted in an xml:id I
+separate file-path from node ID with _-shoot-_; the volume node ends
+with _-root_.
+
+The same poem can be referred to as a point of a collection of poem,
+”det nøgne menneske”
+
+https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid57312#workid57881
+
+in which case we loose the connection with the metadata annotation to
+the work _søvnen_
 
 ## How to install the Snippet Server and its Data
 
