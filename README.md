@@ -241,7 +241,7 @@ Some more examples
 * A single 'speak' in that play as HTML http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/holb03val.xml&op=render&id=idm140583366681648&c=adl
 * Another TOC for a small work. Note that it TOC is for the volume, however the entry for the  work become highlighted in the service   http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?doc=texts/aakjaer01val.xml&op=toc&id=workid94598&c=adl
 * Here is Aakjær, Jeppe RUGEN KJØRES HJEM: http://text-test-02.kb.dk/text/adl-texts-aakjaer01val-shoot-workid94598
-The HTML represenation comes from  http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?path=adl-texts-aakjaer01val-shoot-workid94598&op=render the facsimiles come from  http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/open-seadragon-config.xq?path=adl-texts-aakjaer01val-shoot-workid94598 which contains everything Open Seadragon need for presenting the images.
+The HTML represenation comes from  http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/present.xq?path=adl-texts-aakjaer01val-shoot-workid94598&op=render the facsimiles come from  http://xstorage-test-01.kb.dk:8080/exist/rest/db/text-retriever/open-seadragon-config.xq?path=adl-texts-aakjaer01val-shoot-workid94598 which contains everything Open Seadragon need for presenting the images. In json.
 
 ## Ingest and Indexing utilities
 
