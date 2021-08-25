@@ -31,7 +31,7 @@ if( open(my $gv, $find_cmds) ) {
 		$uri = join '/',("gv",join("_",$1,$2),$4);
 	    }
 	    my $path = $uri;
-	    $uri =~ s/col.xml$/kolofon.xml/;
+	    $uri =~ s/col$/kolofon/;
 	    $path =~ s/[^\/]+$//;
 	    $file =~ s/^\.\///;
 
