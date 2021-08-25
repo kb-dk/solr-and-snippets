@@ -302,8 +302,9 @@ published according to the [GV filter](gv_filter/txtFilter.txt) (2) it
 preprocesses the GV TEI files such that they work with the
 text-service's indexing and retrieval practices.
 
-The GV filter is just a set of wildcards we use for copying the
-files.
+The GV filter is just a set of (currently) 442 wildcards we use for
+copying the files.
+
 
 ```
 ...
