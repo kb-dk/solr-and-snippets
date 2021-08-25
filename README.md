@@ -288,6 +288,42 @@ http://localhost:8080/exist/rest/db/adl/
  
 ```
 
+### Copying GV
+
+The structure of the GV corpus is too complicated for copying using
+and copying functions and is implemented as an external perl script
+
+```
+utilities/copy_grundtvig.pl
+```
+
+which does to essential things: (1) It only ingests the files
+published according to the [GV filter](gv_filter/txtFilter.txt) (2) it
+preprocesses the GV TEI files such that they work with the
+text-service's indexing and retrieval practices.
+
+The GV filter is just a set of wildcards we use for copying the
+files.
+
+```
+...
+
+1808/1808GV/1808_99a/1808_99a_*.xml
+1809/1809GV/1809_105/1809_105_*.xml
+1809/1809GV/1809_106/1809_106_*.xml
+1809/1809GV/1809_107/1809_107_*.xml
+1809/1809GV/1809_108/1809_108_*.xml
+1809/1809GV/1809_109/1809_109_*.xml
+1809/1809GV/1809_111/1809_111_*.xml
+1809/1809GV/1809_113/1809_113_*.xml
+1809/1809GV/1809_115/1809_115_*.xml
+1809/1809GV/1809_116/1809_116_*.xml
+
+...
+
+```
+It is maintained by the Grundtvig project.
+
 ### Running solrizr and loading solr docs into cloud
 
 ```
@@ -310,7 +346,7 @@ sudo cpan -e install URI::Template
 
 ```
 
-## Minor utilities
+### Minor utilities
 
 * xslt transform all files with `--suffix xml` in the `--directory ./periods/` with a style `--sheet` preprocess.xsl 
 ```
