@@ -22,11 +22,11 @@ while(my $line = <STDIN>) {
     chomp($line);
     my $seq; my $text;
     ($seq,$text) = split /\s---\s/,$line;
-    
-    $line =~ s/([^[:space:][:alpha:]])/ /g;
 
     push @poem,$text;
-    reverse(lc($text)) =~ m/(\w\w)(.*$)/;
+    $text =~ s/([^[:space:][:alpha:]])/ /g;
+
+    reverse(lc($text)) =~ m/(\w\w\w)(.*$)/;
     my $the_end = $1;
 
     print $the_end . " --- $seq\n";

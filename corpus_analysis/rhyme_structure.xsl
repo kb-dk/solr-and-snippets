@@ -10,6 +10,7 @@
               omit-xml-declaration="yes"
               encoding="UTF-8"/>
 
+  <xsl:param name="print_position" select="''"/>
   <xsl:param name="file_name" select="''"/>
   <xsl:param name="work_id"   select="''"/>
 
@@ -20,7 +21,7 @@
 <xsl:for-each select=".//t:l/string()"><xsl:value-of select="."/></xsl:for-each>
 </xsl:variable>
 <xsl:for-each select="$line">
-<xsl:value-of select="position()"/><xsl:text> --- </xsl:text><xsl:value-of select="."/><xsl:text>
+<xsl:if test="$print_position"><xsl:value-of select="position()"/><xsl:text> --- </xsl:text></xsl:if><xsl:value-of select="."/><xsl:text>
 </xsl:text></xsl:for-each>
 </xsl:for-each>
 </xsl:template>

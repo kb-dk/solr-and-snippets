@@ -21,4 +21,4 @@ FILE="$THERE/texts/$FILE_NAME"
 XSL="./rhyme_structure.xsl"
 
 echo "$FILE_NAME $XMLID "
-$SAXON -xsl:"$XSL" -s:"$FILE" file_name="$FILE" work_id="$XMLID" | ./find_the_rhyme.pl
+$SAXON -xsl:"$XSL" -s:"$FILE" file_name="$FILE" print_position=1 work_id="$XMLID" | ./find_the_rhyme.pl
