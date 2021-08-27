@@ -3,16 +3,21 @@
 use strict;
 use utf8;
 
-my @chars = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o');
-my %endings;
-my @endings_list = ();
-my @poem = ();
-
+binmode STDERR, ':utf8';
 binmode STDOUT, ':utf8';
 binmode STDIN, ':utf8';
 
-while(my $line = <>) {
+my %endings;
+my @endings_list = ();
+my @poem = ();
+my %found;
+my $rhyme_structure = '';
+my @chars = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o');
+
+while(my $line = <STDIN>) {
     next if $line =~ m/^\s*$/;
+    next if $line =~ m/^#/;
+    
     $line =~ s/[\.,;]/ /g;
     
     chomp($line);
@@ -21,7 +26,7 @@ while(my $line = <>) {
 
     ($seq,$text) = split /\s---\s/,$line;
     push @poem,$text;
-    reverse($text) =~ m/(...)(.*$)/;
+    reverse($text) =~ m/(\w\w\w)(.*$)/;
     my $the_end = $1;
 
     print $the_end . " --- $seq\n";
@@ -29,8 +34,6 @@ while(my $line = <>) {
     $endings_list[$seq] .= "$the_end ";
 }
 
-my %found;
-my $rhyme_structure = '';
 foreach my $num (1..14) {
     my $current = $endings_list[$num];
     print shift @poem;

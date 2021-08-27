@@ -6,4 +6,4 @@ THERE="/home/slu/projects/public-adl-text-sources"
 FILE="$THERE/texts/aarestrup07val.xml"
 XSL="./rhyme_structure.xsl"
 
-$SAXON -xsl:"$XSL" -s:"$FILE" file_name="$FILE" work_id="$XMLID" | perl -ne "s/[\.,]//g;print unless m/^#/;"
+$SAXON -xsl:"$XSL" -s:"$FILE" file_name="$FILE" work_id="$XMLID"
