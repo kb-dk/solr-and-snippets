@@ -12,21 +12,21 @@ my @endings_list = ();
 my @poem = ();
 my %found;
 my $rhyme_structure = '';
-my @chars = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o');
+my @chars =
+    ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q');
 
 while(my $line = <STDIN>) {
     next if $line =~ m/^\s*$/;
     next if $line =~ m/^#/;
-    
-    $line =~ s/[\.,;]/ /g;
-    
+
     chomp($line);
-
     my $seq; my $text;
-
     ($seq,$text) = split /\s---\s/,$line;
+    
+    $line =~ s/([^[:space:][:alpha:]])/ /g;
+
     push @poem,$text;
-    reverse($text) =~ m/(\w\w\w)(.*$)/;
+    reverse(lc($text)) =~ m/(\w\w)(.*$)/;
     my $the_end = $1;
 
     print $the_end . " --- $seq\n";
