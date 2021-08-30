@@ -473,6 +473,8 @@
 
       <xsl:for-each select="fn:tokenize($wit,'\s+')">
 	<xsl:variable name="witness"><xsl:choose><xsl:when test="contains(.,'#')"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:when><xsl:otherwise><xsl:value-of select="."/></xsl:otherwise></xsl:choose></xsl:variable>
+        <xsl:text> 
+        </xsl:text>
         <xsl:choose>
 	<xsl:when test="$witnesses//t:witness[@xml:id=$witness]">
 	  <xsl:element name="em">
