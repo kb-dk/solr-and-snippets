@@ -97,7 +97,7 @@
   </xsl:template>
 
   <xsl:template match="t:choice[t:abbr and t:expan]">
-    <xsl:element name="span"> <!-- used to be a -->
+    <xsl:element name="span"><!-- used to be a -->
       <xsl:attribute name="title">
 	<xsl:for-each select="t:expan">
 	<xsl:value-of select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
@@ -300,7 +300,7 @@
   <xsl:template mode="apparatus" match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="apparatus"/> <xsl:text> ] </xsl:text>
+      <xsl:apply-templates mode="apparatus"/><xsl:text>] </xsl:text>
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
@@ -438,26 +438,26 @@
 
 
   <xsl:template  mode="apparatus"  match="t:rdg">
-      <xsl:call-template name="render_before_after">
-	<xsl:with-param name="scope">before</xsl:with-param>
-      </xsl:call-template>
-      <xsl:element name="span">
-        <xsl:apply-templates  mode="apparatus" />
-	<xsl:if test="@wit">
-	  <xsl:call-template name="witness"/>
-	</xsl:if>
-	<xsl:if test="@resp">
-	  <xsl:call-template name="witness">
-	    <xsl:with-param name="wit" select="@resp"/>
-	  </xsl:call-template>
-	</xsl:if>
-	<xsl:if test="@evidence">
-	  [<xsl:value-of select="@evidence"/>]
-	</xsl:if>
-	<xsl:call-template name="render_before_after">
-	  <xsl:with-param name="scope">after</xsl:with-param>
+    <xsl:call-template name="render_before_after">
+      <xsl:with-param name="scope">before</xsl:with-param>
+    </xsl:call-template>
+    <xsl:element name="span">
+      <xsl:apply-templates  mode="apparatus" />
+      <xsl:if test="@wit">
+	<xsl:call-template name="witness"/>
+      </xsl:if>
+      <xsl:if test="@resp">
+	<xsl:call-template name="witness">
+	  <xsl:with-param name="wit" select="@resp"/>
 	</xsl:call-template>
-	<xsl:comment> rdg </xsl:comment>
+      </xsl:if>
+      <xsl:if test="@evidence">
+	[<xsl:value-of select="@evidence"/>]
+      </xsl:if>
+      <xsl:call-template name="render_before_after">
+	<xsl:with-param name="scope">after</xsl:with-param>
+      </xsl:call-template>
+      <xsl:comment> rdg </xsl:comment>
     </xsl:element>
   </xsl:template>
 
