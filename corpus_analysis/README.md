@@ -138,7 +138,10 @@ You can easily find out the strophe structure for each poem:
 That is, iterate over the line groups in a poem, and count the lines
 in each of them.
 
-I have summarized these data about all poems in ADL with 14 lines. You find them in [sonnet_candidates.xml](sonnet_candidates.xml)
+I have summarized these data about all poems in ADL with 14
+lines. There are 243 (there are more, but they have erroneous markup)
+of them. You find these sonnet candidates in an html table here
+[sonnet_candidates.xml](sonnet_candidates.xml)
 
 
 |File name | Title | xml:id | metadata reference | Strophe structure | average number of vowels per line|
@@ -151,3 +154,46 @@ I have summarized these data about all poems in ADL with 14 lines. You find them
 |./claussen07val.xml| [TAAGE OG REGNDAGE](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66036) |workid66036|#biblid66036|4 4 3 3|13.9286|
 |./claussen07val.xml|MAANENS TUNGSIND|workid66131|#biblid66131|4 4 3 3|13.8571|
 |./jacobjp08val.xml|I Seraillets Have|workid63094|#biblid63094|14|6.7143|
+
+Sophus Claussen's and Emil Aarestrup's poems are definately sonnets,
+as implied by strophe structure and the approximately pentametric
+number of vowels per line (and, by the way, Aarestrup points often
+that he is actually writing sonnets).
+
+# Then we have the rhymes
+
+Beauty is in the eye of the beholder, says Shakespeare. I believe that
+is true. Then, however, I would like to add that the rhymes in poetry
+(like the approximately pentametric meter) is in the ear of
+listener. It is time consuming to read houndreds figure out the rhyme
+structure. So an approximate idea of the rhymes could be have
+comparing the verse line endings.
+
+This is error prone. [Consider this sonnet by
+P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid62307).
+
+SONET
+
+Den Svend, som Tabet af sin elskte frister,
+Vildfremmed vanker om blandt Jordens Hytter;
+Med Haab han efter Kirkeklokken lytter,
+Som lover ham igen, hvad her han mister.
+
+Men næppe han med en usalig bytter,
+Hvis Hjerte, stedse koldt for Elskov, brister,
+Som sig uelsket gennem Livet lister,
+Hans Armod kun mod Tabet ham beskytter.
+
+Til Livets Gaade rent han savner Nøglen,
+Hver Livets Blomst i Hjærtets Vinter fryser,
+Han gaar omkring med underlige Fagter.
+
+Ræd, Spøgelser han ser, naar Solen lyser,
+Modløs og syg, foragtet han foragter
+Det skønne Liv som tom og ussel Gøglen.
+
+The the last syllable of the eight first lines are the same '-ter'. If you
+using some script compare the endings you'll only find single (AKA
+masculine) rhymes and miss double rhymes (or feminine ones).
+
+
