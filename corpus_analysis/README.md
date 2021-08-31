@@ -1,5 +1,7 @@
- # Where are the sonnets?
+# Where are the sonnets?
  
+## Finding poems
+
 The ADL text corpus contains [literary
 texts](https://github.com/kb-dk/public-adl-text-sources). It is easy
 to find poetry in those files. Typically a piece of poetry is encoded
@@ -83,6 +85,8 @@ So we iterate over all &lt;div>...&lt;/div>s having line groups inside
 and have a @decls attribute containing a reference to metadata in the
 TEI header. The latter is not universal, but we use it in ADL.
 
+## Approximately pentametric
+
 Finding &lt;div>...&lt;/div>s having 14 lines of poetry isn't good
 enough. We wanting iambic pentameter, don't we? To actually analyse
 the texts for their rythmical properties is beyond me, but we could
@@ -113,3 +117,37 @@ For a sonnet it would be 10, [or occasionally a little
 more](https://en.wikipedia.org/wiki/Hendecasyllable). In the poem
 quoted above it is 10.4.
 
+## Strophe structure
+
+You can write a lot of nice poetry with 14 lines. Like Munch-Petersen's [en borgers
+livshymne](https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid62017)
+with five strophes with one line, then three strophes with four lines
+and finally a single line.
+
+You can easily find out the strophe structure for each poem:
+
+```
+ <xsl:variable name="lines_per_strophe" as="xs:integer *">
+    <xsl:for-each select=".//t:lg[t:l]">
+       <xsl:value-of select="count(t:l)"/>
+    </xsl:for-each>
+    </xsl:variable>
+ <xsl:value-of select="$lines_per_strophe"/>
+```
+
+That is, iterate over the line groups in a poem, and count the lines
+in each of them.
+
+I have summarized these data about all poems in ADL with 15 lines:
+
+
+|File name | Title | xml:id | metadata reference | Strophe structure | average number of vowels per line|
+|---|---|---|---|---|---|
+|./aarestrup07val.xml|Jeg havde faaet Brev fra dig, Nanette ...|workid73888|#biblid73888|4 4 3 3|11.0|
+|./aarestrup07val.xml|Tag dette Kys, og tusind til, du Søde ...|workid75376|#biblid75376|4 4 3 3|11.0714|
+|./aarestrup07val.xml|Sonet|workid76444|#biblid76444|4 4 3 3|11.5|
+|./brorson03grval.xml|1.|workid76607|#biblid76607|14|8.7143|
+|./claussen07val.xml|SKUMRING|workid63580|#biblid63580|14|10.8571|
+|./claussen07val.xml|TAAGE OG REGNDAGE|workid66036|#biblid66036|4 4 3 3|13.9286|
+|./claussen07val.xml|MAANENS TUNGSIND|workid66131|#biblid66131|4 4 3 3|13.8571|
+|./jacobjp08val.xml|I Seraillets Have|workid63094|#biblid63094|14|6.7143|

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <table>
+  <tr><th>File name</th><th>Title</th><th>xml:id</th><th>metadata reference</th><th>Stroph structure</th><th>average number of vowels</th></tr>
   <tr><th>./michs_11.xml</th><td>MAJNAT</td><td>workid57622</td><td>#biblid57622</td><td>4 4 3 3</td><td>10.2857</td></tr>
   <tr><th>./michs_11.xml</th><td>TRØSTEN</td><td>workid64670</td><td>#biblid64670</td><td>4 4 3 3</td><td>10.9286</td></tr>
   <tr><th>./kingo09val.xml</th><td>Sonnet eller Suk i Klingeriim.</td><td>workid85386</td><td>#biblid85386</td><td>14</td><td>12.7857</td></tr>
