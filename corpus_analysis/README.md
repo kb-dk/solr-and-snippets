@@ -171,29 +171,29 @@ comparing the verse line endings.
 
 This is error prone. [Consider this sonnet by
 P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid62307).
-
-SONET
-
-Den Svend, som Tabet af sin elskte frister,
-Vildfremmed vanker om blandt Jordens Hytter;
-Med Haab han efter Kirkeklokken lytter,
-Som lover ham igen, hvad her han mister.
-
-Men næppe han med en usalig bytter,
-Hvis Hjerte, stedse koldt for Elskov, brister,
-Som sig uelsket gennem Livet lister,
-Hans Armod kun mod Tabet ham beskytter.
-
-Til Livets Gaade rent han savner Nøglen,
-Hver Livets Blomst i Hjærtets Vinter fryser,
-Han gaar omkring med underlige Fagter.
-
-Ræd, Spøgelser han ser, naar Solen lyser,
-Modløs og syg, foragtet han foragter
-Det skønne Liv som tom og ussel Gøglen.
-
+ 
+ SONET
+ 
+ Den Svend, som Tabet af sin elskte frister,
+ Vildfremmed vanker om blandt Jordens Hytter;
+ Med Haab han efter Kirkeklokken lytter,
+ Som lover ham igen, hvad her han mister.
+ 
+ Men næppe han med en usalig bytter,
+ Hvis Hjerte, stedse koldt for Elskov, brister,
+ Som sig uelsket gennem Livet lister,
+ Hans Armod kun mod Tabet ham beskytter.
+ 
+ Til Livets Gaade rent han savner Nøglen,
+ Hver Livets Blomst i Hjærtets Vinter fryser,
+ Han gaar omkring med underlige Fagter.
+ 
+ Ræd, Spøgelser han ser, naar Solen lyser,
+ Modløs og syg, foragtet han foragter
+ Det skønne Liv som tom og ussel Gøglen.
+ 
 The the last syllable of the eight first lines are the same '-ter'. If you
 using some script compare the endings you'll only find single (AKA
 masculine) rhymes and miss double rhymes (or feminine ones).
-
-
+ 
+ 
