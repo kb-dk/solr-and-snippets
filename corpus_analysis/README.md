@@ -138,16 +138,16 @@ You can easily find out the strophe structure for each poem:
 That is, iterate over the line groups in a poem, and count the lines
 in each of them.
 
-I have summarized these data about all poems in ADL with 15 lines:
+I have summarized these data about all poems in ADL with 14 lines. You find them in [sonnet_candidates.xml](sonnet_candidates.xml)
 
 
 |File name | Title | xml:id | metadata reference | Strophe structure | average number of vowels per line|
 |---|---|---|---|---|---|
-|./aarestrup07val.xml|Jeg havde faaet Brev fra dig, Nanette ...|workid73888|#biblid73888|4 4 3 3|11.0|
-|./aarestrup07val.xml|Tag dette Kys, og tusind til, du Søde ...|workid75376|#biblid75376|4 4 3 3|11.0714|
+|./aarestrup07val.xml| [Jeg havde faaet Brev fra dig, Nanette ...](https://tekster.kb.dk/text/adl-texts-aarestrup07val-shoot-workid73888)|workid73888|#biblid73888|4 4 3 3|11.0|
+|./aarestrup07val.xml| [Tag dette Kys, og tusind til, du Søde ...](https://tekster.kb.dk/text/adl-texts-aarestrup07val-shoot-workid75376) |workid75376|#biblid75376|4 4 3 3|11.0714|
 |./aarestrup07val.xml|Sonet|workid76444|#biblid76444|4 4 3 3|11.5|
 |./brorson03grval.xml|1.|workid76607|#biblid76607|14|8.7143|
 |./claussen07val.xml|SKUMRING|workid63580|#biblid63580|14|10.8571|
-|./claussen07val.xml|TAAGE OG REGNDAGE|workid66036|#biblid66036|4 4 3 3|13.9286|
+|./claussen07val.xml| [TAAGE OG REGNDAGE](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66036) |workid66036|#biblid66036|4 4 3 3|13.9286|
 |./claussen07val.xml|MAANENS TUNGSIND|workid66131|#biblid66131|4 4 3 3|13.8571|
 |./jacobjp08val.xml|I Seraillets Have|workid63094|#biblid63094|14|6.7143|
