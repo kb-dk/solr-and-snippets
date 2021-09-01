@@ -61,8 +61,7 @@ whereas Francesco Petrarca wrote them in two strophes with eight and
 six lines, respectively.
 
 To be more precise, a sonnet has more characteristics than 14 lines,
-those lines are in [iambic
-pentameter](https://en.wikipedia.org/wiki/Iambic_pentameter).
+those lines are in [iambic pentameter](https://en.wikipedia.org/wiki/Iambic_pentameter).
 
 ## Finding sonnets
 
@@ -83,7 +82,9 @@ We can use that query in XSLT like this:
 
 So we iterate over all &lt;div>...&lt;/div>s having line groups inside
 and have a @decls attribute containing a reference to metadata in the
-TEI header. The latter is not universal, but we use it in ADL.
+TEI header. The latter is not universal, but we use it in ADL. A
+[shell script](find_sonnet_candidates.sh) and [a
+transform](sonnet_candidate.xsl).
 
 ## Approximately pentametric
 
@@ -139,10 +140,9 @@ That is, iterate over the line groups in a poem, and count the lines
 in each of them.
 
 I have summarized these data about all poems in ADL with 14
-lines. There are 243 (there are more, but they have erroneous markup)
-of them. You find these sonnet candidates in an html table here
+lines. There are 243 of them (there are more, but they have erroneous
+markup). You find these sonnet candidates in an html table here
 [sonnet_candidates.xml](sonnet_candidates.xml)
-
 
 |File name | Title | xml:id | metadata reference | Strophe structure | average number of vowels per line|
 |---|---|---|---|---|---|
@@ -164,10 +164,9 @@ that he is actually writing sonnets).
 
 Beauty is in the eye of the beholder, says Shakespeare. I believe that
 is true. Then, however, I would like to add that the rhymes in poetry
-(like the approximately pentametric meter) is in the ear of
-listener. It is time consuming to read houndreds figure out the rhyme
-structure. So an approximate idea of the rhymes could be have
-comparing the verse line endings.
+(like the pentameter) is in the ear of listener. It is time consuming
+to read houndreds figure out the rhyme structure. So an approximate
+idea of the rhymes could be have comparing the verse line endings.
 
 This is error prone. [Consider this sonnet by
 P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid62307).
@@ -194,8 +193,15 @@ P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid6230
  Det skønne Liv som tom og ussel Gøglen.
 ```
 
-The the last syllable of the eight first lines are the same '-ter'. If you
-using some script compare the endings you'll only find single (AKA
-masculine) rhymes and miss double rhymes (or feminine ones).
+The the last syllable of the eight first lines are the same '-ter'. If
+you use some script to compare the endings you'll only find single
+syllable rhymes and miss double syllable ones rhymes. I.e., you can
+erroneously categorize feminine rhymes as masculine ones.
+
+In order to understand what we hear, we have to consider '-ister' and
+'-ytter'. I.e., it starts with rhyme structure 'abbabaab' not
+'aaaaaaaa'. Furthermore, it continues 'cdedec'.
+
+
  
  
