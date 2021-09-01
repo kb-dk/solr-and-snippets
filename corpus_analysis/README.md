@@ -82,20 +82,23 @@ We can use that query in XSLT like this:
 
 So we iterate over all &lt;div>...&lt;/div>s having line groups inside
 and have a @decls attribute containing a reference to metadata in the
-TEI header. The latter is not universal, but we use it in ADL. A
-[shell script](find_sonnet_candidates.sh) and [a
-transform](sonnet_candidate.xsl).
+TEI header. The latter is not universal, but we use it in ADL. I have
+implemented this using a [shell script](find_sonnet_candidates.sh) and
+[a transform](sonnet_candidate.xsl). It creates a long table with data
+on the sonnet candidates it finds.
 
 ## Approximately pentametric
 
 Finding &lt;div>...&lt;/div>s having 14 lines of poetry isn't good
-enough. We wanting iambic pentameter, don't we? To actually analyse
+enough. We expecting iambic pentameter, don't we? To actually analyse
 the texts for their rythmical properties is beyond me, but we could
 make an approximation.
 
-iambic verse consists of feet with two syllables, i.e. if there are
+Iambic verse consists of feet with two syllables, i.e. if there are
 five feet per line we could say that iambic verse has approximately 10
-vowels per line.
+vowels per line. It is an approximation since a iamb should have the
+stress on the second syllable (due to ignorance I ignore the musical
+aspect of this).
 
 ```
    <xsl:variable name="vowel_numbers" as="xs:integer *">
@@ -148,12 +151,12 @@ markup). You find these sonnet candidates in an html table here
 |---|---|---|---|---|---|
 |./aarestrup07val.xml| [Jeg havde faaet Brev fra dig, Nanette ...](https://tekster.kb.dk/text/adl-texts-aarestrup07val-shoot-workid73888)|workid73888|#biblid73888|4 4 3 3|11.0|
 |./aarestrup07val.xml| [Tag dette Kys, og tusind til, du Søde ...](https://tekster.kb.dk/text/adl-texts-aarestrup07val-shoot-workid75376) |workid75376|#biblid75376|4 4 3 3|11.0714|
-|./aarestrup07val.xml|Sonet|workid76444|#biblid76444|4 4 3 3|11.5|
-|./brorson03grval.xml|1.|workid76607|#biblid76607|14|8.7143|
-|./claussen07val.xml|SKUMRING|workid63580|#biblid63580|14|10.8571|
+|./aarestrup07val.xml| [Sonet](https://tekster.kb.dk/text/adl-texts-aarestrup07val-shoot-workid76444) |workid76444|#biblid76444|4 4 3 3|11.5|
+|./brorson03grval.xml|[1.](https://tekster.kb.dk/text/adl-texts-brorson03grval-shoot-workid76607) |workid76607|#biblid76607|14|8.7143|
+|./claussen07val.xml|[SKUMRING](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid63580)|workid63580|#biblid63580|14|10.8571|
 |./claussen07val.xml| [TAAGE OG REGNDAGE](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66036) |workid66036|#biblid66036|4 4 3 3|13.9286|
-|./claussen07val.xml|MAANENS TUNGSIND|workid66131|#biblid66131|4 4 3 3|13.8571|
-|./jacobjp08val.xml|I Seraillets Have|workid63094|#biblid63094|14|6.7143|
+|./claussen07val.xml| [MAANENS TUNGSIND](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66131) |workid66131|#biblid66131|4 4 3 3|13.8571|
+|./jacobjp08val.xml| [I Seraillets Have](https://tekster.kb.dk/text/adl-texts-jacobjp08val-shoot-workid63094) |workid63094|#biblid63094|14|6.7143|
 
 Sophus Claussen's and Emil Aarestrup's poems are definately sonnets,
 as implied by strophe structure and the approximately pentametric
