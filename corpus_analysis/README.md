@@ -119,15 +119,17 @@ together for all lines in the poem. Finally we divide that sum with 14
 and get the average number of vowels per line.
 
 For a sonnet it would be 10, [or occasionally a little
-more](https://en.wikipedia.org/wiki/Hendecasyllable). In the poem
+more](https://en.wikipedia.org/wiki/Hendecasyllable). In the Michaëlis poem
 quoted above it is 10.4.
 
 ## Strophe structure
 
-You can write a lot of nice poetry with 14 lines. Like Munch-Petersen's [en borgers
+You can write a lot of nice poetry with 14 lines. Like
+Munch-Petersen's [en borgers
 livshymne](https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid62017)
 with five strophes with one line, then three strophes with four lines
-and finally a single line.
+and finally a single line. The number of syllables per line seem to
+decrease towards the end.
 
 You can easily find out the strophe structure for each poem:
 
@@ -146,7 +148,7 @@ in each of them.
 I have summarized these data about all poems in ADL with 14
 lines. There are 243 of them (there are more, but they have erroneous
 markup). You find these sonnet candidates in an html table here
-[sonnet_candidates.xml](sonnet_candidates.xml)
+[sonnet_candidates.xml](sonnet_candidates.xml). Find an extract below.
 
 |File name | Title | xml:id | metadata reference | Strophe structure | average number of vowels per line|
 |---|---|---|---|---|---|
@@ -159,10 +161,11 @@ markup). You find these sonnet candidates in an html table here
 |./claussen07val.xml| [MAANENS TUNGSIND](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66131) |workid66131|#biblid66131|4 4 3 3|13.8571|
 |./jacobjp08val.xml| [I Seraillets Have](https://tekster.kb.dk/text/adl-texts-jacobjp08val-shoot-workid63094) |workid63094|#biblid63094|14|6.7143|
 
-Sophus Claussen's and Emil Aarestrup's poems are definately sonnets,
-as implied by strophe structure and the approximately pentametric
-number of vowels per line (and, by the way, Aarestrup points often
-that he is actually writing sonnets).
+Sophus Claussen's and Brorson's poems are not sonnets, but all of them
+with strophe structure 4 4 3 3 definitely are sonnets, as implied by
+strophe structure and the approximately pentametric number of vowels
+per line (and, by the way, Aarestrup points often that he is actually
+writing sonnets).
 
 # Then we have the rhymes
 
@@ -200,11 +203,19 @@ P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid6230
 The the last syllable of the eight first lines are the same '-ter'. If
 you use some script to compare the endings you'll only find single
 syllable rhymes and miss double syllable ones rhymes. I.e., you can
-erroneously categorize feminine rhymes as masculine ones.
+erroneously categorize feminine rhymes (with two syllables) as
+masculine ones (with one syllable). (Sorry, I don't know the
+politically correct vocabulary for these concepts.)
 
-In order to understand what we hear, we have to consider '-ister' and
-'-ytter'. I.e., it starts with rhyme structure 'abbabaab' not
-'aaaaaaaa'. Furthermore, it continues 'cdedec'.
+In order to understand what we hear when reading, we have to consider
+'-ister' and '-ytter'. I.e., it starts with rhyme structure 'abbabaab'
+not 'aaaaaaaa'. Furthermore, it continues 'cdedec'.
+
+I have written a set of scripts that traverse the
+[sonnet_candidates.xml](sonnet_candidates.xml) table, and it selects
+poems with strophe structure 4433. They are detagged and piped through
+a perl script that analyse the endings according to the silly method
+described. Above.
 
 
  
