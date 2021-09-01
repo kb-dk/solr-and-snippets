@@ -221,7 +221,9 @@ it. Finally actual text is then piped through a perl script that
 analyse the endings according to the silly and flawed method described
 above.
 
-It works, sort of until it doesn't.
+It works, sort of until it doesn't. You can find the result in
+[rhymes_3chars.text](rhymes_3chars.text) (and
+[rhymes_2chars.text](rhymes_2chars.text)).
 
  
  
