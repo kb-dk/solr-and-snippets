@@ -215,7 +215,7 @@ I have written a set of scripts that traverse the
 [sonnet_candidates.xml](sonnet_candidates.xml) table, and it selects
 poems with strophe structure 4433. They are detagged and piped through
 a perl script that analyse the endings according to the silly method
-described. Above.
+described above.
 
 
  
