@@ -212,11 +212,16 @@ In order to understand what we hear when reading, we have to consider
 not 'aaaaaaaa'. Furthermore, it continues 'cdedec'.
 
 I have written a set of scripts that traverse the
-[sonnet_candidates.xml](sonnet_candidates.xml) table, and it selects
-poems with strophe structure 4433. They are detagged and piped through
-a perl script that analyse the endings according to the silly method
-described above.
+[sonnet_candidates.xml](sonnet_candidates.xml) table. Transform that
+file using [iterate_the_rhyming.xsl](iterate_the_rhyming.xsl) selects
+poems with 14 lines and strophe structure 4 4 3 3. It generates a
+shell script which when executed pipes the content through other
+scripts retrieves content, removes punctuation and finally detags
+it. Finally actual text is then piped through a perl script that
+analyse the endings according to the silly and flawed method described
+above.
 
+It works, sort of until it doesn't.
 
  
  
