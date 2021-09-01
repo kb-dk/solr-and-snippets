@@ -39,12 +39,13 @@ like this in the source
           <date xml:id="idm140093058524032">12. Septbr. 1893.</date>
         </p>
       </div>
+
+	Michaëlis, Sophus: ”Jeg elsker —”, i Michaëlis, Sophus:
+	Solblomster. Titelvignet af Frode Eskesen, Gyldendal, 1893,
+	s. 151. Onlineudgave fra Arkiv for Dansk Litteratur:
+	https://tekster.kb.dk/text/adl-texts-michs_03-shoot-workid68251
 ```
 
-Michaëlis, Sophus: ”Jeg elsker —”, i Michaëlis, Sophus:
-Solblomster. Titelvignet af Frode Eskesen, Gyldendal, 1893,
-s. 151. Onlineudgave fra Arkiv for Dansk Litteratur:
-https://tekster.kb.dk/text/adl-texts-michs_03-shoot-workid68251
 
 The default name space is declared as
 xmlns="http://www.tei-c.org/ns/1.0", which we in following refer to
