@@ -105,7 +105,7 @@ aspect of this).
   <xsl:variable name="vowel_numbers" as="xs:integer *">
      <xsl:for-each select=".//t:lg/t:l">
         <xsl:variable name="vowels">
-		   <xsl:value-of select="replace(.,'[^iyeæøauoå]','')"/>
+           <xsl:value-of select="replace(.,'[^iyeæøauoå]','')"/>
         </xsl:variable>
         <xsl:value-of select="string-length($vowels)"/>
      </xsl:for-each>
