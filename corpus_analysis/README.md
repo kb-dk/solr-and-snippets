@@ -124,12 +124,13 @@ quoted above it is 10.4.
 
 ## Strophe structure
 
-You can write a lot of nice poetry with 14 lines. Like
+You can write a lot of nice poetry with 14 lines. Like Gustaf
 Munch-Petersen's [en borgers
 livshymne](https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid62017)
 with five strophes with one line, then three strophes with four lines
 and finally a single line. The number of syllables per line seem to
-decrease towards the end.
+decrease towards the end. Gustaf was a modernist. There are no fixed
+structures and very few rhymes i his poetry.
 
 You can easily find out the strophe structure for each poem:
 
@@ -161,21 +162,22 @@ markup). You find these sonnet candidates in an html table here
 |./claussen07val.xml| [MAANENS TUNGSIND](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66131) |workid66131|#biblid66131|4 4 3 3|13.8571|
 |./jacobjp08val.xml| [I Seraillets Have](https://tekster.kb.dk/text/adl-texts-jacobjp08val-shoot-workid63094) |workid63094|#biblid63094|14|6.7143|
 
-Sophus Claussen's and Brorson's poems are not sonnets, but all of them
-with strophe structure 4 4 3 3 definitely are sonnets, as implied by
-strophe structure and the approximately pentametric number of vowels
-per line (and, by the way, Aarestrup points often that he is actually
+Sophus Claussen's first poem and Brorson's poems are not sonnets, but all of those
+with strophe structure 4 4 3 3 are definitely, as implied by
+strophe structure and the "approximately pentametric" number of vowels
+per line (and, by the way, Aarestrup often points out that he is actually
 writing sonnets).
 
-# Then we have the rhymes
+## Then we have the rhymes
 
 Beauty is in the eye of the beholder, says Shakespeare. I believe that
-is true. Then, however, I would like to add that the rhymes in poetry
-(like the pentameter) is in the ear of listener. It is time consuming
-to read houndreds figure out the rhyme structure. So an approximate
-idea of the rhymes could be have comparing the verse line endings.
+is true. Then, however, I would like to add that the rhymes and meters
+of poetry (like the pentameter) is in the ear of listener. It is time
+consuming to read houndreds figure out the rhyme structure. So an
+approximate idea of the rhymes could be have comparing the verse line
+endings.
 
-This is error prone. [Consider this sonnet by
+This is error prone, though. [Consider this sonnet by
 P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid62307).
 
 ```
@@ -221,9 +223,33 @@ it. Finally actual text is then piped through a perl script that
 analyse the endings according to the silly and flawed method described
 above.
 
-It works, sort of until it doesn't. You can find the result in
+It works, sort of until it doesn't. For poems with 4 4 3 3 strophe structure,  you can find the result in
 [rhymes_3chars.text](rhymes_3chars.text) (and
-[rhymes_2chars.text](rhymes_2chars.text)).
+[rhymes_2chars.text](rhymes_2chars.text)). Run 
 
+```
+grep -P '^[a-q]{14}' rhymes_3chars.text   | sort | uniq -c | sort -rn
+```
+
+to get a list of rhyme structure and their frequencies. This silly
+algorithm does give two of the most common rhyme structure for
+sonnets, but misses a lot of order in the chaos:
+
+```
+abbaabbacdcdcd
+```
+
+and
+
+```
+abbaabbacdecde
+```
+
+So while it fails more often than it succeeds, the most common results
+are reasonable. The last rhyme is one of the socalled Petrarchan sonnets, [Cf. this](https://poetscollective.org/everysonnet/tag/abbaabbacdecde/).
  
- 
+## What are the sonnets about?
+
+
+
+
