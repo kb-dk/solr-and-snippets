@@ -247,7 +247,7 @@ abbaabbacdecde
 
 So while it fails more often than it succeeds, the most common results
 are reasonable. The last rhyme is one is the most common one found,
-and it is also one the socalled Petrarchan sonnets,
+and it is also one of the socalled Petrarchan rhyme schemes,
 [Cf. this](https://poetscollective.org/everysonnet/tag/abbaabbacdecde/).
  
 ## What are the sonnets about?
