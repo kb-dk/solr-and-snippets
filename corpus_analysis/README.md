@@ -253,12 +253,12 @@ and it is also one the socalled Petrarchan sonnets,
 ## What are the sonnets about?
 
 Any piece of art are meant to be consumed by human beings. Poems
-should ideally be understood by reading them aloud and listening.
+should ideally be understood when read aloud and listened to.
 
 The cliché says that art and literature is about what it means to be
-human. We therefore hypothesize that these sonnets address this from
-the point of view of dead Danish male poets who wrote sonnets 100 -
-150 years ago?
+human. Could we therefore hypothesize that the sonnets address this
+from the point of view of dead Danish male poets who wrote sonnets
+some 100&ndash;150 years ago?
 
 Assume that, at least as a first approximation, the words chosen by
 poets mirror those subjects. For instance, if being human implies
