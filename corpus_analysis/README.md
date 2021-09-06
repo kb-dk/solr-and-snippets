@@ -253,7 +253,7 @@ and it is also one the socalled Petrarchan sonnets,
 ## What are the sonnets about?
 
 Any piece of art are meant to be consumed by human beings. Poems
-should ideally be understood by read them aloud.
+should ideally be understood by reading them aloud and listening.
 
 The cliché says that art and literature is about what it means to be
 human. We therefore hypothesize that these sonnets address this from
