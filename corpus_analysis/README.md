@@ -262,7 +262,7 @@ some 100 &ndash; 150 years ago?
 
 Assume that, at least as a first approximation, the words chosen by
 poets mirror those subjects. For instance, if being human implies
-lethality we could, on a statistical hypothesize that words like
+lethality we could, on a statistical level hypothesize that words like
 "mourning", "grief", "death", "grave", etc appear in the sonnet corpus
 more than in a random sample of text. The opposites would also
 expected, concepts related to "love", "birth", "compassion" etc belong
