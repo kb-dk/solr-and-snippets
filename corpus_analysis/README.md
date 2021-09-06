@@ -263,7 +263,9 @@ some 100 &ndash; 150 years ago?
 Assume that, at least as a first approximation, the words chosen by
 poets mirror those subjects. For instance, if being human implies
 lethality we could, on a statistical hypothesize that words like
-"death", "grave", etc appear in the sonnet corpus more than in a
-random sample of text.
+"mourning", "grief", "death", "grave", etc appear in the sonnet corpus
+more than in a random sample of text. The opposites would also
+expected, concepts related to "love", "birth", "compassion" etc belong
+to the sphere of being human.
 
 
