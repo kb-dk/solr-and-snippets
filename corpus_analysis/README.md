@@ -290,9 +290,10 @@ then for the whole corpus. That means that I get
 * one list of word frequencies and 
 * a second list giviving not of the number of occurences of each word, but the number of sonnets the word occurs in.
 
-There are 160 sonnets in the corpus, and the most frequent
-word occurs in all of them. These are the fifteen most commont word a
-measured by the [number of sonnets they occur in](poem_frequencies.text).
+There are 160 sonnets in the corpus, and the most frequent word occurs
+in all of them. These are the fifteen most commont word a measured by
+the [number of sonnets they occur in](poem_frequencies.text). Number
+of poems in the left column.
 
 
 ```
@@ -314,7 +315,8 @@ measured by the [number of sonnets they occur in](poem_frequencies.text).
 ```
 
 and this is the list of the same thing, but measured as the grand
-total [occurrence of the words in the corpus](frequencies.text).
+total [occurrence of the words in the
+corpus](frequencies.text). Number of words in corpus in left column.
 
 
 ```
@@ -354,6 +356,73 @@ sed 's/\ [a-z]*$//' poem_frequencies.text | sort | uniq -c | sort -n -k 2 > dist
 ```
 Column 1 is plotted against column 2.
 
-In this corpus
+In this corpus it seems that aboutishness start att words occuring in
+25% of the sonnets, or less.
+
+As example we have death, dead and lethal etc in a number of
+sonnets. Number of sonnets containing the word in the left columnt.
+
+```
+      1 dødehavet
+      1 dødeklokker
+      1 dødelige
+      1 dødeliges
+      1 dødningvuggeqvad
+      1 dødsberedthed
+      1 glemselsdøden
+      1 udødeliges
+      2 dødes
+      5 dødens
+      9 død
+      9 døden
+     11 døde
+```
+
+Love is not as popular as death
+
+```
+      1 elskoven
+      1 elskovsbrev
+      1 elskovsbrevet
+      2 elskovsild
+      6 elskovs
+      7 elskov
+```
+
+women not as popular as love
+
+```
+      1 dobbeltkvinde
+      1 kvindens
+      1 kvindetække
+      4 kvinder
+```
+
+Men more than women, and in particular words implying bravery and male virtues
 
 
+```
+      1 baadsmandstrille
+      1 dobbeltmand
+      1 ejermand
+      1 manddom
+      1 manddomstrods
+      1 manden
+      2 mand
+      2 manddoms
+      5 mandens
+```
+
+Graves occur less than death.
+
+
+```
+      1 begravet
+      1 graven
+      1 gravene
+      1 gravhøi
+      1 indgraves
+      3 grav
+      3 grave
+      4 gravens
+```
