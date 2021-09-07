@@ -349,8 +349,8 @@ corpus](frequencies.text). Number of words in corpus in left column.
     588 og
 ```
 
-As you can see (of you can read Danish) this corroborates the
-established observation that most frequent words in a corpus hardly
+As you can see (if you can read Danish) this corroborates the
+established observation that the most frequent words in a corpus hardly
 ever describes the subject matter of the texts (these words are
 conjunctions, pronouns and prepositions and the like).
 
@@ -372,7 +372,7 @@ In this corpus it seems that aboutishness start att words occuring in
 25% of the sonnets, or less.
 
 As example we have death, dead and lethal etc in a number of
-sonnets. Number of sonnets containing the word in the left columnt.
+sonnets. In the left column the number of sonnets containing the word.
 
 ```
       1 dødehavet
