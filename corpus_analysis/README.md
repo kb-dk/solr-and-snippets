@@ -160,7 +160,9 @@ in each of them.
 
 I have summarized these data about all poems in ADL with 14
 lines. There are 243 of them (there are more, but they have erroneous
-markup). You find these sonnet candidates in an html table here
+markup).
+
+You find these sonnet candidates in an html table here
 [sonnet_candidates.xml](sonnet_candidates.xml). Find an extract below.
 
 |File name | Title | xml:id | metadata reference | Strophe structure | average number of vowels per line|
@@ -230,14 +232,14 @@ I have written a set of scripts that traverse the
 file using [iterate_the_rhyming.xsl](iterate_the_rhyming.xsl) selects
 poems with 14 lines and strophe structure 4 4 3 3. It generates a
 shell script which when executed pipes the content through other
-scripts retrieves content, removes punctuation and finally detags
-it. Finally actual text is then piped through a perl script that
+scripts that retrieve content, remove punctuation and finally detags
+them. The actual text is then piped through a perl script that
 analyse the endings according to the silly and flawed method described
 above.
 
 It works, sort of until it doesn't. For poems with 4 4 3 3 strophe structure,  you can find the result in
-[rhymes_3chars.text](rhymes_3chars.text) (and
-[rhymes_2chars.text](rhymes_2chars.text)). Run 
+[rhymes_3chars.text](rhymes_3chars.text) and
+[rhymes_2chars.text](rhymes_2chars.text) for three and two letter rhymes, respectively. Run 
 
 ```
 grep -P '^[a-q]{14}' rhymes_3chars.text   | sort | uniq -c | sort -rn
@@ -257,8 +259,10 @@ and
 abbaabbacdecde
 ```
 
-So while it fails more often than it succeeds, the most common results
-are reasonable. The last rhyme is one is the most common one found,
+So while it may fail more often than it succeeds, the successes give
+results that are reasonable.
+
+The last rhyme is one is the most common one found,
 and it is also one of the socalled Petrarchan rhyme schemes,
 [Cf. this](https://poetscollective.org/everysonnet/tag/abbaabbacdecde/).
  
