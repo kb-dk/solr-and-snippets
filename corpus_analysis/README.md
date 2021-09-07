@@ -300,7 +300,7 @@ The second way is the same, but I do twice, once foreach sonnet and
 then for the whole corpus. That means that I get 
 
 * one list of word frequencies and 
-* a second list giviving not of the number of occurences of each word, but the number of sonnets the word occurs in.
+* a second list giving not of the number of occurences of each word, but the number of sonnets the word occurs in.
 
 There are 160 sonnets in the corpus, and the most frequent word occurs
 in all of them. These are the fifteen most commont word a measured by
