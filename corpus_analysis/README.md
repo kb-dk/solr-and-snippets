@@ -344,7 +344,7 @@ corpus](frequencies.text). Number of words in corpus in left column.
 As you can see (of you can read Danish) this corroborates the
 established observation that most frequent words in a corpus hardly
 ever describes the subject matter of the texts (these words are
-pronouns and prepositions).
+conjunctions, pronouns and prepositions and the like).
 
 ![Distribution](distro.png)
 
@@ -430,3 +430,4 @@ Graves occur less than death.
       3 grave
       4 gravens
 ```
+
