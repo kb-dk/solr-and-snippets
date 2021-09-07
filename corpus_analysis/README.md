@@ -2,7 +2,10 @@
 
 I have since many years been a great fan of Kenneth Ward Church's
 tutorial "Unix for Poets". This is just an investigattion of what can
-be done with a corpus of literary text with very simple tools
+be done with a corpus of literary text with very simple tools similar
+to the ones described by Church in his tutorial.
+
+I do not claim that there is any novel or even significant in this text.
  
 ## Finding poems
 
@@ -11,8 +14,9 @@ texts](https://github.com/kb-dk/public-adl-text-sources). It is easy
 to find poetry in those files. Typically a piece of poetry is encoded
 as [lines within line
 groups](https://tei-c.org/release/doc/tei-p5-doc/en/html/ref-lg.html). More
-often than not it is embedded in &lt;div> ... &lt;/div>. It may look
-like this in the source
+often than not it is embedded in a &lt;div> ... &lt;/div> element.
+
+It may look like this in the source
 
 ```
   <div xml:id="workid68251" decls="#biblid68251">
@@ -95,7 +99,7 @@ on the sonnet candidates it finds.
 ## Approximately pentametric
 
 Finding &lt;div>...&lt;/div>s having 14 lines of poetry isn't good
-enough. We expecting iambic pentameter, don't we? To actually analyse
+enough. We are expecting iambic pentameter, don't we? To actually analyse
 the texts for their rythmical properties is beyond me, but we could
 make an approximation.
 
