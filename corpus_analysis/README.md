@@ -176,11 +176,11 @@ You find these sonnet candidates in an html table here
 |./claussen07val.xml| [MAANENS TUNGSIND](https://tekster.kb.dk/text/adl-texts-claussen07val-shoot-workid66131) |workid66131|#biblid66131|4 4 3 3|13.8571|
 |./jacobjp08val.xml| [I Seraillets Have](https://tekster.kb.dk/text/adl-texts-jacobjp08val-shoot-workid63094) |workid63094|#biblid63094|14|6.7143|
 
-Sophus Claussen's first poem and Brorson's poems are not sonnets, but all of those
-with strophe structure 4 4 3 3 are definitely, as implied by
+Sophus Claussen's first poem may or may not be a sonnet, Brorson's poem are not. All of those
+with strophe structure 4 4 3 3 are definitely sonnets, as implied by
 strophe structure and the "approximately pentametric" number of vowels
 per line (and, by the way, Aarestrup often points out that he is actually
-writing sonnets).
+writing sonnets in text or titles).
 
 ## Then we have the rhymes
 
