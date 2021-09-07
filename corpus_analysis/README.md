@@ -1,4 +1,8 @@
-# Where are the sonnets?
+# If there are any sonnets, do they rhyme and what are they about?
+
+I have since many years been a great fan of Kenneth Ward Church's
+tutorial "Unix for Poets". This is just an investigattion of what can
+be done with a corpus of literary text with very simple tools
  
 ## Finding poems
 
@@ -267,5 +271,75 @@ lethality we could, on a statistical level hypothesize that words like
 more than in a random sample of text. The opposites would also
 expected, concepts related to "love", "birth", "compassion" etc belong
 to the sphere of being human.
+
+I have detagged the poems with 14 lines and strophe structure 4 4 3 3,
+tokenized their texts and calculated the word frequencies. As a matter
+of fact, I've done that in two ways: The first being doing the
+classical tokenize and then pipe the stuff through
+
+```
+sort | uniq -c | sort -n
+```
+
+such that I get a list of the 4781 Danish words that are used in these
+sonnets.
+
+The second way is the same, but I do twice, once foreach sonnet and
+then for the whole corpus. That means that I get 
+
+* one list of word frequencies and 
+* a second list giviving not of the number of occurences of each word, but the number of sonnets the word occurs in.
+
+There are 160 sonnets in the corpus, and the most frequent
+word occurs in all of them. These are the fifteen most commont word a
+measured by the number of sonnets they occur in.
+
+
+```
+     75 du
+     76 sig
+     82 er
+     85 jeg
+     86 det
+     89 for
+     94 den
+    101 paa
+    104 en
+    105 af
+    106 til
+    119 som
+    122 med
+    150 i
+    160 og
+```
+
+and this is the list of the same thing, but measured as the grand
+total occurrence of the words in the corpus
+
+
+```
+    109 min
+    130 for
+    144 du
+    148 er
+    155 paa
+    164 til
+    167 det
+    169 den
+    173 af
+    206 en
+    217 med
+    229 som
+    246 jeg
+    382 i
+    588 og
+```
+
+As you can see (of you can read Danish) this corroborates the
+established observation that most frequent words in a corpus hardly
+ever describes the subject matter of the texts (these words are
+pronouns and prepositions).
+
+In this corpus
 
 
