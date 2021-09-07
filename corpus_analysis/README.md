@@ -185,11 +185,11 @@ writing sonnets in text or titles).
 ## Then we have the rhymes
 
 Beauty is in the eye of the beholder, says Shakespeare. I believe that
-is true. Then, however, I would like to add that the rhymes and meters
-of poetry (like the pentameter) is in the ear of listener. It is time
-consuming to read houndreds figure out the rhyme structure. So an
-approximate idea of the rhymes could be have comparing the verse line
-endings.
+he is right. Then, however, I would like to add that the rhymes and
+meters of poetry (like the pentameter) is in the ear of listener. It
+is time consuming to read houndreds of poems aloud and figure out the
+rhyme structure. So an approximate idea of the rhymes could be have
+comparing the verse line endings.
 
 This is error prone, though. [Consider this sonnet by
 P.M. Møller](https://tekster.kb.dk/text/adl-texts-moeller01val-shoot-workid62307).
