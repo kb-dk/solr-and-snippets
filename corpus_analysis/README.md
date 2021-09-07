@@ -346,9 +346,11 @@ The distribution of the number of sonnets the words appear
 in. There is just one word appearing in all 160 sonnets. It is 'og'
 meaning 'and'. Then there are 3304 words occurring in just one
 sonnet. The [distribution.text](distribution.text) is generated from
-[poem_frequencies.text](poem_frequencies.text) using 
+[poem_frequencies.text](poem_frequencies.text) using
+
 ```
 sed 's/\ [a-z]*$//' poem_frequencies.text | sort | uniq -c | sort -n -k 2 > distribution.text
+
 ```
 Column 1 is plotted against column 2.
 
