@@ -31,7 +31,10 @@ if( open(my $gv, $find_cmds) ) {
 		$uri = join '/',("gv",join("_",$1,$2),$4);
 	    }
 	    my $path = $uri;
+	    print "# uri before $uri\n";
+	    print "# $path\n";
 	    $uri =~ s/col$/kolofon/;
+	    print "# uri after $uri\n";
 	    $path =~ s/[^\/]+$//;
 	    $file =~ s/^\.\///;
 
