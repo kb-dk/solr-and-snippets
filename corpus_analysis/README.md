@@ -292,7 +292,7 @@ then for the whole corpus. That means that I get
 
 There are 160 sonnets in the corpus, and the most frequent
 word occurs in all of them. These are the fifteen most commont word a
-measured by the number of sonnets they occur in.
+measured by the [number of sonnets they occur in](poem_frequencies.text).
 
 
 ```
@@ -314,7 +314,7 @@ measured by the number of sonnets they occur in.
 ```
 
 and this is the list of the same thing, but measured as the grand
-total occurrence of the words in the corpus
+total [occurrence of the words in the corpus](frequencies.text).
 
 
 ```
@@ -342,15 +342,15 @@ pronouns and prepositions).
 
 ![Distribution](distro.png)
 
-<small>The distribution of the number of sonnets the words appear
+The distribution of the number of sonnets the words appear
 in. There is just one word appearing in all 160 sonnets. It is 'og'
 meaning 'and'. Then there are 3304 words occurring in just one
 sonnet. The [distribution.text](distribution.text) is generated from
 [poem_frequencies.text](poem_frequencies.text) using 
-
+```
 sed 's/\ [a-z]*$//' poem_frequencies.text | sort | uniq -c | sort -n -k 2 > distribution.text
-
-Column 1 is plotted against column 2.</small>
+```
+Column 1 is plotted against column 2.
 
 In this corpus
 
