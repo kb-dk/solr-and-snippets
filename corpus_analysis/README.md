@@ -71,8 +71,8 @@ Shakespeare wrote often his 14 lines typographically in one strophe,
 whereas Francesco Petrarca wrote them in two strophes with eight and
 six lines, respectively.
 
-To be more precise, a sonnet has more characteristics than 14 lines,
-those lines are in [iambic pentameter](https://en.wikipedia.org/wiki/Iambic_pentameter).
+To be more precise, a sonnet has one more characteristics than having 14 lines,
+the lines should be in [iambic pentameter](https://en.wikipedia.org/wiki/Iambic_pentameter).
 
 ## Finding sonnets
 
