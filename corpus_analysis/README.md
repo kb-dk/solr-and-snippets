@@ -441,8 +441,12 @@ Graves occur less than death.
 
 # Conclusions
 
-I think I could go on studying this for a while. I have to conclude
-this here, before the actual conclusions. There are interesting things
-to find here, though, and I think my armchair text processing supports
-the notion that life is very much about making love, death and graves.
+I think I could go on studying this for a while. However, I have to
+conclude this here, before the actual conclusions. There are
+interesting things to find here, though.
+
+The result from my armchair text processing supports the notion that
+life was already in early modern Europe about sex, death and rock
+n'roll. Since rock wasn't there yet, people had to be content with
+sonnets for the time being.
 
