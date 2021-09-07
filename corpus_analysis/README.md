@@ -95,8 +95,10 @@ So we iterate over all &lt;div>...&lt;/div>s having line groups inside
 and have a @decls attribute containing a reference to metadata in the
 TEI header. The latter is not universal, but we use it in ADL. I have
 implemented this using a [shell script](find_sonnet_candidates.sh) and
-[a transform](sonnet_candidate.xsl). It creates a long table with data
-on the sonnet candidates it finds.
+[a transform](sonnet_candidate.xsl). Finally, we don't do anything
+unless there are 14 lines of poetry.
+
+This creates a long table with data on the sonnet candidates it finds.
 
 ## Approximately pentametric
 
