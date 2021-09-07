@@ -1,11 +1,14 @@
 # If there are any sonnets, do they rhyme and what are they about?
 
 I have since many years been a great fan of Kenneth Ward Church's
-tutorial "Unix for Poets". This is just an investigattion of what can
-be done with a corpus of literary text with very simple tools similar
-to the ones described by Church in his tutorial.
+tutorial ["Unix for
+Poets"](https://web.stanford.edu/class/cs124/kwc-unix-for-poets.pdf). This
+is just an investigattion of what can be done with a corpus of
+literary text with very simple tools similar to the ones described by
+Church in his tutorial.
 
-I do not claim that there is any novel or even significant in this text.
+I do not claim that there is any novel or even significant in this
+text. I do not really know what a sonnet is.
  
 ## Finding poems
 
@@ -47,13 +50,12 @@ It may look like this in the source
           <date xml:id="idm140093058524032">12. Septbr. 1893.</date>
         </p>
       </div>
-
-	Michaëlis, Sophus: ”Jeg elsker —”, i Michaëlis, Sophus:
-	Solblomster. Titelvignet af Frode Eskesen, Gyldendal, 1893,
-	s. 151. Onlineudgave fra Arkiv for Dansk Litteratur:
-	https://tekster.kb.dk/text/adl-texts-michs_03-shoot-workid68251
 ```
 
+Michaëlis, Sophus: ”Jeg elsker —”, i Michaëlis, Sophus:
+Solblomster. Titelvignet af Frode Eskesen, Gyldendal, 1893,
+s. 151. Onlineudgave fra Arkiv for Dansk Litteratur:
+https://tekster.kb.dk/text/adl-texts-michs_03-shoot-workid68251
 
 The default name space is declared as
 xmlns="http://www.tei-c.org/ns/1.0", which we in following refer to
