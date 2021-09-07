@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table>
+  <tr><th>File name</th><th>Title</th><th>xml:id</th><th>metadata reference</th><th>Stroph structure</th><th>average number of vowels</th></tr>
+  <tr><th>./michs_11.xml</th><td>MAJNAT</td><td>workid57622</td><td>#biblid57622</td><td>4 4 3 3</td><td>10.2857</td></tr>
+  <tr><th>./michs_11.xml</th><td>TRØSTEN</td><td>workid64670</td><td>#biblid64670</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./kingo09val.xml</th><td>Sonnet eller Suk i Klingeriim.</td><td>workid85386</td><td>#biblid85386</td><td>14</td><td>12.7857</td></tr>
+  <tr><th>./kingo09val.xml</th><td>Sonnet eller Klinge-riim.</td><td>workid86075</td><td>#biblid86075</td><td>14</td><td>13.3571</td></tr>
+  <tr><th>./kingo09val.xml</th><td>Danmarks og Norgis Indbyggere Indføris saaledis talende udi en Taksigelsis Sonnet, eller Klinge-Riim Ved dend Sal: HERRES Grav.</td><td>workid103875</td><td>#biblid103875</td><td>14</td><td>12.6429</td></tr>
+  <tr><th>./moeller01val.xml</th><td>SONET</td><td>workid62307</td><td>#biblid62307</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./moeller01val.xml</th><td>SONET</td><td>workid64327</td><td>#biblid64327</td><td>4 4 3 3</td><td>11.2143</td></tr>
+  <tr><th>./hertz09_lev.xml</th><td>Laokoon.</td><td>workid53739</td><td>#biblid53739</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./hostrup01.xml</th><td/><td>workid139237</td><td>#biblid139237</td><td>7 7</td><td>7.0714</td></tr>
+  <tr><th>./kaalund01.xml</th><td>MAAGEN.</td><td>workid76274</td><td>#biblid76274</td><td>14</td><td>9.7143</td></tr>
+  <tr><th>./kaalund01.xml</th><td>VÆDEREN OG GRISEN.</td><td>workid76779</td><td>#biblid76779</td><td>14</td><td>9.9286</td></tr>
+  <tr><th>./kaalund01.xml</th><td>KYLLINGERNE.</td><td>workid78261</td><td>#biblid78261</td><td>6 8</td><td>9.8571</td></tr>
+  <tr><th>./claussen05val.xml</th><td>HAVNESTAD</td><td>workid64661</td><td>#biblid64661</td><td>4 4 3 3</td><td>11.2857</td></tr>
+  <tr><th>./claussen05val.xml</th><td>GIULIETTA I GRAVKAMRET</td><td>workid66791</td><td>#biblid66791</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./oehl01val.xml</th><td>SAA DUGBESPRÆNGTE STAAE DE ROSER HER.</td><td>workid62679</td><td>#biblid62679</td><td>4 4 6</td><td>10.6429</td></tr>
+  <tr><th>./claussen06val.xml</th><td>APRIL</td><td>workid59246</td><td>#biblid59246</td><td>6 8</td><td>8.6429</td></tr>
+  <tr><th>./aarestrup07val.xml</th><td>Ved Viol-Urnen -</td><td>workid73329</td><td>#biblid73329</td><td>4 4 6</td><td>10.5</td></tr>
+  <tr><th>./aarestrup07val.xml</th><td>Øhlenschlägers Collegium</td><td>workid73409</td><td>#biblid73409</td><td>4 4 3 3</td><td>11.4286</td></tr>
+  <tr><th>./aarestrup07val.xml</th><td>Jeg havde faaet Brev fra dig, Nanette ...</td><td>workid73888</td><td>#biblid73888</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./aarestrup07val.xml</th><td>Tag dette Kys, og tusind til, du Søde ...</td><td>workid75376</td><td>#biblid75376</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./aarestrup07val.xml</th><td>Sonet</td><td>workid76444</td><td>#biblid76444</td><td>4 4 3 3</td><td>11.5</td></tr>
+  <tr><th>./brorson03grval.xml</th><td>1.</td><td>workid76607</td><td>#biblid76607</td><td>14</td><td>8.7143</td></tr>
+  <tr><th>./claussen07val.xml</th><td>SKUMRING</td><td>workid63580</td><td>#biblid63580</td><td>14</td><td>10.8571</td></tr>
+  <tr><th>./claussen07val.xml</th><td>TAAGE OG REGNDAGE</td><td>workid66036</td><td>#biblid66036</td><td>4 4 3 3</td><td>13.9286</td></tr>
+  <tr><th>./claussen07val.xml</th><td>MAANENS TUNGSIND</td><td>workid66131</td><td>#biblid66131</td><td>4 4 3 3</td><td>13.8571</td></tr>
+  <tr><th>./jacobjp08val.xml</th><td>I Seraillets Have</td><td>workid63094</td><td>#biblid63094</td><td>14</td><td>6.7143</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Til Veemodigheden Sonnet</td><td>workid61997</td><td>#biblid61997</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Auf den Trümmern der Gleichen 1) Sonett</td><td>workid63963</td><td>#biblid63963</td><td>4 4 3 3</td><td>10.4286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Høstfølelse ved Leinen Sonnet</td><td>workid64289</td><td>#biblid64289</td><td>4 4 3 3</td><td>9.6429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Udødelighed En Sonnet</td><td>workid66132</td><td>#biblid66132</td><td>4 4 3 3</td><td>10.0714</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Det dobbelte Bedrag Sonnett</td><td>workid68317</td><td>#biblid68317</td><td>4 4 3 3</td><td>10.2143</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Kun Glemmigikke Sonnet</td><td>workid68785</td><td>#biblid68785</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Himmelsynet Sonnet</td><td>workid69203</td><td>#biblid69203</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Ved Christushovedet, af Annibale Carracci, i det Dresdenske Gallerie</td><td>workid69814</td><td>#biblid69814</td><td>4 4 3 3</td><td>9.5714</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Skadesløshed</td><td>workid69902</td><td>#biblid69902</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Til Qvinden</td><td>workid69984</td><td>#biblid69984</td><td>4 4 3 3</td><td>9.7857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Til Eros1)</td><td>workid70057</td><td>#biblid70057</td><td>4 4 3 3</td><td>9.7857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>I I Templet paa Cobenzl1)</td><td>workid73855</td><td>#biblid73855</td><td>4 4 3 3</td><td>10.5</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>II Til Aussig-Dalen1)</td><td>workid73957</td><td>#biblid73957</td><td>4 4 3 3</td><td>9.6429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>III Den anden Endymion</td><td>workid74051</td><td>#biblid74051</td><td>4 4 3 3</td><td>10.2857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>IV Ved Tizians liggende Venus1)</td><td>workid74135</td><td>#biblid74135</td><td>4 4 3 3</td><td>9.7143</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>V Søefarten</td><td>workid74244</td><td>#biblid74244</td><td>4 7 3</td><td>9.6429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VI Mandens Klage</td><td>workid74337</td><td>#biblid74337</td><td>4 4 3 3</td><td>10.3571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VII Ved de friske Grave paa Holmens Kirkegaard i Maj 1801</td><td>workid74422</td><td>#biblid74422</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>Fortrydelse Sonnet</td><td>workid74824</td><td>#biblid74824</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>l Til Charis Prof. Sander tilegnet</td><td>workid75105</td><td>#biblid75105</td><td>4 4 3 3</td><td>10.5</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>II Perlen</td><td>workid75228</td><td>#biblid75228</td><td>4 4 3 3</td><td>9.7857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>III Ved den mediceiske Venus</td><td>workid75330</td><td>#biblid75330</td><td>4 4 3 3</td><td>9.8571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>IV Ved Alexander's Byste1) i det florentinske Gallerie</td><td>workid75443</td><td>#biblid75443</td><td>4 4 3 3</td><td>10.2143</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>V Dødehavets Anadyomene1) Ved et Madonnabillede</td><td>workid75560</td><td>#biblid75560</td><td>4 4 3 3</td><td>9.5714</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VI I Paris</td><td>workid75684</td><td>#biblid75684</td><td>4 4 3 3</td><td>9.7143</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VII Dommen Ved Slutningen af det attende Aarhundred</td><td>workid75774</td><td>#biblid75774</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>1 De tre Gudinder</td><td>workid79723</td><td>#biblid79723</td><td>4 4 3 3</td><td>9.2143</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>2 Digterværdighed</td><td>workid79823</td><td>#biblid79823</td><td>4 4 3 3</td><td>9.2857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>3 Den italienske Opera seria</td><td>workid79896</td><td>#biblid79896</td><td>4 4 3 3</td><td>9.5714</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>4 Til Glemsel Paa det Sted hvor den ældgamle tusciske Stad Fiesole stod</td><td>workid79979</td><td>#biblid79979</td><td>4 4 3 3</td><td>9.4286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>5 Udsigt</td><td>workid80076</td><td>#biblid80076</td><td>4 4 3 3</td><td>9.2857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>6 Spaden</td><td>workid80178</td><td>#biblid80178</td><td>4 4 3 3</td><td>9.1429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>I Genierne</td><td>workid85261</td><td>#biblid85261</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>II Ved Staden Wiens Beskuelse fra Gallizinbierget</td><td>workid85345</td><td>#biblid85345</td><td>4 4 3 3</td><td>10.3571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>III Den Troefaste</td><td>workid85421</td><td>#biblid85421</td><td>4 4 3 3</td><td>9.8571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>IV Til min Genius</td><td>workid85505</td><td>#biblid85505</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>V Tempelhallen Ved Indfarten i Brentafloden</td><td>workid85589</td><td>#biblid85589</td><td>4 4 3 3</td><td>9.7857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VI Ved en Amor af Mengs I den churfyrstlige dresdenske Samling af Pastelstykker</td><td>workid85664</td><td>#biblid85664</td><td>4 4 3 3</td><td>10.1429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VII Fredensriget</td><td>workid85753</td><td>#biblid85753</td><td>4 4 3 3</td><td>10.0714</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VIII Tilstaaelsen</td><td>workid85848</td><td>#biblid85848</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>IX Erindring og Haab</td><td>workid85922</td><td>#biblid85922</td><td>4 4 3 3</td><td>9.6429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>X Til Marchesi1) Efter en blid Aria</td><td>workid86038</td><td>#biblid86038</td><td>4 4 3 3</td><td>9.4286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>XI Faklen</td><td>workid86170</td><td>#biblid86170</td><td>4 4 3 3</td><td>10.8571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>XII Ved Midnat</td><td>workid86247</td><td>#biblid86247</td><td>4 4 3 3</td><td>9.6429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>I Ved et Barns Død</td><td>workid91252</td><td>#biblid91252</td><td>4 4 3 3</td><td>9.8571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>II Stoicismus</td><td>workid91337</td><td>#biblid91337</td><td>4 4 3 3</td><td>9.5</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>III Fantasticis1) Sang</td><td>workid91412</td><td>#biblid91412</td><td>4 4 3 3</td><td>9.5</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>IV Barmhiertigheds Tempel Ved Billingtons1) Sang</td><td>workid91512</td><td>#biblid91512</td><td>4 4 3 3</td><td>9.7857</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>V Længsel efter Roe</td><td>workid91616</td><td>#biblid91616</td><td>4 4 3 3</td><td>9.8571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VI Billeddyrkelsen</td><td>workid91690</td><td>#biblid91690</td><td>4 4 3 3</td><td>10.3571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VII Sværmerens Huris1)</td><td>workid91781</td><td>#biblid91781</td><td>4 4 3 3</td><td>9.3571</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>VIII Hyrdetimen 1</td><td>workid91880</td><td>#biblid91880</td><td>4 4 3 3</td><td>10.4286</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>IX 2</td><td>workid91959</td><td>#biblid91959</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>X Floden</td><td>workid92043</td><td>#biblid92043</td><td>4 4 3 3</td><td>9.1429</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>XI Det kierere Bedrag 1</td><td>workid92127</td><td>#biblid92127</td><td>4 4 3 3</td><td>10.0</td></tr>
+  <tr><th>./staffeldt01val.xml</th><td>XII 2</td><td>workid92204</td><td>#biblid92204</td><td>4 4 3 3</td><td>9.5714</td></tr>
+  <tr><th>./claussen03val.xml</th><td>III · Det værste</td><td>workid61693</td><td>#biblid61693</td><td>2 4 4 4</td><td>8.7857</td></tr>
+  <tr><th>./bording01val.xml</th><td/><td>workid93297</td><td>#biblid93297</td><td>14</td><td>13.7143</td></tr>
+  <tr><th>./richardt02.xml</th><td>Bønnen.</td><td>workid62783</td><td>#biblid62783</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./richardt02.xml</th><td>Tro og Gjerning.</td><td>workid99610</td><td>#biblid99610</td><td>14</td><td>10.6429</td></tr>
+  <tr><th>./aakjaer01val.xml</th><td>DØDSRAMT .</td><td>workid59066</td><td>#biblid59066</td><td>2 2 2 2 2 2 2</td><td>11.0714</td></tr>
+  <tr><th>./aakjaer01val.xml</th><td>DU OG JEG .</td><td>workid78457</td><td>#biblid78457</td><td>14</td><td>10.6429</td></tr>
+  <tr><th>./munp1.xml</th><td>alligevel</td><td>workid58213</td><td>#biblid58213</td><td>2 2 2 2 2 2 2</td><td>7.0</td></tr>
+  <tr><th>./munp1.xml</th><td>til en ung ven</td><td>workid59644</td><td>#biblid59644</td><td>2 3 5 4</td><td>7.4286</td></tr>
+  <tr><th>./munp1.xml</th><td>saltvand</td><td>workid60685</td><td>#biblid60685</td><td>4 5 3 2</td><td>8.7143</td></tr>
+  <tr><th>./munp1.xml</th><td>ideal</td><td>workid61355</td><td>#biblid61355</td><td>14</td><td>6.7143</td></tr>
+  <tr><th>./munp1.xml</th><td>en borgers livshymne</td><td>workid62017</td><td>#biblid62017</td><td>1 4 4 4 1</td><td>5.3571</td></tr>
+  <tr><th>./munp1.xml</th><td>sump</td><td>workid68752</td><td>#biblid68752</td><td>4 6 4</td><td>5.9286</td></tr>
+  <tr><th>./munp1.xml</th><td>exit -</td><td>workid71540</td><td>#biblid71540</td><td>8 6</td><td>5.7857</td></tr>
+  <tr><th>./munp1.xml</th><td>maageskrig</td><td>workid71603</td><td>#biblid71603</td><td>6 5 3</td><td>9.9286</td></tr>
+  <tr><th>./munp1.xml</th><td>afsked</td><td>workid72691</td><td>#biblid72691</td><td>14</td><td>5.0</td></tr>
+  <tr><th>./munp1.xml</th><td>satan</td><td>workid81492</td><td>#biblid81492</td><td>14</td><td>7.4286</td></tr>
+  <tr><th>./claussen11val.xml</th><td>VIDUNDERLIGE HAV . . .</td><td>workid58194</td><td>#biblid58194</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./claussen11val.xml</th><td>NON IMPRIMATUR TIL DR. VALD. VEDEL, SOM TRUER MED AT OFFENLIGGØRE SIT FOREDRAG OM NYDANNELSER I AANDSLIVET</td><td>workid63615</td><td>#biblid63615</td><td>4 2 4 2 2</td><td>12.0714</td></tr>
+  <tr><th>./claussen11val.xml</th><td>BERED DIG!</td><td>workid63738</td><td>#biblid63738</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./claussen11val.xml</th><td>UDVIKLING</td><td>workid64730</td><td>#biblid64730</td><td>4 4 5 1</td><td>10.5</td></tr>
+  <tr><th>./claussen11val.xml</th><td>ENVOI DE PRINCE TIL CHR. X</td><td>workid66695</td><td>#biblid66695</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./claussen11val.xml</th><td>KONCERTEN/BRYLLUPPER OG FESTER</td><td>workid66784</td><td>#biblid66784</td><td>4 4 3 3</td><td>10.3571</td></tr>
+  <tr><th>./claussen11val.xml</th><td>PARISERINDE</td><td>workid66874</td><td>#biblid66874</td><td>4 4 3 3</td><td>11.2143</td></tr>
+  <tr><th>./claussen11val.xml</th><td>DIN UNGDOM VAR SOM NATTEN . . . /TIL JOHANNES JØRGENSEN</td><td>workid66963</td><td>#biblid66963</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./claussen11val.xml</th><td>NU KOMMER NATTEN . . ./NATTEN TIL HERMAN BANG</td><td>workid67058</td><td>#biblid67058</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./claussen11val.xml</th><td>TRONPRÆTENDENT/SONET TIL FABIUS!</td><td>workid67147</td><td>#biblid67147</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./claussen11val.xml</th><td>TIL ERIK KØLBY</td><td>workid69358</td><td>#biblid69358</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./claussen11val.xml</th><td>ROMANSK VERDEN</td><td>workid69768</td><td>#biblid69768</td><td>4 4 3 3</td><td>10.4286</td></tr>
+  <tr><th>./claussen11val.xml</th><td>BRYLLUPPER OG FESTER (NOPCES &amp; FESTINS)</td><td>workid70147</td><td>#biblid70147</td><td>4 4 3 3</td><td>10.5714</td></tr>
+  <tr><th>./claussen11val.xml</th><td>SIMPLICITAS TILEGNET EN NAIV OG NYSGÆRRIG VENINDE</td><td>workid70236</td><td>#biblid70236</td><td>4 4 3 3</td><td>10.8571</td></tr>
+  <tr><th>./claussen11val.xml</th><td>DEN SKØNNE PROPAGANDA TILEGNET DR. GEORG BRANDES</td><td>workid70335</td><td>#biblid70335</td><td>4 4 3 3</td><td>10.5</td></tr>
+  <tr><th>./claussen11val.xml</th><td>PORTRÆT AF FORAARET</td><td>workid70434</td><td>#biblid70434</td><td>4 4 3 3</td><td>11.2143</td></tr>
+  <tr><th>./claussen11val.xml</th><td>HVIDE LØGNE</td><td>workid70536</td><td>#biblid70536</td><td>4 4 3 3</td><td>10.7143</td></tr>
+  <tr><th>./claussen11val.xml</th><td/><td>workid77397</td><td>#biblid77397</td><td>8 4 2</td><td>7.2857</td></tr>
+  <tr><th>./richardt01.xml</th><td>2. Tøvejr. (F. P. E. Hartmann.)</td><td>workid62746</td><td>#biblid62746</td><td>7 7</td><td>6.6429</td></tr>
+  <tr><th>./claussen10val.xml</th><td>CHARLES BAUDELAIRE: BLODFONTÆNEN</td><td>workid76955</td><td>#biblid76955</td><td>4 4 3 3</td><td>12.9286</td></tr>
+  <tr><th>./claussen08val.xml</th><td>NY AAND</td><td>workid55518</td><td>#biblid55518</td><td>4 3 3 2 2</td><td>13.1429</td></tr>
+  <tr><th>./claussen08val.xml</th><td>DON LUIS DE GÓNGORAS SONET OM MADRID</td><td>workid57826</td><td>#biblid57826</td><td>4 4 3 3</td><td>10.8571</td></tr>
+  <tr><th>./claussen08val.xml</th><td>NILS COLLETT VOGT</td><td>workid61214</td><td>#biblid61214</td><td>10 4</td><td>15.7857</td></tr>
+  <tr><th>./claussen08val.xml</th><td>TERMINSBEKYMRINGER</td><td>workid62599</td><td>#biblid62599</td><td>4 4 3 3</td><td>11.5714</td></tr>
+  <tr><th>./claussen08val.xml</th><td>DEN NYE PROKURATOR</td><td>workid62684</td><td>#biblid62684</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./claussen08val.xml</th><td>NYE TIDER</td><td>workid62869</td><td>#biblid62869</td><td>3 4 3 4</td><td>9.7857</td></tr>
+  <tr><th>./aakjaer02val.xml</th><td>MORGEN.</td><td>workid70443</td><td>#biblid70443</td><td>7 7</td><td>10.0</td></tr>
+  <tr><th>./jacob04val.xml</th><td>VI STAKKELS TRAVLE MENNESKEBØRN.</td><td>workid63312</td><td>#biblid63312</td><td>4 6 4</td><td>8.3571</td></tr>
+  <tr><th>./jacob04val.xml</th><td>I SERAILLETS HAVE.</td><td>workid64745</td><td>#biblid64745</td><td>14</td><td>6.7143</td></tr>
+  <tr><th>./aare03val.xml</th><td>OPFORDRING</td><td>workid75683</td><td>#biblid75683</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare03val.xml</th><td>BEVIDNELSE</td><td>workid75834</td><td>#biblid75834</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./aare03val.xml</th><td>DET EGENLIGE</td><td>workid75913</td><td>#biblid75913</td><td>4 4 3 3</td><td>11.4286</td></tr>
+  <tr><th>./stuckenberg02.xml</th><td>KLINTE</td><td>workid65268</td><td>#biblid65268</td><td>2 2 2 2 2 2 2</td><td>9.5</td></tr>
+  <tr><th>./stuckenberg02.xml</th><td>MØRKE</td><td>workid65693</td><td>#biblid65693</td><td>7 7</td><td>6.3571</td></tr>
+  <tr><th>./stuckenberg02.xml</th><td>VILDE KØRVEL</td><td>workid67778</td><td>#biblid67778</td><td>4 4 3 3</td><td>9.7143</td></tr>
+  <tr><th>./stuckenberg02.xml</th><td>DER LIGGER EN SØ OG LYSER</td><td>workid77559</td><td>#biblid77559</td><td>5 5 4</td><td>8.8571</td></tr>
+  <tr><th>./stuckenberg02.xml</th><td>DRAG UD</td><td>workid89106</td><td>#biblid89106</td><td>2 2 4 2 2 2</td><td>8.4286</td></tr>
+  <tr><th>./plough01.xml</th><td>Marie Lehmann.</td><td>workid79285</td><td>#biblid79285</td><td>8 4 2</td><td>9.1429</td></tr>
+  <tr><th>./aare01val.xml</th><td>SONNET.(til SIBBERNS Erindring)</td><td>workid55796</td><td>#biblid55796</td><td>4 4 3 3</td><td>10.4286</td></tr>
+  <tr><th>./aare01val.xml</th><td>RASK HVIRVLES VI I TIDENS STORE DANDS</td><td>workid55878</td><td>#biblid55878</td><td>4 4 3 3</td><td>11.5714</td></tr>
+  <tr><th>./aare01val.xml</th><td>DEN STILLE GLÆDE.</td><td>workid57537</td><td>#biblid57537</td><td>14</td><td>11.1429</td></tr>
+  <tr><th>./aare01val.xml</th><td>PAAMINDELSE.</td><td>workid57608</td><td>#biblid57608</td><td>4 4 3 3</td><td>11.9286</td></tr>
+  <tr><th>./aare01val.xml</th><td>DEN NAIVE.</td><td>workid58818</td><td>#biblid58818</td><td>4 4 3 3</td><td>10.0714</td></tr>
+  <tr><th>./aare01val.xml</th><td>EN STEDMODERSBLOMST.</td><td>workid60972</td><td>#biblid60972</td><td>10 4</td><td>10.8571</td></tr>
+  <tr><th>./aare01val.xml</th><td>VED VIOL-URNEN. -</td><td>workid61504</td><td>#biblid61504</td><td>4 4 3 3</td><td>10.5</td></tr>
+  <tr><th>./aare01val.xml</th><td>ØHLENSCHLÄGERS COLLEGIUM.</td><td>workid61583</td><td>#biblid61583</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./aare01val.xml</th><td>NAADEN!</td><td>workid64022</td><td>#biblid64022</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./aare01val.xml</th><td>MORGENEN.</td><td>workid68260</td><td>#biblid68260</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare01val.xml</th><td>MIDDAGEN.</td><td>workid68340</td><td>#biblid68340</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare01val.xml</th><td>AFTENEN.</td><td>workid68419</td><td>#biblid68419</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare01val.xml</th><td>NATTEN.</td><td>workid68499</td><td>#biblid68499</td><td>4 4 3 3</td><td>11.4286</td></tr>
+  <tr><th>./aare01val.xml</th><td>BLOMSTEROFFERET.</td><td>workid68933</td><td>#biblid68933</td><td>4 4 3 3</td><td>10.4286</td></tr>
+  <tr><th>./aare01val.xml</th><td>SYNER.</td><td>workid69325</td><td>#biblid69325</td><td>4 4 3 3</td><td>11.2143</td></tr>
+  <tr><th>./aare01val.xml</th><td>FORTABELSE.</td><td>workid70880</td><td>#biblid70880</td><td>7 7</td><td>7.7143</td></tr>
+  <tr><th>./aare01val.xml</th><td>SONETT.</td><td>workid71708</td><td>#biblid71708</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./aare01val.xml</th><td>BØN.</td><td>workid71787</td><td>#biblid71787</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./aare01val.xml</th><td>D: 22DE SEPTBR 1824</td><td>workid75519</td><td>#biblid75519</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./aare01val.xml</th><td>JEG SAD MED DIG BAG MALVER, HULDT I SKYGGE</td><td>workid77476</td><td>#biblid77476</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./aare01val.xml</th><td>SONNET</td><td>workid77555</td><td>#biblid77555</td><td>4 4 3 3</td><td>11.4286</td></tr>
+  <tr><th>./aare01val.xml</th><td>MIN GLUT FORSTAAER AT LØSE SJÆLENS KNUDER</td><td>workid77635</td><td>#biblid77635</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./aare01val.xml</th><td>HVAD VIL DU HER? HVAD SØGER DU VED HUSET</td><td>workid77716</td><td>#biblid77716</td><td>4 4 3 3</td><td>11.4286</td></tr>
+  <tr><th>./kingo04val.xml</th><td/><td>workid55954</td><td>#biblid55954</td><td>7 7</td><td>7.3571</td></tr>
+  <tr><th>./kingo04val.xml</th><td/><td>workid56024</td><td>#biblid56024</td><td>7 7</td><td>7.6429</td></tr>
+  <tr><th>./kingo04val.xml</th><td/><td>workid56107</td><td>#biblid56107</td><td>7 7</td><td>7.4286</td></tr>
+  <tr><th>./hertz10_lev.xml</th><td>Ved Drikkelaget.</td><td>workid56012</td><td>#biblid56012</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./claussen09val.xml</th><td>UDSAT FOR KRITIK</td><td>workid60934</td><td>#biblid60934</td><td>4 3 3 4</td><td>13.7143</td></tr>
+  <tr><th>./claussen09val.xml</th><td>FARDAG I PEPITAS HJERTE</td><td>workid69639</td><td>#biblid69639</td><td>4 4 4 2</td><td>11.4286</td></tr>
+  <tr><th>./claussen09val.xml</th><td>THØGER LARSEN Mindeord</td><td>workid71188</td><td>#biblid71188</td><td>5 8 1</td><td>11.5714</td></tr>
+  <tr><th>./claussen09val.xml</th><td>FOR FREMTIDENS AASYN</td><td>workid71468</td><td>#biblid71468</td><td>6 4 4</td><td>12.9286</td></tr>
+  <tr><th>./rode_02.xml</th><td>Stjernenat</td><td>workid55291</td><td>#biblid55291</td><td>6 4 4</td><td>6.4286</td></tr>
+  <tr><th>./rode_02.xml</th><td>Aften</td><td>workid55733</td><td>#biblid55733</td><td>7 7</td><td>8.3571</td></tr>
+  <tr><th>./worm01val.xml</th><td>NATALEM Augustissimi ac Serenissimi REGIS DIEM, XVIII Martii piissimâ memoriâ versaturus leviculum hocce ANAGRAMMA devotissimè apposuit subjectissimus M. JACOBUS PETRI WORM Helsinge. FRIDERICUS TERTIUS Per Anagramma (R mutato in H) HIC TERRIS FUIT DEUS</td><td>workid106293</td><td>#biblid106293</td><td>14</td><td>11.2857</td></tr>
+  <tr><th>./aare02val.xml</th><td>DU SØDE BARN, SAA LÆNGSELSFULD OG STILLE</td><td>workid54726</td><td>#biblid54726</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./aare02val.xml</th><td>SONNET-</td><td>workid54977</td><td>#biblid54977</td><td>4 4 3 3</td><td>9.2857</td></tr>
+  <tr><th>./aare02val.xml</th><td>JEG GIK SAA TIDT TIL DISSE KLIPPESTENE</td><td>workid55054</td><td>#biblid55054</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare02val.xml</th><td>JEG VAR SAA TIDT SAA SVÆRMERISK ALLENE</td><td>workid55126</td><td>#biblid55126</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare02val.xml</th><td>O HULDE DRØMME! SMIGRENDE OG SØDE</td><td>workid55827</td><td>#biblid55827</td><td>4 4 3 3</td><td>10.2143</td></tr>
+  <tr><th>./aare02val.xml</th><td>NAAR LETSIND STIGER OG MIN TROSKAB DALER</td><td>workid55906</td><td>#biblid55906</td><td>4 4 3 3</td><td>11.6429</td></tr>
+  <tr><th>./aare02val.xml</th><td>HVAD DISSE HAANDTRYK, DISSE BLIK BETYDE</td><td>workid56172</td><td>#biblid56172</td><td>4 4 3 3</td><td>11.2857</td></tr>
+  <tr><th>./aare02val.xml</th><td>JEG HAVDE FAAET BREV FRA DIG, NANETTE</td><td>workid58087</td><td>#biblid58087</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./aare02val.xml</th><td>TAG DETTE KYS, OG TUSIND TIL, DU</td><td>workid64784</td><td>#biblid64784</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./aare02val.xml</th><td>EN DEILIG AFTEN. STILLE, SØLVKLART VANDET</td><td>workid64865</td><td>#biblid64865</td><td>4 4 3 3</td><td>11.7143</td></tr>
+  <tr><th>./aare02val.xml</th><td>SONET.</td><td>workid67887</td><td>#biblid67887</td><td>4 4 3 3</td><td>11.5</td></tr>
+  <tr><th>./munp2.xml</th><td>fjällvatten</td><td>workid65713</td><td>#biblid65713</td><td>5 5 4</td><td>4.2143</td></tr>
+  <tr><th>./munp2.xml</th><td>avsked</td><td>workid67245</td><td>#biblid67245</td><td>14</td><td>6.0714</td></tr>
+  <tr><th>./munp2.xml</th><td>porträtt</td><td>workid67936</td><td>#biblid67936</td><td>14</td><td>2.9286</td></tr>
+  <tr><th>./munp2.xml</th><td>ord</td><td>workid68049</td><td>#biblid68049</td><td>14</td><td>4.3571</td></tr>
+  <tr><th>./munp2.xml</th><td>i nat</td><td>workid68888</td><td>#biblid68888</td><td>6 8</td><td>5.6429</td></tr>
+  <tr><th>./munp2.xml</th><td>rids</td><td>workid69181</td><td>#biblid69181</td><td>8 6</td><td>5.5</td></tr>
+  <tr><th>./munp2.xml</th><td>skæret</td><td>workid69294</td><td>#biblid69294</td><td>14</td><td>6.8571</td></tr>
+  <tr><th>./munp2.xml</th><td>konturløst</td><td>workid69535</td><td>#biblid69535</td><td>14</td><td>7.2143</td></tr>
+  <tr><th>./grundtvig11val.xml</th><td>No. 29 .</td><td>workid67731</td><td>#biblid67731</td><td>7 7</td><td>5.5</td></tr>
+  <tr><th>./grundtvig11val.xml</th><td>No. 58 .</td><td>workid76745</td><td>#biblid76745</td><td>7 7</td><td>7.9286</td></tr>
+  <tr><th>./grundtvig11val.xml</th><td>No. 59 .</td><td>workid76824</td><td>#biblid76824</td><td>14</td><td>7.5</td></tr>
+  <tr><th>./grundtvig11val.xml</th><td>No. 69 . *)</td><td>workid79690</td><td>#biblid79690</td><td>7 2 5</td><td>7.5714</td></tr>
+  <tr><th>./grundtvig11val.xml</th><td>No. 279 . *)</td><td>workid137457</td><td>#biblid137457</td><td>7 7</td><td>8.0</td></tr>
+  <tr><th>./grundtvig11val.xml</th><td>No. 324. *)</td><td>workid148322</td><td>#biblid148322</td><td>7 7</td><td>7.7857</td></tr>
+  <tr><th>./wintherchr01val.xml</th><td>SONET.</td><td>workid60855</td><td>#biblid60855</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./wintherchr01val.xml</th><td/><td>workid82331</td><td>#biblid82331</td><td>4 4 3 3</td><td>10.9286</td></tr>
+  <tr><th>./wintherchr01val.xml</th><td>SANGFUGLEN VED OEHLENSCHLAGERSGRAV.</td><td>workid84637</td><td>#biblid84637</td><td>4 4 6</td><td>11.0</td></tr>
+  <tr><th>./wintherchr01val.xml</th><td>DET DANSKE.</td><td>workid84722</td><td>#biblid84722</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./wintherchr01val.xml</th><td/><td>workid91283</td><td>#biblid91283</td><td>4 4 3 3</td><td>11.7857</td></tr>
+  <tr><th>./aare04val.xml</th><td>DERES NAADE FRU KAMMERHERREINDE, BARONESSE ROSENØRN-LEHN</td><td>workid60438</td><td>#biblid60438</td><td>4 4 3 3</td><td>11.2857</td></tr>
+  <tr><th>./aare04val.xml</th><td>TIL FRØKEN WARENKA ROSENKRANTZ.</td><td>workid60572</td><td>#biblid60572</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./aare04val.xml</th><td>DET FRYSER VED OCTOBERS KLARE MAANE</td><td>workid62098</td><td>#biblid62098</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./aare04val.xml</th><td>PAA ROSENBORG, DER VIL I JER FORSAMLE</td><td>workid62265</td><td>#biblid62265</td><td>4 4 3 3</td><td>10.7143</td></tr>
+  <tr><th>./aare04val.xml</th><td>RASKELSEN</td><td>workid62345</td><td>#biblid62345</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare04val.xml</th><td>VALGET.</td><td>workid62424</td><td>#biblid62424</td><td>4 4 3 3</td><td>11.1429</td></tr>
+  <tr><th>./aare04val.xml</th><td>PROFESSOR CLAUSEN OG VÆVER HANSEN</td><td>workid62586</td><td>#biblid62586</td><td>4 4 3 3</td><td>10.8571</td></tr>
+  <tr><th>./aare04val.xml</th><td>POLITISK INDSIGT</td><td>workid62668</td><td>#biblid62668</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./aare04val.xml</th><td>VILHELMINE ALVILDA UNSGAARD, FØDT HERBST.</td><td>workid63995</td><td>#biblid63995</td><td>4 4 3 3</td><td>11.3571</td></tr>
+  <tr><th>./drachmann01.xml</th><td>SONET (Af "I Storm og Stille")</td><td>workid83255</td><td>#biblid83255</td><td>4 4 3 3</td><td>10.2143</td></tr>
+  <tr><th>./drachmann01.xml</th><td>DA TAAGEN SÆNKED SIG</td><td>workid94959</td><td>#biblid94959</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Afskedsharmoni</td><td>workid60921</td><td>#biblid60921</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Til en Søster</td><td>workid61006</td><td>#biblid61006</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Til I. og V.</td><td>workid61099</td><td>#biblid61099</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Tysk Kystby</td><td>workid61188</td><td>#biblid61188</td><td>4 4 3 3</td><td>10.4286</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Køln</td><td>workid61267</td><td>#biblid61267</td><td>4 4 3 3</td><td>10.5714</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Damen fra Køln</td><td>workid61362</td><td>#biblid61362</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Til en Søster</td><td>workid61441</td><td>#biblid61441</td><td>4 4 3 3</td><td>10.5</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Til Hende</td><td>workid61541</td><td>#biblid61541</td><td>4 4 3 3</td><td>10.7143</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Hassan og Digteren. Persisk Fabel</td><td>workid61634</td><td>#biblid61634</td><td>4 4 3 3</td><td>10.0714</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Digteren og Hassan. Persisk Fabel</td><td>workid61714</td><td>#biblid61714</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Før Stævnemødet</td><td>workid61812</td><td>#biblid61812</td><td>4 4 3 3</td><td>10.7143</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Gensynet</td><td>workid61896</td><td>#biblid61896</td><td>4 4 3 3</td><td>10.6429</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Gargantua eller "sikket-Gab-du-har".Frit efter Rabelais</td><td>workid61984</td><td>#biblid61984</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Kunstner-Existens(Ved et Hus, jeg en Aften gik forbi i Paris)</td><td>workid62077</td><td>#biblid62077</td><td>4 4 3 3</td><td>10.5714</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Paa ny ved Østersøen</td><td>workid62160</td><td>#biblid62160</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./claussen04val.xml</th><td>Træerne</td><td>workid62249</td><td>#biblid62249</td><td>4 4 3 3</td><td>10.0714</td></tr>
+  <tr><th>./stub01val.xml</th><td>Oversættelse af Rostgaards latinske Digt i Anledning af den kongelige Families Indtog paa Christiansborg 26. November 1740</td><td>workid67880</td><td>#biblid67880</td><td>14</td><td>11.2857</td></tr>
+  <tr><th>./stub01val.xml</th><td>Nu er jeg befriet fra Kierligheds Pagt</td><td>workid73133</td><td>#biblid73133</td><td>7 7</td><td>10.3571</td></tr>
+  <tr><th>./michs_03.xml</th><td>Sol paa Sne.</td><td>workid55784</td><td>#biblid55784</td><td>4 4 3 3</td><td>10.1429</td></tr>
+  <tr><th>./michs_03.xml</th><td>Storhed.</td><td>workid57343</td><td>#biblid57343</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./michs_03.xml</th><td>Talisman.</td><td>workid57433</td><td>#biblid57433</td><td>4 4 3 3</td><td>10.5</td></tr>
+  <tr><th>./michs_03.xml</th><td>Buketten.</td><td>workid58511</td><td>#biblid58511</td><td>4 4 3 3</td><td>11.0714</td></tr>
+  <tr><th>./michs_03.xml</th><td>For alt det søde Liv —</td><td>workid58601</td><td>#biblid58601</td><td>4 4 3 3</td><td>11.0</td></tr>
+  <tr><th>./michs_03.xml</th><td>Ekko.</td><td>workid64083</td><td>#biblid64083</td><td>2 2 2 2 2 2 2</td><td>10.0714</td></tr>
+  <tr><th>./michs_03.xml</th><td>Kilden.</td><td>workid65354</td><td>#biblid65354</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./michs_03.xml</th><td>Hvad vil I mig —</td><td>workid66241</td><td>#biblid66241</td><td>4 4 3 3</td><td>9.9286</td></tr>
+  <tr><th>./michs_03.xml</th><td>En svovlgul Sommerfugl —</td><td>workid66497</td><td>#biblid66497</td><td>4 4 3 3</td><td>10.3571</td></tr>
+  <tr><th>./michs_03.xml</th><td>Skyer.</td><td>workid68161</td><td>#biblid68161</td><td>4 4 3 3</td><td>10.7857</td></tr>
+  <tr><th>./michs_03.xml</th><td>Jeg elsker —</td><td>workid68251</td><td>#biblid68251</td><td>4 4 3 3</td><td>10.4286</td></tr>
+</table>
