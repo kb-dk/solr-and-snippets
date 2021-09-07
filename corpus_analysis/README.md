@@ -7,8 +7,8 @@ is just an investigattion of what can be done with a corpus of
 literary text with very simple tools similar to the ones described by
 Church in his tutorial.
 
-I do not claim that there is any novel or even significant in this
-text. I do not really know what a sonnet is.
+I do not claim that there is anything novel or even significant in this
+text. I am not sure I really know what a sonnet is.
  
 ## Finding poems
 
