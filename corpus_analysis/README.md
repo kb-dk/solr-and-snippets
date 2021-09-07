@@ -439,3 +439,10 @@ Graves occur less than death.
       4 gravens
 ```
 
+# Conclusions
+
+I think I could go on studying this for a while. I have to conclude
+this here, before the actual conclusions. There are interesting things
+to find here, though, and I think my armchair text processing supports
+the notion that life is very much about making love, death and graves.
+
