@@ -11,7 +11,7 @@ literary text with very simple tools similar to the ones described by
 Church in his tutorial.
 
 I do not claim that there is anything novel or even significant in this
-text. I am not sure I really know what a sonnet is.
+text. I am not even sure I really know what a sonnet is.
  
 ## Finding poems
 
