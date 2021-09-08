@@ -371,7 +371,7 @@ sed 's/\ [a-z]*$//' poem_frequencies.text | sort | uniq -c | sort -n -k 2 > dist
 ```
 Column 1 is plotted against column 2.
 
-In this corpus it seems that aboutishness start att words occuring in
+In this corpus it seems that aboutishness start at words occuring in
 25% of the sonnets, or less.
 
 As example we have death, dead and lethal etc in a number of
