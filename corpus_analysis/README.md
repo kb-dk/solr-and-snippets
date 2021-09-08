@@ -6,7 +6,7 @@ If there are any sonnets, do they rhyme and what are they about?
 I have since many years been a great fan of Kenneth Ward Church's
 tutorial ["Unix for
 Poets"](https://web.stanford.edu/class/cs124/kwc-unix-for-poets.pdf). This
-is just an investigattion of what can be done with a corpus of
+is an investigation of what can be done with a corpus of
 literary text with very simple tools similar to the ones described by
 Church in his tutorial.
 
