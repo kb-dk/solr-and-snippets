@@ -142,7 +142,7 @@ quoted above it is 10.4.
 You can write a lot of nice poetry with 14 lines. Like Gustaf
 Munch-Petersen's [en borgers
 livshymne](https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid62017)
-with five strophes with one line, then three strophes with four lines
+with one strophe with one line, then three strophes with four lines
 and finally a single line. The number of syllables per line seem to
 decrease towards the end. Gustaf was a modernist. There are no fixed
 structures and very few rhymes i his poetry.
