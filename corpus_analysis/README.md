@@ -265,8 +265,8 @@ abbaabbacdecde
 So while it may fail more often than it succeeds, the successes give
 results that are reasonable.
 
-The last rhyme is one is the most common one found,
-and it is also one of the socalled Petrarchan rhyme schemes,
+The rhyme structure abbaabbacdecde is one is the most common ones found.
+Also it is one of the socalled Petrarchan rhyme schemes,
 [Cf. this](https://poetscollective.org/everysonnet/tag/abbaabbacdecde/).
  
 ## What are the sonnets about?
@@ -277,7 +277,7 @@ should ideally be understood when read aloud and listened to.
 The cliché says that art and literature is about what it means to be
 human. Could we therefore hypothesize that the sonnets address this
 from the point of view of dead Danish male poets who wrote sonnets
-some 100 &ndash; 150 years ago?
+some 100 &ndash; 200 years ago?
 
 Assume that, at least as a first approximation, the words chosen by
 poets mirror those subjects. For instance, if being human implies
@@ -299,16 +299,16 @@ sort | uniq -c | sort -n
 such that I get a list of the 4781 Danish words that are used in these
 sonnets.
 
-The second way is the same, but I do twice, once foreach sonnet and
+The second way is the same, but I do it twice, once foreach sonnet and
 then for the whole corpus. That means that I get 
 
 * one list of word frequencies and 
 * a second list giving not of the number of occurences of each word, but the number of sonnets the word occurs in.
 
-There are 160 sonnets in the corpus, and the most frequent word occurs
-in all of them. These are the fifteen most commont word a measured by
-the [number of sonnets they occur in](poem_frequencies.text). Number
-of poems in the left column.
+There are 160 sonnets thus selected in the corpus, and the most
+frequent word occurs in all of them. These are the fifteen most
+commont word a measured by the [number of sonnets they occur
+in](poem_frequencies.text). Number of poems in the left column.
 
 
 ```
@@ -352,17 +352,17 @@ corpus](frequencies.text). Number of words in corpus in left column.
     588 og
 ```
 
-As you can see (if you can read Danish) this corroborates the
-established observation that the most frequent words in a corpus hardly
-ever describes the subject matter of the texts (these words are
-conjunctions, pronouns and prepositions and the like).
+As you can see this corroborates the established observation that the
+most frequent words in a corpus hardly ever describes the subject
+matter of the texts (these words are conjunctions, pronouns,
+prepositions and the like).
 
 ![Distribution](distro.png)
 
-The distribution of the number of sonnets the words appear
-in. There is just one word appearing in all 160 sonnets. It is 'og'
-meaning 'and'. Then there are 3304 words occurring in just one
-sonnet. The [distribution.text](distribution.text) is generated from
+The distribution of the number of sonnets the words appear in. There
+is just one word appearing in all 160 sonnets. It is 'og' meaning
+'and'. Then there are 3304 words occurring in just one sonnet. The
+[distribution.text](distribution.text) is generated from
 [poem_frequencies.text](poem_frequencies.text) using
 
 ```
