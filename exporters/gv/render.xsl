@@ -101,7 +101,7 @@
             <xsl:call-template name="app-root"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:apply-templates mode="text" select="t:lem"/>
+            <xsl:apply-templates mode="text" select="t:rdg"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
