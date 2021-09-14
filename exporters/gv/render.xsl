@@ -110,6 +110,9 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:template match="t:witDetail">
+  </xsl:template>
   
   <xsl:template match="t:persName|
                        t:placeName|
@@ -312,6 +315,13 @@
   </xsl:template>
 
   <xsl:template match="t:note/t:addName"><xsl:text> (</xsl:text><xsl:apply-templates/>)</xsl:template>
+
+  <xsl:template match="t:row[matches(@xml:id,'fak|fik|his|poet')]">
+    <xsl:comment> a row in the place table </xsl:comment>
+    <xsl:for-each select="t:cell[not(contains(@rend,'edit'))]">
+      <xsl:apply-templates/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+    </xsl:for-each>
+  </xsl:template>
   
   <!-- this matches rows in title.xml -->
   <xsl:template match="t:row[t:cell[contains(@type,'Title')]]">

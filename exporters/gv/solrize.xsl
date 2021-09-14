@@ -138,7 +138,8 @@
   </xsl:template>
 
   
- 
+  <xsl:template match="t:witDetail">
+  </xsl:template>
 
   <xsl:template name="extract_entities">
 
