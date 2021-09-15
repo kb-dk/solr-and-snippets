@@ -318,8 +318,28 @@
 
   <xsl:template match="t:row[matches(@xml:id,'fak|fik|his|poet')]">
     <xsl:comment> a row in the place table </xsl:comment>
+    <xsl:variable name="geo-cross-ref">
+      <xsl:if test="matches(@select,'fak|fik|his|poet')">
+        <xsl:variable name="ref" select="@select"/>
+        <span class="cross-ref">
+          <xsl:text> (se </xsl:text><xsl:element name="a">
+          <xsl:attribute name="class">place</xsl:attribute>
+          <xsl:attribute name="title">Sted</xsl:attribute>
+          <xsl:attribute name="data-toggle">modal</xsl:attribute>
+          <xsl:attribute name="data-target">#comment_modal</xsl:attribute>
+          <xsl:attribute name="href"><xsl:value-of 
+	  select="concat(substring-before($path,'-shoot'),'-shoot-',$ref)"/></xsl:attribute>
+          <xsl:value-of select="//t:row[@xml:id=$ref]/t:cell[@rend='name']"/>
+          </xsl:element><xsl:text>)</xsl:text>
+        </span>
+      </xsl:if>
+    </xsl:variable>
     <xsl:for-each select="t:cell[not(contains(@rend,'edit'))]">
-      <xsl:apply-templates/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+      <xsl:apply-templates/>
+      <xsl:if test="@rend = 'name'">
+        <xsl:copy-of select="$geo-cross-ref"/>
+      </xsl:if>
+      <xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
     </xsl:for-each>
   </xsl:template>
   
