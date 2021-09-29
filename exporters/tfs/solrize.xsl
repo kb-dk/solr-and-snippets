@@ -110,6 +110,28 @@
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
   </xsl:template>
 
+
+  <xsl:template name="facs_and_text">
+    <field name="has_facs_ssi">
+      <xsl:choose>
+	<xsl:when test="me:right_kind_of_page(.,/t:TEI)">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+    <field name="has_text_ssi">
+      <xsl:choose>
+	<xsl:when test="descendant-or-self::t:head/text()|
+                        descendant-or-self::t:p/text()|
+                        descendant-or-self::t:l/text()">yes</xsl:when>
+	<xsl:otherwise>no</xsl:otherwise>
+      </xsl:choose>
+    </field>
+
+  </xsl:template>
+
+
+  
   <xsl:template name="extract_titles_authors_etc">
     <xsl:param name="worktitle" select="''"/>
     
