@@ -42,7 +42,7 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 {
    let $uri_path := 
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
-	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs3/",$pid) (: because of caching problem :)
+	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs/",$pid) (: because of caching problem :)
 	else if(contains($path,"gv") ) then  concat("/public/tekstportal/gv/", $pid)
 
 	else if(contains($path,"letters") ) then  concat("/public/dk_breve/", $pid)
@@ -114,7 +114,7 @@ declare function local:get-pages(
 declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
 {
 	let $pth := 
-	if(contains($path,"tfs")) then "public/tekstportal/tfs3/"
+	if(contains($path,"tfs")) then "public/tekstportal/tfs/"
 	else if(contains($path,"letters")) then "public/dk_breve/"
 	else if(contains($path,"gv")) then "public/tekstportal/gv/"
 	else "public/"
