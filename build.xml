@@ -137,7 +137,7 @@
 	<fileset dir="${sks_texts}"/>
       </copy>
       <copy  todir="${service}/tfs/texts">
-	<fileset dir="../trykkefrihedsskrifter/tei_dir"/>
+	<fileset dir="../alto-to-tei-tools/tei_dir"/>
       </copy>
     </target>
 
