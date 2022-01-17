@@ -7,6 +7,7 @@
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
+  <xsl:import href="./journals-and-papers.xsl"/>
   <xsl:import href="./graphics.xsl"/>
   <xsl:import href="./all_kinds_of_notes.xsl"/>
 
