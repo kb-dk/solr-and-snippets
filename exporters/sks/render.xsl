@@ -7,9 +7,10 @@
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
+  <xsl:import href="./all_kinds_of_notes.xsl"/>
   <xsl:import href="./journals-and-papers.xsl"/>
   <xsl:import href="./graphics.xsl"/>
-  <xsl:import href="./all_kinds_of_notes.xsl"/>
+
 
   <xsl:import href="./ornament.xsl"/>
 
@@ -33,9 +34,7 @@
 
   -->
   <xsl:template match="t:pb">
-      <!-- xsl:if test="@facs">
-	<xsl:call-template name="sks_page_specimen"/>
-      </xsl:if -->
+   
 
       <xsl:variable name="witness">
 	<xsl:value-of select="replace(@edRef,'#','')"/>

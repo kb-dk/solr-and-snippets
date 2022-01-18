@@ -20,33 +20,53 @@
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
-      <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
-      <xsl:apply-templates/>
-      <div style="clear: all;">
+      <xsl:comment> entry in div here <xsl:value-of select="@decls"/> </xsl:comment>
+
+      <div style="clear: both;">
+        <xsl:apply-templates select="t:dateline|t:p[@rend='decoration']"/>
+      </div>
+      
+      <xsl:apply-templates select="t:div[@type='mainColumn']"/>
+      <xsl:apply-templates select="t:div[@type='marginalColumn']"/>
+
+      <div style="clear: both;">
 
       </div>
     </div>
   </xsl:template>
 
+  <xsl:template match="t:note[@type='author' and @place='margin']">
+    <p>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">true</xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates/>
+    </p>
+  </xsl:template>
+
+
   <xsl:template match="t:div[@type='mainColumn']">
-    <div style="width:50%; float left;">
+    <div style="width:50%;  float: left;">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
       <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
+  
     </div>
   </xsl:template>
 
   <xsl:template match="t:div[@type='marginalColumn']">
-    <div style="width:50%; float left;">
+    <div style="width:40%; margin-left: 8%; float: left;">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
       <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
+    
     </div>
   </xsl:template>
 
 
+   
 </xsl:transform>
