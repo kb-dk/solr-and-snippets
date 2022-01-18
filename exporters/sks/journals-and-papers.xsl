@@ -57,7 +57,7 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type='marginalColumn']">
-    <div style="width:40%; margin-left: 8%; float: left;">
+    <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
