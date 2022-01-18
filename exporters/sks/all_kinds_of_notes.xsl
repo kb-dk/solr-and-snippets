@@ -39,7 +39,10 @@
 	      indent="yes"/>
 
   <xsl:template name="make_author_note_list">
-    <xsl:if test="descendant-or-self::t:ptr[@type='author']">
+
+    <xsl:variable name="first_note" select="substring-after(descendant-or-self::t:ptr[@type='author'][1]/@target,'#')"/> 
+    
+    <xsl:if test="/t:TEI//t:note[@xml:id = $first_note][@place = 'bottom']"> 
       <div style="border-top: thin solid lightgray; width: 67%;">
 	<strong>Noter:</strong>
 	<ol>
@@ -48,7 +51,7 @@
 	      <xsl:value-of select="substring-after(@target,'#')"/>
 	    </xsl:variable>
 	    <li>
-	      <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
+	      <xsl:for-each select="/t:TEI//t:note[@xml:id = $target][@place = 'bottom']">
 		<xsl:call-template name="show_note">
 		  <xsl:with-param name="display" select="'block'"/>
 		  <xsl:with-param name="bgcolor" select="'inherit'"/>
