@@ -224,10 +224,10 @@
   </xsl:template>
 
   <xsl:template match="t:quote">
-    <blockquote class="quote" style="margin-left:+5%;">
+    <p style="margin-left:+5%;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
-    </blockquote>
+    </p>
   </xsl:template>
 
   <xsl:template match="t:quote/t:p">
