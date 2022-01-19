@@ -81,7 +81,10 @@
     </p>
   </xsl:template>
 
-
-
-
+  <xsl:template match="t:figure[@type='hashEntwined']">
+    <p style="text-align:center;">
+      <xsl:text>~&#160;$&#160;~</xsl:text>
+    </p>
+  </xsl:template>
+  
 </xsl:stylesheet>
