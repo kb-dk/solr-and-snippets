@@ -5,12 +5,19 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       exclude-result-prefixes="t">
 
-
   <xsl:import href="../graphics-global.xsl"/>
-
+  <xsl:param name="float_graphics"/>
+  
   <xsl:template name="sks_page_specimen">
     <xsl:element name="div">
-      <xsl:attribute name="style"> max-width: 50%; float: <xsl:call-template name="float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="$float_graphics">
+          <xsl:attribute name="style"> max-width: 50%; float: <xsl:call-template name="float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="style"> max-width: 90%; clear: both; margin: 2em; </xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="add_id"/>
 
       <xsl:call-template name="render_graphic">
@@ -19,13 +26,20 @@
 	      select="substring-before(translate(substring-after(@facs,'../'),$uppercase,$lowercase),'.jpg')"/>
 	</xsl:with-param>
       </xsl:call-template>
-
     </xsl:element>
   </xsl:template>
 
   <xsl:template match="t:figure">
     <xsl:element name="div">
-      <xsl:attribute name="style"> max-width: 50%; float: <xsl:call-template name="float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="$float_graphics">
+          <xsl:attribute name="style"> max-width: 50%; float: <xsl:call-template name="float_direction"/>; clear: both; margin: 2em; </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="style"> max-width: 90%; clear: both; margin: 2em; </xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
+
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates select="t:graphic"/>
       <xsl:apply-templates select="t:head"/>
