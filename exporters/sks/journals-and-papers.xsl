@@ -44,6 +44,11 @@
     </p>
   </xsl:template>
 
+  <xsl:template match="t:ref[@type='author']/t:seg[@type='refMarker']">
+    <xsl:element name="sup">
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
 
   <xsl:template match="t:div[@type='mainColumn']">
     <div style="width:50%;  float: left;">
@@ -52,7 +57,6 @@
       </xsl:call-template>
       <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
-  
     </div>
   </xsl:template>
 
@@ -63,7 +67,6 @@
       </xsl:call-template>
       <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
-    
     </div>
   </xsl:template>
 
