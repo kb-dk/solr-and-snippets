@@ -7,6 +7,8 @@
                version="2.0"
 	       exclude-result-prefixes="t xs">
 
+  <xsl:param name="float_graphics" select="false()"/>
+  
   <xsl:variable name="dom" select="."/>
   
   <xsl:template match="t:text[@type='ms' and subtype='journalsAndPapers']">
@@ -54,33 +56,29 @@
     <xsl:apply-templates />
   </xsl:template>
 
- <xsl:function name="me:paragraph-style">
-   <xsl:param name="style"/>
-   xxxx: yyyyy;
-    <xsl:choose>
-      <xsl:when test="$style"><xsl:value-of select="$style"/></xsl:when>
-      <xsl:otherwise></xsl:otherwise>
-    </xsl:choose>
-  </xsl:function>
+  <xsl:template name="get-relevant-notes">
+    <xsl:variable name="relevant_notes"  as="xs:string *">
+      <xsl:for-each select="./t:ref[@type='author']/@target|./t:ptr[@type='author']/@target"><xsl:value-of select="substring-after(.,'#')"/></xsl:for-each>
+    </xsl:variable>
+
+    <xsl:for-each select="distinct-values($relevant_notes)" >
+      <xsl:variable name="this_note" select="."/>
+      <xsl:comment>searching  <xsl:value-of select="$this_note"/></xsl:comment>
+      <xsl:apply-templates select="$dom//t:note[@xml:id=$this_note]"/>
+
+    </xsl:for-each>
+    
+  </xsl:template>
   
-  
-  <xsl:template match="t:div[@type='mainColumn']/t:p">
+   <xsl:template match="t:div[@type='mainColumn']/t:p">
     <p style="width:50%;  float: left;">
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
       <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
     </p>
 
-    <xsl:variable name="relevant_notes"  as="xs:string *">
-      <xsl:for-each select="./t:ref[@type='author']/@target"><xsl:value-of select="substring-after(.,'#')"/></xsl:for-each>
-    </xsl:variable>
-
     <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
-      <xsl:for-each select="distinct-values($relevant_notes)" >
-        <xsl:variable name="this_note" select="."/>
-        <xsl:comment>searching  <xsl:value-of select="$this_note"/></xsl:comment>
-        <xsl:apply-templates select="$dom//t:note[@xml:id=$this_note]"/>
-      </xsl:for-each>
+      <xsl:call-template name="get-relevant-notes"/>
     </div>
 
     <div style="clear: both;">
