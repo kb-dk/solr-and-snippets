@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xsl:transform version="2.0"
-	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
-	       exclude-result-prefixes="t">
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:me="urn:my-things"
+               version="2.0"
+	       exclude-result-prefixes="t xs">
 
+  <xsl:variable name="dom" select="."/>
+  
   <xsl:template match="t:text[@type='ms' and subtype='journalsAndPapers']">
     <xsl:comment> text </xsl:comment>
     <div>
@@ -27,11 +31,7 @@
       </div>
       
       <xsl:apply-templates select="t:div[@type='mainColumn']"/>
-      <xsl:apply-templates select="t:div[@type='marginalColumn']"/>
-
-      <div style="clear: both;">
-
-      </div>
+     
     </div>
   </xsl:template>
 
@@ -51,16 +51,44 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type='mainColumn']">
-    <div style="width:50%;  float: left;">
-      <xsl:call-template name="add_id">
-	<xsl:with-param name="expose">true</xsl:with-param>
-      </xsl:call-template>
-      <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
+    <xsl:apply-templates />
+  </xsl:template>
+
+ <xsl:function name="me:paragraph-style">
+   <xsl:param name="style"/>
+   xxxx: yyyyy;
+    <xsl:choose>
+      <xsl:when test="$style"><xsl:value-of select="$style"/></xsl:when>
+      <xsl:otherwise></xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
+  
+  <xsl:template match="t:div[@type='mainColumn']/t:p">
+    <p style="width:50%;  float: left;">
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
+    </p>
+
+    <xsl:variable name="relevant_notes"  as="xs:string *">
+      <xsl:for-each select="./t:ref[@type='author']/@target"><xsl:value-of select="substring-after(.,'#')"/></xsl:for-each>
+    </xsl:variable>
+
+    <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
+      <xsl:for-each select="distinct-values($relevant_notes)" >
+        <xsl:variable name="this_note" select="."/>
+        <xsl:comment>searching  <xsl:value-of select="$this_note"/></xsl:comment>
+        <xsl:apply-templates select="$dom//t:note[@xml:id=$this_note]"/>
+      </xsl:for-each>
+    </div>
+
+    <div style="clear: both;">
+
     </div>
   </xsl:template>
 
-  <xsl:template match="t:div[@type='marginalColumn']">
+  <!-- xsl:template match="t:div[@type='marginalColumn']">
     <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
@@ -68,7 +96,7 @@
       <xsl:comment> div here <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
     </div>
-  </xsl:template>
+  </xsl:template -->
 
 
    
