@@ -5,7 +5,7 @@
     xmlns:t="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:me="urn:my-things"
-    exclude-result-prefixes="t me"
+    exclude-result-prefixes="t me fn t"
     version="2.0">
 
   <xsl:param name="id" select="''"/>
@@ -570,15 +570,6 @@
 	<xsl:apply-templates/>
       </xsl:element>
     </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="t:figure/t:head">
-    <p>
-      <xsl:call-template name="add_id"/>
-      <small>
-	<xsl:apply-templates/>
-      </small>
-    </p>
   </xsl:template>
 
   <xsl:template match="t:facsimile"><!-- the facsimile section shouldn't be rendered --></xsl:template>

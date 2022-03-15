@@ -17,7 +17,13 @@
     <xsl:param name="width">100%</xsl:param>
 
     <xsl:element name="img">
-      <xsl:attribute name="style"> width: <xsl:value-of select="$width"/>;</xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="$width !=  '0'">
+          <xsl:attribute name="style"> width: <xsl:value-of select="$width"/>;</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:attribute name="src">
 	<xsl:value-of select="concat($iip_baseuri,$graphic_uri,$iiif_suffix)"/>
       </xsl:attribute>
@@ -56,12 +62,12 @@
   </xsl:template>
 
   <xsl:template match="t:figure/t:head">
-    <p>
+    <span  style="clear:both;">
       <xsl:call-template name="add_id"/>
       <small>
 	<xsl:apply-templates/>
       </small>
-    </p>
+    </span>
   </xsl:template>
 
 

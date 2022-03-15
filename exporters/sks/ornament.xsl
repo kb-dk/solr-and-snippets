@@ -7,84 +7,84 @@
   </xsl:template>
 
   <xsl:template match="t:figure[@type='3crossesDown']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>+ &#160; +</xsl:text><br/>
       <xsl:text>+</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='3asterisksDown']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>* &#160; *</xsl:text><br/>
       <xsl:text>*</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='3asterisksUp']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>*</xsl:text><br/>
       <xsl:text>* &#160; *</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='hash' or @type='hashBlank']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>#</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='divisionRuler']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>──────────</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='hashSingleDouble']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>╪</xsl:text>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='divisionRulerDouble']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>══════════</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='divisionRulerWaved']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>∿∿∿∿∿∿∿∿∿</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='divisionRulerWavedPoint']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>∿∿∿∿∿∿∿∿∿.</xsl:text>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='dashDouble']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>═</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='2asterisks']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>* &#160; *</xsl:text><br/>
-    </p>
+    </div>
   </xsl:template>
 
  <xsl:template match="t:figure[@type='blank']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <br style="clear: both;"/>
-    </p>
+    </div>
   </xsl:template>
 
   <xsl:template match="t:figure[@type='hashEntwined']">
-    <p style="text-align:center;">
+    <div style="text-align:center;">
       <xsl:text>~&#160;$&#160;~</xsl:text>
-    </p>
+    </div>
   </xsl:template>
   
 </xsl:stylesheet>
