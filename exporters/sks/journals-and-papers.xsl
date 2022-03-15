@@ -65,7 +65,9 @@
       <xsl:variable name="this_note" select="."/>
       <xsl:comment>searching  <xsl:value-of select="$this_note"/></xsl:comment>
       <xsl:apply-templates select="$dom//t:note[@xml:id=$this_note]"/>
-
+      <xsl:for-each select="$dom//t:note[@xml:id=$this_note]">
+        <xsl:call-template name="get-relevant-notes"/>
+      </xsl:for-each>
     </xsl:for-each>
     
   </xsl:template>
