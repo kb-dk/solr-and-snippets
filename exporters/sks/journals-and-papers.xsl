@@ -64,7 +64,12 @@
   </xsl:template>
 
   <xsl:template match="t:div[@type='mainColumn']">
-    <xsl:apply-templates />
+    <xsl:apply-templates select="t:p"    />
+    <xsl:if test="t:note">
+      <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
+        <xsl:apply-templates select="t:note" />
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="get-relevant-notes">
@@ -84,17 +89,21 @@
     </xsl:for-each>
     
   </xsl:template>
-  
-   <xsl:template match="t:div[@type='mainColumn']/t:p">
+
+  <xsl:template match="t:div[@type='mainColumn']/t:p">
     <p style="width:50%;  float: left;">
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
       <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
     </p>
 
-    <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
-      <xsl:call-template name="get-relevant-notes"/>
-    </div>
+    <xsl:variable name="the_notes"><xsl:call-template name="get-relevant-notes"/></xsl:variable>
+
+    <xsl:if test="$the_notes">
+      <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
+        <xsl:copy-of select="$the_notes"/>
+      </div>
+    </xsl:if>
 
     <div style="clear: both;">
 
