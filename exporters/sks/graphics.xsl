@@ -48,7 +48,7 @@
       <!-- xsl:attribute name="style"> width: 90%; </xsl:attribute -->
       <xsl:apply-templates select="t:graphic"/>
       <xsl:apply-templates select="t:head"/> <xsl:comment> Blablalbabla </xsl:comment>
-   
+      <xsl:element name="br"/>
   </xsl:template>
   
   <xsl:template match="t:figure">
