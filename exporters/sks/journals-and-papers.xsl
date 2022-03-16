@@ -31,13 +31,24 @@
       <div style="clear: both;">
         <xsl:apply-templates select="t:dateline|t:p[@rend='decoration']"/>
       </div>
+
+
+      <xsl:if test="t:figure">
+        <div style="width:50%; float:left;">
+          <xsl:call-template name="add_id">
+	    <xsl:with-param name="expose">true</xsl:with-param>
+          </xsl:call-template>
+          <xsl:apply-templates select="t:figure"/>
+        </div>
+        <br style="clear:both;"/>
+      </xsl:if>
       
       <xsl:apply-templates select="t:div[@type='mainColumn']"/>
      
     </div>
   </xsl:template>
 
-  <xsl:template match="t:note[@type='author' and @place='margin']">
+  <xsl:template match="t:note[@type='author' and (@place='margin' or @place='bottom')]">
     <p>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
@@ -58,7 +69,7 @@
 
   <xsl:template name="get-relevant-notes">
     <xsl:variable name="relevant_notes"  as="xs:string *">
-      <xsl:for-each select="./t:ref[@type='author']/@target|./t:ptr[@type='author']/@target"><xsl:value-of select="substring-after(.,'#')"/></xsl:for-each>
+      <xsl:for-each select=".//t:ref[@type='author']/@target|.//t:ptr[@type='author']/@target"><xsl:value-of select="substring-after(.,'#')"/></xsl:for-each>
     </xsl:variable>
     <xsl:variable name="this_is_segment"><xsl:value-of select="@xml:id"/></xsl:variable>
 
