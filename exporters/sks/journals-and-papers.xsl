@@ -67,12 +67,14 @@
     <xsl:apply-templates select="t:p"    />
     <xsl:if test="t:note">
       <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
-        <xsl:apply-templates select="t:note" />
+        <xsl:apply-templates select="t:note[@place='bottom']" />
       </div>
     </xsl:if>
   </xsl:template>
 
   <xsl:template name="get-relevant-notes">
+    <xsl:param name="place" select="'margin'"/>
+    
     <xsl:variable name="relevant_notes"  as="xs:string *">
       <xsl:for-each select=".//t:ref[@type='author']/@target|.//t:ptr[@type='author']/@target"><xsl:value-of select="substring-after(.,'#')"/></xsl:for-each>
     </xsl:variable>
@@ -81,7 +83,7 @@
     <xsl:for-each select="distinct-values($relevant_notes)" >
       <xsl:variable name="this_note" select="."/>
       <xsl:comment>searching  <xsl:value-of select="$this_note"/></xsl:comment>
-      <xsl:apply-templates select="$dom//t:note[@xml:id=$this_note]"/>
+      <xsl:apply-templates select="$dom//t:note[@xml:id=$this_note][@place=$place]"/>
       <xsl:for-each select="$dom//t:note[@xml:id=$this_note]/t:p">
         <xsl:comment> found note <xsl:value-of select="$this_note"/> in segment <xsl:value-of select="$this_is_segment"/> </xsl:comment>
         <xsl:call-template name="get-relevant-notes"/>
@@ -97,7 +99,11 @@
       <xsl:apply-templates/>
     </p>
 
-    <xsl:variable name="the_notes"><xsl:call-template name="get-relevant-notes"/></xsl:variable>
+    <xsl:variable name="the_notes">
+      <xsl:call-template name="get-relevant-notes">
+        <xsl:with-param name="place">margin</xsl:with-param>
+      </xsl:call-template>
+    </xsl:variable>
 
     <xsl:if test="$the_notes">
       <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
