@@ -4,7 +4,8 @@
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
                xmlns:me="urn:my-things"
-               exclude-result-prefixes="t me fn t">
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               exclude-result-prefixes="t me fn t xs">
   
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
