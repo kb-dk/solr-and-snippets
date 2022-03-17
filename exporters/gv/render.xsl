@@ -214,23 +214,24 @@
     </xsl:variable>
 
     <xsl:if test="@n">
-      <xsl:element name="a">
-	<xsl:attribute name="title">Side: <xsl:value-of select="@n"/> <xsl:if test="@ed">(<xsl:value-of select="@ed"/>)</xsl:if></xsl:attribute>
-	<xsl:attribute name="class">pagination</xsl:attribute>
-	<xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
-	<xsl:call-template name="add_id"/>
-
-	<xsl:variable name="class">symbol pagination other</xsl:variable>
-
-	<xsl:element name="small">
-	  <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
-	  <xsl:value-of select="@n"/> <xsl:if test="@ed">
+      <xsl:element name="span">
+        <xsl:call-template name="add_id"/>
+        <xsl:element name="a">
+	  <xsl:attribute name="title">Side: <xsl:value-of select="@n"/> <xsl:if test="@ed">(<xsl:value-of select="@ed"/>)</xsl:if></xsl:attribute>
+	  <xsl:attribute name="class">pagination</xsl:attribute>
+	  <xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
+          <xsl:attribute name="id"><xsl:value-of select="concat('anchor',@xml:id)"/></xsl:attribute>
+	  <xsl:variable name="class">symbol pagination other</xsl:variable>
+	  <xsl:element name="small">
+	    <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
+	    <xsl:value-of select="@n"/> <xsl:if test="@ed">
             (<xsl:value-of select="@ed"/>)
           </xsl:if>
-	</xsl:element>
+	  </xsl:element>
+        </xsl:element>
+        <xsl:text> 
+        </xsl:text>
       </xsl:element>
-      <xsl:text> 
-      </xsl:text>
     </xsl:if>
 
   </xsl:template>
