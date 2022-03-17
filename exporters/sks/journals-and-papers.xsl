@@ -5,7 +5,7 @@
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:me="urn:my-things"
                version="2.0"
-	       exclude-result-prefixes="t xs">
+               exclude-result-prefixes="xs t me fn t">
 
   <xsl:param name="float_graphics" select="false()"/>
   

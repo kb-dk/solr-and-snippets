@@ -5,7 +5,8 @@
     xmlns:t="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
     xmlns:me="urn:my-things"
-    exclude-result-prefixes="t me fn t"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    exclude-result-prefixes="t me fn t xs"
     version="2.0">
 
   <xsl:param name="id" select="''"/>
