@@ -234,14 +234,14 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="t:milestone">
+  <!-- xsl:template match="t:milestone">
     <xsl:call-template name="witness">
       <xsl:with-param name="wit" select="@edRef"/>
     </xsl:call-template>
     <xsl:value-of select="@n"/>
     <xsl:text> 
     </xsl:text>
-  </xsl:template>
+  </xsl:template -->
 
   <xsl:template  mode="apparatus" match="t:witStart">
       <xsl:call-template name="render_before_after">

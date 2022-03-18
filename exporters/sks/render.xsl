@@ -35,7 +35,7 @@
    4992 SV3
 
   -->
-  <xsl:template match="t:pb">
+  <xsl:template match="t:pb|t:milestone">
    
 
       <xsl:variable name="witness">
