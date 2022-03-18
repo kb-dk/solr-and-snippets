@@ -656,8 +656,6 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:milestone"/>
-  
   <xsl:template match="t:pb">
     <xsl:variable name="first">
       <xsl:value-of select="count(preceding::t:pb[@facs])"/>
