@@ -372,6 +372,7 @@
       <xsl:call-template name="add_id_empty_elem"/>
       <xsl:attribute name="class">pageBreak</xsl:attribute>
       <xsl:element name="a">
+        <xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
 	<xsl:attribute name="data-no-turbolink">true</xsl:attribute>
 	<xsl:if test="$facslinks">
 	  <xsl:attribute name="href">
