@@ -31,7 +31,7 @@
   <xsl:param name="capabilities" select="''"/>
   <xsl:param name="cap" select="document($capabilities)"/>
 
-  <xsl:param name="sup_style">vertical-align: baseline; position: relative; bottom: .33em;</xsl:param>
+  <xsl:param name="sup_style">vertical-align: baseline; text-decoration: underline; position: relative; bottom: .33em;</xsl:param>
   <xsl:param name="sub_style">vertical-align: baseline; position: relative; bottom: -.33em;</xsl:param>
   
 
