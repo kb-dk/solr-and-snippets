@@ -749,7 +749,7 @@
   </xsl:template>
 
   <xsl:template match="t:adminInfo">
-<!-- Content model herej is 
+<!-- Content model here is 
      t:note|t:availability|t:custodialHist|t:recordHist|t:witDetail -->
     <div>
       <xsl:call-template name="add_id"/>
