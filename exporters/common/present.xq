@@ -19,6 +19,7 @@ declare variable  $path     := request:get-parameter("path","");
 
 declare variable  $frag     := paths:frag($path);
 declare variable  $c        := paths:c($path);
+declare variable  $xmlid   := request:get-parameter('xmlid','');
 declare variable  $document := paths:document($path);
 declare variable  $inferred_path := paths:inferred_path($path);
 
@@ -75,6 +76,7 @@ let $params :=
    <param name="id"        value="{$frag}"/>
    <param name="c"         value="{$c}"/>
    <param name="coll"      value="{$coll}"/>
+	 <param name="xmlid"     value="{$xmlid}"/>	
    <param name="auid"      value="{$author_id}"/>
    <param name="auid_used" value="{$auid}"/>
    <param name="au_url"    value="{$au_url}"/>

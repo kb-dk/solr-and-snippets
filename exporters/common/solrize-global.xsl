@@ -502,7 +502,7 @@
       <xsl:attribute name="name">id</xsl:attribute>
       <xsl:choose>
         <xsl:when test="@xml:id">
-          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+          <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',me:massage-uri-component(@xml:id))"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$path"/>
@@ -715,7 +715,7 @@
       <xsl:when test="@decls">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',@xml:id)"/>
+	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',me:massage-uri-component(@xml:id))"/>
 	</xsl:element>
 	<xsl:choose>
 	  <xsl:when test="ancestor::node()">
@@ -1163,7 +1163,11 @@ Dates of Publication and/or Sequential Designation
       </xsl:otherwise>
     </xsl:choose>
   </xsl:function>
-
+  
+  <xsl:function name="me:massage-uri-component">
+    <xsl:param name="string_value"/>
+    <xsl:value-of select="fn:replace($string_value,'\.','_')"/>
+  </xsl:function>
 
   <xsl:template name="inferred_path">
     <xsl:param name="document"/>
