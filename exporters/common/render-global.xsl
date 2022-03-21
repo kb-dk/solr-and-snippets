@@ -17,6 +17,7 @@
   <xsl:param name="next" select="''"/>
   <xsl:param name="next_encoded" select="''"/>
   <xsl:param name="c" select="''"/>
+  <xsl:param name="xmlid" select="''"/>
   <xsl:param name="hostname" select="''"/>
   <xsl:param name="hostport" select="''"/>
   <xsl:param name="adl_baseuri">
@@ -42,11 +43,15 @@
       <xsl:attribute name="style">margin-top: 1em;</xsl:attribute>
       <xsl:choose>
         <xsl:when test="$id">
-	  <xsl:for-each select="//node()[$id=@xml:id]">
+	  <xsl:for-each select="//node()[$id=@xml:id or $xmlid=@xml:id]">
             <xsl:comment>
               Doing shoot snippet
-              element: <xsl:value-of select="local-name(.)"/><xsl:text> </xsl:text>
-              id: <xsl:value-of select="@xml:id"/><xsl:text> </xsl:text>
+              element: <xsl:value-of select="local-name(.)"/><xsl:text>
+            </xsl:text>
+            id: <xsl:value-of select="@xml:id"/><xsl:text>
+            </xsl:text>
+            xml_id: <xsl:value-of select="$xmlid"/><xsl:text>
+            </xsl:text>
               type: <xsl:value-of select="@type"/>
             </xsl:comment>
 	    <xsl:apply-templates select="."/>
@@ -801,6 +806,11 @@
     </xsl:choose>
   </xsl:function>
 
+  <xsl:function name="me:massage-uri-component">
+    <xsl:param name="string_value"/>
+    <xsl:value-of select="fn:replace($string_value,'\.','_')"/>
+  </xsl:function>
+  
   <xsl:template name="expose_link">
     <xsl:variable name="link_id">
       <xsl:value-of select="concat('expose_link_',@xml:id)"/>
@@ -817,15 +827,17 @@
 	  <xsl:choose>
 	    <xsl:when test="ancestor::node()[@decls][1]/@xml:id">
 	      <xsl:value-of 
-		  select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',ancestor::node()[@decls][1]/@xml:id)"/>
+		  select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',me:massage-uri-component(
+ancestor::node()[@decls][1]/@xml:id))"/>
 	    </xsl:when>
 	    <xsl:otherwise>
-	      <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-root#',@xml:id)"/>
+	      <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-root#',me:massage-uri-component(@xml:id))"/>
 	    </xsl:otherwise>
 	  </xsl:choose>
 	</xsl:when>
 	<xsl:otherwise>
-	  <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',@xml:id)"/>
+	  <xsl:value-of select="concat($adl_baseuri,'/text/',substring-before($path,$type),'-shoot-',me:massage-uri-component(
+@xml:id))"/>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>

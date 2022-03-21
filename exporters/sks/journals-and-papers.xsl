@@ -35,9 +35,7 @@
 
       <xsl:if test="t:figure">
         <div style="width:50%; float:left;">
-          <xsl:call-template name="add_id">
-	    <xsl:with-param name="expose">true</xsl:with-param>
-          </xsl:call-template>
+          <xsl:call-template name="add_id"/>
           <xsl:apply-templates select="t:figure"/>
         </div>
         <br style="clear:both;"/>
@@ -94,7 +92,10 @@
 
   <xsl:template match="t:div[@type='mainColumn']/t:p">
     <p style="width:50%;  float: left;">
-      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">true</xsl:with-param>
+      </xsl:call-template>
+      <!-- xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute -->
       <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
     </p>
