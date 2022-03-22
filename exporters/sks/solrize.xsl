@@ -11,9 +11,9 @@
   <xsl:param name="is_monograph">yes</xsl:param>
 
   <xsl:param name="volume_title">
-    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@level='s']">
-      <xsl:apply-templates mode="gettext"  select="."/>
-    </xsl:for-each>
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:seriesStmt">
+      <xsl:value-of  select="normalize-space(t:title)"/>, Bd. <xsl:value-of select="normalize-space(t:biblScope[@unit='volume'])"/>
+    </xsl:for-each>    
   </xsl:param>
 
   <xsl:param name="worktitle">
