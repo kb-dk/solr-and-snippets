@@ -476,7 +476,7 @@
 	      <xsl:value-of select="$witnesses//t:witness[@xml:id=$witness]"/>
 	    </xsl:attribute>
 	    <xsl:value-of select="normalize-space($witness)"/></xsl:element><xsl:choose><xsl:when test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:when></xsl:choose><xsl:comment> witness </xsl:comment></xsl:when>
-        <xsl:otherwise><xsl:element name="em"><xsl:value-of select="$wit"/></xsl:element></xsl:otherwise></xsl:choose>
+        <xsl:otherwise><xsl:element name="em"><xsl:value-of select="$witness"/></xsl:element></xsl:otherwise></xsl:choose>
       </xsl:for-each>
 
   </xsl:template>
