@@ -10,28 +10,17 @@
   <xsl:param name="float_graphics" select="false()"/>
   
   <xsl:variable name="dom" select="."/>
-  
-  <xsl:template match="t:text[@type='ms' and subtype='journalsAndPapers']">
-    <xsl:comment> text </xsl:comment>
-    <div>
-      <xsl:call-template name="add_id">
-	<xsl:with-param name="expose">true</xsl:with-param>
-      </xsl:call-template>
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
 
   <xsl:template match="t:div[@type='entry']">
     <div>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
       </xsl:call-template>
-      <xsl:comment> entry in div here <xsl:value-of select="@decls"/> </xsl:comment>
+      <xsl:comment> entry in div found here <xsl:value-of select="@decls"/> </xsl:comment>
 
       <div style="clear: both;">
         <xsl:apply-templates select="t:dateline|t:p[@rend='decoration']"/>
       </div>
-
 
       <xsl:if test="t:figure">
         <div style="width:50%; float:left;">
@@ -40,9 +29,11 @@
         </div>
         <br style="clear:both;"/>
       </xsl:if>
-      
-      <xsl:apply-templates select="t:div[@type='mainColumn']"/>
-     
+
+      <xsl:for-each select="t:div">
+        <!-- xsl:apply-templates select="t:div[@type='mainColumn']"/ -->
+        <xsl:call-template name="main_column_div"/>
+      </xsl:for-each>
     </div>
   </xsl:template>
 
@@ -61,8 +52,13 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:div[@type='mainColumn']">
-    <xsl:apply-templates select="t:p"    />
+  <xsl:template name="main_column_div" match="t:div[@type='mainColumn']">
+
+    <xsl:for-each select="t:p">
+      <xsl:comment> a paragraph inside a main column </xsl:comment>
+      <xsl:call-template name="main_column_paragraph" />
+    </xsl:for-each>
+    
     <xsl:if test="t:note">
       <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
         <xsl:apply-templates select="t:note[@place='bottom']" />
@@ -90,12 +86,11 @@
     
   </xsl:template>
 
-  <xsl:template match="t:div[@type='mainColumn']/t:p">
+  <xsl:template  name="main_column_paragraph" match="t:div[@type='mainColumn']/t:p">
     <p style="width:50%;  float: left;">
-      <xsl:call-template name="add_id">
-	<xsl:with-param name="expose">true</xsl:with-param>
-      </xsl:call-template>
-      <!-- xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute -->
+      <!-- xsl:call-template name="add_id">
+      </xsl:call-template -->
+      <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
       <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
     </p>

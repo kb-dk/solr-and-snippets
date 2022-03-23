@@ -79,7 +79,7 @@
   </xsl:template>
 
   <xsl:template match="t:text">
-    <xsl:comment> text </xsl:comment>
+    <xsl:comment> global text template </xsl:comment>
     <div>
       <xsl:call-template name="add_id">
 	<xsl:with-param name="expose">true</xsl:with-param>
