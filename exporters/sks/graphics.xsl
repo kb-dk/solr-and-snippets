@@ -6,7 +6,6 @@
 	       exclude-result-prefixes="t">
 
   <xsl:import href="../graphics-global.xsl"/>
-  <xsl:param name="float_graphics"/>
   
   <xsl:template name="sks_page_specimen">
     <xsl:element name="div">
