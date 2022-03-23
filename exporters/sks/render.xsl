@@ -6,15 +6,15 @@
                xmlns:me="urn:my-things"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                exclude-result-prefixes="t me fn t xs">
-  
+
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
-  <xsl:import href="./all_kinds_of_notes.xsl"/>
-  <xsl:import href="./journals-and-papers.xsl"/>
+
   <xsl:import href="./graphics.xsl"/>
-
-
   <xsl:import href="./ornament.xsl"/>
+  
+  <xsl:import href="./journals-and-papers.xsl"/>
+  <xsl:import href="./all_kinds_of_notes.xsl"/>
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
@@ -35,8 +35,52 @@
    4992 SV3
 
   -->
+<!-- 
+
+ $ xpath -e '//text/@type|//text/@subtype' */txt.xml 2> /dev/null | grep -v subtype | grep type | sort | uniq -c
+    132  type="ms"
+     80  type="print"
+ $ xpath -e '//text[@type="ms"]/@subtype' */txt.xml 2> /dev/null | sort | uniq -c
+      1  subtype="documents"
+    109  subtype="journalsAndPapers"
+     15  subtype="lettersAndDedications"
+      7  subtype="unpublishedWritings"
+ $ xpath -e '//text[@type="print"]/@subtype' */txt.xml 2> /dev/null | sort | uniq -c
+     78  subtype="publishedWritings"
+      2  subtype="unpublishedWritings"
+
+-->
+  
+  <xsl:template match="t:text[@type='ms']">
+    <xsl:comment> ms text </xsl:comment>
+    <div>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">true</xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="t:text[@type='print']">
+    <xsl:comment> print text </xsl:comment>
+    <div>
+      <xsl:call-template name="add_id">
+	<xsl:with-param name="expose">true</xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="t:text[@type='ms']/t:body">
+    <xsl:comment> ms body </xsl:comment>
+    <div>
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:div[@type='entry']"/>
+    </div>
+  </xsl:template>
+ 
+  
   <xsl:template match="t:pb|t:milestone">
-   
 
       <xsl:variable name="witness">
 	<xsl:value-of select="replace(@edRef,'#','')"/>
