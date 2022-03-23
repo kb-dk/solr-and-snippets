@@ -10,11 +10,11 @@
   <xsl:import href="../render-global.xsl"/>
   <xsl:import href="../apparatus-global.xsl"/>
 
-  <xsl:import href="./graphics.xsl"/>
-  <xsl:import href="./ornament.xsl"/>
+  <xsl:include href="./graphics.xsl"/>
+  <xsl:include href="./ornament.xsl"/>
   
-  <xsl:import href="./journals-and-papers.xsl"/>
-  <xsl:import href="./all_kinds_of_notes.xsl"/>
+  <xsl:include href="./journals-and-papers.xsl"/>
+  <xsl:include href="./all_kinds_of_notes.xsl"/>
 
   <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyzæøåöäü'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅÖÄÜ'" />
@@ -244,8 +244,6 @@
       <xsl:apply-templates/>
     </strong>
   </xsl:template>
-
-  <xsl:template match="t:figure[@type='blank']"/>
 
   <xsl:template match="t:div[t:head[@n='titelblad' or @n='motto' or @n='smudstitelblad' ]]">
     <div>
