@@ -59,9 +59,9 @@
       <xsl:call-template name="main_column_paragraph" />
     </xsl:for-each>
     
-    <xsl:if test="t:note">
+    <xsl:if test=".//t:note[@place='bottom']">
       <div style="width:40%; margin-left: 8%; float: left;font-size:90%;">
-        <xsl:apply-templates select="t:note[@place='bottom']" />
+        <xsl:apply-templates select=".//t:note[@place='bottom']" />
       </div>
     </xsl:if>
   </xsl:template>
@@ -87,7 +87,6 @@
 
   <xsl:template  name="main_column_paragraph" match="t:div[@type='mainColumn']/t:p">
     <p style="width:50%;  float: left;">
-     
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
       <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
