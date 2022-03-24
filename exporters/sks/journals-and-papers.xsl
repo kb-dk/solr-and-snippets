@@ -87,6 +87,7 @@
 
   <xsl:template  name="main_column_paragraph" match="t:div[@type='mainColumn']/t:p">
     <p style="width:50%;  float: left;">
+      <!-- xsl:call-template name="add_id"/ -->
       <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
       <xsl:comment> div here yyyyyyy xxxxxx <xsl:value-of select="@decls"/> </xsl:comment>
       <xsl:apply-templates/>
