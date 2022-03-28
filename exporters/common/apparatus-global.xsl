@@ -70,7 +70,19 @@
     </del>
   </xsl:template>
 
-  <xsl:template mode="apparatus" match="t:add|t:del">
+  <xsl:template mode="apparatus" match="t:lem/t:add">
+    <span title="{local-name(.)}">
+      <xsl:call-template name="render_before_after">
+	<xsl:with-param name="scope">before</xsl:with-param>
+      </xsl:call-template>
+      <xsl:apply-templates  mode="apparatus"/><xsl:text>] </xsl:text>
+      <xsl:call-template name="render_before_after">
+	<xsl:with-param name="scope">after</xsl:with-param>
+      </xsl:call-template>
+    </span>
+  </xsl:template>
+
+  <xsl:template mode="apparatus" match="t:lem/t:del">
     <span title="{local-name(.)}">
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
@@ -82,6 +94,8 @@
     </span>
   </xsl:template>
 
+
+  
   <xsl:template match="t:supplied"><span title="Supplering"><xsl:call-template name="add_id"/>[<xsl:apply-templates/>]</span></xsl:template>
   <xsl:template match="t:unclear"><span title="unclear"><xsl:call-template name="add_id"/><xsl:apply-templates/></span></xsl:template>
   <xsl:template mode="apparatus" match="t:unclear"><span title="unclear">&lt;<xsl:apply-templates/>&gt;</span></xsl:template>
@@ -296,10 +310,20 @@
   <xsl:template mode="apparatus" match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="apparatus"/><xsl:text>] </xsl:text>
-      <xsl:call-template name="render_before_after">
-	<xsl:with-param name="scope">before</xsl:with-param>
-      </xsl:call-template>
+      <xsl:choose>
+        <xsl:when test="t:add">
+          <xsl:apply-templates mode="apparatus" select="t:add"/>
+          <xsl:call-template name="render_before_after">
+	    <xsl:with-param name="scope">before</xsl:with-param>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates mode="apparatus"/><xsl:text>] </xsl:text>
+          <xsl:call-template name="render_before_after">
+	    <xsl:with-param name="scope">before</xsl:with-param>
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="lemmabody"/>
     </xsl:element>
   </xsl:template>
