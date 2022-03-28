@@ -75,7 +75,7 @@
     <xsl:comment> ms body </xsl:comment>
     <div>
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates select="t:div[@type='entry']"/>
+      <xsl:apply-templates/>
     </div>
   </xsl:template>
  
