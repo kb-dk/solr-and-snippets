@@ -26,7 +26,7 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template  mode="get_lists" match="t:group|t:body|t:text|t:div|t:lg|t:front|t:back">
     <xsl:choose>
-      <xsl:when test="@decls|./t:head[node()]|./t:p">
+      <xsl:when test="./t:head|./t:p|./t:l">
         <xsl:variable name="item">
           <xsl:call-template name="add_anchor"/>
         </xsl:variable>
@@ -49,6 +49,9 @@ Author Sigfrid Lundberg slu@kb.dk
             <xsl:copy-of select="$date_number"/><xsl:text> </xsl:text><xsl:call-template name="add_anchor"/>
           </li>
         </xsl:if>
+         <xsl:if test="not(contains(@type,'entry')) and (.//t:group|.//t:body|.//t:text|.//t:div)">
+              <ul><xsl:apply-templates mode="get_lists"/></ul>
+         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
         <xsl:if test=".//t:group|.//t:body|.//t:text|.//t:div">
@@ -57,5 +60,68 @@ Author Sigfrid Lundberg slu@kb.dk
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:template name="add_anchor">
+  
+    <xsl:variable name="title">
+      <xsl:choose>
+	<xsl:when test="t:head">
+          <xsl:for-each select="t:head">
+            <xsl:if test="@n"><xsl:apply-templates select="@n"/></xsl:if>
+            <xsl:if test="node()"><xsl:apply-templates select="."/></xsl:if>
+          </xsl:for-each>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:variable name="some_text">
+	    <xsl:call-template name="some_text"/>
+	  </xsl:variable>
+	  <xsl:value-of
+	      select="substring(normalize-space($some_text/string()),1,30)"/>
+	  <xsl:if test="string-length(normalize-space($some_text/string())) &gt; 30"><xsl:text>...</xsl:text></xsl:if>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:variable name="href"><xsl:call-template name="make_href"/></xsl:variable>
+
+    <xsl:if test="string-length($title) &gt; 0">
+      <xsl:element name="a">
+        <xsl:attribute name="href">
+	  <xsl:call-template name="make_href"/>
+        </xsl:attribute>
+        <xsl:value-of select="$title"/>
+      </xsl:element>
+    </xsl:if>
+
+  </xsl:template>
+
+  <xsl:template name="some_text">
+    <xsl:variable name="head_text">
+      <xsl:for-each select=".//t:head[node()]">
+        <xsl:apply-templates/> qqqqqqq
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test=".//t:head[node()]">
+        <xsl:value-of select="$head_text"/>  uuuuuuu
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test=".//text()">
+            <xsl:value-of select=".//text()"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="following::text()"/> vvvvvvvvvvvvvvv
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
+  <xsl:template match="t:app">
+    <xsl:apply-templates  select="t:lem//text()"/> 
+  </xsl:template>
+
   
 </xsl:transform>
