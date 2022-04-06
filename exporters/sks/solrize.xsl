@@ -8,6 +8,29 @@
   <xsl:import href="../solrize-global.xsl"/>
   <xsl:param name="subcollection" select="'sks'"/>  
 
+<!--
+
+//t:div[type='letter' and corresp='#letter-ref']
+
+types of divs with frequencies
+
+xpath -q -e '//div/@type' */txt.xml | sort | uniq -c | sort -n
+      5  type="dateline"
+     22  type="work"
+     36  type="label"
+     85  type="correspondance"
+    120  type="dedication"
+    336  type="letter"
+    472  type="mainText"
+    872  type="chapter"
+   1125  type="marginalColumn"
+   7392  type="entry"
+   7425  type="mainColumn"
+
+letter, dedication & entry are candidates for individual "work status" (many of them has dates)
+
+-->
+
   <xsl:param name="is_monograph">yes</xsl:param>
 
   <xsl:param name="volume_title">
