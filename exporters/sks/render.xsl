@@ -133,6 +133,17 @@
       </xsl:if>
   </xsl:template>
 
+  <xsl:template match="t:ref[contains(@target,'../kort')]">
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+	<xsl:value-of
+            select="concat('sks-kort-kom-shoot-',
+                            lower-case(substring-before(substring-after(@target/string(),'../kort/'),'.htm')))"/>
+      </xsl:attribute> 
+      <xsl:apply-templates/>
+    </xsl:element>
+  </xsl:template>
+  
   <xsl:template match="t:rs[@type='bible']">
     <xsl:variable name="entity">
       <xsl:choose>
