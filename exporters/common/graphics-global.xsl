@@ -25,7 +25,14 @@
         </xsl:otherwise>
       </xsl:choose>
       <xsl:attribute name="src">
-	<xsl:value-of select="concat($iip_baseuri,$graphic_uri,$iiif_suffix)"/>
+        <xsl:choose>
+          <xsl:when test="fn:contains($graphic_uri,'http') and fn:contains($graphic_uri,'jpg')">
+            <xsl:value-of select="$graphic_uri"/>
+          </xsl:when>
+          <xsl:otherwise>
+	    <xsl:value-of select="concat($iip_baseuri,$graphic_uri,$iiif_suffix)"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
     </xsl:element>
@@ -36,8 +43,15 @@
     <xsl:if test="@url">
       <xsl:call-template name="render_graphic">
 	<xsl:with-param name="graphic_uri">
+          <xsl:choose>
+            <xsl:when test="contains(@url,'http')">
+              <xsl:value-of select="@url"/>
+            </xsl:when>
+            <xsl:otherwise>
 	  <xsl:value-of 
 	      select="substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg')"/>
+            </xsl:otherwise>
+          </xsl:choose>
 	</xsl:with-param>
       </xsl:call-template>
     </xsl:if>
