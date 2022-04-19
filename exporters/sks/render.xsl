@@ -23,7 +23,7 @@
 
   <xsl:variable name="sks_acronym" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@type='short']"/>
 
-  <xsl:variable name="volume_number"><xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:seriesStmt"><xsl:value-of select="normalize-space(t:biblScope[@unit='volume'])"/></xsl:for-each></xsl:variable>
+  <xsl:variable name="volume_number"><xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:seriesStmt"><xsl:value-of select="replace(normalize-space(t:biblScope[@unit='volume']),'K','')"/></xsl:for-each></xsl:variable>
 
   <!-- 
        These are the @edRefs found on page breaks in SKS
