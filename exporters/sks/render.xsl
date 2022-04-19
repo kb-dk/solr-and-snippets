@@ -23,6 +23,8 @@
 
   <xsl:variable name="sks_acronym" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@type='short']"/>
 
+  <xsl:variable name="volume_number"><xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:seriesStmt"><xsl:value-of select="normalize-space(t:biblScope[@unit='volume'])"/></xsl:for-each></xsl:variable>
+
   <!-- 
        These are the @edRefs found on page breaks in SKS
 
@@ -279,8 +281,11 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="t:label">
+  <xsl:template match="t:note[@type='commentary']/t:label">
     <xsl:param name="anchor" select="../@xml:id"/>
+
+    <xsl:variable name="n_val"><xsl:value-of select="../@n"/></xsl:variable>
+    
     <xsl:choose>
       <xsl:when test="contains($path,'kom')">
         <xsl:variable name="p">
@@ -294,9 +299,16 @@
             <xsl:attribute name="href">
               <xsl:value-of select="$href"/> 
             </xsl:attribute>
-             &#9668; <xsl:apply-templates/>
+            &#9668;
+            <xsl:if test="$volume_number and $n_val">
+              <span title="Bindnr., Sidenr., Linjenr."><xsl:value-of select="concat($volume_number,',',$n_val)"/></span><xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:apply-templates/>
           </a>
         </span>
+        <xsl:comment>
+          n_val = <xsl:value-of select="$n_val"/>
+        </xsl:comment>
       </xsl:when>
       <xsl:otherwise>
         <span><xsl:call-template name="add_id_empty_elem"/><xsl:apply-templates/><xsl:value-of select="$anchor"/></span><xsl:text>

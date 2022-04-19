@@ -299,10 +299,10 @@
   <xsl:template mode="text" match="t:lem">
     <xsl:param name="data_anchor" select="''"/>
     <xsl:element name="span">
-      <xsl:call-template name="add_id"/>
       <xsl:if test="$data_anchor">
         <xsl:attribute name="data-anchor"><xsl:value-of select="$data_anchor"/></xsl:attribute>
       </xsl:if>
+      <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
