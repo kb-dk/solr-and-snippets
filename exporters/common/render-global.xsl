@@ -33,6 +33,8 @@
   <xsl:param name="capabilities" select="''"/>
   <xsl:param name="cap" select="document($capabilities)"/>
 
+  <xsl:param name="volume_number" select="''"/>
+  
   <xsl:output method="xml"
 	      encoding="UTF-8" />
 
