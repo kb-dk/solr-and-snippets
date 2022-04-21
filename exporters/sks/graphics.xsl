@@ -3,7 +3,8 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
-	       exclude-result-prefixes="t">
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	       exclude-result-prefixes="t xs">
 
   <xsl:import href="../graphics-global.xsl"/>
   
@@ -67,6 +68,74 @@
     </xsl:element>
   </xsl:template>
 
+
+  <xsl:template match="t:figure[contains(t:graphic/@url,'sks/kort')]">
+    <xsl:analyze-string select="t:graphic/@url" regex="(ber|kbh|kbhf|kbho|dk|nordsj)/(\d+),(\d+),(\d+),(\d+)/">
+      <xsl:matching-substring>
+        <xsl:variable name="map"   as="xs:string"  select="regex-group(1)"/>
+        <xsl:variable name="xpos"  as="xs:double" select="number(regex-group(2))"/>
+        <xsl:variable name="ypos"  as="xs:double" select="number(regex-group(3))"/>
+        <xsl:variable name="width" as="xs:double" select="number(regex-group(4))"/>
+        <xsl:variable name="height" as="xs:double" select="number(regex-group(5))"/>
+
+        <xsl:variable name="size_x">
+          <xsl:choose>
+            <xsl:when test="$map = 'ber'">6900</xsl:when>
+            <xsl:when test="$map = 'kbh'">5003</xsl:when>
+            <xsl:when test="$map = 'kbhf'">4931</xsl:when>
+            <xsl:when test="$map = 'kbho'">5024</xsl:when>
+            <xsl:when test="$map = 'dk'">2607</xsl:when>
+            <xsl:when test="$map = 'nordsj'">3485</xsl:when>
+          </xsl:choose>
+        </xsl:variable>
+
+        <xsl:variable name="size_y">
+          <xsl:choose>
+            <xsl:when test="$map = 'ber'">5206</xsl:when>
+            <xsl:when test="$map = 'kbh'">4181</xsl:when>
+            <xsl:when test="$map = 'kbhf'">4432</xsl:when>
+            <xsl:when test="$map = 'kbho'">4929</xsl:when>
+            <xsl:when test="$map = 'dk'">3367</xsl:when>
+            <xsl:when test="$map = 'nordsj'">3979</xsl:when>
+          </xsl:choose>
+        </xsl:variable>
+        
+          <div>
+            <xsl:attribute name="style">width:<xsl:value-of select="$size_x"/>px; height:<xsl:value-of select="$size_y"/>px;
+background-image: <xsl:value-of select="concat('url(https://kb-images.kb.dk/public/tekstportal/sks/kort/',$map,'/full/full/0/default.jpg)')"/>;</xsl:attribute>
+
+            <div>
+              <xsl:attribute name="style">position: absolute;
+border:75px blue solid;
+left: <xsl:value-of select="$xpos"/>px;
+top:<xsl:value-of select="$size_y - $ypos - $height"/>px;
+width:<xsl:value-of select="$width"/>px;
+height:<xsl:value-of select="$height"/>px;
+background-color:transparent;
+opacity: 0.4;
+filter: alpha(opacity=20);</xsl:attribute>
+
+            <xsl:comment>
+
+              map=<xsl:value-of select="$map"   />
+              
+              xpos=<xsl:value-of select="$xpos"  />
+              
+              ypos=<xsl:value-of select="$ypos"  />
+              
+              width=<xsl:value-of select="$width" />
+              
+              height=<xsl:value-of select="$height" />
+              
+            </xsl:comment>
+            </div>
+          </div>
+
+      </xsl:matching-substring>
+    </xsl:analyze-string>
+  </xsl:template>
+
+  
   <xsl:template name="float_direction">
     <xsl:choose>
       <xsl:when test="count(preceding::t:graphic|preceding::t:pb[@facs]) mod 2">left</xsl:when>
