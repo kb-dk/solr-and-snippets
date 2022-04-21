@@ -99,18 +99,19 @@
             <xsl:when test="$map = 'nordsj'">3979</xsl:when>
           </xsl:choose>
         </xsl:variable>
-        
+
+        <xsl:variable name="line_width">10</xsl:variable>
           <div>
             <xsl:attribute name="style">width:<xsl:value-of select="$size_x"/>px; height:<xsl:value-of select="$size_y"/>px;
 background-image: <xsl:value-of select="concat('url(https://kb-images.kb.dk/public/tekstportal/sks/kort/',$map,'/full/full/0/default.jpg)')"/>;</xsl:attribute>
 
             <div>
               <xsl:attribute name="style">position: absolute;
-border:75px blue solid;
+border:<xsl:value-of select="$line_width"/>px blue solid;
 left: <xsl:value-of select="$xpos"/>px;
-top:<xsl:value-of select="$size_y - $ypos - $height"/>px;
-width:<xsl:value-of select="$width"/>px;
-height:<xsl:value-of select="$height"/>px;
+top:<xsl:value-of select="$size_y - $ypos - $height - $line_width"/>px;
+width:<xsl:value-of select="$width  + $line_width"/>px;
+height:<xsl:value-of select="$height + $line_width"/>px;
 background-color:transparent;
 opacity: 0.4;
 filter: alpha(opacity=20);</xsl:attribute>
