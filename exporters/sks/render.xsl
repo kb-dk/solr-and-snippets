@@ -135,6 +135,15 @@
       </xsl:if>
   </xsl:template>
 
+  <!-- 
+       ber    6900x5206 
+       kbh    5003x4181 
+       kbhf   4931x4432
+       kbho   5024x4929
+       dk     2607x3367
+       nordsj 3485x3979
+  -->
+  
   <xsl:template match="t:ref[contains(@target,'../kort')]">
     <xsl:element name="a">
       <xsl:attribute name="href">
