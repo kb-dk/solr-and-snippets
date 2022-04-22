@@ -78,6 +78,8 @@
         <xsl:variable name="width" as="xs:double" select="number(regex-group(4))"/>
         <xsl:variable name="height" as="xs:double" select="number(regex-group(5))"/>
 
+        <xsl:variable name="pct"  as="xs:double" select="number(0.15)"/>
+        
         <xsl:variable name="size_x">
           <xsl:choose>
             <xsl:when test="$map = 'ber'">6900</xsl:when>
@@ -100,18 +102,29 @@
           </xsl:choose>
         </xsl:variable>
 
-        <xsl:variable name="line_width">10</xsl:variable>
-          <div>
-            <xsl:attribute name="style">width:<xsl:value-of select="$size_x"/>px; height:<xsl:value-of select="$size_y"/>px;
-background-image: <xsl:value-of select="concat('url(https://kb-images.kb.dk/public/tekstportal/sks/kort/',$map,'/full/full/0/default.jpg)')"/>;</xsl:attribute>
+        <xsl:variable name="iiif">
+          <xsl:choose>
+            <xsl:when test="$pct &gt; 0.99">
+              <xsl:value-of select="concat('https://kb-images.kb.dk/public/tekstportal/sks/kort/',$map,'/full/full/0/default.jpg')"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="concat('https://kb-images.kb.dk/public/tekstportal/sks/kort/',$map,'/full/pct:', 100 * $pct  ,'/0/default.jpg')"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        
+        <xsl:variable name="line_width">5</xsl:variable>
+        <div>
+          <xsl:attribute name="style">width:<xsl:value-of select="$pct * $size_x"/>px; height:<xsl:value-of select="$pct * $size_y"/>px;
+background-image: url(<xsl:value-of select="$iiif"/>);</xsl:attribute>
 
             <div>
               <xsl:attribute name="style">position: absolute;
 border:<xsl:value-of select="$line_width"/>px blue solid;
-left: <xsl:value-of select="$xpos"/>px;
-top:<xsl:value-of select="$size_y - $ypos - $height - $line_width"/>px;
-width:<xsl:value-of select="$width  + $line_width"/>px;
-height:<xsl:value-of select="$height + $line_width"/>px;
+left: <xsl:value-of select="$pct * $xpos"/>px;
+top:<xsl:value-of select="$pct * ($size_y - $ypos - $height) - $line_width"/>px;
+width:<xsl:value-of select="$pct * $width  + $line_width"/>px;
+height:<xsl:value-of select="$pct * $height + $line_width"/>px;
 background-color:transparent;
 opacity: 0.4;
 filter: alpha(opacity=20);</xsl:attribute>
