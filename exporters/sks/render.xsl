@@ -289,7 +289,7 @@
     <xsl:choose>
       <xsl:when test="contains($path,'kom')">
         <xsl:variable name="p">
-          <xsl:value-of select="replace($path,'(kom)','txt')"/>
+          <xsl:value-of select="replace($path,'(e?kom)','txt')"/>
         </xsl:variable>
         <xsl:variable name="href">
           <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>
