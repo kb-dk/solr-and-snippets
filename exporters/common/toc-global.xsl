@@ -74,6 +74,8 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:apply-templates/>
   </xsl:template>
 
+  <xsl:template match="t:note"/>
+  
   <xsl:template name="add_anchor">
     <xsl:variable name="bibl">
       <xsl:choose>
