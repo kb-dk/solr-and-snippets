@@ -617,6 +617,8 @@
        want to be able to sort the result set. In the original dkbreve
        the titles were generated in the rails frontend -->
 
+  <xsl:template match="t:respStmt/t:name"><xsl:value-of select="t:surname"/><xsl:if test="t:surname[text()] and t:forename[text()]"><xsl:text>, </xsl:text></xsl:if><xsl:value-of select="t:forename"/></xsl:template>
+  
   <xsl:template name="generate_title">
     <xsl:param name="bibl" select="''"/>
     
@@ -628,12 +630,16 @@
           
           <xsl:for-each select="t:respStmt[contains(t:resp,'recipient') and t:name//text()][1]">
             <xsl:text> TIL: </xsl:text>
-            <xsl:value-of select="t:name"/>
+            <xsl:for-each select="t:name">
+              <xsl:apply-templates select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+            </xsl:for-each>
           </xsl:for-each>
 
-            <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
+          <xsl:for-each select="t:respStmt[contains(t:resp,'sender') and t:name//text()]">
             <xsl:text> FRA: </xsl:text>
-            <xsl:value-of select="t:name"/>
+            <xsl:for-each select="t:name">
+              <xsl:apply-templates select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+            </xsl:for-each>
           </xsl:for-each>
 
 	  <xsl:for-each select="t:date[string()]">

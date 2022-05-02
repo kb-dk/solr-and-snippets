@@ -175,13 +175,6 @@
 	  <xsl:apply-templates mode="note_body" select="t:p"/>
 	</xsl:element>
       </xsl:when>
-      <!-- this is SKS -->
-      <xsl:when test="@type='commentary'">
-	<xsl:element name="p">
-	  <xsl:call-template name="add_id"/>
-	  <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
-	</xsl:element>
-      </xsl:when>
       <xsl:otherwise>
 	<xsl:call-template name="inline_note"/>
       </xsl:otherwise>

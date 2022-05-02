@@ -290,6 +290,42 @@
     </xsl:call-template>
   </xsl:template>
 
+
+  <xsl:template match="t:note[@type='commentary'][t:label]">
+    <xsl:variable name="anchor" select="@xml:id"/>
+    <xsl:variable name="n_val"><xsl:value-of select="@n"/></xsl:variable>
+
+    <xsl:variable name="p">
+      <xsl:value-of select="replace($path,'(e?kom)','txt')"/>
+    </xsl:variable>
+    <xsl:variable name="href">
+      <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>
+    </xsl:variable>
+    
+    <xsl:comment> this is done in render.xsl </xsl:comment>
+    <xsl:element name="p">
+      <xsl:call-template name="add_id"/>
+      <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
+
+      <xsl:if test="$volume_number and $n_val">
+        <br/>
+        I trykt udgave
+        <a data-dismiss="modal">
+          <xsl:attribute name="href">
+            <xsl:value-of select="$href"/> 
+          </xsl:attribute>
+          <small>
+            <span title="Bind">Bind <xsl:value-of select="$volume_number"/></span><xsl:text> </xsl:text>
+            <span title="Side">Side <xsl:value-of select="substring-before($n_val,',')"/></span><xsl:text> </xsl:text>
+            <span title="Linje">Linje <xsl:value-of select="substring-after($n_val,',')"/></span>
+          </small>
+        </a>
+      </xsl:if>
+
+    </xsl:element>
+  </xsl:template>
+
+  
   <xsl:template match="t:note[@type='commentary']/t:label">
     <xsl:param name="anchor" select="../@xml:id"/>
 
@@ -310,7 +346,9 @@
             </xsl:attribute>
             &#9668;
             <xsl:if test="$volume_number and $n_val">
-              <span title="Bindnr., Sidenr., Linjenr."><xsl:value-of select="concat($volume_number,',',$n_val)"/></span><xsl:text> </xsl:text>
+              <xsl:comment>
+                <span title="Bindnr., Sidenr., Linjenr."><xsl:value-of select="concat($volume_number,',',$n_val)"/></span><xsl:text> </xsl:text>
+              </xsl:comment>
             </xsl:if>
             <xsl:apply-templates/>
           </a>

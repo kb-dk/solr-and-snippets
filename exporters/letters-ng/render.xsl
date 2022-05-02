@@ -171,7 +171,7 @@
 	</xsl:choose>
       </xsl:element>
     </xsl:element>
-    <span style="background-color:yellow;display:none;">
+    <span style="background-color:rgb(224,224,224);display:none;">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </span>
