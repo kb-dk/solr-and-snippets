@@ -348,6 +348,13 @@
       <xsl:value-of select="$category"/>
     </xsl:element -->
 
+    <xsl:if test="@xml:id">
+      <xsl:element name="field">
+	<xsl:attribute name="name">xmlid_ssi</xsl:attribute>
+	<xsl:value-of select="@xml:id"/>
+      </xsl:element>
+    </xsl:if>
+
     <xsl:if test="$app">
       <xsl:element name="field">
         <xsl:attribute name="name">application_ssim</xsl:attribute>
