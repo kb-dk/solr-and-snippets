@@ -424,6 +424,11 @@
        <xsl:otherwise>
 	<xsl:element name="a">
 	  <xsl:if test="@target">
+            <xsl:if test="contains(@target,'#') 
+                          and not(substring-before(@target,'#')) 
+                          and contains($path,'-kom')">
+              <xsl:attribute name="title">Kommentar</xsl:attribute>
+            </xsl:if>
 	    <xsl:attribute name="href">
 	      <xsl:call-template name="make-href"/>
 	    </xsl:attribute> 
@@ -593,6 +598,11 @@
 
   <xsl:template match="t:ptr">
     <a>
+      <xsl:if test="contains(@target,'#') 
+                    and not(substring-before(@target,'#')) 
+                    and contains($path,'-kom')">
+        <xsl:attribute name="title">Kommentar</xsl:attribute>
+      </xsl:if>
       <xsl:attribute name="href">
 	<xsl:call-template name="make-href"/>
       </xsl:attribute>
