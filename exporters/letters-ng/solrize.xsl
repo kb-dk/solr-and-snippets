@@ -396,6 +396,12 @@
         <xsl:call-template name="letter_info"/>
       </xsl:when>
       <xsl:otherwise>
+
+        <xsl:element name="field">
+          <xsl:attribute name="name">author_name_ssi</xsl:attribute>
+          <xsl:value-of select="$author"/>
+        </xsl:element>
+        
         <xsl:element name="field">
           <xsl:attribute name="name">author_name_ssim</xsl:attribute>
           <xsl:value-of select="$author"/>
@@ -741,8 +747,18 @@
               <xsl:otherwise>person</xsl:otherwise>
             </xsl:choose>
 	  </xsl:variable>
-	  <xsl:for-each select="t:name">
+
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">
+	      <xsl:value-of select="concat($field,'_name_ssi')"/>
+	    </xsl:attribute>
+            <xsl:for-each select="t:name">            
+	      <xsl:if test="t:surname[text()]"><xsl:value-of select="t:surname"/><xsl:text>, </xsl:text></xsl:if><xsl:value-of select="t:forename"/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+            </xsl:for-each>
+	  </xsl:element>
             
+	  <xsl:for-each select="t:name">            
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">
 		<xsl:value-of select="concat($field,'_name_ssim')"/>
