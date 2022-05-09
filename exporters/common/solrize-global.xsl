@@ -368,9 +368,14 @@
   <xsl:template match="t:div/t:p|t:body/t:p|t:text/t:p">
 
     <xsl:param name="worktitle" select="''"/>
+    <xsl:param name="source_template" select="'unknown'"/>
 
+    <xsl:comment> source_template =  <xsl:value-of select="$source_template"/> </xsl:comment>
+    
     <doc>
 
+      <xsl:comment> c=<xsl:value-of select="$c"/>  <xsl:text>  element=</xsl:text><xsl:value-of select="local-name(.)"/> </xsl:comment>
+      
       <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
       <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
       <xsl:call-template name="add_globals"/>

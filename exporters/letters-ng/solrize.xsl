@@ -19,9 +19,7 @@
   <xsl:param name="category" select="'work'"/>
   <xsl:param name="root_category" select="'volume'"/>
   <xsl:param name="file" select="'a_very_unique_id'"/>
-  <!-- seems utterly wrong
-  <xsl:param name="id">/<xsl:for-each select="t:TEI/t:teiHeader/t:fileDesc/t:idno"><xsl:value-of select="."/></xsl:for-each></xsl:param>
-  -->
+ 
   <xsl:param name="id" select="''"/>
 
   <xsl:param name="basename" select="substring-before($doc,'.xml')"/>
@@ -101,7 +99,7 @@
 
 
 
-  <xsl:template match="t:text[@decls]|t:div[@decls]">
+  <xsl:template match="node()[@decls]">
 
     <xsl:variable name="bibl" select="substring-after(@decls,'#')"/>
     <xsl:variable name="worktitle">
@@ -219,12 +217,51 @@
 
     </doc>
 
-    <xsl:apply-templates>
+    <xsl:comment>
+      in text or div c=<xsl:value-of select="$c"/>  <xsl:text>  element=</xsl:text><xsl:value-of select="local-name(.)"/>
+    </xsl:comment>
+    
+    <xsl:comment>
+      one or more paragraphs <xsl:if test="t:p"> found </xsl:if> <xsl:if test="not(t:p)"> were not found </xsl:if>
+    </xsl:comment>
+    
+    <xsl:apply-templates select="t:p|t:lg|t:sp">
       <xsl:with-param name="worktitle" select="$worktitle"/>
+      <xsl:with-param name="source_template" select="'letters-ng work'"/>
     </xsl:apply-templates>
 
   </xsl:template>
 
+
+   <xsl:template match="t:div/t:p|t:body/t:p|t:text/t:p">
+
+    <xsl:param name="worktitle" select="''"/>
+    <xsl:param name="source_template" select="'unknown'"/>
+
+    <xsl:comment> source_template =  <xsl:value-of select="$source_template"/> </xsl:comment>
+    
+    <doc>
+
+      <xsl:comment> c=<xsl:value-of select="$c"/>  <xsl:text>  element=</xsl:text><xsl:value-of select="local-name(.)"/> </xsl:comment>
+      
+      <xsl:element name="field"><xsl:attribute name="name">type_ssi</xsl:attribute>leaf</xsl:element>
+      <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
+      <xsl:call-template name="add_globals"/>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">genre_ssi</xsl:attribute>
+        <xsl:text>prose</xsl:text>
+      </xsl:element>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">text_tesim</xsl:attribute>
+        <xsl:apply-templates mode="gettext" 
+			     select="./text()|descendant::node()/text()"/>
+      </xsl:element>
+    </doc>
+  </xsl:template>
+
+  
   <xsl:template mode="gettext" match="text()">
     <xsl:value-of select="normalize-space(.)"/>
     <xsl:text> </xsl:text>
@@ -311,6 +348,13 @@
       <xsl:value-of select="$category"/>
     </xsl:element -->
 
+    <xsl:if test="@xml:id">
+      <xsl:element name="field">
+	<xsl:attribute name="name">xmlid_ssi</xsl:attribute>
+	<xsl:value-of select="@xml:id"/>
+      </xsl:element>
+    </xsl:if>
+
     <xsl:if test="$app">
       <xsl:element name="field">
         <xsl:attribute name="name">application_ssim</xsl:attribute>
@@ -352,6 +396,12 @@
         <xsl:call-template name="letter_info"/>
       </xsl:when>
       <xsl:otherwise>
+
+        <xsl:element name="field">
+          <xsl:attribute name="name">author_name_ssi</xsl:attribute>
+          <xsl:value-of select="$author"/>
+        </xsl:element>
+        
         <xsl:element name="field">
           <xsl:attribute name="name">author_name_ssim</xsl:attribute>
           <xsl:value-of select="$author"/>
@@ -697,8 +747,18 @@
               <xsl:otherwise>person</xsl:otherwise>
             </xsl:choose>
 	  </xsl:variable>
-	  <xsl:for-each select="t:name">
+
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">
+	      <xsl:value-of select="concat($field,'_name_ssi')"/>
+	    </xsl:attribute>
+            <xsl:for-each select="t:name">            
+	      <xsl:if test="t:surname[text()]"><xsl:value-of select="t:surname"/><xsl:text>, </xsl:text></xsl:if><xsl:value-of select="t:forename"/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+            </xsl:for-each>
+	  </xsl:element>
             
+	  <xsl:for-each select="t:name">            
 	    <xsl:element name="field">
 	      <xsl:attribute name="name">
 		<xsl:value-of select="concat($field,'_name_ssim')"/>
@@ -766,13 +826,6 @@
   <xsl:template name="get_next_id">
     <xsl:value-of
 	select="following::node()[@decls and @xml:id][1]/@xml:id"/>
-  </xsl:template>
-
-  <xsl:template mode="backtrack" match="node()">
-    <xsl:element name="field">
-      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-      <xsl:value-of select="$path"/>
-    </xsl:element>
   </xsl:template>
 
 </xsl:transform>

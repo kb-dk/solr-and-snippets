@@ -374,7 +374,8 @@
 
     <xsl:choose>
       <xsl:when test="contains($target,'#') and not(substring-before($target,'#'))">
-	<xsl:value-of select="$target"/>	    
+	<xsl:value-of select="replace($path,'-(sh|r)oot.*$',concat('-root',$target))"/>
+        <!-- xsl:value-of select="$target"/ -->	    
       </xsl:when>
       <xsl:otherwise>
 	<xsl:variable name="href">
