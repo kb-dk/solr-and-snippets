@@ -60,7 +60,7 @@ declare function local:get-section-navigation(
 	 else count($div/preceding::t:pb)
      let $bib_id := substring-after($div/@decls/string(),'#')
      return 
-	 for $bibl in //t:bibl[@xml:id=$bib_id]
+	 for $bibl in $doc//t:bibl[@xml:id=$bib_id]
 	 let $tit := $bibl/t:title/text()
         return 
 	 map {
