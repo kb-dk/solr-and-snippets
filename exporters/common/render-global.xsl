@@ -562,7 +562,7 @@
     <em><xsl:call-template name="add_id"/><xsl:apply-templates/></em>
   </xsl:template>
 
-  <xsl:template match="t:hi[@rendition]">
+  <xsl:template match="t:hi[@rendition and not(@rend)]">
     <span><xsl:call-template name="add_id"/><xsl:apply-templates/></span>
   </xsl:template>
 
