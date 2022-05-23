@@ -78,7 +78,7 @@
         <xsl:variable name="width" as="xs:double" select="number(regex-group(4))"/>
         <xsl:variable name="height" as="xs:double" select="number(regex-group(5))"/>
 
-        <xsl:variable name="pct"  as="xs:double" select="number(0.15)"/>
+        <xsl:variable name="pct"  as="xs:double" select="number(0.25)"/>
         
         <xsl:variable name="size_x">
           <xsl:choose>
