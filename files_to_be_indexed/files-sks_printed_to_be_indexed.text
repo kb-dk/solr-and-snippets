@@ -266,3 +266,5 @@ sks/ydr/kom.xml
 sks/yts/txt.xml
 sks/yts/txr.xml
 sks/yts/kom.xml
+files_to_be_indexed/files-sks_to_be_indexed.text:sks/kort/kom.xml
+sks/kort/kom.xml

@@ -119,7 +119,7 @@
 background-image: url(<xsl:value-of select="$iiif"/>);</xsl:attribute>
 
             <div>
-              <xsl:attribute name="style">position: absolute;
+              <xsl:attribute name="style">position: relative;
 border:<xsl:value-of select="$line_width"/>px blue solid;
 left: <xsl:value-of select="$pct * $xpos"/>px;
 top:<xsl:value-of select="$pct * ($size_y - $ypos - $height) - $line_width"/>px;
