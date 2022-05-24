@@ -306,23 +306,23 @@
     <xsl:element name="p">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates select="t:label"/><xsl:text>: </xsl:text><xsl:apply-templates mode="note_body" select="t:p"/>
-
+    </xsl:element>
       <xsl:if test="$volume_number and $n_val">
-        <br/>
-        I trykt udgave
+        <p>
+        I trykt udgave:
         <a data-dismiss="modal">
           <xsl:attribute name="href">
             <xsl:value-of select="$href"/> 
           </xsl:attribute>
           <small>
             <span title="Bind">Bind <xsl:value-of select="$volume_number"/></span><xsl:text> </xsl:text>
-            <span title="Side">Side <xsl:value-of select="substring-before($n_val,',')"/></span><xsl:text> </xsl:text>
-            <span title="Linje">Linje <xsl:value-of select="substring-after($n_val,',')"/></span>
+            <span title="Side">side <xsl:value-of select="substring-before($n_val,',')"/></span><xsl:text> </xsl:text>
+            <span title="Linje">linje <xsl:value-of select="substring-after($n_val,',')"/></span>
           </small>
         </a>
+        </p>
       </xsl:if>
 
-    </xsl:element>
   </xsl:template>
 
   
