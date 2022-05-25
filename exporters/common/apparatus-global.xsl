@@ -75,14 +75,14 @@
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates  mode="apparatus"/><xsl:text>] </xsl:text>
+      <xsl:apply-templates  mode="apparatus"/><xsl:text>] </xsl:text><xsl:comment> yyyyy </xsl:comment>
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">after</xsl:with-param>
       </xsl:call-template>
     </span>
   </xsl:template>
 
-  <xsl:template mode="apparatus" match="t:lem/t:del">
+  <xsl:template mode="apparatus" match="t:lem/t:del|t:rdg/t:del">
     <span title="{local-name(.)}">
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
@@ -263,17 +263,18 @@
   </xsl:template>
 
   <xsl:template match="t:witDetail">
-    <!-- em>
-      <xsl:comment> detail </xsl:comment>
-      <xsl:apply-templates/>
-    </em -->
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:witDetail">
-    <xsl:variable name="witness"><xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
+
+    <xsl:variable name="witness"><xsl:value-of
+    select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
+    
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">before</xsl:with-param>
     </xsl:call-template>
+    
     <xsl:element name="span">
       <xsl:attribute name="title">
 	<xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
@@ -281,6 +282,7 @@
       <em><xsl:apply-templates/> <xsl:comment> witness detail </xsl:comment></em>
       <xsl:value-of select="@n"/>
     </xsl:element>
+    
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">after</xsl:with-param>
     </xsl:call-template>
@@ -311,7 +313,7 @@
           </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates mode="apparatus"/><xsl:text>] </xsl:text>
+          <xsl:apply-templates mode="apparatus"/><xsl:text>] </xsl:text><xsl:comment> xxxxxxx</xsl:comment>
           <xsl:call-template name="render_before_after">
 	    <xsl:with-param name="scope">before</xsl:with-param>
           </xsl:call-template>
