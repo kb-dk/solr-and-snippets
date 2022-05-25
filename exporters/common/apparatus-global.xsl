@@ -75,7 +75,7 @@
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates  mode="apparatus"/><xsl:text>] </xsl:text><xsl:comment> yyyyy </xsl:comment>
+      <xsl:apply-templates  mode="apparatus"/>
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">after</xsl:with-param>
       </xsl:call-template>
@@ -213,6 +213,7 @@
   <xsl:template name="render_before_after">
     <xsl:param name="scope" select="'before'"/>
     <xsl:param name="rendit" select="./@rendition"/>
+
     <xsl:if test="$rendit">
       <xsl:for-each select="fn:tokenize($rendit,'\s+')">
 	<xsl:variable name="rend" select="substring-after(.,'#')"/> 
@@ -263,7 +264,9 @@
   </xsl:template>
 
   <xsl:template match="t:witDetail">
+    <!-- 
     <xsl:apply-templates/>
+    -->
   </xsl:template>
 
   <xsl:template mode="apparatus" match="t:witDetail">
@@ -302,23 +305,22 @@
     </xsl:element>
   </xsl:template>
 
+  <xsl:template match="*" mode="before_marker">
+    <xsl:apply-templates select="." mode="apparatus"/>
+  </xsl:template>
+
+  <xsl:template match="t:wit|t:witDetail|t:witEnd|t:witStart" mode="before_marker">
+  </xsl:template>
+  
   <xsl:template mode="apparatus" match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:choose>
-        <xsl:when test="t:add">
-          <xsl:apply-templates mode="apparatus" select="t:add"/>
-          <xsl:call-template name="render_before_after">
-	    <xsl:with-param name="scope">before</xsl:with-param>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates mode="apparatus"/><xsl:text>] </xsl:text><xsl:comment> xxxxxxx</xsl:comment>
-          <xsl:call-template name="render_before_after">
-	    <xsl:with-param name="scope">before</xsl:with-param>
-          </xsl:call-template>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:apply-templates mode="before_marker"/>
+      <xsl:text>] </xsl:text><xsl:comment> xxxxxxx</xsl:comment>
+      <xsl:apply-templates mode="apparatus" select="t:wit|t:witDetail|t:witEnd|t:witStart"/>
+      <xsl:call-template name="render_before_after">
+	<xsl:with-param name="scope">before</xsl:with-param>
+      </xsl:call-template>
       <xsl:call-template name="lemmabody"/>
     </xsl:element>
   </xsl:template>
