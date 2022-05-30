@@ -70,15 +70,17 @@
     </del>
   </xsl:template>
 
-  <xsl:template mode="apparatus" match="t:lem/t:add">
+  <xsl:template name="lem_add"> <!--  mode="apparatus" match="t:lem/t:add" -->
     <span title="{local-name(.)}">
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates  mode="apparatus"/>
-      <xsl:call-template name="render_before_after">
-	<xsl:with-param name="scope">after</xsl:with-param>
-      </xsl:call-template>
+      <xsl:apply-templates  mode="apparatus"/><xsl:text>] </xsl:text>
+      <xsl:for-each select="t:add">
+        <xsl:call-template name="render_before_after">
+	  <xsl:with-param name="scope">after</xsl:with-param>
+        </xsl:call-template>
+      </xsl:for-each>
     </span>
   </xsl:template>
 
@@ -309,15 +311,27 @@
     <xsl:apply-templates select="." mode="apparatus"/>
   </xsl:template>
 
+  <!-- xsl:template match="t:add" mode="before_marker">
+    <xsl:apply-templates select="." />
+  </xsl:template -->
+
+  
   <xsl:template match="t:wit|t:witDetail|t:witEnd|t:witStart" mode="before_marker">
   </xsl:template>
   
   <xsl:template mode="apparatus" match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:apply-templates mode="before_marker"/>
-      <xsl:text>] </xsl:text><xsl:comment> xxxxxxx</xsl:comment>
-      <xsl:apply-templates mode="apparatus" select="t:wit|t:witDetail|t:witEnd|t:witStart"/>
+      <xsl:choose>
+        <xsl:when test="t:add">
+          <xsl:call-template name="lem_add"/> <!-- mode="apparatus" / -->
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates mode="before_marker"/>
+          <xsl:text>] </xsl:text><xsl:comment> xxxxxxx </xsl:comment>
+          <xsl:apply-templates mode="apparatus" select="t:wit|t:witDetail|t:witEnd|t:witStart"/>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
