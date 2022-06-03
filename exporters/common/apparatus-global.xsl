@@ -1,12 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<xsl:stylesheet 
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:t="http://www.tei-c.org/ns/1.0"
-    xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    xmlns:my="urn:things"
-    exclude-result-prefixes="t my fn"
-    version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:my="urn:things" exclude-result-prefixes="t my fn" version="2.0">
 
   <xsl:param name="coll" select="''"/>
   <xsl:variable name="txtfile" select="concat($coll,'/',fn:replace($doc,'com.xml','txt.xml'))"/>
@@ -75,14 +67,13 @@
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
-
-      <xsl:apply-templates  mode="apparatus"/><xsl:text>] </xsl:text>
+      <xsl:apply-templates mode="apparatus"/>
+            <xsl:text>] </xsl:text>
       <xsl:for-each select="t:add">
         <xsl:call-template name="render_before_after">
 	  <xsl:with-param name="scope">after</xsl:with-param>
         </xsl:call-template>
       </xsl:for-each>
-
     </span>
   </xsl:template>
 
@@ -91,7 +82,7 @@
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
-      <xsl:apply-templates  mode="apparatus"/>
+      <xsl:apply-templates mode="apparatus"/>
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">after</xsl:with-param>
       </xsl:call-template>
@@ -100,9 +91,19 @@
 
 
   
-  <xsl:template match="t:supplied"><span title="Supplering"><xsl:call-template name="add_id"/>[<xsl:apply-templates/>]</span></xsl:template>
-  <xsl:template match="t:unclear"><span title="unclear"><xsl:call-template name="add_id"/><xsl:apply-templates/></span></xsl:template>
-  <xsl:template mode="apparatus" match="t:unclear"><span title="unclear">&lt;<xsl:apply-templates/>&gt;</span></xsl:template>
+  <xsl:template match="t:supplied">
+        <span title="Supplering">
+            <xsl:call-template name="add_id"/>[<xsl:apply-templates/>]</span>
+    </xsl:template>
+  <xsl:template match="t:unclear">
+        <span title="unclear">
+            <xsl:call-template name="add_id"/>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+  <xsl:template mode="apparatus" match="t:unclear">
+        <span title="unclear">&lt;<xsl:apply-templates/>&gt;</span>
+    </xsl:template>
 
   <xsl:template match="t:choice[t:reg and t:orig]">
     <span>
@@ -118,7 +119,8 @@
     <xsl:element name="span"><!-- used to be a -->
       <xsl:attribute name="title">
 	<xsl:for-each select="t:expan">
-	<xsl:value-of select="."/><xsl:if test="position() &lt; last()">; </xsl:if>
+	<xsl:value-of select="."/>
+                    <xsl:if test="position() &lt; last()">; </xsl:if>
 	</xsl:for-each>
       </xsl:attribute>
       <xsl:call-template name="add_id"/>
@@ -136,7 +138,9 @@
 	  <xsl:call-template name="make-href"/>
 	</xsl:attribute>
       </xsl:if>
-      <span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span> <!-- xsl:text>&#160;</xsl:text --> <span>
+      <span class="symbol comment">
+                <span class="debug comment-stuff">►</span>
+            </span> <!-- xsl:text> </xsl:text --> <span>
         <xsl:attribute name="title">Kommentar</xsl:attribute>
         <xsl:apply-templates/>
       </span>
@@ -153,13 +157,20 @@
 	  <xsl:attribute name="href">
 	    <xsl:call-template name="make-href"/>
 	  </xsl:attribute>
-	  <xsl:attribute name="id"><xsl:value-of select="@n"/></xsl:attribute>
+	  <xsl:attribute name="id">
+                        <xsl:value-of select="@n"/>
+                    </xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
 	  <xsl:call-template name="add_id"/>
         </xsl:otherwise>
-        </xsl:choose><span class="symbol comment"><span class="debug comment-stuff">&#9658;</span></span><span>
-        <xsl:attribute name="title">Kommentar</xsl:attribute><xsl:comment> where are we? </xsl:comment>
+        </xsl:choose>
+            <span class="symbol comment">
+                <span class="debug comment-stuff">►</span>
+            </span>
+            <span>
+        <xsl:attribute name="title">Kommentar</xsl:attribute>
+                <xsl:comment> where are we? </xsl:comment>
         <xsl:apply-templates/>
       </span>
     </xsl:element>    
@@ -221,7 +232,11 @@
     <xsl:if test="$rendit">
       <xsl:for-each select="fn:tokenize($rendit,'\s+')">
 	<xsl:variable name="rend" select="substring-after(.,'#')"/> 
-	<xsl:for-each select="$grenditions/t:rendition[@xml:id = $rend][@scope=$scope]"><em><xsl:value-of select="fn:replace(.,'^.*&quot;(.*?)&quot;.*$','$1')"/></em></xsl:for-each>
+	<xsl:for-each select="$grenditions/t:rendition[@xml:id = $rend][@scope=$scope]">
+                    <em>
+                        <xsl:value-of select="fn:replace(.,'^.*&#34;(.*?)&#34;.*$','$1')"/>
+                    </em>
+                </xsl:for-each>
       </xsl:for-each>
     </xsl:if>
   </xsl:template>
@@ -230,8 +245,12 @@
     <xsl:if test="contains(@rendition,'#')">
       <xsl:variable name="rend" select="substring-after(@rendition,'#')"/>  
       <xsl:choose>
-	<xsl:when test="$rend = 'capiTyp'"><xsl:attribute name="style">font-variant: small-caps;</xsl:attribute></xsl:when>
-	<xsl:when test="$rend = 'spa'"><xsl:attribute name="style">font-style: italic;</xsl:attribute></xsl:when>
+	<xsl:when test="$rend = 'capiTyp'">
+                    <xsl:attribute name="style">font-variant: small-caps;</xsl:attribute>
+                </xsl:when>
+	<xsl:when test="$rend = 'spa'">
+                    <xsl:attribute name="style">font-style: italic;</xsl:attribute>
+                </xsl:when>
 	<xsl:when test="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]">
 	  <xsl:attribute name="style">
 	    <xsl:value-of select="/t:TEI//t:rendition[@scheme='css'][@xml:id = $rend]"/>
@@ -255,13 +274,13 @@
     </xsl:text>
   </xsl:template -->
 
-  <xsl:template  mode="apparatus" match="t:witStart">
+  <xsl:template mode="apparatus" match="t:witStart">
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
   </xsl:template>
 
-  <xsl:template  mode="apparatus" match="t:witEnd">
+  <xsl:template mode="apparatus" match="t:witEnd">
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">after</xsl:with-param>
     </xsl:call-template>
@@ -275,8 +294,9 @@
 
   <xsl:template mode="apparatus" match="t:witDetail">
 
-    <xsl:variable name="witness"><xsl:value-of
-    select="normalize-space(substring-after(@wit,'#'))"/></xsl:variable>
+    <xsl:variable name="witness">
+            <xsl:value-of select="normalize-space(substring-after(@wit,'#'))"/>
+        </xsl:variable>
     
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">before</xsl:with-param>
@@ -286,7 +306,9 @@
       <xsl:attribute name="title">
 	<xsl:value-of select="/t:TEI//t:listWit/t:witness[@xml:id=$witness]"/>
       </xsl:attribute>
-      <em><xsl:apply-templates/> <xsl:comment> witness detail </xsl:comment></em>
+      <em>
+                <xsl:apply-templates/> <xsl:comment> witness detail </xsl:comment>
+            </em>
       <xsl:value-of select="@n"/>
     </xsl:element>
     
@@ -302,7 +324,9 @@
     <xsl:param name="data_anchor" select="''"/>
     <xsl:element name="span">
       <xsl:if test="$data_anchor">
-        <xsl:attribute name="data-anchor"><xsl:value-of select="$data_anchor"/></xsl:attribute>
+        <xsl:attribute name="data-anchor">
+                    <xsl:value-of select="$data_anchor"/>
+                </xsl:attribute>
       </xsl:if>
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
@@ -313,36 +337,28 @@
     <xsl:apply-templates select="." mode="apparatus"/>
   </xsl:template>
 
-<<<<<<< HEAD
-=======
   <!-- xsl:template match="t:add" mode="before_marker">
     <xsl:apply-templates select="." />
   </xsl:template -->
 
   
->>>>>>> master
   <xsl:template match="t:wit|t:witDetail|t:witEnd|t:witStart" mode="before_marker">
   </xsl:template>
   
   <xsl:template mode="apparatus" match="t:lem">
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-<<<<<<< HEAD
-      <xsl:apply-templates mode="before_marker"/>
-      <xsl:text>] </xsl:text><xsl:comment> xxxxxxx</xsl:comment>
-      <xsl:apply-templates mode="apparatus" select="t:wit|t:witDetail|t:witEnd|t:witStart"/>
-=======
       <xsl:choose>
         <xsl:when test="t:add">
           <xsl:call-template name="lem_add"/> <!-- mode="apparatus" / -->
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates mode="before_marker"/>
-          <xsl:text>] </xsl:text><xsl:comment> xxxxxxx </xsl:comment>
+          <xsl:text>] </xsl:text>
+                    <xsl:comment> xxxxxxx </xsl:comment>
           <xsl:apply-templates mode="apparatus" select="t:wit|t:witDetail|t:witEnd|t:witStart"/>
         </xsl:otherwise>
       </xsl:choose>
->>>>>>> master
       <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
@@ -369,7 +385,9 @@
   <xsl:template match="t:rdgGrp"> 
     <xsl:element name="span">
       <xsl:call-template name="add_id"/>
-      <xsl:if test="@rendition = '#semiko'">; </xsl:if><xsl:apply-templates/><xsl:comment> rdg grp </xsl:comment>
+      <xsl:if test="@rendition = '#semiko'">; </xsl:if>
+            <xsl:apply-templates/>
+            <xsl:comment> rdg grp </xsl:comment>
     </xsl:element>
   </xsl:template>
 
@@ -387,35 +405,44 @@
     </xsl:variable>
     
     <xsl:element name="a">
-      <xsl:attribute
-          name="id"><xsl:value-of select="concat('appanchor',@xml:id)"/></xsl:attribute>
+      <xsl:attribute name="id">
+                <xsl:value-of select="concat('appanchor',@xml:id)"/>
+            </xsl:attribute>
       <xsl:attribute name="class">info</xsl:attribute>
       <xsl:attribute name="title">Tekstkritik</xsl:attribute>
-      <xsl:attribute name="onclick"><xsl:value-of select="$note"/>();</xsl:attribute>
+      <xsl:attribute name="onclick">
+                <xsl:value-of select="$note"/>();</xsl:attribute>
       <xsl:attribute name="data-target">#info_modal</xsl:attribute>
-      <xsl:attribute name="data-anchor"><xsl:value-of select="@xml:id"/></xsl:attribute>
+      <xsl:attribute name="data-anchor">
+                <xsl:value-of select="@xml:id"/>
+            </xsl:attribute>
       
       <span>
         <xsl:call-template name="apparatus-marker">
-          <xsl:with-param name="marker">&#9432;</xsl:with-param>
+          <xsl:with-param name="marker">ⓘ</xsl:with-param>
         </xsl:call-template>
       </span>
 
       <xsl:apply-templates mode="text" select="t:lem">
-        <xsl:with-param name="data_anchor"><xsl:value-of select="@xml:id"/></xsl:with-param>
+        <xsl:with-param name="data_anchor">
+                    <xsl:value-of select="@xml:id"/>
+                </xsl:with-param>
       </xsl:apply-templates>
       
-      <span class="apparatus-criticus"
-            style="background-color:Aquamarine;display:none;">
+      <span class="apparatus-criticus" style="background-color:Aquamarine;display:none;">
         <xsl:call-template name="add_id"/>
-        <xsl:apply-templates mode="apparatus" select="t:lem"/><xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
+        <xsl:apply-templates mode="apparatus" select="t:lem"/>
+                <xsl:if test="t:rdg|t:rdgGrp|t:corr|t:note">,
       </xsl:if>
       <xsl:text>
       </xsl:text>
       <xsl:for-each select="t:rdg|t:rdgGrp|t:corr|t:note">
-	<xsl:apply-templates mode="apparatus"  select="."/><xsl:if test="position() &lt; last()">;
-        </xsl:if><xsl:comment> <xsl:value-of select="local-name(.)"/> </xsl:comment>
-        </xsl:for-each><xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
+	<xsl:apply-templates mode="apparatus" select="."/>
+                    <xsl:if test="position() &lt; last()">;
+        </xsl:if>
+                    <xsl:comment> <xsl:value-of select="local-name(.)"/> </xsl:comment>
+        </xsl:for-each>
+                <xsl:comment> <xsl:text> </xsl:text> app </xsl:comment>
       </span>
     </xsl:element>
 
@@ -434,7 +461,7 @@
   </xsl:template>
 
   <xsl:template name="apparatus-marker">
-    <xsl:param name="marker" select="'&#9432;'"/>
+    <xsl:param name="marker" select="'ⓘ'"/>
 
     <xsl:variable name="idstring">
       <xsl:value-of select="translate(@xml:id,'-;.','___')"/>
@@ -444,8 +471,12 @@
     </xsl:variable>
     <xsl:attribute name="style">text-indent: 0;</xsl:attribute>
     <xsl:attribute name="class">symbol info</xsl:attribute>
-    <xsl:attribute name="data-anchor"><xsl:value-of select="@xml:id"/></xsl:attribute>
-    <span class="debug info-stuff"><xsl:value-of select="$marker"/></span>
+    <xsl:attribute name="data-anchor">
+            <xsl:value-of select="@xml:id"/>
+        </xsl:attribute>
+    <span class="debug info-stuff">
+            <xsl:value-of select="$marker"/>
+        </span>
     <script>
       var <xsl:value-of select="concat('disp',$idstring)"/>="none";
       function <xsl:value-of select="$note"/>() {
@@ -466,7 +497,7 @@
     <xsl:apply-templates/> [<em>sic!</em>]
   </xsl:template>
 
-  <xsl:template mode="apparatus"  match="t:sic">
+  <xsl:template mode="apparatus" match="t:sic">
      <xsl:call-template name="render_before_after">
 	<xsl:with-param name="scope">before</xsl:with-param>
       </xsl:call-template>
@@ -477,12 +508,12 @@
   </xsl:template>
 
 
-  <xsl:template  mode="apparatus"  match="t:rdg">
+  <xsl:template mode="apparatus" match="t:rdg">
     <xsl:call-template name="render_before_after">
       <xsl:with-param name="scope">before</xsl:with-param>
     </xsl:call-template>
     <xsl:element name="span">
-      <xsl:apply-templates  mode="apparatus" />
+      <xsl:apply-templates mode="apparatus"/>
       <xsl:if test="@wit">
 	<xsl:call-template name="witness"/>
       </xsl:if>
@@ -501,9 +532,9 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template  mode="text"  match="t:rdg">
+  <xsl:template mode="text" match="t:rdg">
     <xsl:element name="span">
-      <xsl:apply-templates />
+      <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
@@ -512,7 +543,16 @@
     <xsl:comment> Witness <xsl:value-of select="$wit"/> </xsl:comment>
 
       <xsl:for-each select="fn:tokenize($wit,'\s+')">
-	<xsl:variable name="witness"><xsl:choose><xsl:when test="contains(.,'#')"><xsl:value-of select="normalize-space(substring-after(.,'#'))"/></xsl:when><xsl:otherwise><xsl:value-of select="."/></xsl:otherwise></xsl:choose></xsl:variable>
+	<xsl:variable name="witness">
+                <xsl:choose>
+                    <xsl:when test="contains(.,'#')">
+                        <xsl:value-of select="normalize-space(substring-after(.,'#'))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="."/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
         <xsl:text> </xsl:text>
         <xsl:choose>
 	<xsl:when test="$witnesses//t:witness[@xml:id=$witness]">
@@ -521,8 +561,21 @@
 	    <xsl:attribute name="title">
 	      <xsl:value-of select="$witnesses//t:witness[@xml:id=$witness]"/>
 	    </xsl:attribute>
-	    <xsl:value-of select="normalize-space($witness)"/></xsl:element><xsl:choose><xsl:when test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:when></xsl:choose><xsl:comment> witness </xsl:comment></xsl:when>
-        <xsl:otherwise><xsl:element name="em"><xsl:value-of select="$witness"/></xsl:element></xsl:otherwise></xsl:choose>
+	    <xsl:value-of select="normalize-space($witness)"/>
+                    </xsl:element>
+                    <xsl:choose>
+                        <xsl:when test="position() &lt; last()">
+                            <xsl:text>, </xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:comment> witness </xsl:comment>
+                </xsl:when>
+        <xsl:otherwise>
+                    <xsl:element name="em">
+                        <xsl:value-of select="$witness"/>
+                    </xsl:element>
+                </xsl:otherwise>
+            </xsl:choose>
       </xsl:for-each>
 
   </xsl:template>
