@@ -296,7 +296,13 @@
     <xsl:variable name="n_val"><xsl:value-of select="@n"/></xsl:variable>
 
     <xsl:variable name="p">
-      <xsl:value-of select="replace($path,'(e?kom)','txt')"/>
+      <xsl:choose>
+        <xsl:when test="@subtype = 'e'">
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="replace($path,'(e?kom)','txt')"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
     <xsl:variable name="href">
       <xsl:value-of select="concat(replace($p,'-((root)|(shoot).*$)','-root#'),$anchor)"/>

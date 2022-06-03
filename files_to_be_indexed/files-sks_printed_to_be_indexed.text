@@ -142,10 +142,6 @@ sks/ic/kom.xml
 sks/jc/txt.xml
 sks/jc/txr.xml
 sks/jc/kom.xml
-sks/jj/txt.xml
-sks/jj/txr.xml
-sks/jj/kom.xml
-sks/jj/ekom.xml
 sks/kg/txt.xml
 sks/kg/txr.xml
 sks/kg/kom.xml
@@ -164,9 +160,6 @@ sks/lf/kom.xml
 sks/lp/txt.xml
 sks/lp/txr.xml
 sks/lp/kom.xml
-sks/nb2/txt.xml
-sks/nb2/txr.xml
-sks/nb2/kom.xml
 sks/oi10/txt.xml
 sks/oi10/txr.xml
 sks/oi10/kom.xml
