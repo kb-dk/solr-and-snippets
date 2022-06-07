@@ -354,8 +354,7 @@
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates mode="before_marker"/>
-          <xsl:text>] </xsl:text>
-                    <xsl:comment> xxxxxxx </xsl:comment>
+          <xsl:text>] </xsl:text><xsl:comment> xxxxxxx </xsl:comment>
           <xsl:apply-templates mode="apparatus" select="t:wit|t:witDetail|t:witEnd|t:witStart"/>
         </xsl:otherwise>
       </xsl:choose>
