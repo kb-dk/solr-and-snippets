@@ -29,18 +29,6 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="t:figure[@rend]/t:graphic">
-    <xsl:if test="@url">
-      <xsl:call-template name="render_graphic">
-        <xsl:with-param name="width">0</xsl:with-param>
-	<xsl:with-param name="graphic_uri">
-	  <xsl:value-of 
-	      select="substring-before(translate(substring-after(@url,'../'),$uppercase,$lowercase),'.jpg')"/>
-	</xsl:with-param>
-      </xsl:call-template>
-    </xsl:if>
-  </xsl:template>
-
   <xsl:template match="t:figure[@type='vignet']">
     <xsl:element name="p">
       <xsl:call-template name="add_id"/>
@@ -56,15 +44,24 @@
     </xsl:element>
   </xsl:template>
   
-  <xsl:template match="t:figure[@rend]">
+  <xsl:template match="t:figure[@rend='recto']">
     <xsl:element name="br">
       <xsl:call-template name="add_id"/>
     </xsl:element>
-      <!-- xsl:attribute name="style"> width: 90%; </xsl:attribute -->
-      <xsl:apply-templates select="t:graphic"/>
-      <br clear="both"/>
-      <p><xsl:apply-templates select="t:head"/></p> <xsl:comment> Blablalbabla </xsl:comment>
-      <xsl:element name="br"/>
+
+    <xsl:if test="t:graphic/@url">
+      <xsl:call-template name="render_graphic">
+        <xsl:with-param name="width">90%</xsl:with-param>
+	<xsl:with-param name="graphic_uri">
+	  <xsl:value-of 
+	      select="substring-before(translate(substring-after(t:graphic/@url,'../'),$uppercase,$lowercase),'.jpg')"/>
+	</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+
+    <xsl:element name="br"/>
+    <span><xsl:apply-templates select="t:head"/> <xsl:comment> Blaxblaxlbablax </xsl:comment></span>
+    <xsl:element name="br"/>
   </xsl:template>
   
   <xsl:template match="t:figure">
