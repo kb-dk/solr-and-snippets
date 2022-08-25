@@ -92,9 +92,9 @@
 
   
   <xsl:template match="t:supplied">
-        <span title="Supplering">
-            <xsl:call-template name="add_id"/>[<xsl:apply-templates/>]</span>
-    </xsl:template>
+        <span title="Supplering"><xsl:call-template name="add_id"/>[<xsl:apply-templates/>]</span>
+  </xsl:template>
+  
   <xsl:template match="t:unclear">
         <span title="unclear">
             <xsl:call-template name="add_id"/>
