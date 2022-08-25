@@ -316,16 +316,16 @@
       <xsl:if test="$volume_number and $n_val">
         <p>
         I trykt udgave:
-        <a data-dismiss="modal">
+        <!-- a data-dismiss="modal">
           <xsl:attribute name="href">
             <xsl:value-of select="$href"/> 
-          </xsl:attribute>
+          </xsl:attribute -->
           <small>
             <span title="Bind">Bind <xsl:value-of select="$volume_number"/></span><xsl:text> </xsl:text>
             <span title="Side">side <xsl:value-of select="substring-before($n_val,',')"/></span><xsl:text> </xsl:text>
             <span title="Linje">linje <xsl:value-of select="substring-after($n_val,',')"/></span>
           </small>
-        </a>
+        <!-- /a -->
         </p>
       </xsl:if>
 
