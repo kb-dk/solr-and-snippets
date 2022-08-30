@@ -530,7 +530,21 @@
 
 
     <xsl:if test="contains($path,'sks-')">
+
       <xsl:choose>
+        <xsl:when test="@type='work' and t:div[@type='dedication']">
+
+          <xsl:variable name="ditsi">
+            <xsl:if test="t:dateline/t:date/@when">
+              <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
+            </xsl:if>
+          </xsl:variable>
+          <xsl:if test="$ditsi and not(contains($ditsi,'NaN'))">
+            <xsl:element name="field">
+	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$ditsi"/>
+            </xsl:element>
+          </xsl:if>
+        </xsl:when>
         <xsl:when test="contains(@type,'entry')">
           <xsl:variable name="ditsi">
             <xsl:if test="t:dateline/t:date/@when">
