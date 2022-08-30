@@ -533,7 +533,7 @@
 
       <xsl:choose>
         <xsl:when test="@type='work' and t:div[@type='dedication']">
-
+          
           <xsl:variable name="ditsi">
             <xsl:if test="t:dateline/t:date/@when">
               <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
