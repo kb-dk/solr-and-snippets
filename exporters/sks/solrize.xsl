@@ -29,6 +29,17 @@ xpath -q -e '//div/@type' */txt.xml | sort | uniq -c | sort -n
 
 letter, dedication & entry are candidates for individual "work status" (many of them has dates)
 
+xpath -q -e '//text/@type' */txt.xml | sort | uniq -c | sort -n
+     80  type="print"
+    132  type="ms"
+
+xpath -q -e '//text/@subtype' */txt.xml | sort | uniq -c | sort -n
+      1  subtype="documents"
+      9  subtype="unpublishedWritings"
+     15  subtype="lettersAndDedications"
+     78  subtype="publishedWritings"
+    109  subtype="journalsAndPapers"
+
 -->
 
   <xsl:param name="is_monograph">yes</xsl:param>

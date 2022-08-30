@@ -180,7 +180,8 @@
 
     <doc>
 
-      <xsl:comment> trunk_doc </xsl:comment>
+      <xsl:comment> trunk_doc  c=<xsl:value-of select="$c"/> element=<xsl:value-of select="local-name(.)"/> </xsl:comment>
+      <xsl:comment> types if any type=<xsl:value-of select="@type"/> subtype=<xsl:value-of select="@subtype"/> </xsl:comment>
 
       <xsl:element name="field">
         <xsl:attribute name="name">type_ssi</xsl:attribute>
@@ -527,6 +528,40 @@
       </xsl:if>
     </xsl:if>
 
+
+    <xsl:if test="contains($path,'sks-')">
+      <xsl:choose>
+        <xsl:when test="contains(@type,'entry')">
+          <xsl:variable name="ditsi">
+            <xsl:if test="t:dateline/t:date/@when">
+              <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
+            </xsl:if>
+          </xsl:variable>
+          <xsl:if test="$ditsi and not(contains($ditsi,'NaN'))">
+            <xsl:element name="field">
+	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$ditsi"/>
+            </xsl:element>
+          </xsl:if>
+        </xsl:when>
+        <xsl:when test="contains(@type,'letter') and contains(@corresp,'#')">
+          <xsl:variable name="corresp">
+            <xsl:value-of select="substring-after(@corresp,'#')"/>
+          </xsl:variable>
+          <xsl:variable name="sent_year">
+            <xsl:for-each select="//t:correspDesc[@xml:id=$corresp][1]">
+              <xsl:value-of
+                  select="number(me:year-extractor(t:correspAction[@type='sent']/t:date/@when))"/>
+            </xsl:for-each>
+          </xsl:variable>
+           <xsl:if test="$sent_year and not(contains($sent_year,'NaN'))">
+            <xsl:element name="field">
+	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$sent_year"/>
+            </xsl:element>
+          </xsl:if>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:if>
+    
     <xsl:if test="@xml:id">
       <xsl:element name="field">
 	<xsl:attribute name="name">xmlid_ssi</xsl:attribute>
