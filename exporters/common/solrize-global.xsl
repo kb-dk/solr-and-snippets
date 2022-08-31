@@ -187,10 +187,13 @@
         <xsl:attribute name="name">type_ssi</xsl:attribute>
         <xsl:choose>
           <xsl:when test="@decls">work</xsl:when>
+          <xsl:when test="contains($path,'sks-') and @type='work' and t:div[@type='dedication']">work</xsl:when>
+          <xsl:when test="contains($path,'sks-') and @type='entry'">work</xsl:when>
+          <xsl:when test="contains($path,'sks-') and @type='letter' and contains(@corresp,'#')">work</xsl:when>
           <xsl:otherwise>trunk</xsl:otherwise>
         </xsl:choose>
       </xsl:element>      
-
+      
       <xsl:element name="field"><xsl:attribute name="name">cat_ssi</xsl:attribute><xsl:value-of select="$category"/></xsl:element>
 
       <xsl:element name="field"><xsl:attribute name="name">is_editorial_ssi</xsl:attribute><xsl:call-template name="is_editorial"/></xsl:element>
@@ -539,7 +542,7 @@
               <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
             </xsl:if>
           </xsl:variable>
-          <xsl:if test="$ditsi and not(contains($ditsi,'NaN'))">
+          <xsl:if test="$ditsi &gt; 1000">
             <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$ditsi"/>
             </xsl:element>
@@ -551,7 +554,7 @@
               <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
             </xsl:if>
           </xsl:variable>
-          <xsl:if test="$ditsi and not(contains($ditsi,'NaN'))">
+          <xsl:if test="$ditsi &gt; 1000">
             <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$ditsi"/>
             </xsl:element>
@@ -567,7 +570,7 @@
                   select="number(me:year-extractor(t:correspAction[@type='sent']/t:date/@when))"/>
             </xsl:for-each>
           </xsl:variable>
-           <xsl:if test="$sent_year and not(contains($sent_year,'NaN'))">
+           <xsl:if test="$sent_year &gt; 1000">
             <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$sent_year"/>
             </xsl:element>

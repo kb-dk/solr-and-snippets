@@ -284,10 +284,15 @@
     <xsl:apply-templates/><br><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></br>
   </xsl:template>
 
-  <xsl:template match="t:dateline/t:date">
-    <xsl:call-template name="print_date"> 
-      <xsl:with-param name="date" select="@when"/>
-    </xsl:call-template>
+  <xsl:template match="t:dateline/t:date|t:dateline//t:date">
+    <span>
+      <xsl:attribute name="title">
+        <xsl:call-template name="print_date"> 
+          <xsl:with-param name="date" select="@when"/>
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </span>
   </xsl:template>
 
 
