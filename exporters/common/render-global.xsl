@@ -268,13 +268,13 @@
     <xsl:call-template name="add_id"/>
     <xsl:apply-templates/></span></xsl:template>
 
-  <xsl:template match="t:dateline/t:date">
-    <span>
+  <xsl:template match="t:dateline/t:date|t:dateline//t:date">
+    <xsl:text> </xsl:text><span class="dateline-date">
       <xsl:call-template name="add_id"/>
       <xsl:apply-templates/>
     </span>
+    
   </xsl:template>
-
 
   <xsl:function name="me:paragraph-style">
     <xsl:param name="style"/>

@@ -8,41 +8,47 @@
   <xsl:import href="../solrize-global.xsl"/>
   <xsl:param name="subcollection" select="'sks'"/>  
 
-<!--
+  <!--
 
 //t:div[type='letter' and corresp='#letter-ref']
 
 types of divs with frequencies
 
 xpath -q -e '//div/@type' */txt.xml | sort | uniq -c | sort -n
-      5  type="dateline"
-     22  type="work"
-     36  type="label"
-     85  type="correspondance"
-    120  type="dedication"
-    336  type="letter"
-    472  type="mainText"
-    872  type="chapter"
-   1125  type="marginalColumn"
-   7392  type="entry"
-   7425  type="mainColumn"
+5  type="dateline"
+22  type="work"
+36  type="label"
+85  type="correspondance"
+120  type="dedication"
+336  type="letter"
+472  type="mainText"
+872  type="chapter"
+1125  type="marginalColumn"
+7392  type="entry"
+7425  type="mainColumn"
 
 letter, dedication & entry are candidates for individual "work status" (many of them has dates)
 
 xpath -q -e '//text/@type' */txt.xml | sort | uniq -c | sort -n
-     80  type="print"
-    132  type="ms"
+80  type="print"
+132  type="ms"
 
 xpath -q -e '//text/@subtype' */txt.xml | sort | uniq -c | sort -n
-      1  subtype="documents"
-      9  subtype="unpublishedWritings"
-     15  subtype="lettersAndDedications"
-     78  subtype="publishedWritings"
-    109  subtype="journalsAndPapers"
+1  subtype="documents"
+9  subtype="unpublishedWritings"
+15  subtype="lettersAndDedications"
+78  subtype="publishedWritings"
+109  subtype="journalsAndPapers"
 
--->
+  -->
 
-  <xsl:param name="is_monograph">yes</xsl:param>
+  <xsl:param name="is_monograph">
+    <xsl:choose>
+      <xsl:when test="//t:text/@subtype='lettersAndDedications'">no</xsl:when>
+      <xsl:when test="//t:text/@subtype='journalsAndPapers'">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
 
   <xsl:param name="volume_title">
     <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:seriesStmt">
