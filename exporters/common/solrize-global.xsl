@@ -166,6 +166,28 @@
   <xsl:template name="trunk_doc">
     <xsl:param name="worktitle" select="''"/>
 
+    <xsl:variable name="worktitle_in">
+      <xsl:choose>
+        <xsl:when test="contains($path,'sks-') and @type='work' and t:div[@type='dedication']">
+          <xsl:apply-templates select=".//t:head[@type='workHeader']"/> 
+        </xsl:when>
+        <xsl:when test="contains($path,'sks-') and @type='entry'">
+          <xsl:value-of select="$worktitle"/><xsl:text> </xsl:text>
+
+          <xsl:call-template name="print_date">
+            <xsl:with-param name="date"><xsl:value-of select=".//t:dateline/t:date/@when"/></xsl:with-param>
+          </xsl:call-template>
+          
+        </xsl:when>
+        <xsl:when test="contains($path,'sks-') and @type='letter' and contains(@corresp,'#')">
+          <xsl:value-of select="t:head[@type='letterHeader']/@n"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$worktitle"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
     <xsl:variable name="is_monograph">
       <xsl:call-template name="is_a_monograph"/>
     </xsl:variable>
@@ -200,22 +222,22 @@
 
      <xsl:element name="field"><xsl:attribute name="name">is_monograph_ssi</xsl:attribute><xsl:call-template name="is_a_monograph"/></xsl:element>
 
-     <xsl:if test="string-length($worktitle) &gt; 0">
+     <xsl:if test="string-length($worktitle_in) &gt; 0">
        <xsl:element name="field">
 	 <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	 <xsl:value-of select="$worktitle"/>
+	 <xsl:value-of select="$worktitle_in"/>
        </xsl:element>
 
        <xsl:element name="field">
 	 <xsl:attribute name="name">sort_title_ssi</xsl:attribute>
 	 <xsl:call-template name="str_massage">
-	   <xsl:with-param name="str" select="$worktitle"/>
+	   <xsl:with-param name="str" select="$worktitle_in"/>
 	 </xsl:call-template>
        </xsl:element>
 
        <xsl:element name="field">
 	 <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	 <xsl:value-of select="$worktitle"/>
+	 <xsl:value-of select="$worktitle_in"/>
        </xsl:element>
      </xsl:if>
 
@@ -231,7 +253,7 @@
      <xsl:comment> about to call add_globals from trunc_doc </xsl:comment>
       
      <xsl:call-template name="add_globals">
-       <xsl:with-param name="worktitle" select="$worktitle"/>
+       <xsl:with-param name="worktitle" select="$worktitle_in"/>
      </xsl:call-template>
 
      <xsl:call-template name="text_extracts"/>
@@ -538,8 +560,8 @@
         <xsl:when test="@type='work' and t:div[@type='dedication']">
           
           <xsl:variable name="ditsi">
-            <xsl:if test="t:dateline/t:date/@when">
-              <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
+            <xsl:if test="me:year-extractor(t:dateline/t:date/@when)">
+             <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
             </xsl:if>
           </xsl:variable>
           <xsl:if test="$ditsi &gt; 1000">
@@ -550,7 +572,7 @@
         </xsl:when>
         <xsl:when test="contains(@type,'entry')">
           <xsl:variable name="ditsi">
-            <xsl:if test="t:dateline/t:date/@when">
+            <xsl:if test="me:year-extractor(t:dateline/t:date/@when) &gt; 0">
               <xsl:value-of select="number(me:year-extractor(t:dateline/t:date/@when))"/>
             </xsl:if>
           </xsl:variable>
@@ -566,8 +588,10 @@
           </xsl:variable>
           <xsl:variable name="sent_year">
             <xsl:for-each select="//t:correspDesc[@xml:id=$corresp][1]">
-              <xsl:value-of
-                  select="number(me:year-extractor(t:correspAction[@type='sent']/t:date/@when))"/>
+              <xsl:if test="me:year-extractor(t:correspAction[@type='sent']/t:date/@when) &gt; 0">
+                <xsl:value-of
+                    select="number(me:year-extractor(t:correspAction[@type='sent']/t:date/@when))"/>
+              </xsl:if>
             </xsl:for-each>
           </xsl:variable>
            <xsl:if test="$sent_year &gt; 1000">
@@ -1272,6 +1296,34 @@ Dates of Publication and/or Sequential Designation
       </xsl:for-each>
     </xsl:for-each>
   </xsl:template>
+
+    
+  <xsl:template name="print_date">
+    <xsl:param name="date" select="''"/>
+    <xsl:variable name="year">
+      <xsl:value-of select="substring($date,1,4)"/>
+    </xsl:variable>
+    <xsl:variable name="month_day">
+      <xsl:choose>
+      <xsl:when test="not(contains($date,'0000'))"><xsl:value-of select="substring-after($date,$year)"/></xsl:when>
+      <xsl:otherwise></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <!--
+      date = <xsl:value-of select="$date"/>
+
+      month_day = <xsl:value-of select="$month_day"/>
+
+      year = <xsl:value-of select="$year"/>
+
+      month = <xsl:value-of select="substring($month_day,1,2)"/>
+
+      day   = <xsl:value-of select="substring($month_day,3,4)"/>
+
+    -->
+    <xsl:value-of select="$year"/><xsl:if test="not(contains($date,'0000'))">-<xsl:value-of select="substring($month_day,1,2)"/>-<xsl:value-of select="substring($month_day,3,4)"/></xsl:if>
+  </xsl:template>
+
 
   
 </xsl:transform>

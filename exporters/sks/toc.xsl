@@ -98,20 +98,20 @@ Author Sigfrid Lundberg slu@kb.dk
   <xsl:template name="some_text">
     <xsl:variable name="head_text">
       <xsl:for-each select=".//t:head[node()]">
-        <xsl:apply-templates/> qqqqqqq
+        <xsl:apply-templates/>
       </xsl:for-each>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test=".//t:head[node()]">
-        <xsl:value-of select="$head_text"/>  uuuuuuu
+        <xsl:value-of select="$head_text"/> 
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
           <xsl:when test=".//text()">
-            <xsl:value-of select=".//text()"/>
+            <xsl:value-of select=".//text()"/> 
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="following::text()"/> vvvvvvvvvvvvvvv
+            <xsl:value-of select="following::text()"/> 
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
