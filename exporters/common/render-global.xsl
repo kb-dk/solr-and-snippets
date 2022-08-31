@@ -245,7 +245,8 @@
   <xsl:template match="t:head/t:lb"><br/></xsl:template>
 
   <xsl:template match="t:head">
-    <xsl:if test="./node()">
+    <xsl:choose>
+      <xsl:when test="./node()">
       <h2>
         <xsl:attribute name="style">
           margin-top: 3em; margin-bottom: 3em;text-align:center;"
@@ -261,7 +262,16 @@
 	<xsl:call-template name="add_id"/>
 	<xsl:apply-templates/>
       </h2>
-    </xsl:if>
+      </xsl:when>
+      <xsl:when test="contains($path,'sks') and @n">
+        <xsl:if test="not(@type='topText')">
+          <h2><xsl:value-of select="@n"/></h2>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="t:dateline"><span>
