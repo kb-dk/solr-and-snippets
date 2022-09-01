@@ -169,12 +169,10 @@
     <xsl:variable name="worktitle_in">
       <xsl:choose>
         <xsl:when test="contains($path,'sks-') and @type='work' and t:div[@type='dedication']">
-          <xsl:apply-templates select=".//t:head[@type='workHeader']"/> 
+          <xsl:apply-templates select=".//t:head[@type='workHeader']/@n"/>
         </xsl:when>
         <xsl:when test="contains($path,'sks-') and @type='entry'">
-          <xsl:value-of select="$worktitle"/><xsl:text> </xsl:text>
-
-          <xsl:call-template name="print_date">
+          <xsl:value-of select="$worktitle"/><xsl:text>: </xsl:text><xsl:call-template name="print_date">
             <xsl:with-param name="date"><xsl:value-of select=".//t:dateline/t:date/@when"/></xsl:with-param>
           </xsl:call-template>
           

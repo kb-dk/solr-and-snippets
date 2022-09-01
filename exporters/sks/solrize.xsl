@@ -82,10 +82,20 @@ xpath -q -e '//text/@subtype' */txt.xml | sort | uniq -c | sort -n
     </xsl:for-each>
   </xsl:param>
 
+
+  <xsl:template name="is_a_monograph">
+    <xsl:choose>
+      <xsl:when test="//t:text/@subtype='lettersAndDedications'">no</xsl:when>
+      <xsl:when test="//t:text/@subtype='journalsAndPapers'">no</xsl:when>
+      <xsl:otherwise>yes</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
   <xsl:template match="/">
     <xsl:element name="add">
       <xsl:call-template name="generate_volume_doc" >
-	<xsl:with-param name="is_monograph" select="'yes'"/>
+	<xsl:with-param name="is_monograph" select="$is_monograph"/>
       </xsl:call-template>
       <xsl:apply-templates/>
     </xsl:element>
