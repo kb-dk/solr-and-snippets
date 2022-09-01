@@ -3,6 +3,7 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
+               xmlns:me="urn:my-things"
 	       exclude-result-prefixes="t fn">
 
   <xsl:import href="../solrize-global.xsl"/>
@@ -91,6 +92,19 @@ xpath -q -e '//text/@subtype' */txt.xml | sort | uniq -c | sort -n
     </xsl:choose>
   </xsl:template>
 
+   <xsl:function name="me:is-a-work">
+    <xsl:param name="this"  as="node()"/>
+    
+    <xsl:choose>
+      <xsl:when test="contains($path,'sks-') and $this/@type='work' and $this/t:div[@type='dedication']"><xsl:value-of select="true()"/></xsl:when>
+      <xsl:when test="contains($path,'sks-') and $this/@type='entry'"><xsl:value-of select="true()"/></xsl:when>
+      <xsl:when test="contains($path,'sks-') and $this/@type='letter' and contains($this/@corresp,'#')"><xsl:value-of select="true()"/></xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="false()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+    
+  </xsl:function>
 
   <xsl:template match="/">
     <xsl:element name="add">

@@ -789,6 +789,11 @@
     <xsl:value-of select="normalize-space(.)"/>
   </xsl:template -->
 
+  <xsl:function name="me:is-a-work">
+    <xsl:param name="this"  as="node()"/>
+    <xsl:if test="$this/@decls"><xsl:value-of select="$this/@decls"/></xsl:if>
+  </xsl:function>
+
   <xsl:template mode="backtrack" match="node()[@xml:id]">
     <xsl:choose>
       <xsl:when test="@decls">
