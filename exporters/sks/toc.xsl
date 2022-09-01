@@ -66,7 +66,7 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:variable name="title">
       <xsl:choose>
 	<xsl:when test="t:head">
-          <xsl:for-each select="t:head">
+          <xsl:for-each select="t:head[@type='workHeader' or @type='letterHeader']">
             <xsl:if test="@n"><xsl:apply-templates select="@n"/></xsl:if>
             <xsl:if test="node()"><xsl:apply-templates select="."/></xsl:if>
           </xsl:for-each>

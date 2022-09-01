@@ -263,8 +263,8 @@
 	<xsl:apply-templates/>
       </h2>
       </xsl:when>
-      <xsl:when test="contains($path,'sks') and @n">
-        <xsl:if test="not(@type='topText')">
+      <xsl:when test="contains($path,'sks') and @n"> 
+        <xsl:if test="not(@type='topText') and not(@type='workTitle')">
           <h2><xsl:value-of select="@n"/></h2>
         </xsl:if>
       </xsl:when>
