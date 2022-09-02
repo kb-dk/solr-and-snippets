@@ -586,13 +586,13 @@
           </xsl:variable>
           <xsl:variable name="sent_year">
             <xsl:for-each select="//t:correspDesc[@xml:id=$corresp][1]">
-              <xsl:if test="me:year-extractor(t:correspAction[@type='sent']/t:date/@when) &gt; 0">
+              <xsl:if test="number(me:year-extractor(t:correspAction[@type='sent']/t:date/@when)) &gt; 0">
                 <xsl:value-of
                     select="number(me:year-extractor(t:correspAction[@type='sent']/t:date/@when))"/>
               </xsl:if>
             </xsl:for-each>
           </xsl:variable>
-           <xsl:if test="$sent_year &gt; 1000">
+           <xsl:if test="$sent_year and number($sent_year) &gt; 1000">
             <xsl:element name="field">
 	      <xsl:attribute name="name">year_itsi</xsl:attribute><xsl:value-of select="$sent_year"/>
             </xsl:element>
