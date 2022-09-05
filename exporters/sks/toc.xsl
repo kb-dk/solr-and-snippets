@@ -12,6 +12,12 @@ Author Sigfrid Lundberg slu@kb.dk
 
   <xsl:import href="../toc-global.xsl"/>
 
+  <xsl:param name="id" select="''"/>
+  <xsl:param name="doc" select="''"/>
+  <xsl:param name="path" select="''"/>
+  <xsl:param name="targetOp" select="''"/>
+  <xsl:param name="hostname" select="''"/>
+  
   <xsl:variable name="sks_acronym" select="/t:TEI/t:teiHeader/t:fileDesc/t:titleStmt/t:title[@type='short']"/>
   
   <xsl:template match="/t:TEI">
@@ -49,7 +55,7 @@ Author Sigfrid Lundberg slu@kb.dk
             <xsl:copy-of select="$date_number"/><xsl:text> </xsl:text><xsl:call-template name="add_anchor"/>
           </li>
         </xsl:if>
-         <xsl:if test="not(contains(@type,'entry')) and (.//t:group|.//t:body|.//t:text|.//t:div)">
+         <xsl:if test="not(@type='entry' or @type='workHeader' or @type='letterHeader'  ) and (.//t:group|.//t:body|.//t:text|.//t:div)">
               <ul><xsl:apply-templates mode="get_lists"/></ul>
          </xsl:if>
       </xsl:when>
@@ -67,8 +73,12 @@ Author Sigfrid Lundberg slu@kb.dk
       <xsl:choose>
 	<xsl:when test="t:head">
           <xsl:for-each select="t:head[@type='workHeader' or @type='letterHeader']">
-            <xsl:if test="@n"><xsl:apply-templates select="@n"/></xsl:if>
-            <xsl:if test="node()"><xsl:apply-templates select="."/></xsl:if>
+            <xsl:choose>
+              <xsl:when test="@n"><xsl:apply-templates select="@n"/></xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="."/>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:for-each>
 	</xsl:when>
 	<xsl:otherwise>
