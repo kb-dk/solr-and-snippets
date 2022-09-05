@@ -22,7 +22,7 @@ Author Sigfrid Lundberg slu@kb.dk
   
   <xsl:template match="/t:TEI">
     <div>
-      <xsl:apply-templates mode="get_lists" select="./t:text"/>
+      <ul><xsl:apply-templates mode="get_lists" select="./t:text"/></ul>
     </div>
   </xsl:template>
 
@@ -31,11 +31,8 @@ Author Sigfrid Lundberg slu@kb.dk
   <xsl:template  mode="get_lists" match="*"></xsl:template>
   
   <xsl:template  mode="get_lists" match="t:group|t:body|t:text|t:div|t:lg|t:front|t:back">
-    <xsl:choose>
-      <xsl:when test="./t:head|./t:p|./t:l">
-        <xsl:variable name="item">
-          <xsl:call-template name="add_anchor"/>
-        </xsl:variable>
+    
+      <xsl:if test="./t:head|./t:p|./t:l">
 
         <xsl:variable name="date_number">
           <xsl:for-each select="t:dateline">
@@ -46,25 +43,27 @@ Author Sigfrid Lundberg slu@kb.dk
             </strong>
           </xsl:for-each>
         </xsl:variable>
-        
-        <xsl:if test="string-length($item) &gt; 0">
+
+        <xsl:variable name="content">
+          <xsl:call-template name="add_anchor"/>
+        </xsl:variable>
+
+        <xsl:if test="$content//text()">
           <li>
             <xsl:attribute name="id">
 	      <xsl:value-of select="concat('list-',@xml:id)"/>
             </xsl:attribute>
-            <xsl:copy-of select="$date_number"/><xsl:text> </xsl:text><xsl:call-template name="add_anchor"/>
+              <xsl:copy-of select="$date_number"/><xsl:text> </xsl:text> <xsl:copy-of select="$content"/>
           </li>
         </xsl:if>
-         <xsl:if test="not(@type='entry' or @type='workHeader' or @type='letterHeader'  ) and (.//t:group|.//t:body|.//t:text|.//t:div)">
-              <ul><xsl:apply-templates mode="get_lists"/></ul>
-         </xsl:if>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:if test=".//t:group|.//t:body|.//t:text|.//t:div">
-          <ul><xsl:apply-templates mode="get_lists"/></ul>
-        </xsl:if>     
-      </xsl:otherwise>
-    </xsl:choose>
+
+         
+      </xsl:if>
+
+      <xsl:if test="./t:group|./t:body|./t:text|./t:div">
+        <ul><xsl:apply-templates mode="get_lists" select="./t:group|./t:body|./t:text|./t:div"/></ul>
+      </xsl:if>
+
   </xsl:template>
 
   <xsl:template name="add_anchor">
@@ -72,7 +71,7 @@ Author Sigfrid Lundberg slu@kb.dk
     <xsl:variable name="title">
       <xsl:choose>
 	<xsl:when test="t:head">
-          <xsl:for-each select="t:head[@type='workHeader' or @type='letterHeader']">
+          <xsl:for-each select="t:head[@type='workHeader' or @type='letterHeader' or @type='topText'][1]">
             <xsl:choose>
               <xsl:when test="@n"><xsl:apply-templates select="@n"/></xsl:when>
               <xsl:otherwise>
