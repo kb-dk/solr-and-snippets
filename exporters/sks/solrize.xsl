@@ -231,6 +231,16 @@ xpath -q -e '//text/@subtype' */txt.xml | sort | uniq -c | sort -n
 	</xsl:for-each>
       </xsl:otherwise>
     </xsl:choose>
+
+    <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl">
+      <xsl:for-each select="t:date">
+	<xsl:element name="field">
+          <xsl:attribute name="name">year_itsi</xsl:attribute>
+	<xsl:value-of  select="."/>
+	</xsl:element>
+      </xsl:for-each>
+    </xsl:for-each>
+    
     <xsl:element name="field"><xsl:attribute name="name">publisher_tesim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
     <xsl:element name="field"><xsl:attribute name="name">publisher_nasim</xsl:attribute><xsl:value-of select="$publisher"/></xsl:element>
 
