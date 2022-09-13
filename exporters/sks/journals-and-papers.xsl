@@ -69,7 +69,7 @@
     </xsl:variable>
     
     <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
-      <sup>
+      <sup style="display:none">
         <xsl:call-template name="add-ptr-marker">
           <xsl:with-param name="target" select="$target"/>
           <xsl:with-param name="marker" select="$label"/>
