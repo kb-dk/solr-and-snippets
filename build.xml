@@ -97,6 +97,19 @@
       
     </target>
 
+    <target name="add_lh">
+      <property name="target"         value="text-retriever/lh"/>
+      <property name="service"        value="${build}/${target}"/>
+    
+
+      <exec executable="/bin/bash">
+	<arg line="-c"/>
+	<arg line='"./utilities/copy-letters.pl | /bin/bash"'/>
+      </exec>
+      
+    </target>
+
+    
     <target name="add_letter_data">
       <property name="xconfig"        value="system/config/db/letter_books"/>
       <property name="xconfig_source" value="${build}/system/config/db/letter_books"/>
