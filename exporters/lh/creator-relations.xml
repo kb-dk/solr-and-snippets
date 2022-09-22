@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<table xmlns="http://www.tei-c.org/ns/1.0">
+  <row>
+    <cell role="author"></cell>
+    <cell role="texts">
+      <ref></ref>
+    </cell>
+  </row>
+</table>
