@@ -3,7 +3,7 @@
 
 ## Introduction
 
-This directory contains what is needed for storing and accessing trykkefrihedens-skrifter  (TFS) stuff in
+This directory contains what is needed for storing and accessing Louise Hjelmslev (LH) stuff in
 an eXist DB 
 
 ## The stuff
@@ -17,7 +17,7 @@ an eXist DB
   taken for granted that all files live in /dir/adl/texts 
 * [render.xsl](./render.xsl) is an xslt script creating an html fragment out
   of the TEI upon delivery.
-* [collection.xconf](../index/collection.xconf) is the [definition of the index in eXist DB](http://exist-db.org/exist/apps/doc/indexing.xml) for the store.
+* [collection.xconf](./collection.xconf) is the [definition of the index](http://exist-db.org/exist/apps/doc/indexing.xml) for the store.
 
 Further info at [diswiki](http://diswiki.kb.dk/w/index.php/ADL_Udvikling#File_.2F_Fragment_.2F_TOC_server_and_HTML)
 
