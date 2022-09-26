@@ -124,7 +124,7 @@ sub get_it() {
 # This one is unforgivable:
 #
 
-    $file =~ s/^.*?((letters)|(pmm)|(gv)|(lhv)|(adl)|(sks)|(tfs))\///;
+    $file =~ s/^.*?((letters)|(pmm)|(gv)|(lhv)|(adl)|(sks)|(tfs)|(lh))\///;
 
     $c = $1;
     $f = $file;

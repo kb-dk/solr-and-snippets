@@ -44,9 +44,8 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 	if($doc//t:graphic[@xml:id=$pid]/@url) then fn:replace($doc//t:graphic[@xml:id=$pid]/@url,"(^.*geService/)(.*)(.jpg)","$2")
 	else if(contains($path,"tfs")) then  concat("/public/tekstportal/tfs/",$pid) (: because of caching problem :)
 	else if(contains($path,"gv") ) then  concat("/public/tekstportal/gv/", $pid)
-
+	else if(contains($path,"lh-") ) then  concat("/public/tekstportal/lh/", $pid)
 	else if(contains($path,"letters") ) then  concat("/public/dk_breve/", $pid)
-
   else concat("public/",$pid)
   return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
@@ -110,6 +109,11 @@ declare function local:get-pages(
 
 };
 
+(:
+https://kb-images.kb.dk/public/tekstportal/lh/kapsel_021/acc-1992_0005_021_Bazell_0100_001/info.json
+https://kb-images.kb.dk/public/tekstportal/lh/kapsel_021/acc-1992_0005_021_Bally_0010_001/full/full/0/default.jpg
+:)
+ 
 
 declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
 {
@@ -117,13 +121,14 @@ declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:s
 	if(contains($path,"tfs")) then "public/tekstportal/tfs/"
 	else if(contains($path,"letters")) then "public/dk_breve/"
 	else if(contains($path,"gv")) then "public/tekstportal/gv/"
+	else if(contains($path,"lh-")) then "public/tekstportal/lh/"
 	else "public/"
 
 	let $cleaner := fn:replace ($pid,".jpg","")
 	let $year    := substring-before($cleaner,"_")
 
 	let $letterpid := concat($pth,fn:replace ($cleaner,"images/",""))
-	let $gvpid   := concat($pth,$year,"/",$year,"GV/",fn:replace ($pid,"_fax.*$",""),"/", fn:replace ($cleaner,"_fax.*$","_tif_side/"),$cleaner)
+	let $gvpid     := concat($pth,$year,"/",$year,"GV/",fn:replace ($pid,"_fax.*$",""),"/", fn:replace ($cleaner,"_fax.*$","_tif_side/"),$cleaner)
 (:
 https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_tif_side/info.json
 https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_tif_side/1810_148A_fax200/info.json 
@@ -138,7 +143,7 @@ https://kb-images.kb.dk/public/tekstportal/gv/1810/1810GV/1810_148A/1810_148A_ti
 	          fn:replace($graphic,"(^.*geService/)(.*)(.jpg)","$2")
 					else
 	          fn:replace($graphic,"(^.*src=)(.*)(.tif.*$)","$2")
-      else 
+    else 
 	      concat($pth,fn:replace($pid,"#",""))
 };
 
@@ -146,7 +151,7 @@ let $doc := doc(concat("./",$c,"/",$document))
 let $osd := 
 map {
 	"id":"kbOSDInstance",
-	"showNavigator":"true",
+				"showNavigator":"true",
         "rtl":"false",
         "initialPage":1,
         "defaultZoomLevel":0,
