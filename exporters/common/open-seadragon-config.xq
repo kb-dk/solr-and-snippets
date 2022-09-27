@@ -109,11 +109,6 @@ declare function local:get-pages(
 
 };
 
-(:
-https://kb-images.kb.dk/public/tekstportal/lh/kapsel_021/acc-1992_0005_021_Bazell_0100_001/info.json
-https://kb-images.kb.dk/public/tekstportal/lh/kapsel_021/acc-1992_0005_021_Bally_0010_001/full/full/0/default.jpg
-:)
- 
 
 declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:string*
 {
