@@ -182,11 +182,11 @@ xpath -q -e '//text/@subtype' */txt.xml | sort | uniq -c | sort -n
       <xsl:element name="field">
 	<xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>
 	<xsl:choose>
-	  <xsl:when test="/t:TEI//t:text/@subtype='journalsAndPapers'">Journaler og papirer</xsl:when>
-	  <xsl:when test="/t:TEI//t:text/@subtype='publishedWritings'">Trykte skrifter</xsl:when>
-	  <xsl:when test="/t:TEI//t:text/@subtype='lettersAndDedications'">Breve og dedikationer</xsl:when>
-	  <xsl:when test="/t:TEI//t:text/@subtype='unpublishedWritings'">Utrykte skrifter</xsl:when>
-	  <xsl:when test="/t:TEI//t:text/@subtype='documents'">Dokumenter</xsl:when>
+	  <xsl:when test="/t:TEI//t:text/@subtype='journalsAndPapers'">journaler og papirer</xsl:when>
+	  <xsl:when test="/t:TEI//t:text/@subtype='publishedWritings'">trykte skrifter</xsl:when>
+	  <xsl:when test="/t:TEI//t:text/@subtype='lettersAndDedications'">breve og dedikationer</xsl:when>
+	  <xsl:when test="/t:TEI//t:text/@subtype='unpublishedWritings'">utrykte skrifter</xsl:when>
+	  <xsl:when test="/t:TEI//t:text/@subtype='documents'">dokumenter</xsl:when>
 	</xsl:choose>
       </xsl:element>
     </xsl:if>

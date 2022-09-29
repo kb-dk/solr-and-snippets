@@ -139,18 +139,61 @@
       <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
       <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>
 
-      <xsl:if test="$bibl/t:title">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
-	  <xsl:value-of select="$bibl/t:title"/>
-	</xsl:element>
+      <xsl:choose>
+        <xsl:when test="$bibl/t:respStmt[contains(t:resp,'recipient')  and t:name//text()]">
 
-	<xsl:element name="field">
-	  <xsl:attribute name="name">work_title_ssi</xsl:attribute>
-	  <xsl:value-of select="$bibl/t:title"/>
-	</xsl:element>
+                    
+          <xsl:variable name="supplied_title">
+            <xsl:text>BREV</xsl:text>
+            
+            <xsl:for-each select="$bibl/t:respStmt[contains(t:resp,'recipient') and t:name//text()]">
+              <xsl:text> TIL: </xsl:text>
+              <xsl:for-each select="t:name">
+                <xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+              </xsl:for-each>
+            </xsl:for-each>
 
-      </xsl:if>
+            <xsl:for-each select="$bibl/t:respStmt[contains(t:resp,'sender') and t:name//text()]">
+              <xsl:text> FRA: </xsl:text> 
+              <xsl:for-each select="t:name">
+                <xsl:value-of select="."/><xsl:if test="position() &lt; last()"><xsl:text>; </xsl:text></xsl:if>
+              </xsl:for-each>
+            </xsl:for-each>
+
+	    <xsl:for-each select="$bibl/t:date/@when[string()]">
+	      <xsl:text> (</xsl:text><xsl:value-of select="."/><xsl:text>)</xsl:text>
+	    </xsl:for-each>
+          </xsl:variable>
+
+          <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	    <xsl:value-of select="$supplied_title"/>  <xsl:if test="$bibl/t:title/text()"> -- <xsl:value-of select="$bibl/t:title"/></xsl:if>
+	  </xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	    <xsl:value-of select="$supplied_title"/> <xsl:if test="$bibl/t:title/text()"> -- <xsl:value-of select="$bibl/t:title"/></xsl:if>
+	  </xsl:element>
+
+          <xsl:element name="field"><xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>breve og dedikationer</xsl:element>
+	
+        </xsl:when>
+        <xsl:otherwise>
+
+          <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_tesim</xsl:attribute>
+	    <xsl:value-of select="$bibl/t:title"/>
+	  </xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">work_title_ssi</xsl:attribute>
+	    <xsl:value-of select="$bibl/t:title"/>
+	  </xsl:element>
+
+          <xsl:element name="field"><xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>dokumenter</xsl:element>
+          
+        </xsl:otherwise>
+      </xsl:choose>
 
       <xsl:if test="$bibl/t:publisher">
 
@@ -205,7 +248,7 @@
           </xsl:element>
 	</xsl:for-each>
         
-	<xsl:for-each select="$bibl/t:date[contains(@when,'17')][1]">
+	<xsl:for-each select="$bibl/t:date[@when]">
           <xsl:element name="field">
 	    <xsl:attribute name="name">year_itsi</xsl:attribute>
             <xsl:choose>
