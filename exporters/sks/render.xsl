@@ -154,6 +154,17 @@
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="t:ref[contains(@target,'../Dok/') and @type='pdf']">
+    <xsl:element name="a">
+      <xsl:attribute name="target">_blank</xsl:attribute>
+      <xsl:attribute name="href">
+	<xsl:value-of
+            select="concat('/sks-biographical-docs/',substring-after(@target,'Dok/'))"/>
+      </xsl:attribute> 
+      <img src="/sks-biographical-docs/pdf.gif" alt="pdf"/>
+    </xsl:element>
+  </xsl:template>
   
   <xsl:template match="t:rs[@type='bible']">
     <xsl:variable name="entity">
