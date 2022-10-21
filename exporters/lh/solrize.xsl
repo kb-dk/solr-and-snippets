@@ -112,24 +112,8 @@
 
 
   <xsl:template name="facs_and_text">
-    <field name="has_facs_ssi">
-      <xsl:choose>
-	<xsl:when test="me:right_kind_of_page(.,/t:TEI)">yes</xsl:when>
-	<xsl:otherwise>no</xsl:otherwise>
-      </xsl:choose>
-    </field>
-
-    <field name="has_text_ssi">
-      <xsl:choose>
-	<xsl:when test="descendant-or-self::t:head/text()|
-                        descendant-or-self::t:p/text()|
-                        descendant-or-self::t:l/text()">yes</xsl:when>
-	<xsl:otherwise>no</xsl:otherwise>
-      </xsl:choose>
-    </field>
 
   </xsl:template>
-
 
   
   <xsl:template name="extract_titles_authors_etc">
@@ -138,7 +122,7 @@
     <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
       <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
       <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>
-
+      
       <xsl:choose>
         <xsl:when test="$bibl/t:respStmt[contains(t:resp,'recipient')  and t:name//text()]">
 
@@ -176,7 +160,12 @@
 	  </xsl:element>
 
           <xsl:element name="field"><xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>breve og dedikationer</xsl:element>
-	
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">writing_ssi</xsl:attribute>
+            <xsl:value-of  select="$bibl/t:term[@type='writing']"/>
+          </xsl:element>
+          
         </xsl:when>
         <xsl:otherwise>
 
@@ -191,10 +180,26 @@
 	  </xsl:element>
 
           <xsl:element name="field"><xsl:attribute name="name">textclass_genre_ssim</xsl:attribute>dokumenter</xsl:element>
+
+	  <xsl:element name="field">
+	    <xsl:attribute name="name">writing_ssi</xsl:attribute>
+            <xsl:value-of  select="$bibl/t:term[@type='writing']"/>
+          </xsl:element>
           
         </xsl:otherwise>
       </xsl:choose>
 
+
+      <field name="has_facs_ssi">yes</field>
+
+      <field name="has_text_ssi">
+        <xsl:attribute name="name">has_text_ssi</xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="$bibl/t:term[@type='writing'] = 'maskinskrevet'">yes</xsl:when>
+          <xsl:otherwise>no</xsl:otherwise>
+        </xsl:choose>
+      </field>
+      
       <xsl:if test="$bibl/t:publisher">
 
 	<xsl:element name="field">

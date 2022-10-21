@@ -808,41 +808,6 @@
     </xsl:element>
     <xsl:apply-templates mode="backtrack" select="ancestor::node()[@xml:id][1]"/>
   </xsl:template>
-  
-  <!-- xsl:template mode="backtrack" match="node()[@xml:id]">
-    <xsl:choose>
-      <xsl:when test="@decls">
-	<xsl:element name="field">
-	  <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	  <xsl:value-of select="concat(substring-before($path,'-root'),'-shoot-',me:massage-uri-component(@xml:id))"/>
-	</xsl:element>
-	<xsl:choose>
-	  <xsl:when test="ancestor::node()">
-	    <xsl:apply-templates mode="backtrack" select="ancestor::node()[1]"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:element name="field">
-	      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	      <xsl:value-of select="$path"/>
-	    </xsl:element>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:choose>
-          <xsl:when test="ancestor::node()[@decls]">
-	    <xsl:apply-templates mode="backtrack" select="ancestor::node()[@decls][1]"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:element name="field">
-	      <xsl:attribute name="name">part_of_ssim</xsl:attribute>
-	      <xsl:value-of select="$path"/>
-	    </xsl:element>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template -->
 
   <!-- 
        This is the default behaviour, used in SKS 
