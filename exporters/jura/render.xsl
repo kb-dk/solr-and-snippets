@@ -3,7 +3,7 @@
 	       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	       xmlns:t="http://www.tei-c.org/ns/1.0"
 	       xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	       exclude-result-prefixes="t">
+	       exclude-result-prefixes="t fn">
 
   <xsl:import href="../render-global.xsl"/>  
 
