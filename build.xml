@@ -115,7 +115,7 @@
   <target name="add_jura">
     <property name="target" value="text-retriever"/>
     <property name="service"        value="${build}/${target}"/>
-    <copy  todir="${service}/lh/texts">
+    <copy  todir="${service}/jura/texts">
       <fileset dir="../dab-lovforarbejder/volumes"/>
     </copy>
   </target>
