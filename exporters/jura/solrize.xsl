@@ -134,11 +134,14 @@
   
   <xsl:template name="extract_titles_authors_etc">
     <xsl:param name="worktitle" select="''"/>
+
+    <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
+    <xsl:comment> xml:id <xsl:value-of select="@xml:id"/> </xsl:comment>
+    <xsl:comment> <xsl:value-of select="$path"/> jura biblid  <xsl:value-of select="$biblid"/> </xsl:comment>
     
     <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
-      <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
       <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>
-
+      
       <xsl:if test="$bibl/t:title">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">work_title_tesim</xsl:attribute>
@@ -176,50 +179,36 @@
       </xsl:if>
 
       <xsl:if test="$bibl/t:author">
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">author_name_tesim</xsl:attribute>
-	    <xsl:value-of select="$bibl/t:author"/>
-	  </xsl:element>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">author_name_tesim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:author"/>
+	</xsl:element>
 
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">author_nasim</xsl:attribute>
-	    <xsl:value-of select="$bibl/t:author"/>
-	  </xsl:element>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">author_nasim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:author"/>
+	</xsl:element>
 
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">author_name_ssim</xsl:attribute>
-	    <xsl:value-of select="$bibl/t:author"/>
-	  </xsl:element>
-
-      </xsl:if>
-
-      <xsl:if test="$bibl/t:date">
-        <xsl:for-each select="$bibl/t:date[@type]">
-	  <xsl:element name="field">
-	    <xsl:attribute name="name">
-              <xsl:call-template name="date_semantics">
-                <xsl:with-param name="type" select="@type"/>
-              </xsl:call-template>
-            </xsl:attribute>
-	    <xsl:value-of select="."/>
-          </xsl:element>
-	</xsl:for-each>
-        
-	<xsl:for-each select="$bibl/t:date[contains(@when,'17')][1]">
-          <xsl:element name="field">
-	    <xsl:attribute name="name">year_itsi</xsl:attribute>
-            <xsl:choose>
-              <xsl:when test="@when">
-                <xsl:value-of select="me:year-extractor(@when/string())"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="me:year-extractor(./string())"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:element>
-	</xsl:for-each>
+	<xsl:element name="field">
+	  <xsl:attribute name="name">author_name_ssim</xsl:attribute>
+	  <xsl:value-of select="$bibl/t:author"/>
+	</xsl:element>
 
       </xsl:if>
+
+    </xsl:if>
+
+    <xsl:if test="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:date">
+      <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:date">
+	<xsl:element name="field">
+	  <xsl:attribute name="name">
+            <xsl:call-template name="date_semantics">
+              <xsl:with-param name="type" select="@type"/>
+            </xsl:call-template>
+          </xsl:attribute>
+	  <xsl:value-of select="."/>
+        </xsl:element>
+      </xsl:for-each>
     </xsl:if>
 
   </xsl:template>
