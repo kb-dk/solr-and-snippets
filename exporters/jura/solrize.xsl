@@ -130,7 +130,6 @@
 
   </xsl:template>
 
-
   
   <xsl:template name="extract_titles_authors_etc">
     <xsl:param name="worktitle" select="''"/>
@@ -138,7 +137,19 @@
     <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
     <xsl:comment> xml:id <xsl:value-of select="@xml:id"/> </xsl:comment>
     <xsl:comment> <xsl:value-of select="$path"/> jura biblid  <xsl:value-of select="$biblid"/> </xsl:comment>
-    
+
+    <xsl:for-each select="t:speaker|descendant-or-self::t:speaker">
+      <xsl:element name="field">
+        <xsl:attribute name="name">person_name_tesim</xsl:attribute>
+        <xsl:value-of select="fn:replace(.,':\s*$','')"/>
+      </xsl:element>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">person_name_ssim</xsl:attribute>
+        <xsl:value-of select="fn:replace(.,':\s*$','')"/>
+      </xsl:element>
+    </xsl:for-each>
+
     <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
       <xsl:variable name="bibl" select="//t:bibl[@xml:id=$biblid]"/>
       
