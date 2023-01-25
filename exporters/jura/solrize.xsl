@@ -213,9 +213,7 @@
       <xsl:for-each select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:bibl/t:date">
 	<xsl:element name="field">
 	  <xsl:attribute name="name">
-            <xsl:call-template name="date_semantics">
-              <xsl:with-param name="type" select="@type"/>
-            </xsl:call-template>
+            <xsl:attribute name="name">year_itsi</xsl:attribute>
           </xsl:attribute>
 	  <xsl:value-of select="."/>
         </xsl:element>
