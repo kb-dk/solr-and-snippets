@@ -42,6 +42,14 @@
     <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
+  <xsl:template match="t:milestone[@next]">
+    <xsl:choose>
+      <xsl:when test="@type = 'leftside'">
+        <div style="clear: both;text-align: left;">spalte<xsl:value-of select="@n"/></div>
+      </xsl:when>
+      <xsl:otherwise><div style="clear: both;text-align: right;">spalte<xsl:value-of select="@n"/></div></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
   
 
 </xsl:transform>
