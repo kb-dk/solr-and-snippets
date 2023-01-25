@@ -42,13 +42,20 @@
     <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
+  <xsl:template match="t:fw"/>
+  
   <xsl:template match="t:milestone[@next]">
-    <xsl:choose>
-      <xsl:when test="@type = 'leftside'">
-        <div style="clear: both;text-align: left;">spalte<xsl:value-of select="@n"/></div>
-      </xsl:when>
-      <xsl:otherwise><div style="clear: both;text-align: right;">spalte<xsl:value-of select="@n"/></div></xsl:otherwise>
-    </xsl:choose>
+    <div id="{@xml:id}">
+      <xsl:attribute name="style">
+        <xsl:choose>
+          <xsl:when test="@type = 'leftside'">clear: both;text-align: left;</xsl:when>
+          <xsl:otherwise>clear: both;text-align: right;"></xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+      <p  style="box-sizing: content-box;width: 100%;border: solid #5B6DCD 1px;padding: 5px;">
+        <a href="#{@xml:id}">spalte<xsl:value-of select="@n"/></a>
+      </p>
+    </div>
   </xsl:template>
   
 
