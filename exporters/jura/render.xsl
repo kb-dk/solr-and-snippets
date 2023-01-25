@@ -52,7 +52,7 @@
           <xsl:otherwise>clear: both;text-align: right;"></xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
-      <p  style="box-sizing: content-box;width: 100%;border: solid #5B6DCD 1px;padding: 5px;">
+      <p  style="box-sizing: content-box;width: 100%;border: solid black 1px;padding: 5px;">
         <a href="#{@xml:id}">spalte<xsl:value-of select="@n"/></a>
       </p>
     </div>
