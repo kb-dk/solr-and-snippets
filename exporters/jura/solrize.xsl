@@ -141,12 +141,12 @@
     <xsl:for-each select="t:speaker|descendant-or-self::t:speaker">
       <xsl:element name="field">
         <xsl:attribute name="name">person_name_tesim</xsl:attribute>
-        <xsl:value-of select="fn:replace(.,':\s*$','')"/>
+        <xsl:value-of select="normalize-space(fn:replace(.,'[:,\.]+\s*',' '))"/>
       </xsl:element>
 
       <xsl:element name="field">
         <xsl:attribute name="name">person_name_ssim</xsl:attribute>
-        <xsl:value-of select="fn:replace(.,':\s*$','')"/>
+        <xsl:value-of select="normalize-space(fn:replace(.,'[:,\.]+\s*',' '))"/>
       </xsl:element>
     </xsl:for-each>
 
