@@ -148,6 +148,13 @@
         <xsl:attribute name="name">person_name_ssim</xsl:attribute>
         <xsl:value-of select="normalize-space(fn:replace(.,'[:,\.]+\s*',' '))"/>
       </xsl:element>
+
+      <xsl:element name="field">
+        <xsl:attribute name="name">text_tsim</xsl:attribute>
+        <xsl:value-of select="normalize-space(fn:replace(.,'[:,\.]+\s*',' '))"/>
+      </xsl:element>
+
+      
     </xsl:for-each>
 
     <xsl:if test="@decls|ancestor::node()[@decls]/@decls">
