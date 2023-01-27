@@ -3,13 +3,13 @@
 
 ## Introduction
 
-This directory contains what is needed for storing and accessing trykkefrihedens-skrifter  (TFS) stuff in
+This directory contains what is needed for storing and accessing  Lovforarbejder (jura) stuff in
 an eXist DB 
 
 ## The stuff
 
 * [solrize.xsl](./solrize.xsl) generates a SOLR add document making an
-  index for text searching in ADL 
+  index for text searching in text-service 
 * [present.xq](./present.xq) is retrieving
   piece of XML from the store given the name of the file and the xml:id of the
   fragment. Call it like this
