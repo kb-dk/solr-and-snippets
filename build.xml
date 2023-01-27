@@ -60,6 +60,9 @@
     <copy todir="${service}/lh">
       <fileset dir="${service.src}/lh"/>
     </copy>
+     <copy todir="${service}/jura">
+      <fileset dir="${service.src}/jura"/>
+    </copy>
   </target>
 
   <target name="other_services" depends="service">
@@ -107,6 +110,14 @@
       <fileset dir="../alto-to-tei-tools/tei_dir"/>
     </copy>
     
+  </target>
+
+  <target name="add_jura">
+    <property name="target" value="text-retriever"/>
+    <property name="service"        value="${build}/${target}"/>
+    <copy  todir="${service}/jura/texts">
+      <fileset dir="../dab-lovforarbejder/volumes"/>
+    </copy>
   </target>
 
   

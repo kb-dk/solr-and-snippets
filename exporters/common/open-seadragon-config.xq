@@ -46,6 +46,7 @@ declare function local:get-facs($pid as xs:string*,$doc as node() ) as xs:string
 	else if(contains($path,"gv") ) then  concat("/public/tekstportal/gv/", $pid)
 	else if(contains($path,"lh-") ) then  concat("/public/tekstportal/lh/", $pid)
 	else if(contains($path,"letters") ) then  concat("/public/dk_breve/", $pid)
+	else if(contains($path,"jura") ) then concat("/public/tekstportal/jura/",$pid)
   else concat("public/",$pid)
   return  string-join((concat($uri_scheme,"://kb-images.kb.dk"),$uri_path,"info.json"),'/')
 };
@@ -117,6 +118,7 @@ declare function local:get-graphic-uri($pid as xs:string,$doc as node()) as xs:s
 	else if(contains($path,"letters")) then "public/dk_breve/"
 	else if(contains($path,"gv")) then "public/tekstportal/gv/"
 	else if(contains($path,"lh-")) then "public/tekstportal/lh/"
+	else if(contains($path,"jura") ) then "public/tekstportal/jura/"
 	else "public/"
 
 	let $cleaner := fn:replace ($pid,".jpg","")
