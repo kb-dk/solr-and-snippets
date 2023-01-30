@@ -46,6 +46,7 @@
   
   <xsl:template match="t:milestone[@next]">
     <div id="{@xml:id}">
+      <xsl:attribute name="class">milestone-column</xsl:attribute>
       <xsl:attribute name="style">
         <xsl:choose>
           <xsl:when test="@type = 'leftside'">clear: both;text-align: left;</xsl:when>
@@ -53,7 +54,12 @@
         </xsl:choose>
       </xsl:attribute>
       <p  style="box-sizing: content-box;width: 100%;border: solid black 1px;padding: 5px;">
-        <a href="#{@xml:id}">spalte<xsl:value-of select="@n"/></a>
+        <xsl:attribute name="class">milestone</xsl:attribute>
+        <a href="#{@xml:id}">
+          <xsl:attribute name="class">column number</xsl:attribute>
+          spalte
+          <xsl:value-of select="@n"/>
+        </a>
       </p>
     </div>
   </xsl:template>

@@ -127,13 +127,22 @@
 	<xsl:otherwise>no</xsl:otherwise>
       </xsl:choose>
     </field>
-
+    
   </xsl:template>
 
+
+  <xsl:template name="local_globals">
+    <xsl:for-each select="descendant-or-self::t:milestone[@next]">
+      <xsl:element name="field">
+        <xsl:attribute name="name">text_tsim</xsl:attribute>
+        <xsl:value-of select="concat('spalte',@n)"/>
+      </xsl:element>
+    </xsl:for-each>
+  </xsl:template>
   
   <xsl:template name="extract_titles_authors_etc">
     <xsl:param name="worktitle" select="''"/>
-
+    
     <xsl:variable name="biblid" select="substring-after(@decls|ancestor::node()[@decls]/@decls,'#')"/>
     <xsl:comment> xml:id <xsl:value-of select="@xml:id"/> </xsl:comment>
     <xsl:comment> <xsl:value-of select="$path"/> jura biblid  <xsl:value-of select="$biblid"/> </xsl:comment>
@@ -227,6 +236,7 @@
       </xsl:for-each>
     </xsl:if>
 
+   
   </xsl:template>
 
   <xsl:template name="what_i_can"/>

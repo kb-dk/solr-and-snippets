@@ -520,12 +520,15 @@
     </doc>
   </xsl:template>
 
+  <xsl:template name="local_globals"/>
+  
   <xsl:template name="add_globals">
     <xsl:param name="worktitle" select="''"/>
     
     <xsl:comment> add_globals called </xsl:comment>
 
     <xsl:call-template name="extract_entities"/>
+    <xsl:call-template name="local_globals"/>
     
     <xsl:element name="field">
       <xsl:attribute name="name">id</xsl:attribute>
