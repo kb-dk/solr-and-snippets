@@ -10,7 +10,7 @@ PARAMS=" per_reg=$FILE1 pla_reg=$FILE2 "
 
 declare -A specimen
 
-specimen[jura]="build/text-retriever/jura/texts/g01.xml"
+specimen[jura]="build/text-retriever/jura/texts/g02.xml"
 specimen[adl]="../public-adl-text-sources/texts/richardt03.xml"
 specimen[sks]="../SKS_tei/data/v1.9/ee1/txt.xml"
 specimen[tfs]="../trykkefrihedsskrifter/tei_dir/1_013.xml"

@@ -42,6 +42,10 @@
     <xsl:call-template name="make_author_note_list"/>
   </xsl:template>
 
+  <xsl:template match="t:p/t:lb">
+
+  </xsl:template>
+
   <xsl:template match="t:fw"/>
   
   <xsl:template match="t:milestone[@next]">

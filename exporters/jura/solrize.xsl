@@ -134,7 +134,7 @@
   <xsl:template name="local_globals">
     <xsl:for-each select="descendant-or-self::t:milestone[@next]">
       <xsl:element name="field">
-        <xsl:attribute name="name">text_tsim</xsl:attribute>
+        <xsl:attribute name="name">text_tesim</xsl:attribute>
         <xsl:value-of select="concat('spalte',@n)"/>
       </xsl:element>
     </xsl:for-each>
