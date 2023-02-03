@@ -35,6 +35,9 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
         <xsl:when test="contains($c,'lh')">
           <xsl:value-of select="concat($prefix,'tekstportal/lh/')"/>
         </xsl:when>
+        <xsl:when test="contains($c,'jura')">
+          <xsl:value-of select="concat($prefix,'tekstportal/jura/')"/>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$prefix"/>
         </xsl:otherwise>
