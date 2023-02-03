@@ -289,6 +289,37 @@ http://localhost:8080/exist/rest/db/adl/
  
 ```
 
+### Data sources
+
+To instantiate a text service, you need the software but also the data.
+
+Published collections
+
+* adl 
+  * https://github.com/kb-dk/adl-text-sources (authors and periods, private data)
+  * https://github.com/kb-dk/public-adl-text-sources (adl corpus, public data)
+* gv
+  * https://github.com/GrundtvigsVaerker (currently unavailable, used to be in project GV)
+* jura
+  * https://github.com/kb-dk/dab-lovforarbejder (public data). Note that there is an extensive apparatus for creating the TEI documents.
+* letters **Deprecated**, see letters-ng
+* letters-ng
+  * https://github.com/kb-dk/letter-corpus (private data)
+* lh
+  * Data comes from a zip file from somewhere.
+* sks
+  * https://github.com/kb-dk/SKS_tei (public data)
+* tfs
+  * https://github.com/kb-dk/trykkefrihedens-skrifter (for some odd reason this is private).
+
+For generating the data source for lh and tfs you need https://github.com/kb-dk/alto-to-tei-tools
+
+
+Unpublished demo collections
+
+* lhv https://github.com/kb-dk/other_tei_projects/pmm
+* pmm https://github.com/kb-dk/other_tei_projects/holberg
+
 ### Copying GV
 
 The structure of the GV corpus is too complicated for copying using
