@@ -30,7 +30,7 @@ $Id: toc.xsl,v 1.2 2008/06/24 12:56:46 slu Exp $
           <xsl:value-of select="concat($prefix,'tekstportal/gv/')"/>
         </xsl:when>
         <xsl:when test="contains($c,'tfs')">
-          <xsl:value-of select="concat($prefix,'tekstportal/tfs3/')"/>
+          <xsl:value-of select="concat($prefix,'tekstportal/tfs/')"/>
         </xsl:when>
         <xsl:when test="contains($c,'lh')">
           <xsl:value-of select="concat($prefix,'tekstportal/lh/')"/>
