@@ -159,8 +159,9 @@ show you the targets. The current ones are shown in the tables below.
 | ant service | Creates ./build/system and ./build/text-retriever. Copies text-service index definition to system all scripts and transforms common for adl, gv and sks into the file system (basically the content of exporters/common) | clean |
 | ant base_service | Adds functions specific for  adl, letters, tfs, gv, and sks | service |
 | ant other_services | For installing pmm and lhv | service |
-| ant add_letters | Adds scripts for Danmarks Breve | | 
-| ant add_letter_data | Adds data for Danmarks Breve | | 
+| ant add_letters | Adds scripts for Danmarks Breve *deprecated* | | 
+| ant add_letter_data | Adds data for Danmarks Breve *deprecated* | | 
+| ant add_letters_ng | Adds Danmarks Breve to text-service | |
 | ant add_grundtvig | Copies all gv data into the build area. A complicated task, since it creates an entirely new directory structure and forks external script | base_service |
 | ant add_base_data | Copies  adl, tfs and sks  | base_service |
 | ant add_other_data | Copies data for pmm and holberg |  other_services |
