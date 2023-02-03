@@ -319,7 +319,7 @@ Unpublished demo collections
 * lhv https://github.com/kb-dk/other_tei_projects/pmm  (private data) 
 * pmm https://github.com/kb-dk/other_tei_projects/holberg  (private data)
 
-To add lhv &em; Ludvig Holbergs Skrifter &em; would be fairly easy
+To add lhv (AKA Ludvig Holbergs Skrifter) would be fairly easy.
 
 ### Copying GV
 
