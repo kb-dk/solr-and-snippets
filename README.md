@@ -314,11 +314,12 @@ Published collections
 
 For generating the data source for lh and tfs you need https://github.com/kb-dk/alto-to-tei-tools
 
-
 Unpublished demo collections
 
-* lhv https://github.com/kb-dk/other_tei_projects/pmm
-* pmm https://github.com/kb-dk/other_tei_projects/holberg
+* lhv https://github.com/kb-dk/other_tei_projects/pmm  (private data) 
+* pmm https://github.com/kb-dk/other_tei_projects/holberg  (private data)
+
+To add lhv &em; Ludvig Holbergs Skrifter &em; would be fairly easy
 
 ### Copying GV
 
