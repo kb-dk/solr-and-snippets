@@ -57,13 +57,9 @@
           <xsl:otherwise>clear: both;text-align: right;"></xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
-      <p  style="box-sizing: content-box;width: 100%;border: solid black 1px;padding: 5px;">
+      <p  style="box-sizing: content-box;width: 90%;border: solid black 1px;padding: 5px;">
         <xsl:attribute name="class">milestone</xsl:attribute>
-        <a href="#{@xml:id}">
-          <xsl:attribute name="class">column number</xsl:attribute>
-          spalte
-          <xsl:value-of select="@n"/>
-        </a>
+        <a href="#{@xml:id}"><xsl:attribute name="class">column number</xsl:attribute><span class="spaltetxt">spalte</span><xsl:value-of select="@n"/></a>
       </p>
     </div>
   </xsl:template>
