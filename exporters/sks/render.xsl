@@ -84,9 +84,7 @@
   
   <xsl:template match="t:pb|t:milestone">
 
-      <xsl:variable name="witness">
-	<xsl:value-of select="replace(@edRef,'#','')"/>
-      </xsl:variable>
+      <xsl:variable name="witness"><xsl:value-of select="replace(@edRef,'#','')"/></xsl:variable>
 
       <xsl:variable name="title">
 	<xsl:choose>
@@ -107,29 +105,18 @@
       </xsl:variable>
 
       <xsl:if test="@n">
-        <xsl:element name="span">
-          <xsl:call-template name="add_id"/>
-
-	  <xsl:element name="a">
+        <xsl:element name="span"><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute><xsl:element name="a">
 	    <xsl:attribute name="title">Side: <xsl:value-of select="@n"/> <xsl:if test="@edRef">(<xsl:value-of select="$title"/>)</xsl:if></xsl:attribute>
 	    <xsl:attribute name="class">pagination</xsl:attribute>
 	    <xsl:attribute name="href"><xsl:value-of select="concat('#',@xml:id)"/></xsl:attribute>
-
             <xsl:attribute name="id"><xsl:value-of select="concat('anchor',@xml:id)"/></xsl:attribute>
-
-
 	    <xsl:variable name="class">
 	      <xsl:choose>
 	        <xsl:when test="@n and contains(@edRef,'SKS')">symbol pagination edition</xsl:when>
 	        <xsl:otherwise>symbol pagination other</xsl:otherwise>
 	      </xsl:choose>
 	    </xsl:variable>
-
-	    <xsl:element name="small">
-	      <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
-	      <xsl:value-of select="@n"/>
-	    </xsl:element>
-
+	    <xsl:element name="small"><xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute><xsl:value-of select="@n"/></xsl:element>
 	  </xsl:element>
         </xsl:element>
       </xsl:if>
