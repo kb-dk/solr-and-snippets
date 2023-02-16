@@ -63,6 +63,9 @@
       </p>
     </div>
   </xsl:template>
+
+  <xsl:template name="expose_link"/>
+
   
 
 </xsl:transform>
