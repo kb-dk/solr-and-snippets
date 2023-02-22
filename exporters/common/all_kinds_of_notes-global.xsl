@@ -49,6 +49,7 @@
     <xsl:for-each select="/t:TEI//t:note[@xml:id = $target]">
       <xsl:call-template name="inline_note"/>
     </xsl:for-each>
+    <xsl:comment> a ptr from common note code </xsl:comment>
   </xsl:template>
 
   <xsl:template match="t:note[@type = 'author']"/>

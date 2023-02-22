@@ -7,6 +7,7 @@
 
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
 
+  <xsl:variable name="dom" select="."/>
 
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
@@ -61,7 +62,7 @@
   
   <xsl:template match="t:ptr[@type = 'author']">
     <xsl:choose>
-      <xsl:when test="../../@type = 'mainColumn'">
+      <xsl:when test="$dom//t:text/@subtype='lettersAndDedications' or $dom//t:text/@subtype='journalsAndPapers'">
         <xsl:call-template name="journals-ptr"/>
       </xsl:when>
       <xsl:otherwise>
@@ -79,6 +80,7 @@
             </xsl:call-template>
           </sup>
         </xsl:for-each>
+        <xsl:comment> ptr in all_kinds_of_notes </xsl:comment>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
