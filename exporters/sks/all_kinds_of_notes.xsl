@@ -58,7 +58,7 @@
       </div>
     </xsl:if>
   </xsl:template>
-
+  
   <xsl:template match="t:ptr[@type = 'author']">
     <xsl:choose>
       <xsl:when test="../../@type = 'mainColumn'">

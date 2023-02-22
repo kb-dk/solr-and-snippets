@@ -79,12 +79,17 @@
   </xsl:template>
   
   <xsl:template match="t:note[@type='author' and (@place='margin' or @place='bottom')]">
-    <p>
-      <xsl:call-template name="add_id">
-	<xsl:with-param name="expose">true</xsl:with-param>
-      </xsl:call-template>
-      <xsl:apply-templates/>
-    </p>
+    <xsl:choose>
+      <xsl:when test="$dom//t:text/@subtype='lettersAndDedications' or $dom//t:text/@subtype='journalsAndPapers'">
+        <p>
+          <xsl:call-template name="add_id">
+	    <xsl:with-param name="expose">true</xsl:with-param>
+          </xsl:call-template>
+          <xsl:apply-templates/>
+        </p>
+      </xsl:when>
+      <xsl:otherwise/>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="t:ref[@type='author']/t:seg[@type='refMarker']">
