@@ -86,6 +86,7 @@
 	    <xsl:with-param name="expose">true</xsl:with-param>
           </xsl:call-template>
           <xsl:apply-templates/>
+          <xsl:comment> Where is the leak? </xsl:comment>
         </p>
       </xsl:when>
       <xsl:otherwise/>
