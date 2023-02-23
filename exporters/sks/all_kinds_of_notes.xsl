@@ -7,8 +7,6 @@
 
   <xsl:import href="../all_kinds_of_notes-global.xsl"/>
 
-  <xsl:variable name="dom" select="."/>
-
   <xsl:param name="id" select="''"/>
   <xsl:param name="doc" select="''"/>
   <xsl:param name="file" select="fn:replace($doc,'.*/([^/]+)$','$1')"/>
@@ -40,7 +38,6 @@
     
     <xsl:if test="/t:TEI//t:note[@xml:id = $first_note][@place = 'bottom']"> 
       <div style="border-top: thin solid lightgray; width: 67%;">
-	<strong>Noter:</strong>
 	<ol>
 	  <xsl:for-each select="descendant-or-self::t:ptr[@type='author']">
 	    <xsl:variable name="target">
