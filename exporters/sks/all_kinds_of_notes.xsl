@@ -49,7 +49,7 @@
 		  <xsl:with-param name="display" select="'block'"/>
 		  <xsl:with-param name="bgcolor" select="'inherit'"/>
 		</xsl:call-template>
-	      </xsl:for-each>(<a href="#ref{$target}">tilbage</a>)
+	      </xsl:for-each><span style="background-color: #e3e3e3;">(<a href="#ref{$target}">tilbage</a>)</span>
 	    </li>
 	  </xsl:for-each>
 	</ol>
