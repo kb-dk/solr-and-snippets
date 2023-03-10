@@ -212,14 +212,6 @@ available
 * present.xq (general purpose presentation script)
 * present-text.xq (a detagger, it extracts raw text from the file)
 
-For letters we have in addition
-
-* save.xq (updates the TEI header in the letter project. Data recieved in JSON). Returns a SOLR document in XML
-* volume.xq (renders a table of content for a volume
-
-<!-- xstorage-test-01.kb.dk:8080/text-retriever/ is our test snippet server -->
-<!-- just.an.example.org doesn't exist -->
-
 Most Snippet Server scripts support the following arguments
 
 * doc -- the name of the document to be rendered or transformed
