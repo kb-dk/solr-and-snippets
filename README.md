@@ -124,10 +124,6 @@ shoot-workid57881 identifies (contains the node ID) the part of the
 document containing Gustaf Munch-Petersen's poem _søvnen_ which
 annotated as being a _work_.
 
-Since file-paths can be long and hyphens are permitted in an xml:id I
-separate file-path from node ID with _-shoot-_; the volume node ends
-with _-root_.
-
 The same poem can be referred to as a point of a collection of poem,
 ”det nøgne menneske”
 
@@ -135,6 +131,12 @@ https://tekster.kb.dk/text/adl-texts-munp1-shoot-workid57312#workid57881
 
 in which case we loose the connection with the metadata annotation to
 the work _søvnen_
+
+Since file-paths can be long and hyphens are permitted in an xml:id I
+separate file-path from node ID with _-shoot-_; the volume node ends
+with _-root_. I.e.,
+
+https://tekster.kb.dk/text/adl-texts-munp1-root
 
 ## How to install the Snippet Server and its Data
 
