@@ -138,6 +138,10 @@ with _-root_. I.e.,
 
 https://tekster.kb.dk/text/adl-texts-munp1-root
 
+## Document capabilities
+
+see [corrs-and-ids.md](corrs-and-ids.md)
+
 ## How to install the Snippet Server and its Data
 
 The installation is more or less automatic. It is using the eXist
