@@ -78,7 +78,7 @@ level, which implies
 * Speech in drama: <kbd>&lt;sp&gt; ... &lt;/sp&gt;</kbd>
 * Strophe in poetry: <kbd>&lt;lg&gt; ... &lt;/lg&gt;</kbd>
 
-Hence if a _work_ is five hundred pages we can find pargraphs, speech
+Hence if a _work_ is five hundred pages we can find paragraphs, speech
 or strophes relevant to a users search, and provide a means to address
 them.
 
