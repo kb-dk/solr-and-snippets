@@ -48,7 +48,7 @@ content objects](http://cds.library.brown.edu/resources/stg/monographs/ohco.html
 ### On volumes, works, trunks and leafs
 
 An object in the content hierarchy is a _work_ if annotated with
-metadata.  Work units are the ones returned by search engine returns
+metadata.  Work units are the ones returned by search engine
 in the result set.  The granularity is an editorial issue. The higher
 density of metadata annotations the more _work_ nodes there are in a
 _volume_ and the less text there is in each _work_, the higher the
