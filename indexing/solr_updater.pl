@@ -126,7 +126,8 @@ sub get_it() {
 
     if($file !~ m/^.*?((letters)|(pmm)|(gv)|(lhv)|(adl)|(sks)|(tfs)|(lh)|(jura))\//) {
 	die "$file seems to belong to a not yet implemented edition\n" .
-	    "suggest that you edit line 127 and 131 in indexing/solr_updater.pl\n";
+	    "suggest that you edit line 127 and 131 in indexing/solr_updater.pl\n" .
+	    "#######\n";
     }
     
     $file =~ s/^.*?((letters)|(pmm)|(gv)|(lhv)|(adl)|(sks)|(tfs)|(lh)|(jura))\///;
