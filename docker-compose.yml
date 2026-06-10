@@ -1,0 +1,53 @@
+services:
+  solr:
+    image: solr:8.11.1
+    container_name: text-service-solr
+    ports:
+      - '8983:8983'
+    volumes:
+      - ./solr/adl/conf:/opt/solr/server/solr/configsets/text-retriever-core/conf:ro
+    command: solr-precreate text-retriever-core /opt/solr/server/solr/configsets/text-retriever-core/conf
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8983/solr"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  exist:
+    # Snippet Server: stock eXist 4.8 with the text-retriever software baked in.
+    # See docker/snippet-server/Dockerfile.
+    build:
+      context: .
+      dockerfile: docker/snippet-server/Dockerfile
+    image: snippet-server:4.8
+    container_name: text-service-exist
+    ports:
+      - '8080:8080'
+    volumes:
+      # eXist's real data dir (conf.xml: files="webapp/WEB-INF/data"), not /exist/data.
+      - exist-data:/exist/webapp/WEB-INF/data
+    # The official existdb/existdb image is shell-less (no curl/wget) but ships
+    # its own built-in HEALTHCHECK, so no healthcheck override is needed here.
+
+  app:
+    image: text-service-app:latest
+    container_name: text-service-app
+    depends_on:
+      solr:
+        condition: service_healthy
+      exist:
+        condition: service_healthy
+    command: sh -c "bundle exec rails db:create db:migrate && bundle exec puma -C config/puma.rb"
+    ports:
+      - '3000:3000'
+    environment:
+      RAILS_ENV: production
+      RACK_ENV: production
+      SOLR_URL: http://solr:8983/solr/text-retriever-core/
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-docker_secret_key_base_change_me}
+      RAILS_SERVE_STATIC_FILES: 'true'
+      RAILS_LOG_TO_STDOUT: 'true'
+    restart: unless-stopped
+
+volumes:
+  exist-data:
