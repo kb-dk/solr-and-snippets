@@ -37,6 +37,14 @@ if($param{'user'} && $param{'passwd'}) {
     $ua->credentials($param{'solr_host'}.':'.$param{'solr_port'}, "solr admins", $param{'user'}, $param{'passwd'} );
 }
 
+# eXist guards the present.xq solrize endpoint with Basic auth (realm "exist").
+# The password may legitimately be empty (default admin account), so we only
+# require exist_user to be set, and register against the eXist host:port.
+if(defined $param{'exist_user'} && $param{'exist_user'} ne '') {
+    $ua->credentials($param{'exist_host'}.':'.$param{'exist_port'}, "exist",
+                     $param{'exist_user'}, $param{'exist_passwd'} // '' );
+}
+
 if($delete_all) {
     $delete_query = '*:*';
 }
