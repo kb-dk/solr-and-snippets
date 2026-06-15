@@ -4,6 +4,10 @@ services:
     container_name: text-service-solr
     ports:
       - '8983:8983'
+    environment:
+      # Default heap (512m) OOMs while indexing the full build tree; Solr's
+      # oom_solr.sh then SIGKILLs the JVM (exit 137). Give it room.
+      SOLR_HEAP: 2g
     volumes:
       - ./solr/adl/conf:/opt/solr/server/solr/configsets/text-retriever-core/conf:ro
     command: solr-precreate text-retriever-core /opt/solr/server/solr/configsets/text-retriever-core/conf
@@ -14,20 +18,12 @@ services:
       retries: 5
 
   exist:
-    # Snippet Server: stock eXist 4.8 with the text-retriever software baked in.
-    # See docker/snippet-server/Dockerfile.
-    build:
-      context: .
-      dockerfile: docker/snippet-server/Dockerfile
-    image: snippet-server:4.8
+    image: existdb/existdb:4.8.0
     container_name: text-service-exist
     ports:
       - '8080:8080'
     volumes:
-      # eXist's real data dir (conf.xml: files="webapp/WEB-INF/data"), not /exist/data.
       - exist-data:/exist/webapp/WEB-INF/data
-    # The official existdb/existdb image is shell-less (no curl/wget) but ships
-    # its own built-in HEALTHCHECK, so no healthcheck override is needed here.
 
   app:
     image: text-service-app:latest
@@ -48,6 +44,29 @@ services:
       RAILS_SERVE_STATIC_FILES: 'true'
       RAILS_LOG_TO_STDOUT: 'true'
     restart: unless-stopped
+
+  tools:
+    # `docker compose run --rm tools <command>`.
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+    image: text-service-tools:latest
+    container_name: text-service-tools
+    depends_on:
+      solr:
+        condition: service_healthy
+      exist:
+        condition: service_healthy
+    working_dir: /workspace/solr-and-snippets
+    volumes:
+      - ..:/workspace
+    environment:
+      EXIST_HOST: exist
+      EXIST_PORT: '8080'
+      SOLR_HOST: solr
+      SOLR_PORT: '8983'
+      SOLR_COLLECTION: text-retriever-core
+    command: sleep infinity
 
 volumes:
   exist-data:
