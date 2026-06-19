@@ -45,28 +45,28 @@ services:
       RAILS_LOG_TO_STDOUT: 'true'
     restart: unless-stopped
 
-  tools:
-    # `docker compose run --rm tools <command>`.
-    build:
-      context: .
-      dockerfile: docker/tools/Dockerfile
-    image: text-service-tools:latest
-    container_name: text-service-tools
-    depends_on:
-      solr:
-        condition: service_healthy
-      exist:
-        condition: service_healthy
-    working_dir: /workspace/solr-and-snippets
-    volumes:
-      - ..:/workspace
-    environment:
-      EXIST_HOST: exist
-      EXIST_PORT: '8080'
-      SOLR_HOST: solr
-      SOLR_PORT: '8983'
-      SOLR_COLLECTION: text-retriever-core
-    command: sleep infinity
+  # tools:
+  #   # `docker compose run --rm tools <command>`.
+  #   build:
+  #     context: .
+  #     dockerfile: docker/tools/Dockerfile
+  #   image: text-service-tools:latest
+  #   container_name: text-service-tools
+  #   depends_on:
+  #     solr:
+  #       condition: service_healthy
+  #     exist:
+  #       condition: service_healthy
+  #   working_dir: /workspace/solr-and-snippets
+  #   volumes:
+  #     - ..:/workspace
+  #   environment:
+  #     EXIST_HOST: exist
+  #     EXIST_PORT: '8080'
+  #     SOLR_HOST: solr
+  #     SOLR_PORT: '8983'
+  #     SOLR_COLLECTION: text-retriever-core
+  #   command: sleep infinity
 
 volumes:
   exist-data:
