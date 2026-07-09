@@ -94,6 +94,15 @@ foreach my $suf (@suffixlist)  {
 	    }
 	    $req->header( "Content-Type" => $suffixes{$suf} );
 
+# Send credentials pre-emptively on the first attempt. Without this LWP only
+# authenticates reactively (via $ua->credentials): every request is first tried
+# as guest, which eXist rejects with 401 while logging
+#   ERROR ... Permission denied to create collection
+#   WARN  ... Transaction was not committed or aborted, auto aborting!
+# and only the automatic retry (with credentials) succeeds. Setting the
+# Authorization header up front makes the first attempt succeed, silencing log noice
+	    $req->authorization_basic($user, $password) if $user ne "";
+
 # Pass request to the user agent and get a response back
 	    my $res = $ua->request($req);
 
