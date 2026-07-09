@@ -146,11 +146,17 @@
   <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">mySuggester</str>
-      <str name="lookupImpl">FuzzyLookupFactory</str>
+      <!-- On-disk infix suggester. Builds an auxiliary Lucene index under the
+           core's data dir (indexPath) instead of an in-RAM FST, so building the
+           dictionary over the full ~1M-doc corpus no longer OOMs the JVM.
+           Replaced FuzzyLookupFactory, whose in-RAM FST + Levenshtein automata
+           over every *_tesim value blew the heap during suggest.build. -->
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="indexPath">suggester_infix_dir</str>
       <str name="suggestAnalyzerFieldType">textSuggest</str>
-      <!-- Don't rebuild the in-RAM FST on every commit: during a full load that
-           rebuilds an ever-growing FST hundreds of times and OOMs the JVM.
-           Build it once after indexing via /suggest?suggest.build=true. -->
+      <!-- Don't rebuild on every commit: during a full load that rebuilds the
+           dictionary hundreds of times. Build it once after indexing via
+           /suggest?suggest.build=true. -->
       <str name="buildOnCommit">false</str>
       <str name="buildOnStartup">false</str>
       <str name="field">suggest</str>
