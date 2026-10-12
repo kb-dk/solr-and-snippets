@@ -6,8 +6,11 @@
       <text qname="t:TEI" />
       <text qname="@xml:id" />
     </lucene>
-    <create qname="t:div"   type="xs:string" />
-    <create qname="t:text"  type="xs:string" />
+    <!-- removed: <create qname="t:div"  type="xs:string"/> and
+         <create qname="t:text" type="xs:string"/>. These indexed the whole
+         string value of an entire publication's div/text as one range-index
+         key, overflowing the eXist BFile page size ("Key length exceeds page
+         size! Skipping key" warnings), and apparently no queries uses them-->
     <create qname="@xml:id" type="xs:string" />
   </index>
 </collection>

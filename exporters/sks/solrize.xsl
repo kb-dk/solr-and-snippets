@@ -28,7 +28,7 @@ xpath -q -e '//div/@type' */txt.xml | sort | uniq -c | sort -n
 7392  type="entry"
 7425  type="mainColumn"
 
-letter, dedication & entry are candidates for individual "work status" (many of them has dates)
+letter, dedication and entry are candidates for individual "work status" (many of them has dates)
 
 xpath -q -e '//text/@type' */txt.xml | sort | uniq -c | sort -n
 80  type="print"
